@@ -1,0 +1,12 @@
+#summary First video showing the development framework for wydevices
+#labels Phase-Requirements
+
+= Introduction =
+
+This is the video:
+
+http://dl.dropbox.com/u/1975297/Wymod-DeveloperFramework.ogv
+
+And more information can be acquired in the portal:
+
+http://www.wydevelopment.eu/index.php/es/videotutoriales/147-a-wydevices-wydeveloper-framework
