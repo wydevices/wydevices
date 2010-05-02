@@ -1,0 +1,6 @@
+- Improve web frontend design for more usability.
+- Move to mongoose last SVN version (because it stable and bug fixed).
+- Add options to the web frontend (temp threshold, etc ...).
+- Add an install script for install wymodcp only.
+- Add capability to update/install the wy-mods from internet.
+
