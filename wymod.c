@@ -30,10 +30,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#if !defined(LISTENING_PORT)
-#define LISTENING_PORT	"8080"
-#endif /* !LISTENING_PORT */
-
 static const char *standard_reply =	"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n";
 
 static void test_error(struct mg_connection *conn, const struct mg_request_info *ri, void *user_data) {
@@ -82,7 +78,6 @@ int ActionParser(char *s) {
 //URL CallBack
 static void wymod_ri(struct mg_connection *conn, const struct mg_request_info *ri, void *user_data) {
 	char * pPairValues; 
-	int j;
 	int iAction;
 
 	mg_printf(conn, "%s", standard_reply); //Print headers
@@ -93,11 +88,9 @@ static void wymod_ri(struct mg_connection *conn, const struct mg_request_info *r
 	// Print out each Pair Value.
 	pPairValues = strtok(ri->query_string,"&");
 
-	j=0;
-
     //While any Pair Value remains, measure up which action to take
 	while (pPairValues != NULL) {
-     
+
         mg_printf(conn, "<blockquote>\n");  //output data
 
         //Case/select/switch... iAction holds value returned by ActionParser. Depending on its value, takes an action. It consider the return value as the action required.
@@ -157,7 +150,6 @@ static void wymod_ri(struct mg_connection *conn, const struct mg_request_info *r
 
         mg_printf(conn, "</blockquote>\n");  //output data
         pPairValues=strtok(NULL,"&"); // Move pointer to next pair value
-        j++;
     }
 
 	mg_printf(conn, "</table><a href=index.html>Back</a></body></html>");
@@ -166,33 +158,20 @@ static void wymod_ri(struct mg_connection *conn, const struct mg_request_info *r
 //WyModEnd
 int main(void) {
     struct mg_context *ctx; //moongoose context object
-    pid_t pID = fork();     //Forking process
 
-    //Hey! I have pid 0 so i think.... YES, I'm the child process ;-)
-    if (pID == 0) {
-        // Initialize ctx object, set listening port
-        ctx = mg_start();
-        mg_set_option(ctx, "ports", LISTENING_PORT);
+    // Initialize ctx object, set listening port
+    ctx = mg_start();
+    mg_set_option(ctx, "ports", "8080");
 
-        // Create our wymod callback. I will use the mongoose context object to initilize, assign the pointer and that kind of stuff
-        mg_set_uri_callback(ctx, "/wymod", &wymod_ri, NULL);
+    // Create our wymod callback. I will use the mongoose context object to initilize, assign the pointer and that kind of stuff
+    mg_set_uri_callback(ctx, "/wymod", &wymod_ri, NULL);
 
-        // create error handlers
-        mg_set_error_callback(ctx, 404, &test_error, NULL);
-        mg_set_error_callback(ctx, 0, &test_error, NULL);
+    // create error handlers
+    mg_set_error_callback(ctx, 404, &test_error, NULL);
+    mg_set_error_callback(ctx, 0, &test_error, NULL);
 
-        for (;;) {
-            (void) getchar();
-            sleep(5);
-        }
-
-    //Negative value of pid? Something went wrong... fork failed.
-    } else if (pID < 0) {
-        exit(1);
-        // Throw exception
-
-    //Hey, i'm not the child, i'm not a negative value, so i'm parent... Why don't bang my head and suicide... time to return command prompt and let my child to work for me...
-    } else {
-        exit(0);
+    for (;;) {
+        (void) getchar();
+        sleep(5);
     }
 }
