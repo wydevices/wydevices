@@ -9,7 +9,9 @@
   * Add capability to update/install the wy-mods from internet.
   * Add a Network manager configuration front-end.
   * Add a cron front-end.
-
+  * Add a log viewer
+  * Add inadyn to services callback
+  
 
 = Details =
 
