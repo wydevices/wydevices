@@ -11,6 +11,7 @@
   * Add a cron front-end.
   * Add a log viewer
   * Add inadyn to services callback
+  * Tune Samba config: http://oreilly.com/catalog/samba/chapter/book/appb_02.html
   
 
 = Details =
