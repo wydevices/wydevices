@@ -2,55 +2,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
-  <title>template: home</title>
+  <title>WyMod Control Panel</title>
   <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-
-  <!-- **** layout stylesheet **** -->
   <link rel="stylesheet" type="text/css" href="style/style.css" />
-
-  <!-- **** colour scheme stylesheet **** -->
   <link rel="stylesheet" type="text/css" href="style/orange.css" />
 
-<script type="text/javascript">
-function ajaxFunction()
-{
-var xmlhttp;
-if (window.XMLHttpRequest)
-  {
-  // code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {
-  // code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-xmlhttp.onreadystatechange=function()
-{
-if(xmlhttp.readyState==4)
-  {
-  document.getElementById('wydevicedata').innerHTML=xmlhttp.responseText;
-  }
-}
-xmlhttp.open("GET","./ajaxSSide/extras.shtml",true);
-xmlhttp.send(null);
-}
-</script>
+	<script type="text/javascript">
+	function ajaxFunction() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
 
+		xmlhttp.onreadystatechange=function() {
+			if(xmlhttp.readyState==4) {
+				document.getElementById('wydevicedata').innerHTML=xmlhttp.responseText;
+			}
+		}
 
+		xmlhttp.open("GET","./ajaxSSide/extras.shtml",true);
+		xmlhttp.send(null);
+	}
+	</script>
 </head>
 
 <body onload="ajaxFunction()">
   <div id="main">
-    <div id="links">
-      <!-- **** INSERT LINKS HERE **** -->
-      <a href="#">another link</a> | <a href="#">another link</a> | <a href="#">another link</a> | <a href="#">another link</a>
-    </div>
-    <div id="logo"><h1>TURN_IT_UP</h1></div>
+    <div id="logo"><h1>WyMod Control Panel</h1></div>
     <div id="menu">
       <ul>
-        <!-- **** INSERT NAVIGATION ITEMS HERE (use id="selected" to identify the page you're on **** -->
-        <li><a id="selected" href="#">home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="ExtraStatus.html">Extras</a></li>
         <li><a href="Databases.html">Databases</a></li>
         <li><a href="reboot.html">Reboot</a></li>
@@ -68,8 +53,6 @@ xmlhttp.send(null);
             <h2>01.09.2006</h2>
             <p>This is where you can put your latest news.</p>
             <p><a href="#">read more ...</a></p>
-            <p></p>
-            <p></p>
             <h2>01.09.2006</h2>
             <p>This is where you can put your latest news.</p>
             <p><a href="#">read more ...</a></p>
@@ -103,99 +86,48 @@ xmlhttp.send(null);
         </div>
       </div>
       <div id="column2">
-        <h1>introduction</h1>
-        <!-- **** INSERT PAGE CONTENT HERE **** -->
-
-				<h1>Extras</h1>
+				<h1>Configure extras</h1>
 				<p>Here you can manage extras</p>
-				
-				<blockquote><p><img align="left" src="./images/Crystal_linuxconf.png" width="128" height="128"></img>
-				</p>
-
+				<span class="left"><img alt="" src="./images/Crystal_linuxconf.png" width="128" height="128"></img></span>
 				<div id="wydevicedata"></div>
-
-						<form id="form_215707" class="appnitro"  method="get" action="wymod">
-					<div class="form_description">
-					<p>Update extras configuration</p>
-					 </div>						
-			<ul >
-			
-					<li id="li_1" >
-		<label class="description" for="element_1">Transmission </label>
-		<span>
-			<input id="element_1_1" name="element_1_1" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_1_1">Enable</label>
-<input id="element_1_2" name="element_1_2" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_1_2">Start</label>
-<input id="element_1_3" name="element_1_3" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_1_3">Stop</label>
-<input id="element_1_4" name="element_1_4" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_1_4">Disable</label>
-
-		</span> 
-		</li>		<li id="li_2" >
-		<label class="description" for="element_2">Samba Server </label>
-		<span>
-			<input id="element_2_1" name="element_2_1" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_2_1">Enable</label>
-<input id="element_2_2" name="element_2_2" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_2_2">Start</label>
-<input id="element_2_3" name="element_2_3" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_2_3">Stop</label>
-<input id="element_2_4" name="element_2_4" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_2_4">Disable</label>
-
-		</span> 
-		</li>		<li id="li_3" >
-		<label class="description" for="element_3">Samba Client </label>
-		<span>
-			<input id="element_3_1" name="element_3_1" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_3_1">Enable</label>
-<input id="element_3_2" name="element_3_2" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_3_2">Start</label>
-<input id="element_3_3" name="element_3_3" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_3_3">Stop</label>
-<input id="element_3_4" name="element_3_4" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_3_4">Disable</label>
-
-		</span> 
-		</li>		<li id="li_4" >
-		<label class="description" for="element_4">PureFTP </label>
-		<span>
-			<input id="element_4_1" name="element_4_1" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_4_1">Enable</label>
-<input id="element_4_2" name="element_4_2" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_4_2">Start</label>
-<input id="element_4_3" name="element_4_3" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_4_3">Stop</label>
-<input id="element_4_4" name="element_4_4" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_4_4">Disable</label>
-
-		</span> 
-		</li>		<li id="li_5" >
-		<label class="description" for="element_5">dbupdater </label>
-		<span>
-			<input id="element_5_1" name="element_5_1" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_5_1">Enable</label>
-<input id="element_5_2" name="element_5_2" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_5_2">Start</label>
-<input id="element_5_3" name="element_5_3" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_5_3">Stop</label>
-<input id="element_5_4" name="element_5_4" class="element checkbox" type="checkbox" value="1" />
-<label class="choice" for="element_5_4">Disable</label>
-
-		</span> 
-		</li>
-			
-					<li class="buttons">
-			    <input type="hidden" name="form_id" value="extras" />
-			    
-				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
-		</li>
-			</ul>
-		</form>	
-
-<!-- **** END INSERT PAGE CONTENT HERE **** -->
+				<form id="form_215707" class="appnitro" method="get" action="wymod">
+					<div class="form_description"><p>Update extras configuration</p></div>
+					<table>
+						<tr>
+							<td><b>Transmission</b></td>
+							<td><input id="element_1_1" name="element_1_1" class="element checkbox" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_1_2" name="element_1_2" class="element checkbox" type="checkbox" value="1" />Start</td>
+							<td><input id="element_1_3" name="element_1_3" class="element checkbox" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_1_4" name="element_1_4" class="element checkbox" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td><b>Samba Server</b></td>
+							<td><input id="element_2_1" name="element_2_1" class="element checkbox" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_2_2" name="element_2_2" class="element checkbox" type="checkbox" value="1" />Start</td>
+							<td><input id="element_2_3" name="element_2_3" class="element checkbox" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_2_4" name="element_2_4" class="element checkbox" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td><b>Samba Client</b></td>
+							<td><input id="element_3_1" name="element_3_1" class="element checkbox" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_3_2" name="element_3_2" class="element checkbox" type="checkbox" value="1" />Start</td>
+							<td><input id="element_3_3" name="element_3_3" class="element checkbox" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_3_4" name="element_3_4" class="element checkbox" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td><b>dbupdater</b></td>
+							<td><input id="element_4_1" name="element_4_1" class="element checkbox" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_4_2" name="element_4_2" class="element checkbox" type="checkbox" value="1" />Start</td>
+							<td><input id="element_4_3" name="element_4_3" class="element checkbox" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_4_4" name="element_4_4" class="element checkbox" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td colspan="5" align="center">
+								<br /><input type="hidden" name="form_id" value="extras" /><input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+							</td>
+						</tr>
+					</table>
+				</form>	
 
         <h1>alternative colour schemes</h1>
         <p>Here are some alternative colour schemes for anyone who doesn't like orange:</p>
