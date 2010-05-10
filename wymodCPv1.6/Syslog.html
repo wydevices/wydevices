@@ -6,19 +6,40 @@
   <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" type="text/css" href="style/style.css" />
   <link rel="stylesheet" type="text/css" href="style/blue.css" />
+	<script type="text/javascript">
+	function ajaxFunction() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		xmlhttp.onreadystatechange=function() {
+			if(xmlhttp.readyState==4) {
+				document.getElementById('wydevicedata').innerHTML=xmlhttp.responseText;
+			}
+		}
+
+		xmlhttp.open("GET","./ajaxSSide/syslog.shtml",true);
+		xmlhttp.send(null);
+	}
+	</script>
 </head>
 
-<body>
+<body onload="ajaxFunction()">
   <div id="main">
     <a href="http://www.wydevelopment.eu"><div id="logo"></div></a>
     <div id="menu">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="status.html">Status</a></li>
-        <li><a href="Syslog.html">Syslog</a></li>
+        <li><a id="selected" href="Syslog.html">Syslog</a></li>
         <li><a href="ExtraStatus.html">Extras</a></li>
         <li><a href="Databases.html">Databases</a></li>
-        <li><a id="selected" href="reboot.html">Reboot</a></li>
+        <li><a href="reboot.html">Reboot</a></li>
         <li><a href="aboutus.html">contact</a></li>
       </ul>
     </div>
@@ -60,39 +81,9 @@
         </div>
       </div>
       <div id="column2">
-        <h1>introduction</h1>
-        <!-- **** INSERT PAGE CONTENT HERE **** -->
-<form id="reboot" class="appnitro"  method="get" action="wymod">
-				<ul >
-							<li id="li_1" >
-								<blockquote><p><label class="description" for="reboot_1">Reboot Type </label></p></blockquote>
-							<span>
-								<input id="reboot_1_1" name="reboot_1" class="reboot radio" type="radio" value="1" />
-								<label class="choice" for="reboot_1_1">Reboot Wydevice</label>
-								<input id="reboot_1_2" name="reboot_1" class="reboot radio" type="radio" value="2" />
-								<label class="choice" for="reboot_1_2">Reboot Splash</label>
-								<input id="reboot_1_3" name="reboot_1" class="reboot radio" type="radio" value="3" />
-								<label class="choice" for="reboot_1_3">Restart Player</label>
-								<input id="reboot_1_4" name="reboot_1" class="reboot radio" type="radio" value="4" />
-								<label class="choice" for="reboot_1_4">Shutdown Wydevice</label>
-							</span>
-							<p class="guidelines" id="guide_1">
-							</li>
-
-							<h2>Reboot Types explanation</h2>
-						        <ul>
-						          <li>Reboot Wydevice it's the same than using the clip. Full Reboot</li>
-						          <li>Reboot Splash restarts the python GUI, will free mem and less time than a full reboot. Do not restarts transmission.</li>
-								  <li>Reboot Player is ok when the player is hung after a crash.</li>
-								  <li>Shutdown Wydevice turns off device and HDD. Good for nights of before planning a trip, for example</li>
-						        </ul>
-					        <br />
-							
-							<input type="hidden" name="form_id" value="reboot" />
-		    				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
-
-					</ul>
-				</form>	        
+		<h1>Syslog</h1>
+		<p>Here you can view /wymedia/usr/var/log/syslog contents</p>
+		<div id="wydevicedata"></div>
       </div>
     </div>
     <div id="footer">
