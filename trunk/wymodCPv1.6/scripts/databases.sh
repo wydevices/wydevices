@@ -30,4 +30,4 @@ sqlite3 -header -html /etc/params/wymedia/.wyplay_db.-1.db "select * from object
 echo "</table><br><h3>Property</h3><br><table id=gradient-style >"
 sqlite3 -header -html /etc/params/wymedia/.wyplay_db.-1.db "select * from property;"
 echo "</table>" 
-echo "</body></html>" 
+
