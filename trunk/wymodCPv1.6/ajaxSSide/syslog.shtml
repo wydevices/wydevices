@@ -1,0 +1,5 @@
+<table> 
+<tr>
+  <td><pre><!--#exec "cat /wymedia/usr/var/log/syslog" --></pre></td>
+<td>
+</table>
