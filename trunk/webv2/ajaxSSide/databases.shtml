@@ -1,9 +1,0 @@
-<table>
-<tr><td><b>wyscan.db Size: </b></td><td><!--#exec "du /etc/params/wyscan/wyscan.db -h |cut -f1 "--> </td></tr>
-<tr><td><b>.wyplay_db.-1.db Size</b>: </td><td> <!--#exec "du /etc/params/wymedia/.wyplay_db.-1.db -h |cut -f1 "--></td></tr>
-<tr><td><b>Captures on: </b></td><td> <!--#exec "date"--></td></tr>
-</table>
-<br><hr><br>
-<pre><small>
-<!--#exec "./scripts/databases.sh" -->
-</small></pre></html>
