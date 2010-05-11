@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+  <title>WyMod Control Panel</title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <link rel="stylesheet" type="text/css" href="style/blue.css" />
+	<script type="text/javascript">
+	function ajaxFunction() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		xmlhttp.onreadystatechange=function() {
+			if(xmlhttp.readyState==4) {
+				document.getElementById('wydevicedata').innerHTML=xmlhttp.responseText;
+			}
+		}
+
+		xmlhttp.open("GET","./ajaxSSide/extras.shtml",true);
+		xmlhttp.send(null);
+	}
+	</script>
+</head>
+
+<body onload="ajaxFunction()">
+  <div id="main">
+    <a href="http://www.wydevelopment.eu"><div id="logo"></div></a>
+    <div id="menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="status.html">Status</a></li>
+        <li><a href="Syslog.html">Syslog</a></li>
+        <li><a id="selected" href="ExtraStatus.html">Extras</a></li>
+        <li><a href="Databases.html">Databases</a></li>
+        <li><a href="reboot.html">Reboot</a></li>
+        <li><a href="aboutus.html">contact</a></li>
+      </ul>
+    </div>
+    <div id="content">
+      <div id="column1">
+        <div class="sidebaritem">
+          <div class="sbihead">
+            <h1>latest news</h1>
+          </div>
+          <div class="sbicontent">
+            <h2>10-5-2010</h2>
+            <p>This is where we will put your latest news.</p>
+            <p><a href="aboutus.html">About us ...</a></p>
+          </div>
+        </div>
+        <div class="sidebaritem">
+          <div class="sbihead">
+            <h1>Suggested links</h1>
+          </div>
+          <div class="sbilinks">
+            <ul>
+              <li><a href="http://foro.wydev.es">Forum</a></li>
+              <li><a href="http://www.wydev.es" alt="Home of the wydevices">Wydev.es</a></li>
+              <li><a href="http://www.wydevelopment.eu" alt="Wydevices Development WorkForce">Wydevelopment.eu</a></li>
+              <li><a href="http://astore.amazon.com/wydeves-20" alt="Support project buying amazon products through us">Amazon 
+			  Shop</a></li>
+			  <li><a href="http://dl.dropbox.com/u/1975297/Windows%20-%20wydev-mod-v1.ogv" alt="video-how-to">How to Video</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="sidebaritem">
+          <div class="sbihead">
+            <h1>Contribute</h1>
+          </div>
+          <div class="sbicontent">
+            <p>Feel free to suggest improvements at the wydevelopement forums at <a href="http://foro.wydev.es">http://foro.wydev.es</a></p>
+            <p><a href="http://www.wydevelopment.eu"><img alt="Join us" src="http://www.wydevelopment.eu/images/stories/videos/RAW/WydevelopmentJoinUs-180x200.gif"></img></a></p>
+          </div>
+        </div>
+      </div>
+      <div id="column2">
+				<h1>Configure extras</h1>
+				<p>Here you can manage extras</p>
+				<span class="left"><img alt="" src="./images/Crystal_linuxconf.png" width="128" height="128"></img></span>
+				<div id="wydevicedata"></div>
+				<form id="form_215707" class="appnitro" method="get" action="wymod">
+					<div class="form_description"><p>Update extras configuration</p></div>
+					<table>
+						<tr>
+							<td><b>Transmission</b></td>
+							<td><input id="element_1_1" name="element_1_1" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_1_2" name="element_1_2" type="checkbox" value="1" />Start</td>
+							<td><input id="element_1_3" name="element_1_3" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_1_4" name="element_1_4" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td><b>Samba Server</b></td>
+							<td><input id="element_2_1" name="element_2_1" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_2_2" name="element_2_2" type="checkbox" value="1" />Start</td>
+							<td><input id="element_2_3" name="element_2_3" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_2_4" name="element_2_4" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td><b>Samba Client</b></td>
+							<td><input id="element_3_1" name="element_3_1" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_3_2" name="element_3_2" type="checkbox" value="1" />Start</td>
+							<td><input id="element_3_3" name="element_3_3" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_3_4" name="element_3_4" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td><b>dbupdater</b></td>
+							<td><input id="element_4_1" name="element_4_1" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_4_2" name="element_4_2" type="checkbox" value="1" />Start</td>
+							<td><input id="element_4_3" name="element_4_3" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_4_4" name="element_4_4" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td><b>inadyn</b></td>
+							<td><input id="element_5_1" name="element_5_1" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_5_2" name="element_5_2" type="checkbox" value="1" />Start</td>
+							<td><input id="element_5_3" name="element_5_3" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_5_4" name="element_5_4" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td><b>Pure-Ftpd</b></td>
+							<td><input id="element_6_1" name="element_6_1" type="checkbox" value="1" />Enable</td>
+							<td><input id="element_6_2" name="element_6_2" type="checkbox" value="1" />Start</td>
+							<td><input id="element_6_3" name="element_6_3" type="checkbox" value="1" />Stop</td>
+							<td><input id="element_6_4" name="element_6_4" type="checkbox" value="1" />Disable</td>
+						</tr>
+						<tr>
+							<td><b>GUI Debug mode</b></td>
+							<td><input id="element_7_1" name="guidebug" type="radio" value="1"  />ON</td>
+							<td><input id="element_7_2" name="guidebug" type="radio" value="0" />OFF</td>
+										</tr>
+						<tr>
+							<td colspan="5" align="center">
+								<br /><input type="submit"/>
+							</td>
+						</tr>
+					</table>
+				</form>	
+
+        <h1>Extras Usage</h1>
+        <blockquote>
+          <p>
+            You can select up to 4 actions to apply to extras services
+          </p>
+        </blockquote>
+        <h2>Actions</h2>
+        <ul>
+          <li><strong>Enable:</strong> Extra will be automatically started after reboot</li>
+          <li><strong>Start:</strong> Extra will start now</li>
+          <li><strong>Stop:</strong> Extra will stop now</li>
+          <li><strong>Disable:</strong> Extra will not be automatically started after reboot</li>
+        </ul>
+        <br />
+      </div>
+    </div>
+    <div id="footer">
+      Improving wydevices since 2009 | <a href="http://www.wydevelopment.eu">Join us</a> | <a href="http://www.dcarter.co.uk">design by dcarter</a>
+    </div>
+  </div>
+</body>
+</html>

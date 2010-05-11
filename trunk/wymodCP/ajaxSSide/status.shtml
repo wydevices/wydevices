@@ -1,0 +1,24 @@
+<table> 
+<tr><td>Manufacturer: </td><td><b><!--#exec "cat /proc/wybox/MN" -->
+
+
+</b></td></tr>
+<tr><td>Target: </td><td><!--#exec "cat /proc/wybox/WC" -->
+</td></tr>
+<tr><td>Serial Number: </td><td> <!--#exec "cat /proc/wybox/SN" --> </td></tr>
+<tr><td>Time / Uptime: </td><td> <!--#exec "uptime |cut -f1 -d," --> </td></tr>
+<tr><td>Fan Speed: </td><td> <!--#exec "temp |cut -f2 -d: |cut -f1" --> </td></tr>
+<tr><td>Cpu Temp: </td><td> <!--#exec "temp |cut -f3 -d: |cut -f1" --> </td></tr>
+<tr><td>HD Temp: </td><td> <!--#exec "temp |cut -f4 -d: |cut -f1" --> </td></tr>
+<tr><td>dm-0 Slave: </td><td> <!--#exec "ls /sys/block/dm-0/slaves" --> </td></tr>
+<tr><td>Board: </td><td> <!--#exec "cat /proc/fb |cut -c3-" --> </td></tr>
+
+</table>
+<hr>
+<table>
+  <tr>
+    <td>
+	<small><!--#exec "/wymedia/usr/share/wymod/scripts/status.sh" --></small>
+    </td>
+    </tr>
+</table>
