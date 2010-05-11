@@ -1,1 +1,1 @@
-/ZTV/opt/crosstool/gcc-4.1.1-glibc-2.6.1/sh4-unknown-linux-gnu/bin/sh4-unknown-linux-gnu-gcc-4.1.1 -Wall /ZTV/WymodCP/v1.7/source/wymod.c /ZTV/WymodCP/v1.7/source/mongoose.c -ldl -lpthread -o /ZTV/WymodCP/v1.7/wymoddaemon
+/ZTV/opt/crosstool/gcc-4.1.1-glibc-2.6.1/sh4-unknown-linux-gnu/bin/sh4-unknown-linux-gnu-gcc-4.1.1 -Wall /ZTV/SVN/wydevices/wymodCP/source/wymod.c /ZTV/SVN/wydevices/wymodCP/source/mongoose.c -ldl -lpthread -o /ZTV/SVN/wydevices/wymodCP/wymoddaemon
