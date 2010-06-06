@@ -18,10 +18,10 @@ def getitem(menu):
 
 class AdvancedSetupItem(GenericContainer):
 	def browse(self):
-		return [MonitorConfigurationItem(name='Monitor', type_='setupitem', menu=self.menu),
+		return [LedConfigurationItem(name='Led Policy', type_='setupitem', menu=self.menu),
+		MonitorConfigurationItem(name='Monitor', type_='setupitem', menu=self.menu),
 		ExtrasConfigurationItem(name='Extras', type_='setupitem', menu=self.menu),
-		RebootConfigurationItem(name='Reboot', type_='setupitem', menu=self.menu),
-		LedConfigurationItem(name='Led Policy', type_='setupitem', menu=self.menu)]
+		RebootConfigurationItem(name='Reboot', type_='setupitem', menu=self.menu)]
 
 	def update_name(self):
 		self._name = _('Advanced')
