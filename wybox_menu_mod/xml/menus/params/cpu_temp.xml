@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<wyboxmmi version="0.1">
+<!-- 	
+###################################################################################################################
+-->
+    <pages>
+        <page id="menu_cputempsetup">
+               <container name="main" left="-100%">
+		
+		<image file="%(skins)s/wybox/images/menus/navigator/screensaver/back-screensaver.png" preserve_aspect="false" name="back-screensaver" bottom="0%" height="55%"/>		
+		
+		<textblock i18n="true" color="255 255 255 255" height="6%" style="font=Wyplay font_size=36 align=center" text="Cpu Setpoint Temperature" top="46%" maxlen="30"/>
+		
+		<image file="%(skins)s/wybox/images/remote/rec.png" keep_real_size="true" name="stop"  vcenter="90%" left="27%"/>
+		<textblock i18n="true" color="130 130 130 255" height="6%" left="34%" vcenter="90%" style="font=Wyplay font_size=30 align=left" text="Apply Changes" /> 
+		
+		<image file="%(skins)s/wybox/images/menus/firstboot/up.png" keep_real_size="true" name="up" left="48%" top="57%"/>
+		<image file="%(skins)s/wybox/images/menus/firstboot/down.png" keep_real_size="true" name="down" left="48%" top="75%"/>
+			
+		<list name="main_list"
+                    centered="False"
+                    style_name="text" 
+                    selected_text_color="255 255 255 255"   
+                    font_style="font=Wyplay align=left font_size=36"
+		    selected_font_style="font=Wyplay align=left font_size=36"
+                    top="65%"
+                    left="41%"
+		    height="7%"
+		    width="100%"
+		    positions="0%,0%">	    
+                </list>
+
+                <animation tplid="creation_cputemp" />
+		<animation tplid="remove_cputemp" />
+            </container>
+        </page>
+        
+    </pages>
+
+    <templates>
+        <animations>	
+	
+		<animation event="on_create" id="creation_cputemp">
+			<move duration="0.2" left="0%" />
+		</animation>
+
+		<animation event="on_remove" id="remove_cputemp">
+			<move duration="0.2" left="100%">
+				<move duration="0" left="-100%"/>
+			</move>
+		</animation>
+
+        </animations>
+    </templates>
+</wyboxmmi>
+
