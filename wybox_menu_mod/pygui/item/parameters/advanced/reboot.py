@@ -34,8 +34,9 @@ class RebootConfigurationItem(ParametersSetupItem):
 		ParametersSetupItem.__init__(self, *args, **kw)
 
 	def browse(self):
-		return [RebootWyDevItem(name='Reboot Wydevice: it\'s the same than using the clip. Full Reboot.', type_='action', user_arg='/sbin/reboot'),
-		RebootWyDevItem(name='Reboot Splash: restarts the python GUI, will free mem and less time than a full reboot. Do not restarts transmission.', type_='action', user_arg='/bin/killall python2.5'),
-		RebootWyDevItem(name='Restart Player: is ok when the player is hung after a crash.', type_='action', user_arg='/wymedia/usr/bin/pkill wyplayer'),
-		RebootWyDevItem(name='Shutdown Wydevice: turns off device and HDD. Good for nights of before planning a trip, for example. ', type_='action', user_arg='/sbin/poweroff'),
-		ReInitBoxItem(name='Original WyDev Reboot', type_='setupitem')]
+		if self.menu.selected_main.__eq__(self):
+			return [RebootWyDevItem(name='Reboot Wydevice: it\'s the same than using the clip. Full Reboot.', type_='action', user_arg='/sbin/reboot'),
+			RebootWyDevItem(name='Reboot Splash: restarts the python GUI, will free mem and less time than a full reboot. Do not restarts transmission.', type_='action', user_arg='/bin/killall python2.5'),
+			RebootWyDevItem(name='Restart Player: is ok when the player is hung after a crash.', type_='action', user_arg='/wymedia/usr/bin/pkill wyplayer'),
+			RebootWyDevItem(name='Shutdown Wydevice: turns off device and HDD. Good for nights of before planning a trip, for example. ', type_='action', user_arg='/sbin/poweroff'),
+			ReInitBoxItem(name='Original WyDev Reboot', type_='setupitem')]
