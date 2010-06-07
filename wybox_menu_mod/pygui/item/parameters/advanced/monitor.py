@@ -13,7 +13,7 @@ from pygui.item.core import Item
 from pygui.shared import pygui_globs
 from peewee.notifier import Task
 
-#from logging.handlers import SysLogHandler
+from logging.handlers import SysLogHandler
 
 import os
 #import logging
@@ -62,22 +62,19 @@ class HwMonitoringItem(ParametersSetupItem):
 		ParametersSetupItem.__init__(self, name=self.name, *args, **kw)
 		if self.device == 'Cpu':
 			self.preview_list = [CpuTempSetPointItem(name='Set Cpu Temp (%d %s)'%(self._get_setpoint_temp(), self.unit), type_='setupitem', menu=self.menu)]
-		Task(self._update_item_name).start(delay=1, loop=False)
-
-	def _update_item_name(self):
-		self.name = '%s%d %s'%(self.prefix, self._get_value(self.command), self.unit)
 
 	def _get_setpoint_temp(self):
-		ret = 0
-		output = os.popen('cat /etc/wyclim/pid.conf')
-		output_lines = output.readlines()
-		output.close()
-		for line in output_lines:
-			if 'maxtemp' in line:
-				temp = line.split(' ')
-				temp = temp[1].replace('\n', '')
-				ret = int(temp) / 1000
-		return ret
+		try:
+			output = os.popen('cat /etc/wyclim/pid.conf')
+			output_lines = output.readlines()
+			output.close()
+			for line in output_lines:
+				if 'maxtemp' in line:
+					temp = line.split(' ')
+					temp = temp[1].replace('\n', '')
+			return int(temp) / 1000
+		except:
+			return 0
 
 	def reset_view(self):
 #		log.debug('reset_view call')
@@ -88,10 +85,71 @@ class HwMonitoringItem(ParametersSetupItem):
 
 	def _get_value(self, command):
 #		log.debug('_get_value call')
-		fd = os.popen(command)
-		output = fd.read()
-		fd.close()
-		return int(output) / self.div
+		try:
+			fd = os.popen(command)
+			output = fd.read()
+			fd.close()
+			return int(output) / self.div
+		except:
+			return 0
+
+
+class CpuLoadMonitoringItem(ParametersSetupItem):
+	def __init__(self, *args, **kw):
+		self.name = 'Cpu Usage : -- %%'
+		ParametersSetupItem.__init__(self, name=self.name, *args, **kw)
+
+	def reset_view(self):
+#		log.debug('reset_view call')
+		new_name = 'Cpu Usage : %d %%'%(self._get_value())
+		if new_name != self.name:
+			self.name = new_name
+			ParametersSetupItem.reset_view(self)
+
+	def _get_value(self):
+#		log.debug('_get_value call')
+		try:
+			cpu_loads = [0, 0]
+			for i in range(2):
+				fd = os.popen('cat /proc/stat | tr -d "\n"')
+				stat_line = fd.readline()
+				fd.close()
+				if 'cpu ' in stat_line:
+					element_list = stat_line.split(' ')
+					cpu_loads[i] = int(element_list[2]) + int(element_list[3]) + int(element_list[4])
+			return cpu_loads[1] - cpu_loads[0]
+		except:
+			return 0
+
+
+class MemLoadMonitoringItem(ParametersSetupItem):
+	def __init__(self, *args, **kw):
+		self.name = 'Mem Usage : -- %%'
+		ParametersSetupItem.__init__(self, name=self.name, *args, **kw)
+
+	def reset_view(self):
+#		log.debug('reset_view call')
+		new_name = 'Mem Usage : %d %%'%(self._get_value())
+		if new_name != self.name:
+			self.name = new_name
+			ParametersSetupItem.reset_view(self)
+
+	def _get_value(self):
+#		log.debug('_get_value call')
+		try:
+			mem_load = []
+			fd = os.popen('free')
+			fd.readline()
+			stat_line = fd.readline()
+			fd.close()
+			if 'Mem: ' in stat_line:
+				element_list = stat_line.split(' ')
+				for element in element_list:
+					if not 'Mem:' in element and not element is '0' and not element is ' ' and not element is '':
+						mem_load.append(int(element))
+			return int((100.00/float(mem_load[0]))*float(mem_load[1]))
+		except:
+			return 0
 
 
 class MonitorConfigurationItem(ParametersSetupItem):
@@ -110,7 +168,9 @@ class MonitorConfigurationItem(ParametersSetupItem):
 #		log.debug('_set_preview_list call')
 		self.preview_list = [HwMonitoringItem(type_='setupitem', device='Fan'),
 			HwMonitoringItem(type_='setupitem', device='Cpu'),
-			HwMonitoringItem(type_='setupitem', device='Hdd')]
+			HwMonitoringItem(type_='setupitem', device='Hdd'),
+			CpuLoadMonitoringItem(type_='setupitem'),
+			MemLoadMonitoringItem(type_='setupitem')]
 
 	def _refresh_infos(self):
 #		log.debug('_refresh_infos call')
