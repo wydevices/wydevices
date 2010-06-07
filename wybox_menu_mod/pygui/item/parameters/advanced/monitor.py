@@ -13,7 +13,7 @@ from pygui.item.core import Item
 from pygui.shared import pygui_globs
 from peewee.notifier import Task
 
-from logging.handlers import SysLogHandler
+#from logging.handlers import SysLogHandler
 
 import os
 #import logging
@@ -96,7 +96,7 @@ class HwMonitoringItem(ParametersSetupItem):
 
 class CpuLoadMonitoringItem(ParametersSetupItem):
 	def __init__(self, *args, **kw):
-		self.name = 'Cpu Usage : -- %%'
+		self.name = 'Cpu Usage : -- %'
 		ParametersSetupItem.__init__(self, name=self.name, *args, **kw)
 
 	def reset_view(self):
@@ -124,7 +124,7 @@ class CpuLoadMonitoringItem(ParametersSetupItem):
 
 class MemLoadMonitoringItem(ParametersSetupItem):
 	def __init__(self, *args, **kw):
-		self.name = 'Mem Usage : -- %%'
+		self.name = 'Mem Usage : -- %'
 		ParametersSetupItem.__init__(self, name=self.name, *args, **kw)
 
 	def reset_view(self):

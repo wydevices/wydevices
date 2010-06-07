@@ -97,8 +97,8 @@ class ExtrasConfigurationItem(ParametersSetupItem):
 	depth = 3
 	def __init__(self, *args, **kw):
 		ParametersSetupItem.__init__(self, *args, **kw)
-		Task(self._set_preview_list).start(delay=1,loop=False)
 		Task(self._get_extras_status).start(delay=1, loop=False)
+		Task(self._set_preview_list).start(delay=1,loop=False)
 
 	def browse(self):
 		global global_extras_readed
