@@ -1,3 +1,4 @@
+#labels stlinux,transmission
 Wydevices are cross-compiled with STLinux 2.3.
 
 The better way is to compile all mods with the same cross-compiler.
@@ -8,6 +9,7 @@ Here my howto for cross-compile transmission-2.00.
 *Prerequisites :*
 	* Follow and terminate with success the STLinux 2.3 installation.
 
+*Instructions :*
 	* In your Fedora 11 / STLinux 2.3 virtual machine.
 	* Run this command :
 {{{
