@@ -1,0 +1,47 @@
+#!/bin/sh
+# Start & stop pure-ftpd server
+
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
+DAEMON="/wymedia/usr/bin/pure-ftpd"
+CONFIG="/wymedia/usr/etc/pureftpd.conf"
+PIDFILE=/var/run/pure-ftpd.pid
+
+case "$1" in
+	start)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "pure-ftpd already running."
+			exit 0
+		fi
+		echo -n "Starting pure-ftpd..."
+		$DAEMON `cat $CONFIG`
+		echo ok
+		;;
+	stop)
+		if [ ! -s $PIDFILE ]; then
+			echo "pure-ftpd not running."
+			exit 0
+		fi
+		echo -n "Stopping pure-ftpd..."
+		kill $(cat $PIDFILE) >/dev/null 2>&1
+		echo ok
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	status)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "pure-ftpd running"
+		else
+			echo "pure-ftpd not running"
+			exit 1
+		fi
+		exit 0
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}"
+		exit 1
+		;;
+esac
+
+exit 0

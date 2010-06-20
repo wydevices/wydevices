@@ -1,0 +1,29 @@
+Allow adding virtual users with uid=0 and gid=0
+diff -Naur pure-ftpd-1.0.29/src/pure-pw.c pure-ftpd-1.0.29wybox/src/pure-pw.c
+--- pure-ftpd-1.0.29/src/pure-pw.c	2010-03-15 16:20:25.000000000 +0100
++++ pure-ftpd-1.0.29wybox/src/pure-pw.c	2010-06-20 15:06:53.345824455 +0200
+@@ -384,9 +384,9 @@
+         return -1;
+     }
+     pwinfo->gid = (gid_t) strtoul(line, NULL, 10);
+-    if (pwinfo->uid <= (uid_t) 0 || pwinfo->gid <= (gid_t) 0) {
++    /*if (pwinfo->uid <= (uid_t) 0 || pwinfo->gid <= (gid_t) 0) {
+         return -1;
+-    }
++    }*/
+     if ((line = my_strtok2(NULL, *PW_LINE_SEP)) == NULL) {   /* gecos */
+         return -1;
+     }
+@@ -802,10 +802,10 @@
+         fprintf(stderr, "Missing passwd file\n");
+         return PW_ERROR_MISSING_PASSWD_FILE;
+     }
+-    if (pwinfo.uid <= (uid_t) 0 || pwinfo.gid <= (gid_t) 0) {
++    /*if (pwinfo.uid <= (uid_t) 0 || pwinfo.gid <= (gid_t) 0) {
+         fprintf(stderr, "You must give (non-root) uid and gid\n");
+         return PW_ERROR_USERADD_NOT_ROOT;
+-    }
++    }*/
+     if (pwinfo.home == NULL) {
+         fprintf(stderr, "Missing home directory\n");        
+         return PW_ERROR_USERADD_MISSING_HOME_DIR;
