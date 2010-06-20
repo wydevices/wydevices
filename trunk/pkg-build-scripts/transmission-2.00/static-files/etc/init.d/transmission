@@ -1,0 +1,50 @@
+#!/bin/sh
+# Start & stop transmission daemon
+
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
+DAEMON=/wymedia/usr/bin/transmission-daemon
+PIDFILE=/var/run/transmission.pid
+export TRANSMISSION_WEB_HOME="/wymedia/usr/lib/share/transmission/web/"
+export HOME="/wymedia"
+
+case "$1" in
+	start)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "transmission already running."
+			exit 0
+		fi
+		echo -n "Starting transmission..."
+		/bin/nice -n8 $DAEMON -f -p80 -a "*.*.*.*"  >/dev/null 2>&1 &
+		echo $! > $PIDFILE
+		echo ok
+		;;
+	stop)
+		if [ ! -s $PIDFILE ]; then
+			echo "transmission not running."
+			exit 0
+		fi
+		echo -n "Stopping transmission..."
+		kill $(cat $PIDFILE) >/dev/null 2>&1
+		rm -f $PIDFILE
+		echo ok
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	status)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "transmission running"
+		else
+			echo "transmission not running"
+			exit 1
+		fi
+		exit 0
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}"
+		exit 1
+		;;
+esac
+
+exit 0
