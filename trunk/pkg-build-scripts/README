@@ -1,0 +1,9 @@
+This folder contains scripts to build packages for the wydevice.
+Every package will have its build*.sh script that will build a 
+tar.gz that can be directly installed under /wymedia.
+
+STLinux 2.3 cross compiler is needed to build packages. You should
+also set the compile environment variables by running in this folder
+
+    $ . env-cross-compile.sh
+

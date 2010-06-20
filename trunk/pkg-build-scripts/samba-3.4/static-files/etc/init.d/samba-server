@@ -1,0 +1,72 @@
+#!/bin/sh
+# Start & stop samba-server
+
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
+
+PIDDIR=/var/run/
+SMBD=/wymedia/usr/bin/smbd
+NMBD=/wymedia/usr/bin/nmbd
+
+case "$1" in
+	start)
+		echo  "Starting samba-server..."
+		if [ -s $PIDDIR/nmbd.pid ] && kill -0 $(cat $PIDDIR/nmbd.pid) >/dev/null 2>&1; then
+			echo "  * nmbd already running"
+		else
+			echo -n "  * starting nmbd..."
+			$NMBD
+			echo ok
+		fi
+		if [ -s $PIDDIR/smbd.pid ] && kill -0 $(cat $PIDDIR/smbd.pid) >/dev/null 2>&1; then
+			echo "  * smbd already running"
+		else
+			echo -n "  * starting smbd..."
+			$SMBD
+			echo ok
+		fi
+		;;
+	stop)
+		echo "Stopping samba-server..."
+		if [ ! -s $PIDDIR/nmbd.pid ] || !kill -0 $(cat $PIDDIR/nmbd.pid) >/dev/null 2>&1; then
+			echo "  * nmbd not running"
+		else
+			echo -n "  * stopping nmbd..."
+			kill $(cat $PIDDIR/nmbd.pid)
+			echo ok
+		fi
+		if [ ! -s $PIDDIR/smbd.pid ] || !kill -0 $(cat $PIDDIR/smbd.pid) >/dev/null 2>&1; then
+			echo "  * smbd not running"
+		else
+			echo -n "  * stopping smbd..."
+			kill $(cat $PIDDIR/smbd.pid)
+			echo ok
+		fi
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	status)
+		status=0
+		echo "samba-server status"
+		if [ -s $PIDDIR/nmbd.pid ] && kill -0 $(cat $PIDDIR/nmbd.pid) >/dev/null 2>&1; then
+			echo "  * nmbd running"
+		else
+			echo "  * nmbd not running"
+			status=1
+		fi
+		if [ -s $PIDDIR/smbd.pid ] && kill -0 $(cat $PIDDIR/smbd.pid) >/dev/null 2>&1; then
+			echo "  * smbd running"
+		else
+			echo "  * smbd not running"
+			status=1
+		fi
+		exit $status
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}"
+		exit 1
+		;;
+esac
+
+exit 0

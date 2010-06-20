@@ -1,0 +1,68 @@
+Avoid cross-compile errors in configure
+diff -Naur samba-3.4.8/source3/configure samba-3.4.8wybox/source3/configure
+--- samba-3.4.8/source3/configure	2010-05-10 15:01:52.000000000 +0200
++++ samba-3.4.8wybox/source3/configure	2010-06-20 12:34:20.615657249 +0200
+@@ -13961,7 +13961,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -24956,7 +24956,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -25144,7 +25144,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -69192,7 +69192,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -69467,7 +69467,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -69568,7 +69568,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -101860,7 +101860,8 @@
+ if test -n "$CONFIG_FILES"; then
+ 
+ 
+-ac_cr=''
++ac_cr='
++'
+ ac_cs_awk_cr=`$AWK 'BEGIN { print "a\rb" }' </dev/null 2>/dev/null`
+ if test "$ac_cs_awk_cr" = "a${ac_cr}b"; then
+   ac_cs_awk_cr='\\r'
