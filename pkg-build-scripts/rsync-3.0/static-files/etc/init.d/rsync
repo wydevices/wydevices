@@ -1,0 +1,47 @@
+#!/bin/sh
+# Start & stop rsync server
+
+PIDFILE=/var/run/rsync.pid
+DAEMON=/wymedia/usr/bin/rsync
+
+case "$1" in
+	start)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "rsync already running."
+			exit 0
+		fi
+		echo -n "Starting rsync..."
+		$DAEMON --no-detach --daemon > /dev/null 2>&1 &
+		echo $! > $PIDFILE
+		echo ok
+		;;
+	stop)
+		if [ ! -s $PIDFILE ]; then
+			echo "rsync not running."
+			exit 0
+		fi
+		echo -n "Stopping rsync..."
+		kill $(cat $PIDFILE) >/dev/null 2>&1
+		rm -f $PIDFILE
+		echo ok
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	status)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "rsync running"
+		else
+			echo "rsync not running"
+			exit 1
+		fi
+		exit 0
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}"
+		exit 1
+		;;
+esac
+
+exit 0
