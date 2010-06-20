@@ -100,6 +100,6 @@ index_files     index.html,index.htm,index.php,index.cgi
 	}
 ?>
 }}}
-	* Now, verify that you aren't running wymoddaemon via a `ps ax | grep wymoddaemon`, else kill the process.
-	* You are ready to launch your web server via a `mongoose /wymedia/usr/etc/mongoose.conf`
+	* Now, verify that you aren't running wymoddaemon via a `$ ps ax | grep wymoddaemon`, else kill the process.
+	* You are ready to launch your web server via a `$ mongoose /wymedia/usr/etc/mongoose.conf`
 	* On a web browser, type http://wydevice_ip_address/sample.php and show your channel numbers and name.
