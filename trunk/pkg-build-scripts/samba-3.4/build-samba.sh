@@ -78,6 +78,8 @@ cp samba-3.4.8/source3/bin/libtdb.so.1 usr/lib
 cp /opt/STM/STLinux-2.3/devkit/sh4/target/usr/lib/libpopt.so.0.0.0 usr/lib/libpopt.so.0
 # copy static files
 cp -rp static-files/* usr/
+# delete .svn dirs if they are present
+find usr -type d -name ".svn" -exec rm -rf {} +
 
 # create tar
 tar zcvf wybox-samba-3.4.8.tar.gz usr
