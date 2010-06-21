@@ -68,6 +68,8 @@ cp /opt/STM/STLinux-2.3/devkit/sh4/target/usr/lib/libcurl.so.4 usr/lib
 cp -r transmission-2.00/web usr/lib/share/transmission
 # copy static files
 cp -rp static-files/* usr/
+# delete .svn dirs if they are present
+find usr -type d -name ".svn" -exec rm -rf {} +
 
 # create tar
 tar zcvf wybox-transmission-2.00.tar.gz usr

@@ -62,6 +62,8 @@ cp depends/samba-3.4/samba-3.4.8/source3/bin/libtalloc.so.1 usr/lib
 cp depends/samba-3.4/samba-3.4.8/source3/bin/libtdb.so.1 usr/lib
 # copy static files
 cp -rp static-files/* usr/
+# delete .svn dirs if they are present
+find usr -type d -name ".svn" -exec rm -rf {} +
 
 # create tar
 tar zcvf wybox-fusesmb-0.8.7.tar.gz usr

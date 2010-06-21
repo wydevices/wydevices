@@ -62,6 +62,8 @@ cp pure-ftpd-1.0.29/src/pure-pw usr/bin
 cp pure-ftpd-1.0.29/src/pure-ftpwho usr/bin
 # copy static files
 cp -rp static-files/* usr/
+# delete .svn dirs if they are present
+find usr -type d -name ".svn" -exec rm -rf {} +
 
 # create tar
 tar zcvf wybox-pure-ftpd-1.0.29.tar.gz usr

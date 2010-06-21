@@ -49,6 +49,8 @@ cp rsync-3.0.7/rsync usr/bin
 cp /opt/STM/STLinux-2.3/devkit/sh4/target/usr/lib/libpopt.so.0.0.0 usr/lib/libpopt.so.0
 # copy static files
 cp -rp static-files/* usr/
+# delete .svn dirs if they are present
+find usr -type d -name ".svn" -exec rm -rf {} +
 
 # create tar
 tar zcvf wybox-rsync-3.0.7.tar.gz usr
