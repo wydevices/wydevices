@@ -17,28 +17,50 @@
 #                                                                  #
 ####################################################################
 
+WDIR=`pwd`
+
+if [ "$1" == "clean" ]; then
+	rm -rf rsync-3.0.7
+	rm -f rsync-3.0.7.tar.gz
+	rm -f wybox-rsync-3.0.7.tar.gz
+	exit 0
+fi
+
 # get rsync 3.0.7 and unpack it
 if [ ! -f rsync-3.0.7.tar.gz ]; then
 	wget http://samba.anu.edu.au/ftp/rsync/src/rsync-3.0.7.tar.gz || exit 1
 fi
-rm -rf rsync-3.0.7
-tar xvf rsync-3.0.7.tar.gz || exit 1
+if [ ! -d rsync-3.0.7 ]; then
+	echo Extracting sources
+	tar xvf rsync-3.0.7.tar.gz || exit 1
+fi
 
 # configure and make
-cd rsync-3.0.7
-./configure \
---host=sh4-linux \
---prefix=/wymedia/usr \
---disable-locale \
---disable-acl-support \
---disable-xattr-support \
---with-rsyncd-conf=/wymedia/usr/etc/rsyncd.conf || exit 1
+cd $WDIR/rsync-3.0.7
+if [ ! -f Makefile ]; then
+	echo "Creating Makefile"
+	./configure \
+	--host=sh4-linux \
+	--prefix=/wymedia/usr \
+	--disable-locale \
+	--disable-acl-support \
+	--disable-xattr-support \
+	--with-rsyncd-conf=/wymedia/usr/etc/rsyncd.conf || exit 1
+else
+	echo "Makefile exists, skipping configure"
+fi
 
-NPROCS=`grep -c ^processor /proc/cpuinfo`
-make -j$NPROCS || exit 1
-cd ..
+if ! make -q > /dev/null 2>&1; then
+	echo "Building"
+	NPROCS=`grep -c ^processor /proc/cpuinfo`
+	make -j$NPROCS || exit 1
+else
+	echo "Already built, skipping make"
+fi
 
 # create wybox package
+echo "Creating wybox package"
+cd $WDIR
 
 # create directories
 mkdir -p usr/bin
