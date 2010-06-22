@@ -21,39 +21,64 @@
 #       To install run:
 #        $ /opt/STM/STLinux-2.3/host/bin/stmyum install stlinux23-sh4-curl-dev
 
+WDIR=`pwd`
+
+if [ "$1" == "clean" ]; then
+	cd $WDIR/depends/libevent
+	./build-libevent.sh clean || exit 1
+	cd $WDIR
+	rm -rf transmission-2.00
+	rm -f transmission-2.00.tar.bz2
+	rm -f wybox-transmission-2.00.tar.gz
+	exit 0
+fi
+
 # build dependencies
-cd depends/libevent
-./build-libevent.sh
-cd ../..
+cd $WDIR/depends/libevent
+./build-libevent.sh || exit 1
 
 # get transmission 2.00 and unpack it
+cd $WDIR
 if [ ! -f transmission-2.00.tar.bz2 ]; then
 	wget http://mirrors.m0k.org/transmission/files/transmission-2.00.tar.bz2 || exit 1
 fi
-rm -rf transmission-2.00
-tar xvf transmission-2.00.tar.bz2 || exit 1
+if [ ! -d transmission-2.00 ]; then
+	echo Extracting sources
+	tar xvf transmission-2.00.tar.bz2 || exit 1
+fi
 
 # configure and make
-export LIBEVENT_CFLAGS="-I`pwd`/depends/libevent/libevent-1.4.14-stable"
-export LIBEVENT_LIBS="-L`pwd`/depends/libevent/libevent-1.4.14-stable -levent"
-cd transmission-2.00
-./configure \
---host=sh4-linux \
---prefix=/wymedia/usr \
---enable-daemon \
---disable-nls \
---disable-mac \
---disable-gtk \
---disable-libappindicator \
---disable-libcanberra \
---with-gnu-ld || exit 1
+cd $WDIR/transmission-2.00
+export LIBEVENT_CFLAGS="-I$WDIR/depends/libevent/libevent-1.4.14-stable"
+export LIBEVENT_LIBS="-L$WDIR/depends/libevent/libevent-1.4.14-stable -levent"
 
+if [ ! -f Makefile ]; then
+	echo "Creating Makefile"
+	./configure \
+	--host=sh4-linux \
+	--prefix=/wymedia/usr \
+	--enable-daemon \
+	--disable-nls \
+	--disable-mac \
+	--disable-gtk \
+	--disable-libappindicator \
+	--disable-libcanberra \
+	--with-gnu-ld || exit 1
+else
+	echo "Makefile exists, skipping configure"
+fi
 
-NPROCS=`grep -c ^processor /proc/cpuinfo`
-make -j$NPROCS || exit 1
-cd ..
+if ! make -q > /dev/null 2>&1; then
+	echo "Building"
+	NPROCS=`grep -c ^processor /proc/cpuinfo`
+	make -j$NPROCS || exit 1
+else
+	echo "Already built, skipping make"
+fi
 
 # create wybox package
+echo "Creating wybox package"
+cd $WDIR
 
 # create directories
 mkdir -p usr/bin
@@ -74,5 +99,4 @@ find usr -type d -name ".svn" -exec rm -rf {} +
 # create tar
 tar zcvf wybox-transmission-2.00.tar.gz usr
 rm -rf usr
-
 
