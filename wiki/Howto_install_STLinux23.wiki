@@ -45,3 +45,5 @@ Yes, you are now ready for cross-compilation.
 In the next step, we are going to compile programs and library.
 
 The Fedora 11 launch automaticly autoupdates, accept only security fixes.
+
+_Thanks to deniro666 for his help !_
