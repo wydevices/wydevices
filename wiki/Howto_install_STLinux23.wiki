@@ -19,12 +19,10 @@ Here my howto for install a cross-compiler platorm.
 	* Download and uncompact [ftp://ftp.stlinux.com/pub/vmware/40G-fedora11.zip] (~650 Mo)
 
 	* Launch you Fedora 11 virtual machine and terminate installation.
-	* Insert STLinux-2.3-sh4-03-11-07.iso into VMware.
 	* Run this command :
 {{{
 $ mkdir $HOME/stlinux_install
 $ cd $HOME/stlinux_install
-$ cp -R /media/STLinux-2.3-sh4/ $HOME/stlinux_install/
 $ wget http://www.stlinux.com/drupal/sites/default/files/stlinux23-host-STLinux_deps-0.1-4.i386.rpm
 $ su - (enter root password)
 # rpm -ivh stlinux23-host-STLinux_deps-0.1-4.i386.rpm
@@ -33,27 +31,12 @@ $ su - (enter root password)
 # chmod +x install
 # ./install all-sh4-glibc
 }}}
-	* At this step, the install script show many error from python.
-	* For fix this errors, we will replace "with" by "mdtype" in python scripts :
+
+	* Wait for download and install.
+	* After installation, clean and update your STLinux 2.3 YUM cache and database to the last packages revision and install additionnals packages need for croos-compile certain programs.
 {{{
-# sed -i "s/with=/mdtype=/" /opt/STM/STLinux-2.3/host/usr/lib/python2.3/site-packages/yum/__init__.py
-# sed -i "s/with=/mdtype=/" /opt/STM/STLinux-2.3/host/usr/lib/python2.3/site-packages/yum/repos.py
-# sed -i "s/with=/mdtype=/" /opt/STM/STLinux-2.3/host/usr/share/yum-cli/cli.py
-# sed -i "s/with=/mdtype=/" /opt/STM/STLinux-2.3/host/usr/lib/yum-plugins/changelog.py
-}}}
-	* Re-run the install script, get the line of error and replace manually with gedit "with" by "mdtype".
-{{{
-# ./install all-sh4-glibc
-# gedit /opt/STM/STLinux-2.3/host/usr/lib/python2.3/site-packages/yum/repos.py
-}}}
-	* Now, you can launch installation of STLinux 2.3 without errors.
-{{{
-# ./install all-sh4-glibc
-}}}
-	* After installation, update your STLinux 2.3 to the last packages revision and install additionnal packages.
-{{{
-# /opt/STM/STLinux-2.3/host/bin/stmyum update
 # /opt/STM/STLinux-2.3/host/bin/stmyum clean all
+# /opt/STM/STLinux-2.3/host/bin/stmyum update
 # /opt/STM/STLinux-2.3/host/bin/stmyum install stlinux23-sh4-curl stlinux23-sh4-curl-dev stlinux23-sh4-libopenssl stlinux23-sh4-libopenssl-dev stlinux23-sh4-psmisc
 }}}
 
