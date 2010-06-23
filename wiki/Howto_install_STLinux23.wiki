@@ -17,7 +17,6 @@ Here my howto for install a cross-compiler platorm.
 *Necessary packages :*
 	* Download and install the free VMware Player v3 from [http://www.vmware.com/products/player/] (~70 Mo)
 	* Download and uncompact [ftp://ftp.stlinux.com/pub/vmware/40G-fedora11.zip] (~650 Mo)
-	* Download STLinux 2.3 from [ftp://ftp.stlinux.com/pub/stlinux/2.3/iso/STLinux-2.3-sh4-03-11-07.iso] (~650 Mo)
 
 	* Launch you Fedora 11 virtual machine and terminate installation.
 	* Insert STLinux-2.3-sh4-03-11-07.iso into VMware.
@@ -30,6 +29,8 @@ $ wget http://www.stlinux.com/drupal/sites/default/files/stlinux23-host-STLinux_
 $ su - (enter root password)
 # rpm -ivh stlinux23-host-STLinux_deps-0.1-4.i386.rpm
 # cd /home/user/stlinux_install/
+# wget ftp://ftp.stlinux.com/pub/stlinux/2.3/install
+# chmod +x install
 # ./install all-sh4-glibc
 }}}
 	* At this step, the install script show many error from python.
