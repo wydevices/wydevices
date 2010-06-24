@@ -1,0 +1,53 @@
+#!/bin/sh
+
+if [ "$1" == "" ]; then
+echo ""
+echo "Este script copia una grabación realizada con el wydevice, que estará almacenada en la carpeta /wymedia/timeshift/records, a la carpeta /wymedia/My Videos/TS ."
+echo ""
+echo "Uso: rec2vid \"nombre_de_la_carpeta_de_grabación\""
+echo ""
+echo "Ejemplo: rec2vid \"REC_20100220_172959_1_38293928543265_CUATRO_31\""
+echo ""
+echo "Escriba el nombre de la carpeta de grabación entre comillas dobles."
+echo ""
+exit 1
+fi
+
+cd /wymedia/timeshift/records
+cd "$1" 2> /dev/null
+
+dir=`pwd`
+
+if [ "$dir" == "/wymedia/timeshift/records" ]; then
+echo "Carpeta de grabación incorrecta"
+exit 1
+fi
+
+name=`sed -n -e 's/.*<name>\(.*\)<\/name>.*/\1/p' record.xml`
+
+echo ""
+echo "El nombre de su grabación es el siguiente:"
+echo ""
+echo $name
+echo ""
+echo "Elija el nombre del archivo de destino:"
+echo "Recomendación: el nombre del archivo de destino debería contener sólo letras"
+echo "(a-z o A-Z, excluyendo la eñe), dígitos, -, _ y/o . "
+echo "Si utiliza otros caracteres es posible que el proceso no llegue a buen término."
+echo ""
+read filename
+
+if [ ! -d "/wymedia/My Videos/TS" ]; then
+mkdir "/wymedia/My Videos/TS"
+fi
+
+for file in *ts; do cat $file >> "/wymedia/My Videos/TS/$filename.ts"; done
+echo $name > "/wymedia/My Videos/TS/$filename.txt"
+
+echo ""
+echo "La grabación"
+echo ""
+echo $name
+echo ""
+echo "se ha copiado a la carpeta /wymedia/My Videos/TS"
+echo ""
