@@ -34,7 +34,7 @@ fi
 # build depends
 cd $WDIR/depends/fuse-2.7
 ./build-fuse.sh || exit 1
-cd $WDIR/depends/samba-3.4
+cd $WDIR/depends/samba
 ./build-samba.sh || exit 1
 
 # get fusesmb 0.8.7 and unpack it
