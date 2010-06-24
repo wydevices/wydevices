@@ -22,7 +22,7 @@ WDIR=`pwd`
 if [ "$1" == "clean" ]; then
 	cd $WDIR/depends/fuse-2.7
 	./build-fuse.sh clean || exit 1
-	cd $WDIR/depends/samba-3.4
+	cd $WDIR/depends/samba
 	./build-samba.sh clean || exit 1
 	cd $WDIR
 	rm -rf fusesmb-0.8.7
