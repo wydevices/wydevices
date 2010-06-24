@@ -1,0 +1,107 @@
+#!/bin/sh
+# start & stop extras
+
+PREFIX=/wymedia/usr
+
+# create init.d and rc.d dirs if they aren't present
+mkdir -p $PREFIX/etc/init.d
+mkdir -p $PREFIX/etc/rc.d
+
+case "$1" in
+	start)
+		if [ "$2" != "" ]
+		then
+			if [ -x $PREFIX/etc/init.d/$2 ]
+			then
+				$PREFIX/etc/init.d/$2 start
+			else
+				echo "Service $2 not found."
+			fi
+			exit 0
+		fi
+		run-parts -a start $PREFIX/etc/rc.d
+		;;
+	stop)
+		if [ "$2" != "" ]
+		then
+			if [ -x $PREFIX/etc/init.d/$2 ]
+			then
+				$PREFIX/etc/init.d/$2 stop
+			else
+				echo "Service $2 not found."
+			fi
+			exit 0
+		fi
+		run-parts -a stop $PREFIX/etc/rc.d
+		;;
+	restart)
+		if [ "$2" != "" ]
+		then
+			if [ -x $PREFIX/etc/init.d/$2 ]
+			then
+				$PREFIX/etc/init.d/$2 restart
+			else
+				echo "Service $2 not found."
+			fi
+			exit 0
+		fi
+		$0 stop
+		$0 start
+		;;
+	enable)
+		if [ "$2" = "" ]
+		then
+			echo "Usage: $0 $1 service"
+			exit 1
+		fi
+		if [ -x $PREFIX/etc/init.d/$2 ]
+		then
+			ln -sf ../init.d/$2 $PREFIX/etc/rc.d/
+		else
+			echo "Service $2 not found."
+		fi
+		;;
+	disable)
+		if [ "$2" = "" ]
+		then
+			echo "Usage: $0 $1 service"
+			exit 1
+		fi
+		rm  $PREFIX/etc/rc.d/$2 2> /dev/null
+		if [ $? -ne 0 ]
+		then
+			echo "Service $2 not enabled."
+		fi
+		;;
+	status | "" )
+		echo -e " Service              Init        Status"
+		echo " ============================================"
+		cd $PREFIX/etc/init.d 2>/dev/null || exit 1
+		for filename in *
+		do
+			if [ ! -x $filename ]
+			then
+				continue
+			fi
+			LINE="$filename"
+			if [ -e $PREFIX/etc/rc.d/$filename ]
+			then
+				LINE="$LINE yes"
+			else
+				LINE="$LINE no"
+			fi
+			if $PREFIX/etc/init.d/$filename status >/dev/null 2>&1; then
+				LINE="$LINE running"
+			else
+				LINE="$LINE stopped"
+			fi
+			echo $LINE | awk '{ printf("* %-20s %-10s %s\n",$1,$2,$3) }'
+		done;
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|enable|disable|status}"
+		exit 1
+		;;
+esac
+
+exit 0

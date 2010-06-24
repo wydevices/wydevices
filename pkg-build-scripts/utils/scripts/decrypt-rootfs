@@ -1,0 +1,36 @@
+#!/bin/sh
+
+
+if [ $# != 1 ]
+then
+	echo Usage: $0 crypted_rootfs_file
+	exit 1
+fi
+
+CORE=$1
+if [ ! -f $CORE ]; then
+	echo "$CORE: No such file"
+	exit 1
+fi
+
+if ! which dmsetup >/dev/null 2>&1; then
+	echo "dmsetup not found"
+	exit 1
+fi
+
+KEY=`dd if=/dev/mem skip=8351744 count=16 bs=1 2> /dev/null | hexdump -e '16/1 "%.2x"' -e '"\n"'`
+#BLOCKS=`stat -c%b $CORE`
+SIZE=`stat -c%s $CORE`
+BLOCKS=`expr $SIZE / 512`
+DECRYPTFILE=$CORE-decrypt.sqfs
+
+dmsetup remove decrypt > /dev/null 2>&1
+losetup -d /dev/loop0 > /dev/null 2>&1
+losetup /dev/loop0 $CORE || exit 1
+echo 0 $BLOCKS crypt aes-cbc-plain $KEY 0 /dev/loop0 0 | dmsetup create decrypt || exit 1
+echo -n "Decrypting rootfs..."
+dd if=/dev/mapper/decrypt of=$DECRYPTFILE >/dev/null 2>&1
+dmsetup remove decrypt
+losetup -d /dev/loop0
+echo ok
+
