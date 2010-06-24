@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sqlite3 /etc/params/wymedia/.wyplay_db.-1.db "UPDATE object SET state='tocheck' WHERE (class='object.container' OR  class='object.container.storageSystem') AND state='ok'"
+

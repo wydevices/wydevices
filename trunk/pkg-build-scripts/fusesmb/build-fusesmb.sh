@@ -50,8 +50,8 @@ fi
 # configure and make
 cd $WDIR/fusesmb-0.8.7
 export PKG_CONFIG_PATH="$WDIR/depends/fuse-2.7/fuse-2.7.4:$PKG_CONFIG_PATH"
-export CFLAGS="-I$WDIR/depends/samba-3.4/samba-3.4.8/source3/include -I$WDIR/depends/fuse-2.7/fuse-2.7.4/include"
-export LDFLAGS="-L$WDIR/depends/samba-3.4/samba-3.4.8/source3/bin -L$WDIR/depends/fuse-2.7/fuse-2.7.4/lib/.libs"
+export CFLAGS="-I$WDIR/depends/samba/samba-3.4.8/source3/include -I$WDIR/depends/fuse-2.7/fuse-2.7.4/include"
+export LDFLAGS="-L$WDIR/depends/samba/samba-3.4.8/source3/bin -L$WDIR/depends/fuse-2.7/fuse-2.7.4/lib/.libs"
 export LIBS="-ltalloc -ltdb"
 export NMBLOOKUP=yes
 
@@ -83,9 +83,9 @@ mkdir -p usr/lib
 # copy files
 cp fusesmb-0.8.7/fusesmb usr/bin
 cp fusesmb-0.8.7/fusesmb.cache usr/bin
-cp depends/samba-3.4/samba-3.4.8/source3/bin/libsmbclient.so.0 usr/lib
-cp depends/samba-3.4/samba-3.4.8/source3/bin/libtalloc.so.1 usr/lib
-cp depends/samba-3.4/samba-3.4.8/source3/bin/libtdb.so.1 usr/lib
+cp depends/samba/samba-3.4.8/source3/bin/libsmbclient.so.0 usr/lib
+cp depends/samba/samba-3.4.8/source3/bin/libtalloc.so.1 usr/lib
+cp depends/samba/samba-3.4.8/source3/bin/libtdb.so.1 usr/lib
 # copy static files
 cp -rp static-files/* usr/
 # delete .svn dirs if they are present

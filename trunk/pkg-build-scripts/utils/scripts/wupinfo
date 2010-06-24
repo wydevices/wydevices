@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ $# != 1 ]
+then
+	echo Usage: $0 firmware_file.wup
+	exit 1
+fi
+
+FIRMWARE_FILE=$1
+if [ ! -f $FIRMWARE_FILE ]; then
+	echo "$FIRMWARE_FILE: No such file"
+	exit 1
+fi
+
+tail -c3000 $1 | strings > str.txt
+LINESSTR=$( cat str.txt | wc -l )
+LINEROOT=$( tail -n100 str.txt | grep -n "<root>" | cut -d ':' -f 1 )
+tail -n `expr $LINESSTR + 1 - $LINEROOT` str.txt
+rm str.txt
+

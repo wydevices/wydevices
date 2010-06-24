@@ -1,0 +1,21 @@
+#!/bin/sh
+
+
+if [ $# != 1 ]
+then
+	echo Usage: $0 firmware_file.wup
+	exit 1
+fi
+
+FIRMWARE_FILE=$1
+if [ ! -f $FIRMWARE_FILE ]; then
+	echo "$FIRMWARE_FILE: No such file"
+	exit 1
+fi
+
+unwup $FIRMWARE_FILE
+rm -f kernel.bin description.xml
+decrypt-rootfs rootfs.bin
+rm -f rootfs.bin
+mv rootfs.bin-decrypt.sqfs rootfs.sqfs
+

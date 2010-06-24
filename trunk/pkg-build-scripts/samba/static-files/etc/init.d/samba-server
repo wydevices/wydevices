@@ -14,14 +14,14 @@ case "$1" in
 			echo "  * nmbd already running"
 		else
 			echo -n "  * starting nmbd..."
-			$NMBD
+			$NMBD >/dev/null 2>&1
 			echo ok
 		fi
 		if [ -s $PIDDIR/smbd.pid ] && kill -0 $(cat $PIDDIR/smbd.pid) >/dev/null 2>&1; then
 			echo "  * smbd already running"
 		else
 			echo -n "  * starting smbd..."
-			$SMBD
+			$SMBD >/dev/null 2>&1
 			echo ok
 		fi
 		;;

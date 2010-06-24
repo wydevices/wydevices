@@ -1,0 +1,52 @@
+#!/bin/sh
+
+if [ $# != 1 ]
+then
+	echo Usage: $0 firmware_file.wup
+	exit 1
+fi
+
+FIRMWARE_FILE=$1
+if [ ! -f $FIRMWARE_FILE ]; then
+	echo "$FIRMWARE_FILE: No such file"
+	exit 1
+fi
+
+echo -n Obtaining firmware description...
+tail -c3000 $FIRMWARE_FILE | strings > str.txt
+LINESSTR=$( cat str.txt | wc -l )
+LINEROOT=$( tail -n100 str.txt | grep -n "<root>" | cut -d ':' -f 1 )
+tail -n `expr $LINESSTR + 1 - $LINEROOT` str.txt > description.xml
+rm str.txt
+echo ok
+#Obtener el fichero de kernel
+echo -n Extracting kernel image...
+kernel_size=`cat description.xml | grep -A 8 -i "<displayName>kernel" | grep uncompressedSize | cut -d'>' -f2 | cut -d'<' -f1`
+kernel_sign1=`cat description.xml | grep -A 8 -i "<displayName>kernel" | grep "signature" | cut -d'>' -f2 | cut -d'<' -f1`
+#dd if=$FIRMWARE_FILE of=kernel.bin ibs=1 count=$kernel_size skip=15 > /dev/null 2>&1
+dd if=$FIRMWARE_FILE of=temp.bin bs=15 skip=1 count=`expr "(" $kernel_size + 15 ")" / 15` > /dev/null 2>&1
+dd if=temp.bin of=kernel.bin bs=$kernel_size count=1 > /dev/null 2>&1
+rm temp.bin
+kernel_sign2=`md5sum kernel.bin | cut -d' ' -f1`
+if [ $kernel_sign1 == $kernel_sign2 ]
+then
+	echo ok
+else
+	echo fail!
+fi
+#Obtener el fichero de software
+echo -n Extracting crypted rootfs...
+soft_size=`cat description.xml | grep -A 8 -i "<displayName>soft" | grep uncompressedSize | cut -d'>' -f2 | cut -d'<' -f1`
+soft_sign1=`cat description.xml | grep -A 8 -i "<displayName>soft" | grep "signature" | cut -d'>' -f2 | cut -d'<' -f1`
+#dd if=$FIRMWARE_FILE of=rootfs.bin ibs=1 count=$soft_size skip=`expr $kernel_size + 25` > /dev/null 2>&1
+dd if=$FIRMWARE_FILE of=temp.bin bs=`expr $kernel_size + 25` skip=1 > /dev/null 2>&1
+dd if=temp.bin of=rootfs.bin bs=$soft_size count=1 > /dev/null 2>&1
+rm temp.bin
+soft_sign2=`md5sum rootfs.bin | cut -d' ' -f1`
+if [ $soft_sign1 == $soft_sign2 ]
+then
+	echo ok
+else
+	echo fail!
+fi
+
