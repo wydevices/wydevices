@@ -1,5 +1,5 @@
-#summary Explain how to run PHP scripts on wydevices from scratch.
-#labels stlinux,PHP
+#summary Explain how to compile and run PHP scripts on wydevices from scratch.
+#labels stlinux,PHP,mongoose
 *Prerequisites :*
 	* Follow and terminate with success the STLinux 2.3 installation.
 	* You must have the directory /wymedia
@@ -26,8 +26,21 @@ $ ./configure --host="sh4-linux" --prefix="/wymedia/usr" \
 --disable-cli --disable-ipv6 \
 --with-libxml-dir=/opt/STM/STLinux-2.3/devkit/sh4/target/usr
 }}}
-	* There is a problem with pdo-sqlite if you launch compile now, for fix that, edit Makefile and go to the line ~73 named EXTRA_LIBS and add -ldl at the end of this line.
-	* And now, you can run : `$ make && make install`
+	* There is a problem with pdo-sqlite if you launch compile now, for fix that, edit Makefile and go to the line ~78 named EXTRA_LIBS and add -ldl at the end of this line.
+	* Second problem, libxml2 dependency aren't correct path, for the moment you can fix by renaming this file during compilation :
+{{{
+$ su -
+# mv /usr/lib/libxml2.so /usr/lib/libxml2.so.bak
+# exit
+}}}
+	* And now, you can run :
+{{{
+$ make
+$ make install
+$ su -
+# mv /usr/lib/libxml2.so.bak /usr/lib/libxml2.so
+# exit
+}}}
 	* It produce binaries and scripts that must be copied into the same directory on your wydevice :
 {{{
 /wymedia/usr/bin/php-cgi
