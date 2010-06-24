@@ -1,0 +1,52 @@
+#!/bin/sh
+
+export PATH=/wymedia/usr/sbin:/wymedia/usr/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+echo ""
+echo "crond es un demonio que ejecuta procesos a intervalos regulares (por ejemplo, cada minuto, día, semana o mes)."
+echo ""
+echo "Los procesos que deben ejecutarse y la hora en la que deben hacerlo se especifican en un fichero de tipo crontab (en nuestro caso, /wymedia/usr/etc/cron.d/root)."
+echo ""
+echo "Elija una opción:(a/b/c)"
+echo "a) Configurar crond."
+echo "b) Activar crond."
+echo "c) Desactivar crond. (Requiere un reinicio del sistema)"
+read opcion
+
+case $opcion in
+	a )
+                if [ -f /wymedia/usr/etc/cron-enabled ]; then
+                        echo "crond está activado. Debe primero desactivarlo para configurarlo"
+                        exit 0
+                fi
+                nano /wymedia/usr/etc/cron.d/root
+                echo ""
+                echo "crond ha sido configurado"
+		exit 0
+                ;;
+	b )
+                if [ -f /wymedia/usr/etc/cron-enabled ]; then
+                        echo "crond está ya activado"
+                        exit 0
+                fi
+                echo ""
+                echo -n "Activando crond..."
+                touch /wymedia/usr/etc/cron-enabled
+                /wymedia/usr/etc/rc.d/crond start
+                echo "OK"
+		exit 0
+                ;;
+	c )
+		echo ""
+		echo -n "Desactivando crond..."
+		rm -f /wymedia/usr/etc/cron-enabled
+		echo "OK"
+		echo ""
+		echo "crond desactivado. Reinicio en 5 segundos..."
+		sync
+		sleep 5
+		reboot
+		;;
+esac
+
+exit 0
