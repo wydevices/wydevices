@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if [ ! -d /wymedia/Backup ]; then
+       mkdir /wymedia/Backup
+fi
+
+if [ -e /wymedia/Backup/channels-net_backup.tar ]; then
+      mv -f /wymedia/Backup/channels-net_backup.tar /wymedia/Backup/channels-net_backup-old.tar
+fi
+
+cp -rf /etc/params/wymedia /wymedia/Backup
+cp -rf /etc/params/wyscan /wymedia/Backup
+cp -rf /etc/params/net /wymedia/Backup
+cp -rf /etc/params/wynetwork.conf /wymedia/Backup
+cd /wymedia/Backup
+tar cvf channels-net_backup.tar wymedia wyscan net wynetwork.conf
+
+echo ""
+echo "Se ha realizado la copia de seguridad de las listas de canales y favoritos y de la configuración de red."
+echo "Ruta de la copia de seguridad: /wymedia/Backup/channels-net_backup.tar"
+echo ""
