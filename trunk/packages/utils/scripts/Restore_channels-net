@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ "$1" = "" ]; then
+      echo "Este script restaura la copia de seguridad de las listas de canales y favoritos y de la configuración de red."
+      echo "Uso: Restore_channels-net ruta_de_la_copia_de_seguridad"
+      echo "Ejemplo: Restore_channels-net /wymedia/Backup/channels-net_backup.tar"
+else
+
+cd /etc/params
+
+tar xvf "$1"
+
+echo ""
+echo "Se ha restaurado la copia de seguridad de las listas de canales y favoritos y de la configuración de red."
+
+fi
