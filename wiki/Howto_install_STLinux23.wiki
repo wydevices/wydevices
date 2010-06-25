@@ -1,3 +1,4 @@
+#summary Install STLinux 2.3 on a Fedora 11 for cross compile to SH4.
 #labels stlinux
 Wydevices are cross-compiled with STLinux 2.3.
 
@@ -44,6 +45,6 @@ Yes, you are now ready for cross-compilation.
 
 In the next step, we are going to compile programs and library.
 
-The Fedora 11 launch automaticly autoupdates, accept only security fixes.
+The Fedora 11 launch automaticly autoupdates, disable it and *DO NOT UPDATE YOUR DISTRIBUTION*.
 
 _Thanks to deniro666 for his help !_
