@@ -38,7 +38,7 @@ $ su - (enter root password)
 {{{
 # /opt/STM/STLinux-2.3/host/bin/stmyum clean all
 # /opt/STM/STLinux-2.3/host/bin/stmyum update
-# /opt/STM/STLinux-2.3/host/bin/stmyum install stlinux23-sh4-curl stlinux23-sh4-curl-dev stlinux23-sh4-libopenssl stlinux23-sh4-libopenssl-dev stlinux23-sh4-psmisc
+# yum install wget gcc patch subversion
 }}}
 
 Yes, you are now ready for cross-compilation.
