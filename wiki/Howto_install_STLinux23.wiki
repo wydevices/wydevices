@@ -19,32 +19,39 @@ Here my howto for install a cross-compiler platorm.
 	* Download and install the free VMware Player v3 from [http://www.vmware.com/products/player/] (~70 Mo)
 	* Download and uncompact [ftp://ftp.stlinux.com/pub/vmware/40G-fedora11.zip] (~650 Mo)
 
-	* Launch you Fedora 11 virtual machine and terminate installation.
-	* Run this command :
+	* Launch your Fedora 11 virtual machine and terminate installation.
+	* Open a terminal and enter in a root shell for the next steps.
 {{{
-$ mkdir $HOME/stlinux_install
-$ cd $HOME/stlinux_install
-$ wget http://www.stlinux.com/drupal/sites/default/files/stlinux23-host-STLinux_deps-0.1-4.i386.rpm
-$ su - (enter root password)
-# rpm -ivh stlinux23-host-STLinux_deps-0.1-4.i386.rpm
-# cd /home/user/stlinux_install/
+$ su
+(enter root password)
+}}}
+	* Disable Fedora updates
+{{{
+# mv /etc/yum.repos.d/fedora-updates.repo /etc/yum.repos.d/fedora-updates.repo.off
+}}}
+	* Install some additional Fedora packages
+{{{
+# yum install wget gcc patch subversion
+}}}
+	* Install STLinux 2.3 packages
+{{{
 # wget ftp://ftp.stlinux.com/pub/stlinux/2.3/install
 # chmod +x install
 # ./install all-sh4-glibc
 }}}
 
-	* Wait for download and install.
-	* After installation, clean and update your STLinux 2.3 YUM cache and database to the last packages revision and install additionnals packages need for croos-compile certain programs.
+	* Wait for download and install. After installation, update your STLinux 2.3 to the last packages revision
 {{{
-# /opt/STM/STLinux-2.3/host/bin/stmyum clean all
 # /opt/STM/STLinux-2.3/host/bin/stmyum update
-# yum install wget gcc patch subversion
 }}}
 
-Yes, you are now ready for cross-compilation.
+Yes, you are now ready for cross-compilation. Every time you cross compile you must set the following environment variables:
 
-In the next step, we are going to compile programs and library.
-
-The Fedora 11 launch automaticly autoupdates, disable it and *DO NOT UPDATE YOUR DISTRIBUTION*.
+{{{
+$ export PATH=/opt/STM/STLinux-2.3/devkit/sh4/bin:$PATH
+$ export PKG_CONFIG_PATH=/opt/STM/STLinux-2.3/devkit/sh4/target/usr/lib/pkgconfig
+}}}
 
 _Thanks to deniro666 for his help !_
+
+_NOTE: Original by argos, modified by deniro666_
