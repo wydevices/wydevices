@@ -60,7 +60,8 @@ if [ ! -f Makefile ]; then
 	--with-ftpwho \
 	--with-throttling \
 	--with-puredb \
-	--without-inetd || exit 1
+	--without-inetd \
+	--with-rfc2640 || exit 1
 else
 	echo "Makefile exists, skipping configure"
 fi
