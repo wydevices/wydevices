@@ -14,13 +14,15 @@ case "reboot":
 echo '<script type="text/javascript">ShowReboot()</script>';
 echo '<div id="showreboot"></div>';
 break;
-case "Skins":
-echo '<script type="text/javascript">ShowSkins()</script>';
-echo '<div id="showskins"></div>';
+case "syslog":
+echo '<script type="text/javascript">ShowSyslog()</script>';
+echo '<div id="showsyslog"></div>';
 break;
-case "Data":
-echo '<script type="text/javascript">ShowData()</script>';
-echo '<div id="showdata"></div>';
+case "skins":
+echo '<pre>';
+echo system("skinops.sh -c");
+echo '</pre>';
+echo system("cat ./forms/skins.html");
 break;
 
 case "status": default:
