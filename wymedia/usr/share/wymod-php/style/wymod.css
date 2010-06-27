@@ -1,0 +1,68 @@
+body { 
+margin:0 auto 0 auto; 
+color:#000; 
+font-family:Georgia, "Times New Roman", Times, serif; 
+font-size:16px; 
+background-color:#666666; }
+
+.page { 
+margin:100px auto 0 auto; 
+width:800px;}
+
+#menu  { 
+list-style:none; 
+margin:0px; 
+padding:0px;
+font-family: verdana, arial, sans-serif;
+font-size: .80em;
+}
+
+#menu li { 
+list-style:none; 
+display:inline; }
+
+li.active a { 
+background-color:#FFF;
+color:#000; }
+
+#menu li a,#menu li a:link { 
+float:left; 
+background-color:#3c3c3c;
+margin-right:5px; 
+padding:7px; 
+color:#FFFFFF; 
+text-decoration:none; 
+width:6em; 
+text-align:center;}
+
+ 
+#menu li a:visited { }
+#menu li a:hover { background-color:#327cc8 }
+#menu li a:active { background-color:#FFF;color:#000; }
+
+.content { 
+background-color:#FFF; 
+background:url(../style/wydevlogo.gif) bottom right no-repeat; 
+padding:10px; 
+height:640px; 
+margin:0px;  
+font-family: verdana, arial, sans-serif;
+padding: 0px;
+margin: 0px;
+font-size: .68em; }
+
+#loading { 
+clear:both; 
+background:url(../style/wait.gif) center top no-repeat; 
+text-align:center;
+padding:33px 0px 0px 0px; 
+font-size:12px;
+display:none; 
+font-family:Verdana, Arial, Helvetica, sans-serif; }
+
+
+#outcontent {
+clear:both; 
+background-color:#FFFFFF; 
+}
+

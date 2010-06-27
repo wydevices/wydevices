@@ -1,0 +1,28 @@
+<form id="reboot" method="get" action="wymod">
+<h1>Reboot Type</h1>
+<ul>
+	<li>
+		<span>
+		<input id="reboot_1_1" name="reboot_1" class="reboot radio" type="radio" value="1" />
+			<label class="choice" for="reboot_1_1">Reboot Wydevice</label>
+		<input id="reboot_1_2" name="reboot_1" class="reboot radio" type="radio" value="2" />
+			<label class="choice" for="reboot_1_2">Reboot Splash</label>
+		<input id="reboot_1_3" name="reboot_1" class="reboot radio" type="radio" value="3" />
+			<label class="choice" for="reboot_1_3">Restart Player</label>
+		<input id="reboot_1_4" name="reboot_1" class="reboot radio" type="radio" value="4" />
+			<label class="choice" for="reboot_1_4">Shutdown Wydevice</label>
+		</span>
+			<p class="guidelines" id="guide_1">
+	</li>
+	<h2>Reboot Types explanation</h2>
+        <ul>
+	          <li>Reboot Wydevice it's the same than using the clip. Full Reboot</li>
+		  <li>Reboot Splash restarts the python GUI, will free mem and less time than a full reboot. Do not restarts transmission.</li>
+		  <li>Reboot Player is ok when the player is hung after a crash.</li>
+		  <li>Shutdown Wydevice turns off device and HDD. Good for nights of before planning a trip, for example</li>
+	</ul>
+	<br />
+	<input type="hidden" name="form_id" value="reboot" />
+	</ul>
+</form>	        
+ 
