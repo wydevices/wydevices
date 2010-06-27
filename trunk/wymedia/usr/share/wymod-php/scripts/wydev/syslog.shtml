@@ -1,0 +1,5 @@
+<table> 
+<tr>
+  <td><pre><!--#exec "tail -n40 /wymedia/usr/var/log/syslog" --></pre></td>
+<td>
+</table>
