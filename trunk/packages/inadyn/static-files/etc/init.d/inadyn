@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+# by GdalPlay _ 21/03/2010
+# modified by minukab _ 10/04/2010
+#
+# start/stop inadyn
+#
+#
+
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
+PATH=/wymedia/usr/sbin:/wymedia/usr/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/wymedia/usr/bin/inadyn
+PIDFILE=/var/run/inadyn.pid
+CONF=/wymedia/usr/etc/inadyn.conf
+DESC="inadyn"
+
+test -f "$DAEMON" || exit 0
+
+case "$1" in
+   start)
+      if [ -f $PIDFILE ]; then
+         echo "$DESC already running."
+         exit 0
+      fi
+      echo -n "Starting $DESC..."
+      "$DAEMON" --input_file $CONF
+      echo $! > $PIDFILE
+      echo ok
+      ;;
+   stop)
+      if [ ! -f $PIDFILE ]; then
+         echo "$DESC not running."
+         exit 0
+      fi
+      echo -n "Stopping $DESC..."
+      killall -q $DESC &
+      rm -f $PIDFILE
+      echo ok
+      ;;
+   restart)
+      $0 stop
+      $0 start
+      ;;
+   status)
+      if [ -f $PIDFILE ]; then
+         echo "$DESC running"
+      else
+         echo "$DESC not running"
+         exit 1
+      fi
+      exit 0
+      ;;
+   *)
+      echo "Usage: $0 {start|stop|restart|status}"
+      exit 1
+      ;;
+esac
+
+exit 0
