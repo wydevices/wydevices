@@ -1,0 +1,16 @@
+#!/bin/sh
+
+export PATH=/wymedia/usr/sbin:/wymedia/usr/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+case "$1" in
+        start)
+                if [ -f /wymedia/usr/etc/cron-enabled ]; then
+			mkdir -p /wymedia/usr/var/log
+                        crond -L /wymedia/usr/var/log/crond.log -c /wymedia/usr/etc/cron.d
+                fi
+                ;;
+        *)
+                ;;
+esac
+
+exit 0
