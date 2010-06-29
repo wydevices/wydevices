@@ -38,6 +38,9 @@ fi
 # configure and make
 cd $WDIR/inadyn
 
+export PATH=/opt/STM/STLinux-2.3/devkit/sh4/bin:$PATH
+export PKG_CONFIG_PATH=/opt/STM/STLinux-2.3/devkit/sh4/target/usr/lib/pkgconfig
+
 if ! make -q > /dev/null 2>&1; then
         echo "Building"
 	rm -rf bin
