@@ -1,5 +1,0 @@
-<pre>
-<!--#exec "extras status" -->
-</pre>		
-<!--#exec "cat ./forms/extras.html" -->
-
