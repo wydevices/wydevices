@@ -1,0 +1,11 @@
+# Fichero crontab de los wydevices
+#
+# Las líneas que comienzan por '#' son comentarios
+#
+# Ejemplo de configuración:
+#
+# Ejecutar el comando /wymedia/usr/bin/Backup_channels-net en el minuto 19 de todas las horas.
+# 19 * * * * /wymedia/usr/bin/Backup_channels-net
+#
+# Para más información sobre el formato de los ficheros crontab puede consultar:
+# http://es.wikipedia.org/wiki/Cron_(Unix)
