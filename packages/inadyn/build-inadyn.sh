@@ -12,7 +12,7 @@
 #                                                                  #
 #  Generated package filename: wybox-inadyn-1.96.2.tar.gz          #
 #                                                                  #
-#  Authors: GdalPlay, minukab                                      #
+#  Authors: argos, deniro666, GdalPlay, minukab                    #
 #  Date: June 2010                                                 #
 #                                                                  #
 ####################################################################
