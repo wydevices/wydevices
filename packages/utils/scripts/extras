@@ -9,6 +9,12 @@ mkdir -p $PREFIX/etc/rc.d
 
 case "$1" in
 	start)
+		# Condicional syslogd start
+		if [ -f $PREFIX/etc/syslog-enabled ]; then
+			mkdir -p $PREFIX/var/log
+                        /sbin/syslogd -O $PREFIX/var/log/syslog
+                fi
+		#
 		if [ "$2" != "" ]
 		then
 			if [ -x $PREFIX/etc/init.d/$2 ]
