@@ -2,28 +2,12 @@ Wydev packages building scripts
 ================================
 
 This folder contains scripts to build packages for the wydevice.
-Every package will have its build*.sh script that will build a 
-tar.gz that can be directly installed under /wymedia.
-
-
-Build a wybox-extras package
-------------------------------
-
-You can build a wybox-extras package (tar.gz) that includes all packages
-specified. Follow this steps:
-
-  1. Edit pkgs.conf file to modify the included packages.
-  2. ./build-extras.sh
-
-Once finished, file wybox-extras.tar.gz contains all packages and
-is ready to be installed in a wybox.
+Every package has its own directory where running the build.sh
+script will build a tar.gz that can be directly installed under /wymedia.
 
 
 Environment
 ------------
 
-STLinux 2.3 cross compiler is needed to build packages. You should
-also set the compile environment variables by running in this folder
-
-    $ . env-cross-compile.sh
+STLinux 2.3 cross compiler is needed to build packages.
 

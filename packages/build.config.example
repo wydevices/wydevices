@@ -1,0 +1,48 @@
+# Generic package building template.
+#
+# Remove not used variables.
+#
+
+
+# package name
+NAME=""
+
+# package version
+VERSION=""
+
+# other packages that will be included
+SUBPACKAGES=""
+
+# package dependencies
+DEPENDS=""
+
+# url to download sources file
+URL=""
+
+# name of sources file
+SRCFILE=""
+
+# sources dir
+SRCDIR=""
+
+# actions before compilation
+PRE_COMPILATION() {
+
+}
+
+# configure flags
+CONFIGUREFLAGS=""
+
+# actions before building the wybox package
+PRE_WYBOX_PKG_BUILD() {
+
+}
+
+# binary files to include in final package
+BINARIES=""
+
+# actions to clean compilation files
+CLEAN() {
+
+}
+
