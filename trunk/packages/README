@@ -5,6 +5,27 @@ This folder contains scripts to build packages for the wydevice.
 Every package has its own directory where running the build.sh
 script will build a tar.gz that can be directly installed under /wymedia.
 
+Build a package
+-----------------
+
+Enter the directory of the package you want to build
+$ cd extras
+And run the build.sh script with the option you want:
+$ ../build.sh wyboxpkg
+
+
+Available build.sh options
+----------------------------
+
+ $ ./build.sh OPTION
+
+     * sources : only download and compile
+     * wyboxfiles : generate 'usr' folder
+     * wyboxpkg (tar.gz) : generate tar.gz file
+     * transfer IP: transfer usr folder to rsync://ip/devel
+     * clean (tar.gz and usr)
+     * cleanall (all)
+
 
 Environment
 ------------
