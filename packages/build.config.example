@@ -2,7 +2,16 @@
 #
 # Remove not used variables.
 #
-
+# * Binaries will be searched on:
+#    - Built packages
+#    - STLinux binaries
+#    - 'scripts' folder
+#
+# * Files in this folders will be
+#   copied to final package:
+#    - config-files
+#    - static-files
+#
 
 # package name
 NAME=""

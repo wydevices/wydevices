@@ -14,6 +14,14 @@ And run the build.sh script with the option you want:
 $ ../build.sh wyboxpkg
 
 
+Create a package
+-------------------
+
+Create a new dir with the name of the package and create
+a build.config file. There is an template of this file in
+build.config.example.
+
+
 Available build.sh options
 ----------------------------
 
