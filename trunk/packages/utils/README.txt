@@ -15,28 +15,9 @@ All scripts developed by wydev community should go on the
 Building the package
 ---------------------
 
-1. Edit 'commands.conf' file to modify the included commands.
-2. ./build-utils.sh
+1. Edit 'build.conf' file to modify the included commands.
+2. Run build.sh script
 
 Once finished, file wybox-utils.tar.gz contains all commands and
 is ready to be installed in a wybox.
-
-
-Source of the commands included
---------------------------------
-
-Commands will be taken from STLinux dirs or the 'scripts' folder.
-If command is not found then it will look for folder named like the
-command containing build-*.sh script to build that command
-
-Commands search follows this order.
-
-  1. Look if command is present in STLiunx. If true
-     copy binary and libraries required.
-
-  2. Look for the command in the scripts folder.
-
-  3. Look if there is a folder containing a build-*.sh
-     script to build the command.
-
 

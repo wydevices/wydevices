@@ -1,7 +1,7 @@
 Avoid cross-compile errors in configure
-diff -Naur samba-3.4.8/source3/configure samba-3.4.8wybox/source3/configure
---- samba-3.4.8/source3/configure	2010-05-10 15:01:52.000000000 +0200
-+++ samba-3.4.8wybox/source3/configure	2010-06-20 12:34:20.615657249 +0200
+diff -Naur source3/configure source3wybox/configure
+--- source3/configure	2010-05-10 15:01:52.000000000 +0200
++++ source3wybox/configure	2010-06-20 12:34:20.615657249 +0200
 @@ -13961,7 +13961,7 @@
  See \`config.log' for more details." >&5
  $as_echo "$as_me: error: cannot run test program while cross compiling
