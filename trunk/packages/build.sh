@@ -185,6 +185,10 @@ function configure_and_make() {
 function build_sources() {
 
 	# run pre-compilation actions
+	if [ $URL ]; then
+		get_untar_patch
+	fi
+		
 	cd $PKGDIR
 	if type PRE_COMPILATION >/dev/null 2>&1; then
 		PRE_COMPILATION
@@ -193,7 +197,6 @@ function build_sources() {
 	build_dependencies
 
 	if [ $SRCDIR ]; then
-		get_untar_patch
 		configure_and_make
 	fi
 }
