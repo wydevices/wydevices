@@ -10,7 +10,7 @@ fi
 fan=`cat /sys/devices/platform/stm-pwm/pwm1 | tr -d "\n"`
 aux=`cat /sys/bus/i2c/devices/0-0048/temp1_input`
 cpu=`echo $aux | cut -b 1-2`.`echo $aux | cut -b 3`C
-hdd=`hddtemp -n /dev/sda -f /wymedia/usr/lib/share/misc/hddtemp.db 2> /dev/null`C
+hdd=`hddtemp -n /dev/sda 2> /dev/null`C
 if [ $hdd == "C" ]
 then
 	hdd=sleeping
