@@ -40,6 +40,9 @@ case "$1" in
 		fi
 		run-parts -a stop $PREFIX/etc/rc.d
 		;;
+	stopall)
+		run-parts -a stop $PREFIX/etc/init.d
+		;;
 	restart)
 		if [ "$2" != "" ]
 		then
