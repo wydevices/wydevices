@@ -303,7 +303,7 @@ function generate_wyboxpkg() {
 
 	# create tar
 	if [ $NAME ] && [ $VERSION ]; then
-		tar zcf wybox-$NAME-$VERSION.tar.gz usr
+		fakeroot tar zcf wybox-$NAME-$VERSION.tar.gz usr
 	fi
 	echo "Success: Final package wybox-$NAME-$VERSION.tar.gz has been created."
 }
@@ -339,6 +339,12 @@ if ! which sh4-linux-gcc >/dev/null 2>&1; then
 	echo "ERROR: SH4 cross-compiler not detected"
 	exit 1
 fi
+
+if ! which fakeroot >/dev/null 2>&1; then
+	echo "ERROR: You need to install fakeroot: yum install fakeroot"
+	exit 1
+fi
+
 
 source $PKGDIR/$CONFIGFILE
 
