@@ -1,0 +1,53 @@
+#!/bin/sh
+# Start & stop crond server
+
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
+export PATH="/wymedia/usr/bin:$PATH"
+export TERMINFO_DIRS="/wymedia/usr/lib/terminfo"
+export HOME="/wymedia"
+
+PIDFILE=/var/run/crond.pid
+DAEMON=crond
+
+case "$1" in
+	start)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "crond already running."
+			exit 0
+		fi
+		echo -n "Starting crond..."
+		mkdir -p /wymedia/usr/var/log
+		$DAEMON -f -L /wymedia/usr/var/log/crond.log -c /wymedia/usr/etc/cron.d > /dev/null 2>&1 &
+		echo $! > $PIDFILE
+		echo ok
+		;;
+	stop)
+		if [ ! -s $PIDFILE ]; then
+			echo "crond not running."
+			exit 0
+		fi
+		echo -n "Stopping crond..."
+		kill $(cat $PIDFILE) >/dev/null 2>&1
+		rm -f $PIDFILE
+		echo ok
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	status)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "crond running"
+		else
+			echo "crond not running"
+			exit 1
+		fi
+		exit 0
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}"
+		exit 1
+		;;
+esac
+
+exit 0
