@@ -1,31 +1,28 @@
 #!/bin/sh
-# Start & stop crond server
+# Start & stop syslogd server
 
-export LD_LIBRARY_PATH="/wymedia/usr/lib"
-export PATH="/wymedia/usr/bin:$PATH"
-export TERMINFO_DIRS="/wymedia/usr/lib/terminfo"
-export HOME="/wymedia"
 
-PIDFILE=/var/run/crond.pid
-DAEMON=crond
+PIDFILE=/var/run/syslogd.pid
+DAEMON=syslogd
 
 case "$1" in
 	start)
 		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
-			echo "crond already running."
+			echo "syslogd already running."
 			exit 0
 		fi
-		echo -n "Starting crond..."
-		$DAEMON -f -c /wymedia/usr/etc/cron.d > /dev/null 2>&1 &
+		echo -n "Starting syslogd..."
+		mkdir -p /wymedia/usr/var/log
+		$DAEMON -n -O /wymedia/usr/var/log/syslog.log > /dev/null 2>&1 &
 		echo $! > $PIDFILE
 		echo ok
 		;;
 	stop)
 		if [ ! -s $PIDFILE ]; then
-			echo "crond not running."
+			echo "syslogd not running."
 			exit 0
 		fi
-		echo -n "Stopping crond..."
+		echo -n "Stopping syslogd..."
 		kill $(cat $PIDFILE) >/dev/null 2>&1
 		rm -f $PIDFILE
 		echo ok
@@ -36,9 +33,9 @@ case "$1" in
 		;;
 	status)
 		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
-			echo "crond running"
+			echo "syslogd running"
 		else
-			echo "crond not running"
+			echo "syslogd not running"
 			exit 1
 		fi
 		exit 0
