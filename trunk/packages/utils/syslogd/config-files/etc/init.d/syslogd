@@ -1,0 +1,49 @@
+#!/bin/sh
+# Start & stop syslogd server
+
+
+PIDFILE=/var/run/syslogd.pid
+DAEMON=syslogd
+
+case "$1" in
+	start)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "syslogd already running."
+			exit 0
+		fi
+		echo -n "Starting syslogd..."
+		mkdir -p /wymedia/usr/var/log
+		$DAEMON -n -O /wymedia/usr/var/log/syslog.log > /dev/null 2>&1 &
+		echo $! > $PIDFILE
+		echo ok
+		;;
+	stop)
+		if [ ! -s $PIDFILE ]; then
+			echo "syslogd not running."
+			exit 0
+		fi
+		echo -n "Stopping syslogd..."
+		kill $(cat $PIDFILE) >/dev/null 2>&1
+		rm -f $PIDFILE
+		echo ok
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	status)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "syslogd running"
+		else
+			echo "syslogd not running"
+			exit 1
+		fi
+		exit 0
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}"
+		exit 1
+		;;
+esac
+
+exit 0

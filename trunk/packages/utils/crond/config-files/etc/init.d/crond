@@ -16,8 +16,7 @@ case "$1" in
 			exit 0
 		fi
 		echo -n "Starting crond..."
-		mkdir -p /wymedia/usr/var/log
-		$DAEMON -f -L /wymedia/usr/var/log/crond.log -c /wymedia/usr/etc/cron.d > /dev/null 2>&1 &
+		$DAEMON -f -c /wymedia/usr/etc/cron.d > /dev/null 2>&1 &
 		echo $! > $PIDFILE
 		echo ok
 		;;
