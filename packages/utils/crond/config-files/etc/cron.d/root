@@ -9,3 +9,8 @@
 #
 # Para más información sobre el formato de los ficheros crontab puede consultar:
 # http://es.wikipedia.org/wiki/Cron_(Unix)
+
+* * * * * run-parts /wymedia/usr/etc/cron.minutely
+0 * * * * run-parts /wymedia/usr/etc/cron.hourly
+0 4 * * * run-parts /wymedia/usr/etc/cron.daily
+
