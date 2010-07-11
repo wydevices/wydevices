@@ -5,7 +5,7 @@ Wybox-utils package contains some additional commands and scripts
 that are usefull in wyboxes and are not included in default firmware
 
 There is a script to build the final package that will do all the
-work for you, you only have to edit 'commands.conf' file and put
+work for you, you only have to edit 'build.config' file and put
 there the commands that you want to include.
 
 All scripts developed by wydev community should go on the
