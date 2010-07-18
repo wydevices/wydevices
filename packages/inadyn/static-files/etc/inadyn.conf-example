@@ -2,4 +2,3 @@ username        <Your DynDNS Username>
 password        <Your DynDNS Password>
 alias           <Your DynDNS Hostname>
 update_period   60000
-background
