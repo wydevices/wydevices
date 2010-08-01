@@ -1,3 +1,6 @@
+<html>
+<head><script src="../js/wydev.js" type="text/javascript"></script></head>
+<body>
 <table>
 <?php
 	$dbh = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
@@ -24,4 +27,5 @@
 
 
 </table>
-
+</body>
+</html>
