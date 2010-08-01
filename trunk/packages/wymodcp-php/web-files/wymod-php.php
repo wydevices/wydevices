@@ -30,10 +30,14 @@ break;
 case "helpus":
 echo '<script type="text/javascript">ShowHelpUs()</script>';
 break;
-
-case "status": default:
+case "status": 
 echo '<script type="text/javascript">ShowStatus()</script>';
 echo '<div id="showstatus"></div>';
+break;
+
+case "home": default:
+echo '<script type="text/javascript">ShowHome()</script>';
+echo '<div id="showhome"></div>';
 break;
 }
 
