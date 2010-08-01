@@ -24,6 +24,9 @@ echo system("skinops.sh -c");
 echo '</pre>';
 echo system("cat ./forms/skins.html");
 break;
+case "TV":
+echo '<script type="text/javascript">ShowTV()</script>';
+break;
 case "helpus":
 echo '<script type="text/javascript">ShowHelpUs()</script>';
 break;
