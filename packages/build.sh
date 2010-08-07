@@ -199,6 +199,11 @@ function build_sources() {
 	if [ $SRCDIR ]; then
 		configure_and_make
 	fi
+
+	cd $PKGDIR
+	if type POST_COMPILATION >/dev/null 2>&1; then
+		POST_COMPILATION
+	fi
 }
 
 function generate_wyboxfiles() {
