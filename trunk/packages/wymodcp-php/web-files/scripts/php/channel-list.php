@@ -1,7 +1,7 @@
 <html>
 <head><script src="../js/wydev.js" type="text/javascript"></script></head>
 <body>
-<form id=channel action="channelform.php" method="put">
+<form id=channel action="./scripts/php/channelform.php" method="put">
 
 <select id="channel" name="channel"> 
 
