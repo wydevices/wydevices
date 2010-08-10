@@ -17,6 +17,13 @@ $totalchannels = $_REQUEST["totalchannels"] + 1;
 	$res = $objDB->query($sql);
 
 
+	if ($newname){
+
+	$sql = "update T_SERVICE set NAME=\"".$newname."\" where LOGICAL_CHANNEL_NUMBER=".$newid;
+	echo $sql;
+	$res = $objDB->query($sql);
+	}
+
 	echo "<hr>";
 
 
