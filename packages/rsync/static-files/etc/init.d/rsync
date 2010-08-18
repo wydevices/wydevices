@@ -1,6 +1,8 @@
 #!/bin/sh
 # Start & stop rsync server
 
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
+
 PIDFILE=/var/run/rsync.pid
 DAEMON=/wymedia/usr/bin/rsync
 
