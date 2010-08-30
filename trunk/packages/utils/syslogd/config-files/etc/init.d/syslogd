@@ -13,7 +13,7 @@ case "$1" in
 		fi
 		echo -n "Starting syslogd..."
 		mkdir -p /wymedia/usr/var/log
-		$DAEMON -n -O /wymedia/usr/var/log/syslog.log > /dev/null 2>&1 &
+		$DAEMON -m 0 -n -O /wymedia/usr/var/log/syslog.log > /dev/null 2>&1 &
 		echo $! > $PIDFILE
 		echo ok
 		;;
