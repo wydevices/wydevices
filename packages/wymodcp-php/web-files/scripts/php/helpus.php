@@ -16,6 +16,11 @@ echo "<h3> You will send to us this information for statistics. Thanks for submi
 	<input type="submit">
 </td></tr>
 </table>
+
+<!-- be ready for next wydevelopment integration -->
+<iframe src="http://www.wydevelopment.eu/wydleware/index.html" width="100%" height="300"></iframe>
+<!-- be ready for next wydevelopment integration -->
+
 </form>
 
 
