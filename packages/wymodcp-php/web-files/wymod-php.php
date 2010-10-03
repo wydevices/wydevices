@@ -5,6 +5,8 @@ sleep(4);
 
 $p = $_GET['page'];
 
+echo "<h2>".$p."</h2><hr><br>";
+
 switch($p) {
 case "extras":
 echo '<script type="text/javascript">ShowExtras()</script>';
@@ -26,13 +28,11 @@ echo system("cat ./forms/skins.html");
 break;
 case "TV":
 echo '<script type="text/javascript">ShowTV()</script>';
+echo '<div id="showtv"></div>';
 break;
 case "helpus":
 echo '<script type="text/javascript">ShowHelpUs()</script>';
-break;
-case "status": 
-echo '<script type="text/javascript">ShowStatus()</script>';
-echo '<div id="showstatus"></div>';
+echo '<div id="showhelpus"></div>';
 break;
 
 case "home": default:
