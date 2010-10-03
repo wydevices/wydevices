@@ -1,8 +1,9 @@
 #!/wymedia/usr/bin/php-cgi
-<html>
-<head><script src="../js/wydev.js" type="text/javascript"></script></head>
-<h2>Home</h2>
-<hr>
+<script src="../js/wydev.js" type="text/javascript"></script>
+<script type="text/javascript" src="./scripts/js/niftycube.js"></script>
+<script src="./scripts/js/jquery.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="./style/wymod.css" />
+
 
 <table> 
 <tr><td>Manufacturer: </td><td><b><?php system("cat /proc/wybox/MN")?>
@@ -35,7 +36,4 @@
 
 
 
-<body onload="history.back();">
-</body>
-</html>
 

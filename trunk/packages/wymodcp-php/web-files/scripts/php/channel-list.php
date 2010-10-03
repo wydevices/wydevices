@@ -1,6 +1,35 @@
 <html>
 <head><script src="../js/wydev.js" type="text/javascript"></script></head>
 <body>
+
+
+<?php
+	$Ctotal=0;
+	$dbfile = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
+	$selectsql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
+	echo "<table border=1>";
+	foreach ($dbfile->query($selectsql) as $returnrow) {
+
+		$channelid = $returnrow['LOGICAL_CHANNEL_NUMBER'];
+		$Displaycolumn = $channelid%"3";
+		$channelname = $returnrow['NAME'];
+		$Ctotal = $Ctotal+1;
+
+		
+		switch ($Displaycolumn) {
+			case 0: echo "<td>".$channelid." - ".$channelname."</td></tr>";
+				break;
+			case 1: echo "<tr><td>".$channelid." - ".$channelname."</td>";
+				break;
+			case 2: echo "<td>".$channelid." - ".$channelname."</td>";
+				break;
+			default: echo "default";
+				break;
+		 }
+		
+	}
+	echo "</table>";
+?>
 <form id=channel action="./scripts/php/channelform.php" method="put">
 
 <select id="channel" name="channel"> 
