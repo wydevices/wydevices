@@ -14,33 +14,9 @@
 			}
 		}
 
-		xmlhttp.open("GET","./scripts/wydev/extras.shtml",true);
+		xmlhttp.open("GET","./scripts/php/extras.php",true);
 		xmlhttp.send(null);
 	}
-
-function ShowStatus()
-{
-var xmlhttp;
-if (window.XMLHttpRequest)
-  {
-  // code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {
-  // code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-xmlhttp.onreadystatechange=function()
-{
-if(xmlhttp.readyState==4)
-  {
-  document.getElementById('showstatus').innerHTML=xmlhttp.responseText;
-  }
-}
-xmlhttp.open("GET","./scripts/wydev/status.shtml",true);
-xmlhttp.send(null);
-}
 
 function ShowReboot()
 {
@@ -62,7 +38,7 @@ if(xmlhttp.readyState==4)
   document.getElementById('showreboot').innerHTML=xmlhttp.responseText;
   }
 }
-xmlhttp.open("GET","./scripts/wydev/reboot.shtml",true);
+xmlhttp.open("GET","./scripts/php/reboot.php",true);
 xmlhttp.send(null);
 }
 
@@ -100,7 +76,7 @@ xmlhttp.send(null);
 
 		xmlhttp.onreadystatechange=function() {
 			if(xmlhttp.readyState==4) {
-				document.getElementById('outcontent').innerHTML=xmlhttp.responseText;
+				document.getElementById('showhelpus').innerHTML=xmlhttp.responseText;
 			}
 		}
 
@@ -119,7 +95,7 @@ xmlhttp.send(null);
 
 		xmlhttp.onreadystatechange=function() {
 			if(xmlhttp.readyState==4) {
-				document.getElementById('outcontent').innerHTML=xmlhttp.responseText;
+				document.getElementById('showtv').innerHTML=xmlhttp.responseText;
 			}
 		}
 
@@ -138,7 +114,7 @@ xmlhttp.send(null);
 
 		xmlhttp.onreadystatechange=function() {
 			if(xmlhttp.readyState==4) {
-				document.getElementById('outcontent').innerHTML=xmlhttp.responseText;
+				document.getElementById('showhome').innerHTML=xmlhttp.responseText;
 			}
 		}
 
