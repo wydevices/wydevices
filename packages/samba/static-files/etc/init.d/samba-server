@@ -48,19 +48,26 @@ case "$1" in
 		;;
 	status)
 		status=0
-		echo "samba-server status"
-		if [ -s $PIDDIR/nmbd.pid ] && kill -0 $(cat $PIDDIR/nmbd.pid) >/dev/null 2>&1; then
-			echo "  * nmbd running"
+				if [ -s $PIDDIR/nmbd.pid ] && kill -0 $(cat $PIDDIR/nmbd.pid) >/dev/null 2>&1; then
+			nmbdstatus=1
 		else
-			echo "  * nmbd not running"
+			nmbdstatus=0
 			status=1
 		fi
 		if [ -s $PIDDIR/smbd.pid ] && kill -0 $(cat $PIDDIR/smbd.pid) >/dev/null 2>&1; then
-			echo "  * smbd running"
+			smbdstatus=1
 		else
-			echo "  * smbd not running"
+			smbdstatus=0
 			status=1
 		fi
+	
+		
+		
+		if [ $smbdstatus -eq 1 ] && [ $nmbdstatus -eq 1 ]; then
+			echo "samba-server running"
+		else
+			echo "samba-server status not running"
+		fi	
 		exit $status
 		;;
 	*)
