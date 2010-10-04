@@ -1,7 +1,7 @@
 <form id="extrasform" method="get" action="./scripts/php/extrashandler.php">
 	<div class="form_description"><p>Update extras configuration</p></div>
 		<table>
-		
+	<tr><th>Actual Status</th><th>AutoStart</th><th>Enable</th><th>Disable</th><th>Start</th><th>Stop</th></tr>
 <?php
 
 
