@@ -5,8 +5,6 @@ sleep(4);
 
 $p = $_GET['page'];
 
-echo "<h2>".$p."</h2><hr><br>";
-
 switch($p) {
 case "extras":
 echo '<script type="text/javascript">ShowExtras()</script>';
