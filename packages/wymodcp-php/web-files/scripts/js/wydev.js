@@ -42,7 +42,25 @@ xmlhttp.open("GET","./scripts/php/reboot.php",true);
 xmlhttp.send(null);
 }
 
+function ShowSkins() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
 
+		xmlhttp.onreadystatechange=function() {
+			if(xmlhttp.readyState==4) {
+				document.getElementById('showskins').innerHTML=xmlhttp.responseText;
+			}
+		}
+
+		xmlhttp.open("GET","./scripts/php/skinforms.php",true);
+		xmlhttp.send(null);
+	}
 
 	function ShowSyslog() {
 		var xmlhttp;
@@ -120,6 +138,13 @@ xmlhttp.send(null);
 
 		xmlhttp.open("GET","./scripts/php/home.php",true);
 		xmlhttp.send(null);
+	}
+	
+	function updatefromlocal() {
+	alert ("System will uncompress /wymedia/usr/share/updates/ to /wymedia");
+	window.open("./scripts/php/update.php");
+	
+	
 	}
 
 
