@@ -60,7 +60,7 @@ xmlhttp.send(null);
 			}
 		}
 
-		xmlhttp.open("GET","./scripts/wydev/syslog.shtml",true);
+		xmlhttp.open("GET","./scripts/php/syslog.php",true);
 		xmlhttp.send(null);
 	}
 

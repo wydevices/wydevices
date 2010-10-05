@@ -15,7 +15,7 @@
 <tr><td>Serial Number: </td><td> <?php system("cat /proc/wybox/SN")?> </td></tr>
 <tr><td>Time / Uptime: </td><td> <?php system("uptime |cut -f1 -d,")?> </td></tr>
 <tr><td>Fan Speed: </td><td> <?php system("cat /sys/devices/platform/stm-pwm/pwm1")?> </td></tr>
-<tr><td>HD Temp: </td><td> <?php system("hddtemp -q -n /dev/sda -f /wymedia/usr/lib/share/misc/hddtemp.db")?> </td></tr>
+<tr><td>HD Temp: </td><td> <!--#exec "tail -n40 /wymedia/usr/var/log/syslog" --> </td></tr>
 <tr><td>Cpu Temp: </td><td> <?php system("cat /sys/bus/i2c/devices/0-0048/temp1_input")?> </td></tr>
 <tr><td>dm-0 Slave: </td><td> <?php system("ls /sys/block/dm-0/slaves")?> </td></tr>
 <tr><td>Board: </td><td> <?php system("cat /proc/fb |cut -c3-")?> </td></tr>
