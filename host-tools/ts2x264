@@ -1,0 +1,2 @@
+ffmpeg -i $1 -an -vcodec libx264 -vpre slow $2
+
