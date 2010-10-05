@@ -1,7 +1,7 @@
 #!/bin/sh
 case $1 in
-        -s | /s | -skinwyplay)
-                logger "Skin Fast Switch: Wyplay Skin Active"
+        -skinsystem | -s | /s )
+                logger "Skin Fast Switch: System Skin Active"
                 rm /usr/bin/splash.py
                 ln -s /usr/share/pygui/skins/wybox/splash/pysplash.py /usr/bin/splash.py
 
@@ -133,7 +133,7 @@ case $1 in
         -c | /c | -checkconsistency)
                 if [ -h /usr/bin/splash.py ]; then
                       echo "Splash.py is a link"
-                      echo "Active skin: $(ls /usr/bin/splash.py -l |cut -d" " -f28 |cut -d"/" -f4)"
+                      echo "Active skin: $(ls /usr/bin/splash.py -l |cut -d" " -f29 |cut -d"/" -f4)"
                       echo ""
                 fi
                 echo $(cat /etc/local_conf.py |grep themes)
@@ -142,17 +142,17 @@ case $1 in
                 echo "Mod Skin Size:" $(du -ch /usr/share/wydevpygui/* |tail -n1)
         ;;
         *)
-                echo "Usage: $0 -skinwyplay | -skinmod | -checkconsistency | -exportskin | -importskin | -rebootskin | -flashmod | -redfiff |
+                echo "Usage: $0 -skinsystem | -skinmod | -checkconsistency | -exportskin | -importskin | -rebootskin | -flashmod | -redfiff |
 -checkconsistency | -themeserialized | -nothemeserialized"
 
-                echo "Usage: $0 -w | -c | -m | -e | -i | -r | -f | -d | -c | -t | -nt"
+                echo "Usage: $0 -s | -c | -m | -e | -i | -r | -f | -d | -c | -t | -nt"
                 echo ""
                 echo "Just use one parameter at a time"
                 echo ""
                 echo "   ..:: Install and configuration options ::.."
                 echo ""
                 echo "[-f] -flashmod : Delete current modskin and re-create from wydevice current skin."
-                echo "[-w] -skinwyplay : Skin Fast Switch to default skin"
+                echo "[-s] -skinsystem : Skin Fast Switch to default skin"
                 echo "[-m] -skinmod : Skin Fast Switch to mod skin"
                 echo "[-c] -checkconsistency : Basic Skin Consistency Status"
                 echo ""
