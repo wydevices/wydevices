@@ -4,7 +4,7 @@
 <script src="./scripts/js/jquery.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="./style/wymod.css" />
 
-
+<h2> Home </h2>
 <table> 
 <tr><td>Manufacturer: </td><td><b><?php system("cat /proc/wybox/MN")?>
 
@@ -23,6 +23,7 @@
 <tr><td>Net Settings: </td><td> <?php system("ifconfig | grep inet |grep -v 127.0.0.1 |cut -d: -f2-4")?></td></tr>
 </table>
 
+<h3> MTD2 Dumped Data </h3>
 <pre>
 <?php system("strings /dev/mtd2")?> 
 </pre>

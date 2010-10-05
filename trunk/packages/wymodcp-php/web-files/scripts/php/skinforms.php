@@ -1,4 +1,5 @@
 <?php
+echo "<h2> Skins Operations </h2>";
 echo '<blockquote><pre>';
 echo system("skinops.sh -c");
 echo '</pre></blockquote>';

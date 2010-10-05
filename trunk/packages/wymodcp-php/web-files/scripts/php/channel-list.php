@@ -1,7 +1,7 @@
 <html>
 <head><script src="../js/wydev.js" type="text/javascript"></script></head>
 <body>
-
+<h2>Channel List</h2>
 
 <?php
 	$Ctotal=0;
@@ -30,6 +30,8 @@
 	}
 	echo "</table>";
 ?>
+
+<h2>Modify Channel List</h2>
 <form id=channel action="./scripts/php/channelform.php" method="put">
 
 <select id="channel" name="channel"> 

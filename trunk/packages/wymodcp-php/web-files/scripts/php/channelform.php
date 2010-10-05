@@ -1,3 +1,5 @@
+
+<h2>Channel List Updated!</h2>
 <?php 
 $id = $_REQUEST["channel"];
 $newid = $_REQUEST["neworder"]; 
