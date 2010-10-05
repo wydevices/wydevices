@@ -1,7 +1,9 @@
 #!/wymedia/usr/bin/php-cgi
 <html>
 <head><script src="../js/wydev.js" type="text/javascript"></script></head>
+
 <?php
+echo "<h2> Skin Operation Results </h2>";
 $skinopsparam = $_GET['skinops'];
 $command= "skinops.sh -".$skinopsparam;
 

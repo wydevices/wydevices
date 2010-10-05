@@ -1,23 +1,23 @@
-
+<h2> Reboot Options </h2>
 <form id="reboot" method="get" action="./scripts/php/commitreboot.php">
-<ul>
-	<li>
-		<span>
+<blockquote>
+<table><tr><td>
+
 		<input id="rebootwydevice" name="reboot"  type="radio" value="rebootwydevice" />
-			Reboot Wydevice
+			Reboot Wydevice </td></tr><tr><td>
 		<input id="rebootsplash" name="reboot"  type="radio" value="rebootsplash" />
-			Reboot Splash
-		<input id="shutdownsplash" name="reboot"  type="radio" value="shutdownsplash" />
-			Shutdown Splash
+			Reboot Splash </td></tr><tr><td>
+<!--		<input id="shutdownsplash" name="reboot"  type="radio" value="shutdownsplash" />
+			Shutdown Splash </td></tr><tr><td> -->
 			<input id="rebootplayer" name="reboot"  type="radio" value="rebootplayer" />
-			Restart Player
+			Restart Player </td></tr><tr><td>
 		<input id="shutdown" name="reboot"  type="radio" value="shutdown" />
-			Shutdown Wydevice
-		</span>
-			
-	</li>
+			Shutdown Wydevice </td></tr><tr><td>
 
-
+</td>
+</tr>
+</table>
+</blockquote>
 	<h2>Reboot Types explanation</h2>
 
 <table><tr><td>

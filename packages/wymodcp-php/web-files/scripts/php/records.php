@@ -1,5 +1,7 @@
 #!/wymedia/usr/bin/php-cgi
+
 <?php
+echo "<h2> Recordings </h2>";
     if(!$xml_records=simplexml_load_file('/var/www/myrecords.fxd')){
         trigger_error('Error reading XML file',E_USER_ERROR);
     }

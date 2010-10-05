@@ -1,7 +1,7 @@
 <html>
 <head><script src="../js/wydev.js" type="text/javascript"></script></head>
 <body>
-
+<h2> Reboot Results</h2>
 <pre>
 <?php
 
