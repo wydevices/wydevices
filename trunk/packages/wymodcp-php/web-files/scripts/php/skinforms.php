@@ -27,7 +27,7 @@ echo '</pre></blockquote>';
 
 <pre>
 [-f] -flashmod : Delete current modskin and re-create from wydevice current skin.
-[-w] -skinwyplay : Skin Fast Switch to default skin
+[-s] -skinsystem : Skin Fast Switch to default skin
 [-m] -skinmod : Skin Fast Switch to mod skin
 [-c] -checkconsistency : Basic Skin Consistency Status
 
