@@ -1,3 +1,9 @@
+<?php
+echo '<blockquote><pre>';
+echo system("skinops.sh -c");
+echo '</pre></blockquote>';
+?>
+
 <form id="skinops" method="get" action="./scripts/php/skinops.php">
 <ul >
 			
