@@ -120,6 +120,36 @@ function ShowSkins() {
 		xmlhttp.open("GET","./scripts/php/channel-list.php",true);
 		xmlhttp.send(null);
 	}
+		function UpdateTV(form) {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		xmlhttp.onreadystatechange=function() {
+			if(xmlhttp.readyState==4) {
+				document.getElementById('channellist').innerHTML=xmlhttp.responseText;
+			}
+		}
+//channel=28&totalchannels=51&neworder=10&newname=
+		
+		
+		
+		
+		composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value;
+		//alert (composeuri);
+		
+		
+		//xmlhttp.open("GET","channelform.php?"+composeuri,true);
+		xmlhttp.open("GET","./scripts/php/channelform.php?"+composeuri,true);
+	
+		
+		xmlhttp.send(null);
+	}
 	function ShowHome() {
 		var xmlhttp;
 		if (window.XMLHttpRequest) {
