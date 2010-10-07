@@ -140,8 +140,24 @@ function ShowSkins() {
 		
 		
 		
-		composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value;
-		//alert (composeuri);
+		
+		var f= document.channelform.backops;
+		for (var i=0;i<=f.length;i++){
+			if (f[i].checked){
+
+			backops = f[i].value;
+			composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value+"&backops="+backops;
+			//	alert (composeuri);
+				
+			//xmlhttp.open("GET","channelform.php?"+composeuri,true);
+			xmlhttp.open("GET","./scripts/php/channelform.php?"+composeuri,true);
+		
+		xmlhttp.send(null);
+			}
+		}
+		
+		composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value+"&backops="+backops;
+		alert (composeuri);
 		
 		
 		//xmlhttp.open("GET","channelform.php?"+composeuri,true);

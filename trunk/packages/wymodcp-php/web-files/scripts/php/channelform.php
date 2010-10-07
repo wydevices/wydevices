@@ -1,5 +1,3 @@
-
-<h2>Channel List Updated!</h2>
 <?php 
 $id = $_REQUEST["channel"];
 $newid = $_REQUEST["neworder"]; 
@@ -7,20 +5,19 @@ $newname = $_REQUEST["newname"];
 $totalchannels = $_REQUEST["totalchannels"] + 1;  
 $backops = $_REQUEST["backops"];  
 
-echo "<table><tr>";
+echo "<pre>";
 switch ($backops) {
-			case "restore": echo "<td>Will Restore</td></tr><tr><td>";
-				system ("Restore_channels-net /wymedia/Backup/channels-net_backup.tar");
-				echo "</td>";
+			case "restore": 
+				system ("/wymedia/usr/bin/Restore_channels-net /wymedia/Backup/channels-net_backup.tar");
 				break;
-			case "backup": echo "<td>Backing up</td>";
-				system ("Backup_channels-net");
-				echo "</td>";
+			case "backup":
+				system ("/wymedia/usr/bin/Backup_channels-net");
 			break;
-			default: echo "<td>No Backup operation detected.</td>";
+			default: echo "No Backup operation detected.";
 				break;
 		 }
-echo "</tr></table>";
+
+echo "</pre>";
 
 	$objDB = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
 
@@ -43,19 +40,33 @@ echo "</tr></table>";
 
 	echo "<hr>";
 
+	$Ctotal=0;
+	$dbfile = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
+	$selectsql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
+	echo "<table border=1>";
+	foreach ($dbfile->query($selectsql) as $returnrow) {
 
-	$total=0;
-	$dbh = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
-	$sql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
-	foreach ($dbh->query($sql) as $row) {
+		$channelid = $returnrow['LOGICAL_CHANNEL_NUMBER'];
+		$Displaycolumn = $channelid%"3";
+		$channelname = $returnrow['NAME'];
+		$Ctotal = $Ctotal+1;
 
-		$id = $row['LOGICAL_CHANNEL_NUMBER'];
-		$column = $id%"3";
-		$channel = $row['NAME'];
-		$total = $total+1;
-
-		echo $id." - ".$channel."<br>" ;
+		
+		switch ($Displaycolumn) {
+			case 0: echo "<td>".$channelid." - ".$channelname."</td></tr>";
+				break;
+			case 1: echo "<tr><td>".$channelid." - ".$channelname."</td>";
+				break;
+			case 2: echo "<td>".$channelid." - ".$channelname."</td>";
+				break;
+			default: echo "default";
+				break;
+		 }
+		
 	}
+	echo "</table>";
+	
+
 
 
 
