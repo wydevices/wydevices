@@ -1,9 +1,26 @@
+
+<h2>Channel List Updated!</h2>
 <?php 
 $id = $_REQUEST["channel"];
 $newid = $_REQUEST["neworder"]; 
 $newname = $_REQUEST["newname"];  
 $totalchannels = $_REQUEST["totalchannels"] + 1;  
+$backops = $_REQUEST["backops"];  
 
+echo "<table><tr>";
+switch ($backops) {
+			case "restore": echo "<td>Will Restore</td></tr><tr><td>";
+				system ("Restore_channels-net /wymedia/Backup/channels-net_backup.tar");
+				echo "</td>";
+				break;
+			case "backup": echo "<td>Backing up</td>";
+				system ("Backup_channels-net");
+				echo "</td>";
+			break;
+			default: echo "<td>No Backup operation detected.</td>";
+				break;
+		 }
+echo "</tr></table>";
 
 	$objDB = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
 
@@ -26,33 +43,19 @@ $totalchannels = $_REQUEST["totalchannels"] + 1;
 
 	echo "<hr>";
 
-	$Ctotal=0;
-	$dbfile = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
-	$selectsql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
-	echo "<table border=1>";
-	foreach ($dbfile->query($selectsql) as $returnrow) {
 
-		$channelid = $returnrow['LOGICAL_CHANNEL_NUMBER'];
-		$Displaycolumn = $channelid%"3";
-		$channelname = $returnrow['NAME'];
-		$Ctotal = $Ctotal+1;
+	$total=0;
+	$dbh = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
+	$sql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
+	foreach ($dbh->query($sql) as $row) {
 
-		
-		switch ($Displaycolumn) {
-			case 0: echo "<td>".$channelid." - ".$channelname."</td></tr>";
-				break;
-			case 1: echo "<tr><td>".$channelid." - ".$channelname."</td>";
-				break;
-			case 2: echo "<td>".$channelid." - ".$channelname."</td>";
-				break;
-			default: echo "default";
-				break;
-		 }
-		
+		$id = $row['LOGICAL_CHANNEL_NUMBER'];
+		$column = $id%"3";
+		$channel = $row['NAME'];
+		$total = $total+1;
+
+		echo $id." - ".$channel."<br>" ;
 	}
-	echo "</table>";
-	
-
 
 
 

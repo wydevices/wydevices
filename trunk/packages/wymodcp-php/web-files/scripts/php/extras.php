@@ -1,6 +1,3 @@
-<?php
-header("Cache-Control: no-cache");
-?>
 <h2> Extras Management </h2>
 <form id="extrasform" method="get" action="./scripts/php/extrashandler.php">
 	<div class="form_description"><p>Update extras configuration</p></div>
