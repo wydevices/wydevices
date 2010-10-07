@@ -135,30 +135,33 @@ function ShowSkins() {
 				document.getElementById('channellist').innerHTML=xmlhttp.responseText;
 			}
 		}
-//channel=28&totalchannels=51&neworder=10&newname=
-		
-		
-		
-		
+
+		alert('inicio');
 		
 		var f= document.channelform.backops;
-		for (var i=0;i<=f.length;i++){
-			if (f[i].checked){
-
+		for (var i=0;i<=f.length - 1;i++){
+		alert('for');
+		if (f[i].checked){
+			alert('dentroif');
 			backops = f[i].value;
 			composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value+"&backops="+backops;
-			//	alert (composeuri);
-				
+			alert (composeuri);
+					
 			//xmlhttp.open("GET","channelform.php?"+composeuri,true);
 			xmlhttp.open("GET","./scripts/php/channelform.php?"+composeuri,true);
-		
-		xmlhttp.send(null);
+			xmlhttp.send(null);
+			}
+			else
+			{
+			alert('noaction');
 			}
 		}
 		
-		composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value+"&backops="+backops;
-		alert (composeuri);
+				alert('composeuri fuera if');
 		
+		composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value;
+		alert (composeuri);
+	
 		
 		//xmlhttp.open("GET","channelform.php?"+composeuri,true);
 		xmlhttp.open("GET","./scripts/php/channelform.php?"+composeuri,true);
