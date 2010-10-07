@@ -22,7 +22,96 @@ $autostartsambaserver=$_REQUEST["autostartsamba-server"];
 $autostarttransmission=$_REQUEST["autostarttransmission"];
 $autostartwymodcp=$_REQUEST["autostartwymodcp"];
 
+$activatecrond=$_REQUEST["activatecrond"];
+$autostartcrond=$_REQUEST["autostartcrond"];
 
+$activatesyslogd=$_REQUEST["activatesyslogd"];
+$autostartsyslogd=$_REQUEST["autostartsyslogd"];
+
+
+
+// ################ syslogd ###############################
+
+if ($autostartsyslogd || $activatesyslogd){
+echo "<h3><strong> syslogd </strong> </h3>";
+echo "<table border=1><tr><td>AutoStart</td><td>Action</td></tr><tr>";
+echo "<td>";
+
+if ($autostartsyslogd == "") { 
+	echo "NULL";
+	}
+else
+	{
+	if ($autostartsyslogd == "true") {
+		echo ("Enabled!");
+		system ("ln -sf ../init.d/syslogd /wymedia/usr/etc/rc.d/");
+		}
+	else{
+		echo ("Disabled!");
+		system ("rm  /wymedia/usr/etc/rc.d/syslogd");
+	}
+}
+
+echo "</td><td>";
+
+if ($activatesyslogd == "") { 
+	echo "NULL";
+	}
+else
+	{
+	if ($activatesyslogd == "true") {
+		system ("/wymedia/usr/etc/init.d/syslogd start");
+		}
+	else{
+		system ("/wymedia/usr/etc/init.d/syslogd stop");
+	}
+}
+echo "</td></tr></table>";	
+
+}
+
+// ################ syslogd ###############################
+// ################ crond ###############################
+
+if ($autostartcrond || $activatecrond){
+echo "<h3><strong> crond </strong> </h3>";
+echo "<table border=1><tr><td>AutoStart</td><td>Action</td></tr><tr>";
+echo "<td>";
+
+if ($autostartcrond == "") { 
+	echo "NULL";
+	}
+else
+	{
+	if ($autostartcrond == "true") {
+		echo ("Enabled!");
+		system ("ln -sf ../init.d/crond /wymedia/usr/etc/rc.d/");
+		}
+	else{
+		echo ("Disabled!");
+		system ("rm  /wymedia/usr/etc/rc.d/crond");
+	}
+}
+
+echo "</td><td>";
+
+if ($activatecrond == "") { 
+	echo "NULL";
+	}
+else
+	{
+	if ($activatecrond == "true") {
+		system ("/wymedia/usr/etc/init.d/crond start");
+		}
+	else{
+		system ("/wymedia/usr/etc/init.d/crond stop");
+	}
+}
+echo "</td></tr></table>";	
+
+}
+
+// ################ crond ###############################
 // ################ Transmission ###############################
 
 if ($autostarttransmission || $activatetransmission){
