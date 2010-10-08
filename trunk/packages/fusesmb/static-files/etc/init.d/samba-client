@@ -18,6 +18,7 @@ case "$1" in
 		echo -n "Starting samba-client..."
 		mkdir -p /wymedia/.smb
 		cp /wymedia/usr/etc/fusesmb.conf /wymedia/.smb
+		chmod 600 /wymedia/.smb/fusesmb.conf
 		mkdir -p "/wymedia/My Videos/$DIRNAME"
 		mkdir -p "/wymedia/My Photos/$DIRNAME"
 		mkdir -p "/wymedia/My Music/$DIRNAME"
