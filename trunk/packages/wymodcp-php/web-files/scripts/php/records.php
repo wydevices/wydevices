@@ -1,4 +1,8 @@
 <?php
+/*
+ * 
+ */
+
 // Path of the myrecords.fxd file
 $myrecord_path = "/wymedia/timeshift/";
 //$myrecord_path = "/var/www/test/record/"; // Test
@@ -24,10 +28,10 @@ if (!file_exists($myrecord_path."myrecords.fxd")) {
 		exit;
 	}
 
-	echo "There are ".$nb_record." scheduled records.<br />\n";
+	echo "There are ".$nb_record." records.<br />\n";
     echo "There are ".$nb_rules." periodicity rules.<br />\n";
     echo "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br /><br />\n";
-	echo "<table border=\"1\">\n";
+	echo "<table>\n";
 	echo "<tr>\n
 			\t<td><b>Date</b></td>\n
 			\t<td><b>Channel</b></td>\n
@@ -56,6 +60,7 @@ if (!file_exists($myrecord_path."myrecords.fxd")) {
 		$record_status = $recording['status'];
 		/* status :
 		 * 1 = scheduled
+         * 2 = in progress
 		 * 3 = exceeded / expired
 		 * 4 = recorded
 		 */
@@ -72,6 +77,14 @@ if (!file_exists($myrecord_path."myrecords.fxd")) {
 				$record_size_mb .= " GB";
 			}
 		}
+
+        switch($record_status){
+            case 0 : $record_status = "0"; break;
+            case 1 : $record_status = "scheduled"; break;
+            case 2 : $record_status = "in progess"; break;
+            case 3 : $record_status = "expired"; break;
+            case 4 : $record_status = "recorded"; break;
+        }
 
 		echo "<tr>\n
 				\t<td>".$record_start_time."</td>\n
