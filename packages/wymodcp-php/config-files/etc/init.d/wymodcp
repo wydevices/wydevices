@@ -3,7 +3,6 @@
 
 PIDFILE=/var/run/wymodcp.pid
 DAEMON=/wymedia/usr/bin/mongoose
-CONFIG=/wymedia/usr/etc/mongoose.conf
 
 case "$1" in
 	start)
@@ -12,7 +11,7 @@ case "$1" in
 			exit 0
 		fi
 		echo -n "Starting wymodcp..."
-		$DAEMON $CONFIG  >/dev/null 2>&1 &
+		$DAEMON  >/dev/null 2>&1 &
 		echo $! > $PIDFILE
 		echo ok
 		;;
