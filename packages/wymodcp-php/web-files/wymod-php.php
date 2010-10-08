@@ -19,10 +19,8 @@ echo '<script type="text/javascript">ShowSyslog()</script>';
 echo '<div id="showsyslog"></div>';
 break;
 case "skins":
-echo '<pre>';
-echo system("skinops.sh -c");
-echo '</pre>';
-echo system("cat ./forms/skins.html");
+echo '<script type="text/javascript">ShowSkins()</script>';
+echo '<div id="showskins"></div>';
 break;
 case "TV":
 echo '<script type="text/javascript">ShowTV()</script>';
