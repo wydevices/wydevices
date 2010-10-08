@@ -20,12 +20,18 @@ $reboottype=$_REQUEST["reboot"];
 				echo "<td>rebootsplash</td>";
 				system("killall python2.5");
 				break;
-#			case "shutdownsplash": 
-#				echo "<td>shutdownsplash</td>";
-#				system("ngzap pygui");
-#				system("ngstop pygui");
-#				system("killall python2.5");
-#				break;
+			case "shutdownsplash": 
+				echo "<td>shutdownsplash</td>";
+				system("mv /usr/bin/splash.py /usr/bin/unsplash.py");
+				system("killall python2.5");
+				system("sleep 3");
+				system("mv /usr/bin/unsplash.py /usr/bin/splash.py");
+				break;
+			case "startsplash": 
+				echo "<td>starting</td>";
+				system("ngc -z system/splash/start");
+				system("ngstart system/splash/start");
+				break;
 			case "shutdown": 
 				echo "<td>rebootshutdown</td>";
 				system("/sbin/poweroff");
