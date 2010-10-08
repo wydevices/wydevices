@@ -136,31 +136,32 @@ function ShowSkins() {
 			}
 		}
 
-		alert('inicio');
+		//alert('inicio');
 		
 		var f= document.channelform.backops;
 		for (var i=0;i<=f.length - 1;i++){
-		alert('for');
+		//alert('for');
 		if (f[i].checked){
-			alert('dentroif');
+			//alert('dentroif');
 			backops = f[i].value;
 			composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value+"&backops="+backops;
-			alert (composeuri);
+			//alert (composeuri);
 					
-			//xmlhttp.open("GET","channelform.php?"+composeuri,true);
-			xmlhttp.open("GET","./scripts/php/channelform.php?"+composeuri,true);
-			xmlhttp.send(null);
+
+			window.open("./scripts/php/channelform.php?"+composeuri,true);
+
+
 			}
 			else
 			{
-			alert('noaction');
+			//alert('noaction');
 			}
 		}
 		
-				alert('composeuri fuera if');
+				//alert('composeuri fuera if');
 		
 		composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value;
-		alert (composeuri);
+		//alert (composeuri);
 	
 		
 		//xmlhttp.open("GET","channelform.php?"+composeuri,true);
