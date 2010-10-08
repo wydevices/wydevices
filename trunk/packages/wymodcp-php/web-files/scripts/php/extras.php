@@ -1,3 +1,7 @@
+<?php
+header("Cache-Control: no-cache");
+?>
+
 <h2> Extras Management </h2>
 <form id="extrasform" method="get" action="./scripts/php/extrashandler.php">
 	<div class="form_description"><p>Update extras configuration</p></div>
@@ -11,23 +15,34 @@ $initdfolder = '/wymedia/usr/etc/init.d/';
 if ($handle = opendir($initdfolder)) {
     while (false !== ($file = readdir($handle))) {
         if ($file != "." && $file != "..") {
+
 			echo "<tr><td><strong>";
-			$readstatus = system($initdfolder.$file." status");
-			$extraname = split(" ",$readstatus);
+                        $readstatus = system($initdfolder.$file." status");
+                        $extraname = split(" ",$readstatus);
+			$readenable = system("ls /wymedia/usr/etc/rc.d/".$file." > /dev/null", $retval);
 			echo "</strong></td>";
-						
-			if ($extraname[1] == "not"){
-				$status = false;
-				}
-			else
-				{
-				$status = true;
-				}
-			
-			
+
+                        if ($extraname[1] == "not"){
+                                $status = false;
+                                }
+                        else
+                                {
+                                $status = true;
+                                }
+
+                        if ($retval == 1){
+                                $enable = false;
+                                }
+                        else
+                                {
+                                $enable = true;
+                        	}
+
 			?>
 			
-			<td><?php if ($status == true) {echo "<img src=./style/play.png>";} else {echo "<img src=./style/cross.png>";} ?></td><td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo $extraname[0];?>" type="radio" value="true" />Enable</td>
+			<td><?php if ($enable == true) {echo "<img src=./style/play.png>";} else {echo "<img src=./style/cross.png>";} ?></td><td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo 
+$extraname[0];?>" 
+type="radio" value="true" />Enable</td>
 			<td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo $extraname[0];?>" type="radio" value="false" />Disable</td>
 			<td><input id="<?php echo $extraname[0];?>" name="activate<?php echo $extraname[0];?>" type="radio" value="true" />Start</td>
 			<td><input id="<?php echo $extraname[0];?>" name="activate<?php echo $extraname[0];?>" type="radio" value="false" />Stop</td>	
