@@ -22,6 +22,10 @@ case "skins":
 echo '<script type="text/javascript">ShowSkins()</script>';
 echo '<div id="showskins"></div>';
 break;
+case "records":
+echo '<script type="text/javascript">ShowRecords()</script>';
+echo '<div id="showrecords"></div>';
+break;
 case "TV":
 echo '<script type="text/javascript">ShowTV()</script>';
 echo '<div id="showtv"></div>';
