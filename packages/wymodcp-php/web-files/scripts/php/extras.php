@@ -18,7 +18,7 @@ if ($handle = opendir($initdfolder)) {
 			echo "<tr><td><strong>";
                         $readstatus = system($initdfolder.$file." status");
                         $extraname = split(" ",$readstatus);
-			$readenable = system("ls /wymedia/usr/etc/rc.d/".$file." > /dev/null", $retval);
+			$readenable = system("ls /wymedia/usr/etc/rc.d/".$file." 2>/dev/null >/dev/null", $retval);
 			echo "</strong></td>";
 
                         if ($extraname[1] == "not"){
