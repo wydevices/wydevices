@@ -14,24 +14,28 @@
 
 <script type="text/javascript">
   // When the document loads do everything inside here ...
-     $(document).ready(function(){
-	 Nifty("#menu a","small top transparent");
-	 Nifty("#outcontent","medium bottom transparent");
-	 $('.content').load('wymod-php.php');	//by default initally load text from wymod-php.php
-         $('#menu a').click(function() { //start function when any link is clicked
-		 				$(".content").slideUp("slow");
-						 var content_show = $(this).attr("title"); //retrieve title of link so we can compare with php file
-							$.ajax({
-							method: "get",url: "wymod-php.php",data: "page="+content_show,
-							beforeSend: function(){$("#loading").show("fast");}, //show loading just when link is clicked
-							complete: function(){ $("#loading").hide("fast");}, //stop showing loading when the process is complete
-							success: function(html){ //so, if data is retrieved, store it in html
-							$(".content").show("slow"); //animation
-							$(".content").html(html); //show the html inside .content div
-					 }
-				 }); //close $.ajax(
-         }); //close click(
-	 }); //close $(
+     $(document).ready(	function(){
+									Nifty("#menu a","normal all transparent");
+									Nifty("#outcontent","medium bottom transparent");
+									$('.content').load('wymod-php.php');	//by default initally load text from wymod-php.php
+									$('#menu a').click(	function() { //start function when any link is clicked
+														$(".content").slideUp(3000);
+														var content_show = $(this).attr("title"); //retrieve title of link so we can compare with php file
+														$.ajax({
+																method: "get",url: "wymod-php.php",data: "page="+content_show,
+																beforeSend: function(){
+																						$("#loading").show("slow");
+																					}, //show loading just when link is clicked
+																complete: function(){
+																					$("#loading").hide("slow");
+																					}, //stop showing loading when the process is complete
+																success: function(html){ //so, if data is retrieved, store it in html
+																						$(".content").show("slow"); //animation
+																						$(".content").html(html); //show the html inside .content div
+																						}
+																	}); //close $.ajax(
+									}); //close click(
+								}); //close $(
 </script>
 
 <link rel="stylesheet" type="text/css" href="./style/wymod.css" />
