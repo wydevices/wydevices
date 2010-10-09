@@ -3,12 +3,16 @@
 
 PIDFILE=/var/run/wymodcp.pid
 DAEMON=/wymedia/usr/bin/mongoose
+CONFIG=/wymedia/usr/etc/mongoose.conf
 
 case "$1" in
 	start)
 		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
 			echo "wymodcp already running."
 			exit 0
+		fi
+		if [ ! -f "$DAEMON.conf" ]; then
+			ln -s $CONFIG "$DAEMON.conf" &>/dev/null
 		fi
 		echo -n "Starting wymodcp..."
 		$DAEMON  >/dev/null 2>&1 &
