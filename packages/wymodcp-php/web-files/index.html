@@ -16,7 +16,7 @@
   // When the document loads do everything inside here ...
      $(document).ready(	function(){
 									Nifty("#menu a","normal all transparent");
-									Nifty("#outcontent","medium bottom transparent");
+									Nifty("#outcontent","big all transparent");
 									$('.content').load('wymod-php.php');	//by default initally load text from wymod-php.php
 									$('#menu a').click(	function() { //start function when any link is clicked
 														$(".content").slideUp(3000);
@@ -58,6 +58,7 @@
 <br style="clear:both;" />
 </div>
 <div id="outcontent">
+<br>
 <div id="loading">LOADING</div>
 <div class="content"></div>
 </div>
