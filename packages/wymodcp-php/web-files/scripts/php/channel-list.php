@@ -74,9 +74,6 @@ $totalchannels = $_REQUEST["totalchannels"] + 1;
 <br>
 <input type=submit></input>
 
-<h2>Records</h2>
-<?php include("records.php");?>
-
 </table>
 </body>
 </html>
