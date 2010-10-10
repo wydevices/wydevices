@@ -57,7 +57,7 @@ class HwMonitoringItem(ParametersSetupItem):
 		elif self.device == 'Hdd':
 			self.prefix = _('Hdd Temp : ')
 			self.unit = '\xc2\xb0C'
-			self.command = '/wymedia/usr/bin/hddtemp -n /dev/sda -f /wymedia/usr/lib/share/misc/hddtemp.db 2> /dev/null | tr -d "\n"'
+			self.command = '/wymedia/usr/bin/hddtemp -n /dev/sda 2> /dev/null | tr -d "\n"'
 			self.div = 1
 		self.name = '%s-- %s'%(self.prefix, self.unit)
 		ParametersSetupItem.__init__(self, name=self.name, *args, **kw)

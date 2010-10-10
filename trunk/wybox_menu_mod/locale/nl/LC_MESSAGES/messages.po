@@ -2078,23 +2078,32 @@ msgstr "Extras"
 msgid "Reboot"
 msgstr "Reboot"
 
-msgid "DbUpdater"
-msgstr "DbUpdater"
+msgid "Cron Deamon"
+msgstr "Deamon Cron"
 
-msgid "InaDyn"
-msgstr "InaDyn"
+msgid "InaDyn DNS Client"
+msgstr "InaDyn Client DNS"
 
-msgid "Pure FTP"
-msgstr "Pure FTP"
+msgid "Pure FTP Server"
+msgstr "Serveur Pure FTP"
+
+msgid "Remote Sync"
+msgstr "Remote Sync"
 
 msgid "Samba Client"
-msgstr "Samba Client"
+msgstr "Client Samba"
 
 msgid "Samba Server"
-msgstr "Samba Server"
+msgstr "Serveur Samba"
 
-msgid "Transmission"
-msgstr "Transmission"
+msgid "Syslog Deamon"
+msgstr "Deamon Syslog"
+
+msgid "Transmission Client"
+msgstr "Client Transmission"
+
+msgid "Wymod Control Panel"
+msgstr "Wymod Control Panel"
 
 msgid "Start Extra"
 msgstr "Start Extra"
