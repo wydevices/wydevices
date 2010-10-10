@@ -1,0 +1,2243 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Pygui-1.0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-29 14:05+0200\n"
+"PO-Revision-Date: 2009-09-04 11:04+0200\n"
+"Last-Translator: \n"
+"Language-Team: French <traduc@traduc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: FRANCE\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid ""
+"\n"
+"The channel will change when recording starts."
+msgstr ""
+"\n"
+"La chaîne changera dès que l'enregistrement démarrera."
+
+msgid "%(authType)s key for %(essid)s"
+msgstr "clé %(authType)s pour %(essid)s"
+
+msgid "%(channel_name)s added on channel #%(channel_number)i."
+msgstr "%(channel_name)s ajouté en position #%(channel_number)i."
+
+msgid "%(channel_name)s is not available anymore."
+msgstr "%(channel_name)s n'est plus disponible."
+
+msgid "%(date)s %(channel)s %(start_time)s - %(end_time)s"
+msgstr "%(date)s %(channel)s %(start_time)s - %(end_time)s"
+
+msgid "%(date)s %(channel)s %(title)s"
+msgstr "%(date)s %(channel)s %(title)s"
+
+msgid "%(items)i item"
+msgid_plural "%(items)i items"
+msgstr[0] "%(items)i élément"
+msgstr[1] "%(items)i éléments"
+
+msgid "%(items)i item, %(size)s"
+msgid_plural "%(items)i items, %(size)s"
+msgstr[0] "%(items)i élément, %(size)s"
+msgstr[1] "%(items)i éléments, %(size)s"
+
+msgid "%(num_services)i channels found. Do you want to save them ?"
+msgstr "%(num_services)i chaînes trouvées. Voulez-vous les sauvegarder?"
+
+msgid "%(size)s available space"
+msgstr "%(size)s disponibles"
+
+msgid "%(size)s total space"
+msgstr "espace total: %(size)s"
+
+msgid "%A %d %B"
+msgstr "%A %d %B"
+
+msgid "%M min"
+msgstr "%M min"
+
+msgid "*90° left"
+msgstr "*Rotation antihoraire 90°"
+
+msgid "*90° right"
+msgstr "*Rotation horaire 90°"
+
+msgid "*Rename marked items (with album tag)"
+msgstr "*Renommer les morceaux marqués avec les id3Tags"
+
+msgid "*Reverse items"
+msgstr "*Rotation 180° des éléments marqués"
+
+msgid "-10 years"
+msgstr "-10 ans"
+
+msgid "10 - 12 years"
+msgstr "- 12 ans"
+
+msgid "1080i/50Hz"
+msgstr "1080i/50Hz"
+
+msgid "1080i/60Hz"
+msgstr "1080i/60Hz"
+
+msgid "12 - 16 years"
+msgstr "- 16 ans"
+
+msgid "12 hours"
+msgstr "12 heures"
+
+msgid "128 bits WEP key"
+msgstr "clé WEP 128 bits"
+
+msgid "16 - 18 years"
+msgstr "- 18 ans"
+
+msgid "16:9"
+msgstr "16/9"
+
+msgid "24 hours"
+msgstr "24 heures"
+
+msgid "480i/60Hz"
+msgstr "480i/60Hz"
+
+msgid "480p/60Hz"
+msgstr "480p/60Hz"
+
+msgid "4:3"
+msgstr "4/3"
+
+msgid "576i/50Hz"
+msgstr "576i/50Hz"
+
+msgid "576p/50Hz"
+msgstr "576p/50Hz"
+
+msgid "64 bits WEP key"
+msgstr "clé WEP 64 bits"
+
+msgid "720p/50Hz"
+msgstr "720p/50Hz"
+
+msgid "720p/60Hz"
+msgstr "720p/60Hz"
+
+msgid ": Delete character"
+msgstr ": Effacer le caractère"
+
+msgid ": Switch to symbol"
+msgstr ": Symboles"
+
+msgid "A favorite with that name already exists."
+msgstr "Un favori porte déjà ce nom."
+
+msgid "A recording is about to start on %s."
+msgstr "Un enregistrement va démarrer sur %s."
+
+msgid "A recording is already in progress on %s."
+msgstr "Un enregistrement est déjà en cours sur %s."
+
+msgid ""
+"A recording is in progress on channel %(channel)s. %(remaining_time)s "
+"remaining. Stop it?"
+msgstr ""
+"Un enregistrement est en cours sur %(channel)s. Il reste %(remaining_time)s. "
+"Voulez-vous l'arrêter?"
+
+msgid "A recording is in progress."
+msgstr "Un enregistrement est en cours."
+
+msgid "A recording is in progress. %s remaining. Stop it ?"
+msgstr "Un enregistrement est en cours. Il reste %s. Voulez-vous l'arrêter?"
+
+msgid "A recording is in progress. Stop it before zapping."
+msgstr "Un enregistrement est en cours. Arrêtez-le avant de zapper."
+
+msgid "Access and protections"
+msgstr "Contrôle parental"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Activation"
+msgstr "Mise en marche"
+
+msgid "Active"
+msgstr "Actif"
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "Add marked items to \"%(selected_caption)s\""
+msgstr "Ajouter les éléments marqués dans \"%(selected_caption)s\""
+
+msgid "Add to favorites"
+msgstr "Ajouter aux favoris"
+
+msgid "Add to now playing or play this item ?"
+msgstr ""
+"Mettre ce morceau à la suite de la liste de lecture ou lire le morceau "
+"maintenant ?"
+
+msgid "Adult movie/drama"
+msgstr "Film pour adultes/Drame"
+
+msgid "Advanced"
+msgstr "Avancé"
+
+msgid "Adventure/Western/War"
+msgstr "Aventure/Western/Guerre"
+
+msgid "Advertisement/Shopping"
+msgstr "Publicité/Achats"
+
+msgid "Afternoon"
+msgstr "Après-midi"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "All"
+msgstr "Tous"
+
+msgid "Always"
+msgstr "Toujours"
+
+msgid "An error has occurred when checking update integrity !"
+msgstr ""
+"Une erreur s'est produite pendant la vérification du fichier de mise à jour!"
+
+msgid ""
+"An instant recording on %(channel)s will be stopped when this recording "
+"starts."
+msgstr ""
+"Un enregistrement immédiat sur %(channel)s sera interrompu dès que cet "
+"enregistrement démarrera."
+
+msgid "An update has been detected. Checking files. Please wait..."
+msgstr ""
+"Une mise à jour a été trouvée. Vérification des fichiers. Patientez s'il "
+"vous plaît..."
+
+msgid "Angle %d"
+msgstr "Angle %d"
+
+msgid "Apply"
+msgstr "Appliquer"
+
+msgid "April"
+msgstr "Avril"
+
+msgid "Are you sure ?"
+msgstr "Êtes-vous certain ?"
+
+msgid "Artist"
+msgstr "Artiste"
+
+msgid "Arts/Culture (other than music)"
+msgstr "Arts/Culture (hors musique)"
+
+msgid "Arts/Culture magazine"
+msgstr "Arts/Magazine culturel"
+
+msgid "Aspect Ratio"
+msgstr "Format écran"
+
+msgid "Athletics"
+msgstr "Athlétisme"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid "Audio for hearing impaired"
+msgstr "Piste son pour malentendants"
+
+msgid "Audio for visually impaired"
+msgstr "Piste son pour non-voyants"
+
+msgid "Audio language"
+msgstr "Langue piste son"
+
+msgid "Audio tracks"
+msgstr "Piste son"
+
+msgid "August"
+msgstr "Août"
+
+msgid "Author"
+msgstr "Auteur"
+
+msgid "Automatic"
+msgstr "Automatique"
+
+msgid "Automatic Framerate"
+msgstr "Adaptation automatique de la fréquence"
+
+msgid "Automatic scan"
+msgstr "Recherche automatique"
+
+msgid "Back"
+msgstr "Retour"
+
+msgid "Back to Navigator"
+msgstr "Retourner au navigateur"
+
+msgid "Ballet"
+msgstr "Ballet"
+
+msgid "Belongs to playlist"
+msgstr "Appartient à la playlist"
+
+msgid "Bitrate"
+msgstr "Débit"
+
+msgid "Black and white"
+msgstr "Noir et blanc"
+
+msgid "Bottom slide"
+msgstr "Par le bas"
+
+msgid "Box reset"
+msgstr "Réinitialisation de la Box"
+
+msgid "Broadcasting/Press"
+msgstr "Télévision/Presse"
+
+msgid "C"
+msgstr "C"
+
+msgid "Camera Model"
+msgstr "Modèle d'appareil photo"
+
+msgid "Can't change channels"
+msgstr "Impossible de changer de chaîne"
+
+msgid "Can't find media"
+msgstr "Elément introuvable"
+
+msgid "Can't use that name"
+msgstr "Impossible d'utiliser ce nom"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Cannot Play this media (no audio codec supported)."
+msgstr "Impossible de jouer cet élément (codec audio non supporté)"
+
+msgid "Cannot Play this media (no video codec supported)."
+msgstr "Impossible de jouer cet élément (codec vidéo non supporté)"
+
+msgid "Cannot play this media (bad container)."
+msgstr "Impossible de jouer cet élément (mauvais container)"
+
+msgid "Cartoon/Puppet show"
+msgstr "Dessins animés/Marionnettes"
+
+msgid "Change camera angle"
+msgstr "Changer l'angle de la caméra"
+
+msgid "Change login and password for net services"
+msgstr "Se connecter au compte web personnel"
+
+msgid "Change track"
+msgstr "Changer de piste audio"
+
+msgid "Channel"
+msgstr "Chaîne"
+
+msgid "Channel search"
+msgstr "Recherche de chaînes"
+
+msgid "Channels"
+msgstr "Chaînes"
+
+msgid "Channels List Menu"
+msgstr "Listes des chaînes"
+
+msgid ""
+"Channels are unavailable. Please try again.\n"
+"If the problem persists, launch a scan or reset to factory defaults."
+msgstr ""
+"Pas de chaîne disponible. Veuillez réessayer.\n"
+"Si le problème persiste, lancez une nouvelle recherche ou réinitialisez le "
+"produit."
+
+msgid "Chapter %d"
+msgstr "Chapitre %d"
+
+msgid "Check PIN Code"
+msgstr "Vérifier le code secret"
+
+msgid "Check your antenna"
+msgstr "Vérifez votre antenne."
+
+msgid "Children's/Youth program"
+msgstr "Programme jeunesse"
+
+msgid "China"
+msgstr "Chine"
+
+msgid "Chinese"
+msgstr "Chinois"
+
+msgid "Choose Automatic or Manual"
+msgstr "Automatique ou manuel?"
+
+msgid "Choose an URL"
+msgstr "Choisissez une URL"
+
+msgid "Choose key type"
+msgstr "Choisissez le type de sécurité (clé)"
+
+msgid "Choose your configuration"
+msgstr "Choisir une configuration"
+
+msgid "Choose your connection type"
+msgstr "Choisissez le type de connexion"
+
+msgid "Choose your network"
+msgstr "Choisissez votre réseau"
+
+msgid "Cinema"
+msgstr "Cinéma"
+
+msgid "Code PIN"
+msgstr "Code secret"
+
+msgid "Codec"
+msgstr "Codec"
+
+msgid "Comedy"
+msgstr "Comédie"
+
+msgid "Compatibility check"
+msgstr "Test de compatibilité"
+
+msgid "Component output"
+msgstr "Sortie composante"
+
+msgid "Composite output"
+msgstr "Sortie composite"
+
+msgid "Conditonal Access Status"
+msgstr "Contrôle d'Accès Sécurisé"
+
+msgid "Configure IP parameters"
+msgstr "Configurez les paramètres IP"
+
+msgid "Configure connection"
+msgstr "Configurer la connexion"
+
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgid "Conflict"
+msgstr "Conflit"
+
+msgid "Conflict with a scheduled recording"
+msgstr "Conflit avec un enregistrement programmé"
+
+msgid "Conflict with an instant recording"
+msgstr "Conflit avec un enregistrement immédiat"
+
+msgid "Conflict with another scheduled recording"
+msgstr "Conflit avec un autre enregistrement programmé"
+
+msgid "Connect"
+msgstr "Se connecter"
+
+msgid "Connect to an other network"
+msgstr "Connexion à un autre réseau"
+
+msgid "Connected to %(net)s"
+msgstr "Connecté à %(net)s"
+
+msgid "Connecting to %(net)s"
+msgstr "Connexion à %(net)s"
+
+msgid "Connection"
+msgstr "Connexion"
+
+msgid "Connection information"
+msgstr "Information sur la connexion"
+
+msgid "Cooking"
+msgstr "Cuisine"
+
+msgid "Copy protection"
+msgstr "Protection anti-copie"
+
+msgid "Copying to PSP (tm) please wait..."
+msgstr "Copie vers la PSP™, patientez..."
+
+msgid "Copyright"
+msgstr "Copyright"
+
+msgid "Country"
+msgstr "Pays"
+
+msgid "Cover"
+msgstr "Pochette"
+
+msgid "Create a favorite with the marked items"
+msgstr "Créer une liste de favoris avec les éléments marqués"
+
+msgid "Create a new configuration"
+msgstr "Créer une nouvelle configuration"
+
+msgid "Create a new folder"
+msgstr "Créer un nouveau dossier"
+
+msgid "Create a new folder in \"%(parent_caption)s\""
+msgstr "Créer un nouveau dossier dans \"%(parent_caption)s\""
+
+msgid "Create a playlist with the marked items"
+msgstr "Créer une playlist avec les éléments marqués"
+
+msgid "Creation date"
+msgstr "Date de création"
+
+msgid "Cross fading"
+msgstr "Fondu enchaîné"
+
+msgid "DD/MM/YYYY"
+msgstr "JJ/MM/AAAA"
+
+msgid "DNS %(dns_num)s"
+msgstr "DNS %(dns_num)s"
+
+msgid "DNS %(dns_num)s : %(addr)s"
+msgstr "DNS %(dns_num)s : %(addr)s"
+
+msgid "DO NOT SWITCH OFF BOX DURING UPDATE"
+msgstr "NE PAS DEBRANCHER PENDANT LA MISE A JOUR"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Date and Time"
+msgstr "Date et heure"
+
+msgid "Date format"
+msgstr "Format de la date"
+
+msgid "Date:"
+msgstr "Date:"
+
+msgid "Day"
+msgstr "Jour"
+
+msgid "December"
+msgstr "Décembre"
+
+msgid "Default audio track"
+msgstr "Piste son par défaut"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Delete \"%(selected_caption)s\""
+msgstr "Effacer \"%(selected_caption)s\""
+
+msgid "Delete %s ?"
+msgstr "Supprimer %s ?"
+
+msgid "Delete highlighted directory"
+msgstr "Supprimer le répertoire sélectionné"
+
+msgid "Delete marked items"
+msgstr "Supprimer les éléments marqués"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Description :"
+msgstr "Description:"
+
+msgid "Detected update is older than the current one"
+msgstr "La mise à jour trouvée est plus ancienne que la version actuelle"
+
+msgid "Detective/Thriller"
+msgstr "Enquête/Thriller"
+
+msgid "Device \"%(name)s\" plugged in."
+msgstr "Appareil \"%(name)s\" connecté."
+
+msgid "Device \"%(name)s\" removed."
+msgstr "Appareil \"%(name)s\" débranché."
+
+msgid "Disconnected"
+msgstr "Déconnecté"
+
+msgid "Disconnected from %(net)s"
+msgstr "Déconnecté de %(net)s"
+
+msgid "Discussion/Interview/Debate"
+msgstr "Discussion/Débat"
+
+msgid "Disk space has run out. Timeshift and recordings have been disabled."
+msgstr ""
+"Le disque est plein. Les fonctions Contrôle du direct et Enregistrement ont "
+"été désactivées."
+
+msgid "Disk space is running low."
+msgstr "L'espace disque est faible."
+
+msgid "Disk space warning"
+msgstr "Alerte espace disque"
+
+msgid "Display"
+msgstr "Affichage"
+
+msgid "Display \"%(parent_caption)s\" thumbnails"
+msgstr "Afficher les vignettes de \"%(parent_caption)s\""
+
+msgid "Display \"%s\" as thumbnails"
+msgstr "Afficher les vignettes de \"%s\" "
+
+msgid "Display format"
+msgstr "Format d'affichage"
+
+msgid "Display hidden items"
+msgstr "Afficher les éléments cachés"
+
+msgid "Display marker list"
+msgstr "Afficher la markerlist"
+
+msgid "Display program guide"
+msgstr "Afficher le guide des programmes"
+
+msgid ""
+"Do you really want to reset the box ? \n"
+"(Your custom settings will be lost)"
+msgstr ""
+"Voulez-vous vraiment réinitialiser le produit? \n"
+"(Vos réglages personnalisés seront perdus)"
+
+msgid ""
+"Do you want to install the update for %(display_name)s, (version %(version)"
+"s) ?"
+msgstr ""
+"Voulez-vous installer la mise à jour de %(display_name)s, (version %(version)"
+"s) ?"
+
+msgid "Do you want to launch a scan now?"
+msgstr "Voulez-vous faire une recherche de chaînes maintenant?"
+
+msgid "Documentary"
+msgstr "Documentaire"
+
+msgid "Duplicate marked item"
+msgstr "Dupliquer les éléments marqués"
+
+msgid "Duplicate marked items into \"%(highlighted_item)s\""
+msgstr "Dupliquer les éléments marqués dans \"%(highlighted_item)s\""
+
+msgid "Duplicate marked items to \"%(parent_caption)s\""
+msgstr "Dupliquer les éléments marqués dans \"%(parent_caption)s\""
+
+msgid "Duration"
+msgstr "Durée"
+
+msgid "Duration :"
+msgstr "Durée:"
+
+msgid "During few seconds"
+msgstr "Pendant quelques secondes"
+
+msgid "Dutch"
+msgstr "Hollandais"
+
+msgid "EPG Control Window"
+msgstr "Rechercher dans l'EPG"
+
+msgid "EPG Navigator Menu"
+msgstr "Guide des programmes"
+
+msgid "EPG not available"
+msgstr "l'EPG n'est pas disponible"
+
+msgid "Economics/Social advisory"
+msgstr "Conseil économique/Social"
+
+msgid "Edit"
+msgstr "Editer"
+
+msgid "Edit \"%(selected_caption)s\""
+msgstr "Editer \"%(selected_caption)s\""
+
+msgid "Edit Playlist"
+msgstr "Editer la playlist"
+
+msgid "Edit favorite"
+msgstr "Edition des favoris"
+
+msgid "Edit playlist"
+msgstr "Editer la playlist"
+
+msgid "Education/Science/Factual topic"
+msgstr "Education/Science"
+
+msgid "End"
+msgstr "Fin"
+
+msgid "End time"
+msgstr "Heure de fin"
+
+msgid "English"
+msgstr "Anglais"
+
+msgid "Enter Setup universe"
+msgstr "Entrer dans l' univers Paramètres"
+
+msgid "Enter a name for this configuration"
+msgstr "Choisissez un nom pour cette configuration"
+
+msgid "Enter date and time"
+msgstr "Entrez la date et l'heure"
+
+msgid "Enter url"
+msgstr "Saisir l'URL"
+
+msgid "Enter your answer"
+msgstr "Tapez votre réponse"
+
+msgid "Enter your current code"
+msgstr "Tapez votre code secret actuel"
+
+msgid "Enter your login"
+msgstr "Entrez votre pseudo"
+
+msgid "Enter your new code"
+msgstr "Tapez votre nouveau code"
+
+msgid "Enter your password"
+msgstr "Entrez votre mot de passe"
+
+msgid "Enter your question"
+msgstr "Tapez votre question"
+
+msgid ""
+"Enter your question.  \n"
+"It will be asked if you lose your secret code"
+msgstr ""
+"Entrez une question personnelle. \n"
+"Elle vous sera posée si vous perdez votre code secret"
+
+msgid "Enter your secret code  for parental mode activation"
+msgstr "Saisissez votre code secret pour activer le mode \"parents\""
+
+msgid "Enter your secret code for parental mode activation"
+msgstr "Saisissez votre code secret pour activer le mode \"parents\""
+
+msgid "Entertainment program (10 to 16 years old)"
+msgstr "Divertissement (10-16 ans)"
+
+msgid "Entertainment program (6 to 14 years old)"
+msgstr "Divertissement (6-14 ans)"
+
+msgid "Equestrian sports"
+msgstr "Sports équestres"
+
+msgid "Error"
+msgstr "Erreur"
+
+msgid "Error creating %s"
+msgstr "Erreur lors de la création de %s"
+
+msgid "Error during configuration"
+msgstr "Erreur de configuration"
+
+msgid "Error removing %s"
+msgstr "Erreur en enlevant %s"
+
+msgid "Error renaming %s"
+msgstr "Erreur lors du renommage de %s"
+
+msgid "Error while copying files"
+msgstr "Erreur pendant la copie des fichiers"
+
+msgid "Error while copying files: disk full"
+msgstr "Erreur pendant la copie des fichiers: disque plein"
+
+msgid "Error while creating playlist"
+msgstr "Erreur pendant la création de la playlist"
+
+msgid "Error while creating the favorite."
+msgstr "Erreur lors de la création du favori"
+
+msgid "Ethernet"
+msgstr "Ethernet"
+
+msgid "Ethernet network"
+msgstr "Ethernet"
+
+msgid "Evening"
+msgstr "Soirée"
+
+msgid "Every day"
+msgstr "Chaque jour"
+
+msgid "Every week"
+msgstr "Chaque semaine"
+
+msgid "Exit"
+msgstr "Sortir"
+
+msgid "Exit marker list"
+msgstr "Fermer la markerlist"
+
+msgid "Experimental film/video"
+msgstr "Vidéo expérimentale"
+
+msgid "External antenna"
+msgstr "Antenne externe"
+
+msgid "Fade to black"
+msgstr "Fondu au noir"
+
+msgid "Fading to black"
+msgstr "Fondu au noir"
+
+msgid "Fashion"
+msgstr "Mode"
+
+msgid "Favorite editor"
+msgstr "Edition des favoris TV"
+
+msgid "Favorite:"
+msgstr "Favori:"
+
+msgid "Favorites"
+msgstr "Favoris"
+
+msgid "Favorites list"
+msgstr "Liste des favoris"
+
+msgid "February"
+msgstr "Février"
+
+msgid "Filename %s already exists"
+msgstr "Le nom de fichier %s existe déjà"
+
+msgid "Film/Cinema"
+msgstr "Film/Cinema"
+
+msgid "Fine arts"
+msgstr "Beaux arts"
+
+msgid "Fitness and health"
+msgstr "Forme et santé"
+
+msgid "Folder name"
+msgstr "Nom du dossier"
+
+msgid "Folk/Traditional music"
+msgstr "Musique traditionnelle/Folk"
+
+msgid "Football/Soccer"
+msgstr "Football"
+
+msgid "Foreign countries/Expeditions"
+msgstr "Pays étrangers/Expéditions"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "France"
+msgstr "France"
+
+msgid "Free and pay channels"
+msgstr "Toutes les chaînes"
+
+msgid "Free channels only"
+msgstr "Chaînes gratuites uniquement"
+
+msgid "Free content"
+msgstr "Contenu non protégé"
+
+msgid "French"
+msgstr "Français"
+
+msgid "Frequency"
+msgstr "Fréquence"
+
+msgid "Friday"
+msgstr "Vendredi"
+
+msgid "From last position"
+msgstr "Depuis le dernière position"
+
+msgid "From the beginning"
+msgstr "Depuis le début"
+
+msgid "Full Channel List"
+msgstr "Toutes les chaînes"
+
+msgid "Full screen"
+msgstr "Plein écran"
+
+msgid "Further education"
+msgstr "Enseignement post-scolaire"
+
+msgid "Game show/Quiz/Contest"
+msgstr "Jeu/Quiz/Concours"
+
+msgid "Games"
+msgstr "Jeux"
+
+msgid "Gardening"
+msgstr "Jardinage"
+
+msgid "Gateway"
+msgstr "Passerelle"
+
+msgid "Gateway : %(addr)s"
+msgstr "Passerelle : %(addr)s"
+
+msgid "General"
+msgstr "Général"
+
+msgid "Genre"
+msgstr "Genre"
+
+msgid "Genre :"
+msgstr "Genre:"
+
+msgid "German"
+msgstr "Allemand"
+
+msgid "Germany"
+msgstr "Allemagne"
+
+msgid "Go to DVD menu"
+msgstr "Aller au menu du DVD"
+
+msgid "Go to scheduled recordings"
+msgstr "Voir les enregistrements programmés"
+
+msgid "HDMI Sound"
+msgstr "Son HDMI"
+
+msgid "HDMI output resolution"
+msgstr "Résolution HDMI"
+
+msgid "HDMI/YUV output resolution"
+msgstr "Résolution HDMI"
+
+msgid "Hand"
+msgstr "Main"
+
+msgid "Handicraft"
+msgstr "Artisanat"
+
+msgid "Help banner"
+msgstr "Bannière d'aide"
+
+msgid "Hidden"
+msgstr "Masqué"
+
+msgid "Hide"
+msgstr "Masquer"
+
+msgid "High definition"
+msgstr "Haute Définition"
+
+msgid "Highlight item(s)"
+msgstr "Marquer l'élément"
+
+msgid "Hour"
+msgstr "Heure"
+
+msgid "IP : %(addr)s"
+msgstr "IP : %(addr)s"
+
+msgid "IP address"
+msgstr "Adresse IP"
+
+msgid ""
+"If you can read this page, your display resolution was successfully changed. "
+"Hit Play/Pause to confirm."
+msgstr ""
+"Si ce texte s'affiche correctement, la résolution sélectionnée est "
+"compatible avec votre téléviseur. Veuillez confirmer ce choix en appuyant au "
+"centre de la molette."
+
+msgid "Import date"
+msgstr "Date d'import"
+
+msgid "Importation date"
+msgstr "Date d'import"
+
+msgid "Impossible to cancel recording"
+msgstr "Impossible d'annuler l'enregistrement"
+
+msgid "Inactive"
+msgstr "Inactif"
+
+msgid "Information:"
+msgstr "Informations :"
+
+msgid "Informational/Educational/School program"
+msgstr "Programme éducatif/informatif"
+
+msgid "Informations on item"
+msgstr "Informations sur l'élément"
+
+msgid ""
+"Installing demo mode...\n"
+"Will auto-reboot."
+msgstr ""
+"Installation du mode démo en cours\n"
+"Attendez le redémarrage automatique."
+
+msgid "Instant recording conflict"
+msgstr "Conflit d'enregistrement immédiat"
+
+msgid "Internal hard drive"
+msgstr "Disque dur interne"
+
+msgid "Internationalisation loaded."
+msgstr "Internationalisation chargée."
+
+msgid "Internet Services"
+msgstr "Services Internet"
+
+msgid "Invalid data"
+msgstr "Données non valides"
+
+msgid "Invalid picture"
+msgstr "Image illisible"
+
+msgid "Italian"
+msgstr "Italien"
+
+msgid "Italy"
+msgstr "Italie"
+
+msgid "January"
+msgstr "Janvier"
+
+msgid "Jazz"
+msgstr "Jazz"
+
+msgid "July"
+msgstr "Juillet"
+
+msgid "June"
+msgstr "Juin"
+
+msgid "Key type"
+msgstr "Type de clé"
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "Languages"
+msgstr "Langues"
+
+msgid "Latest scan date"
+msgstr "Date du dernier scan"
+
+msgid "Left rotation"
+msgstr "Rotation gauche"
+
+msgid "Leisure hobby"
+msgstr "Loisirs"
+
+msgid "Link"
+msgstr "Lien"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "Literature"
+msgstr "Littérature"
+
+msgid "Live broadcast"
+msgstr "Programme en direct"
+
+msgid "MAC : %(addr)s"
+msgstr "MAC : %(addr)s"
+
+msgid "MM/DD/YYYY"
+msgstr "MM/JJ/AAAA"
+
+msgid "MTP mode disabled, you can now use remote control"
+msgstr "Mode MTP désactivé, télécommande active"
+
+msgid "MTP mode enabled, remote control is now disabled"
+msgstr "Mode MTP activé, télécommande inactive"
+
+msgid "Magazine/Report/Documentary"
+msgstr "Magazine/Reportage/Documentaire"
+
+msgid "Manual"
+msgstr "Manuel"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "Marker list"
+msgstr "Markerlist"
+
+msgid "Martial arts"
+msgstr "Arts martiaux"
+
+msgid "Mask"
+msgstr "Masque"
+
+msgid "Mask : %(addr)s"
+msgstr "Masque : %(addr)s"
+
+msgid "Mask hidden items"
+msgstr "Cacher les éléments masqués"
+
+msgid "Maximum timeshift duration has been reduced to %(duration)s."
+msgstr "La durée maximum de contrôle du direct a été réduite à %(duration)s."
+
+msgid "May"
+msgstr "Mai"
+
+msgid "Medicine/Physiology/Psychology"
+msgstr "Médecine/Physiologie/Psychologie"
+
+msgid "Minute"
+msgstr "Minute"
+
+msgid "Missing tracks"
+msgstr "Pistes manquantes"
+
+msgid "Modify Question / Answer"
+msgstr "Changer question/réponse"
+
+msgid "Modify Secret Code"
+msgstr "Changer code secret"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Mono"
+msgstr "Mono"
+
+msgid "Month"
+msgstr "Mois"
+
+msgid "Morning"
+msgstr "Matinée"
+
+msgid "Motor sports"
+msgstr "Sports automobiles"
+
+msgid "Motoring"
+msgstr "Automobile"
+
+msgid "Move marked items into \"%(highlighted_item)s\""
+msgstr "Déplacer les éléments marqués dans \"%(highlighted_item)s\""
+
+msgid "Move marked items into \"%(parent_folder)s\""
+msgstr "Déplacer les éléments marqués dans \"%(parent_folder)s\""
+
+msgid "Move the item"
+msgstr "Déplacer l'élément"
+
+msgid "Movie/Drama"
+msgstr "Film/Drame"
+
+msgid "Multiple audio tracks"
+msgstr "Plusieurs pistes son"
+
+msgid "Music"
+msgstr "Musique"
+
+msgid "Music/Ballet/Dance"
+msgstr "Musique/Ballet/Danse"
+
+msgid "Musical/Opera"
+msgstr "Comédie musicale/Opéra"
+
+msgid "Mute"
+msgstr "Muet"
+
+msgid "My Music"
+msgstr "Ma Musique"
+
+msgid "My Photos"
+msgstr "Mes Photos"
+
+msgid "My Recordings"
+msgstr "Mes Enregistrements"
+
+msgid "My Videos"
+msgstr "Mes Vidéos"
+
+msgid "My scheduled recordings"
+msgstr "Mes enregistrements programmés"
+
+msgid "N/A"
+msgstr "N/A"
+
+msgid "NTSC"
+msgstr "NTSC"
+
+msgid "Name this favorite"
+msgstr "Nommer ce favori"
+
+msgid "Nature/Animals/Environment"
+msgstr "Nature/Animaux/Environnement"
+
+msgid "Netherlands"
+msgstr "Pays-Bas"
+
+msgid "Network"
+msgstr "Réseau"
+
+msgid "Network Name"
+msgstr "Nom du réseau"
+
+msgid "Never"
+msgstr "Jamais"
+
+msgid "New Favorite"
+msgstr "Nouveau favori"
+
+msgid "New Favorite %i"
+msgstr "Nouveau favori %i"
+
+msgid "New folder"
+msgstr "Nouveau dossier"
+
+msgid "New media"
+msgstr "Nouveaux media"
+
+msgid "New search"
+msgstr "Nouvelle recherche"
+
+msgid "New service detected"
+msgstr "Détection d'un nouveau service"
+
+msgid "News magazine"
+msgstr "Magazine d'informations"
+
+msgid "News/Current affairs"
+msgstr "Informations"
+
+msgid "News/Weather report"
+msgstr "Informations/Météo"
+
+msgid "Next"
+msgstr "Suite"
+
+msgid "Next recording on"
+msgstr "Prochain enregistrement le"
+
+msgid "Night"
+msgstr "Nuit"
+
+msgid "No"
+msgstr "Non"
+
+msgid "No content"
+msgstr "Dossier vide"
+
+msgid "No content for this universe"
+msgstr "Aucun contenu dans cet univers"
+
+msgid "No rating"
+msgstr "Aucun"
+
+msgid "No results for '%s'"
+msgstr "Pas de résultat pour '%s'"
+
+msgid "No scheduled recordings"
+msgstr "Pas d'enregistrement programmé"
+
+msgid "No signal"
+msgstr "Pas de signal"
+
+msgid "None"
+msgstr "Aucun"
+
+msgid "Not display hidden items"
+msgstr "Masquer les éléments cachés"
+
+msgid "Not enough disk space"
+msgstr "Espace disque trop faible"
+
+msgid ""
+"Not enough space left : The recording \"%(recording_name)s\" failed to start "
+"on %(channel_name)s."
+msgstr ""
+"Espace disque insuffisant: l'enregistrement \"%(recording_name)s\" n'a pas "
+"pu démarrer sur %(channel_name)s."
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "Now Playing"
+msgstr "Lecture en cours"
+
+msgid "Number of channels"
+msgstr "Nombre de chaînes"
+
+msgid "Number of files"
+msgstr "Nombre de fichiers"
+
+msgid "Number of recordings"
+msgstr "Nombre d'enregistrements"
+
+msgid "Number of scheduled recordings"
+msgstr "Nombre d'enregistrements programmés"
+
+msgid "Number of tracks"
+msgstr "Nombre de pistes"
+
+msgid "OFF"
+msgstr "Arrêt"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "ON"
+msgstr "Marche"
+
+msgid "October"
+msgstr "Octobre"
+
+msgid "One"
+msgstr "Un"
+
+msgid "Only this time"
+msgstr "Une seule fois"
+
+msgid "Operation not permitted"
+msgstr "Cette action n'est pas autorisée"
+
+msgid "Original"
+msgstr "Original"
+
+msgid "Original language"
+msgstr "Version originale"
+
+msgid "Other"
+msgstr "Autre"
+
+msgid "PAL"
+msgstr "PAL"
+
+msgid "Parameters"
+msgstr "Paramètres"
+
+msgid "Parental control"
+msgstr "Contrôle parental"
+
+msgid "Parental rating"
+msgstr "Bloquer les contenus interdits aux moins de:"
+
+msgid "Performing arts"
+msgstr "Spectacles"
+
+msgid "Picture size"
+msgstr "Taille de l'image"
+
+msgid "Play / Pause"
+msgstr "Lecture / Pause"
+
+msgid "Play embedded audio"
+msgstr "Lire l'élément audio joint "
+
+msgid "Play embedded image"
+msgstr "Lire l'élément image joint "
+
+msgid "Play embedded video"
+msgstr "Lire l'élément vidéo joint "
+
+msgid "Play marker list"
+msgstr "Jouer la markerlist"
+
+msgid "Play mode"
+msgstr "Mode de lecture"
+
+msgid "Playlist"
+msgstr "Playlist"
+
+msgid "Playlist editor"
+msgstr "Edition de playlist"
+
+msgid "Playlist name"
+msgstr "Nom de la playlist"
+
+msgid "Please wait..."
+msgstr "Veuillez attendre..."
+
+msgid "Popular culture/Traditional arts"
+msgstr "Culture populaire/Arts traditionnels"
+
+msgid "Portugal"
+msgstr "Portugal"
+
+msgid "Portugese"
+msgstr "Portugais"
+
+msgid "Pre-school children's program"
+msgstr "Emission pour tout petits"
+
+msgid "Press > to display programs list"
+msgstr "Appuyez sur > pour afficher les programmes"
+
+msgid "Press Home to switch universe"
+msgstr "Appuyez sur Home pour changer d'univers"
+
+msgid "Program a recording"
+msgstr "Programmer un enregistrement"
+
+msgid "Program already over"
+msgstr "Programme terminé"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Random"
+msgstr "Aléatoire"
+
+msgid "Rate"
+msgstr "Classement"
+
+msgid "Rating"
+msgstr "Evaluation"
+
+msgid "Rear CVBS"
+msgstr "CVBS"
+
+msgid "Rear Y/C"
+msgstr "Y/C"
+
+msgid "Record date"
+msgstr "Date d'enregistrement"
+
+msgid "Record selected program"
+msgstr "Enregistrer le programme sélectionné"
+
+msgid "Recording scheduler"
+msgstr "Programmation d'enregistrement"
+
+msgid "Recording scheduler error"
+msgstr "Erreur de programmation"
+
+msgid "Religion"
+msgstr "Religion"
+
+msgid "Remaining recordings"
+msgstr "Enregistrements restants"
+
+msgid "Remarkable people"
+msgstr "Personnalité remarquable"
+
+msgid "Remove demo mode"
+msgstr "Supprimer le mode \"démo\""
+
+msgid "Remove item from playlist"
+msgstr "Retirer l'élément de la playlist"
+
+msgid "Remove item(s) from playlist?"
+msgstr "Retirer l'élément de la playlist ?"
+
+msgid "Rename"
+msgstr "Renommer"
+
+msgid "Rename \"%(selected_caption)s\""
+msgstr "Renommer \"%(selected_caption)s\""
+
+msgid "Repeat"
+msgstr "Répéter"
+
+msgid "Replace"
+msgstr "Remplacer"
+
+msgid "Resolution"
+msgstr "Résolution"
+
+msgid "Resume bookmark"
+msgstr "************ (pas utilisé sur mediabox ????) ************ "
+
+msgid "Resume playback?"
+msgstr "Reprendre la lecture?"
+
+msgid "Return to navigator"
+msgstr "Retour au mode liste"
+
+msgid "Return to player"
+msgstr "Retour au lecteur"
+
+msgid "Right rotation"
+msgstr "Rotation droite"
+
+msgid "Rock/Pop"
+msgstr "Rock/Pop"
+
+msgid "Romance"
+msgstr "Film romantique"
+
+msgid "Run demo mode"
+msgstr "Lancer le mode \"démo\""
+
+msgid "S/PDIF Sound"
+msgstr "Son S/PDIF"
+
+msgid "SPDIF Sound"
+msgstr "Son SPDIF"
+
+msgid "Saturday"
+msgstr "Samedi"
+
+msgid "Saving channels, please wait..."
+msgstr "Chaînes en cours d'enregistrement, veuillez patienter ..."
+
+msgid "Scan impossible"
+msgstr "Recherche impossible"
+
+msgid "Scan in progress..."
+msgstr "Recherche en cours..."
+
+msgid "Scan progress :"
+msgstr "Recherche en cours:"
+
+msgid "Schedule a recording"
+msgstr "Programmer un enregistrement"
+
+msgid "Scheduled recording name"
+msgstr "Nom de l'enregistrement programmé"
+
+msgid "Scheduled recordings"
+msgstr "Enregistrements programmés"
+
+msgid "Science fiction/Fantasy/Horror"
+msgstr "Science Fiction/Horreur"
+
+msgid "Scrambled"
+msgstr "Crypté"
+
+msgid "Scrambled content"
+msgstr "Contenu protégé"
+
+msgid "Scrambled program"
+msgstr "Programme crypté"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Search for \"%s\""
+msgstr "Recherche de \"%s\""
+
+msgid "Secret code"
+msgstr "Code secret"
+
+msgid "Select TV physical aspect ratio"
+msgstr "Sélectionnez le format d'écran de votre TV"
+
+msgid "Select a secret code"
+msgstr "Sélectionnez un code secret"
+
+msgid "Select chapter"
+msgstr "Choix du chapitre"
+
+msgid "Select item to move"
+msgstr "Sélectionnez l'élément à déplacer"
+
+msgid "Select time zone"
+msgstr "Sélectionnez votre fuseau horaire"
+
+msgid "Select your country"
+msgstr "Sélectionnez votre pays"
+
+msgid "Select your language"
+msgstr "Sélectionnez votre langue"
+
+msgid "Select your resolution"
+msgstr "Sélectionnez votre résolution"
+
+msgid "Select your time zone"
+msgstr "Sélectionnez votre fuseau horaire"
+
+msgid "Select your universe"
+msgstr "Choisissez votre univers"
+
+msgid "September"
+msgstr "Septembre"
+
+msgid "Serial Number: %s"
+msgstr "N° de série: %s"
+
+msgid "Serious/Classical music"
+msgstr "Musique classique"
+
+msgid "Serious/Classical/Religious/Historical movie/drama"
+msgstr "Religion/Film historique/Drame"
+
+msgid "Service removed"
+msgstr "Service supprimé"
+
+msgid "Set to child mode"
+msgstr "Passer en mode \"enfants\""
+
+msgid "Set to parent mode"
+msgstr "Passer en mode \"parents\""
+
+msgid "Set your configuration"
+msgstr "Configuration"
+
+msgid "Show TV navigator"
+msgstr "Afficher le navigateur TV"
+
+msgid "Show audio navigator"
+msgstr "Afficher le navigateur audio"
+
+msgid "Show hidden items"
+msgstr "Afficher les éléments masqués"
+
+msgid "Show/Game show"
+msgstr "Show/Jeu"
+
+msgid "Size"
+msgstr "Taille"
+
+msgid "Slideshow parameters"
+msgstr "Paramètres du diaporama"
+
+msgid "Slot time:"
+msgstr "Créneau:"
+
+msgid "Soap/Melodrama/Folkloric"
+msgstr "Mélo"
+
+msgid "Social/Spiritual sciences"
+msgstr "Sciences sociales/Spirituelles"
+
+msgid "Social/political issues/Economics"
+msgstr "Société/Politique/Economie"
+
+msgid "Software Version: %s"
+msgstr "Version du logiciel : %s"
+
+msgid "Sound level"
+msgstr "Volume"
+
+msgid "Sound track"
+msgstr "Piste son"
+
+msgid "Sound/Image"
+msgstr "Son/Image"
+
+msgid "Spain"
+msgstr "Espagne"
+
+msgid "Spanish"
+msgstr "Espagnol"
+
+msgid "Special Events (Olympic games, World cup...)"
+msgstr "Evénements spéciaux (JO, Coupe du Monde, etc.)"
+
+msgid "Sports"
+msgstr "Sport"
+
+msgid "Sports magazine"
+msgstr "Magazine sportif"
+
+msgid "Start"
+msgstr "Début"
+
+msgid "Start scan"
+msgstr "Rechercher"
+
+msgid "Start time"
+msgstr "Heure de début"
+
+msgid "Stereo"
+msgstr "Stéréo"
+
+msgid "Stop and return to audio navigator"
+msgstr "Stop et retour au navigateur audio"
+
+msgid "Stop the recording before changing channels."
+msgstr "Arrêtez l'enregistrement pour changer de chaîne."
+
+msgid "Subtitles"
+msgstr "Sous-titres"
+
+msgid "Subtitles for hearing impaired"
+msgstr "Sous-titres pour malentendants"
+
+msgid "Sunday"
+msgstr "Dimanche"
+
+msgid "TV"
+msgstr "TV"
+
+msgid "TV Universe"
+msgstr "Univers TV"
+
+msgid "TV channels"
+msgstr "Chaînes"
+
+msgid "TV failure"
+msgstr "Erreur TV"
+
+msgid "Talk show"
+msgstr "Talk show"
+
+msgid "Team sports (other than football)"
+msgstr "Sports d'équipe (hors football)"
+
+msgid "Technology/Natural sciences"
+msgstr "Technologie/Sciences naturelles"
+
+msgid "Tennis/Squash"
+msgstr "Tennis/Squash"
+
+msgid "That name is not valid. Choose another one."
+msgstr "Ce nom n'est pas valable. Choisissez un autre nom."
+
+msgid ""
+"The %(date)s\n"
+"From %(start_time)s\n"
+"To %(end_time)s"
+msgstr ""
+"Le %(date)s\n"
+"De %(start_time)s\n"
+"A %(end_time)s"
+
+msgid ""
+"The %(date)s\n"
+"From %(start_time)s\n"
+"To %(end_time)s\n"
+"repeated %(name)s (%(number)s more remaining)"
+msgstr ""
+"Le %(date)s\n"
+"De %(start_time)s\n"
+"A %(end_time)s\n"
+"répété %(name)s (%(number)s restant(s))"
+
+msgid "The content you requested was not found."
+msgstr "Le contenu que vous avez demandé est introuvable."
+
+msgid "The program is over. You cannot record it."
+msgstr "Ce programme est terminé. Vous ne pouvez pas l'enregistrer."
+
+msgid ""
+"The recording \"%(recording_name)s\" failed to start on %(channel_name)s."
+msgstr ""
+"L'enregistrement \"%(recording_name)s\" n'a pas pu démarrer sur %"
+"(channel_name)s."
+
+msgid "The recording cannot be longer than 6 hours."
+msgstr "L'enregistrement ne peut pas être supérieur à 6 heures."
+
+msgid ""
+"The recording you are attempting to schedule conflicts with \"%(name)s\", "
+"starting at %(start_time)s on %(channel)s."
+msgstr ""
+"L'enregistrement que vous voulez programmer entre en conflit avec \"%(name)s"
+"\", commençant à %(start_time)s sur %(channel)s."
+
+msgid "The server is not responding. Please try to access the content later."
+msgstr "Le serveur ne répond pas. Veuillez réessayer ultérieurement."
+
+msgid "The way this disk was formatted does not allow this operation"
+msgstr "Le formatage de ce disque n'autorise pas l'opération demandée"
+
+msgid ""
+"This instant recording will stop when the scheduled recording \"%(name)s\" "
+"starts at %(start_time)s on %(channel)s."
+msgstr ""
+"Cet enregistrement immédiat s'arrêtera quand l'enregistrement programmé \"%"
+"(name)s\" commencera à %(start_time)s sur %(channel)s."
+
+msgid "This operation could take 2 minutes"
+msgstr "L'opération en cours peut durer 2 minutes"
+
+msgid "This program is scrambled."
+msgstr "Ce programme est crypté."
+
+msgid ""
+"This record's duration was not changed because it would conflict with \"%"
+"(name)s\", starting at %(start_time)s on %(channel)s."
+msgstr ""
+"La durée d'enregistrement n'a pas été modifiée parce qu'il y aurait un "
+"conflit avec \"%(name)s\" commençant à %(start_time)s sur %(channel)s."
+
+msgid ""
+"This recording duration was not changed because there isn't enough disk "
+"space to store it."
+msgstr ""
+"La durée d'enregistrement n'a pas été modifiée. Il n'y a pas assez d'espace "
+"de stockage."
+
+msgid "This recording has already started."
+msgstr "Cet enregistrement a déjà commencé."
+
+msgid ""
+"This recording has already started. To stop it, close the EPG grid and press "
+"Stop."
+msgstr ""
+"Cet enregistrement a déjà commencé. Pour l'arrêter, fermez la grille EPG et "
+"appuyez sur Stop."
+
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgid "Time format"
+msgstr "Format de l'heure"
+
+msgid "Time record margins"
+msgstr "Marges d'enregistrement"
+
+msgid "Time set"
+msgstr "Réglage heure"
+
+msgid "Time zone"
+msgstr "Fuseau horaire"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "To enter this folder, please go back to list mode."
+msgstr "Pour rentrer dans le dossier, veuillez retourner au mode liste."
+
+msgid "To unlock, press"
+msgstr "Pour déverrouiller, pressez"
+
+msgid "Top slide"
+msgstr "Par le haut"
+
+msgid "Top to bottom"
+msgstr "Vers le bas"
+
+msgid "Tourism/Travel"
+msgstr "Tourisme/Voyages"
+
+msgid "Track"
+msgstr "Piste son"
+
+msgid "Transcode to PSP™"
+msgstr "*Transcodage vers PSP™"
+
+msgid "Transition"
+msgstr "Transition"
+
+msgid "Transitions"
+msgstr "Transitions"
+
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgid "Tv"
+msgstr "TV"
+
+msgid "UPNP device  %(server_name)s"
+msgstr "Périphérique UPNP %(server_name)s"
+
+msgid "URI"
+msgstr "URI"
+
+msgid "URL navigator menu"
+msgstr "Menu du navigateur web"
+
+msgid "USB device %(volume_name)s"
+msgstr "Périphérique USB %(volume_name)s"
+
+msgid "Unauthorized content"
+msgstr "Contenu non autorisé"
+
+msgid "Undefined content"
+msgstr "Contenu inconnu"
+
+msgid "Unhide"
+msgstr "Afficher"
+
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "Unknown URI"
+msgstr "URI inconnu"
+
+msgid "Unknown audio codec"
+msgstr "Codec audio inconnu"
+
+msgid "Unknown bitrate"
+msgstr "Débit inconnu"
+
+msgid "Unknown content access"
+msgstr "Point d'accès inconnu"
+
+msgid "Unknown date"
+msgstr "Date inconnue"
+
+msgid "Unknown device"
+msgstr "Appareil inconnu"
+
+msgid "Unknown duration"
+msgstr "Durée inconnue"
+
+msgid "Unknown number"
+msgstr "Chiffre inconnu"
+
+msgid "Unknown resolution"
+msgstr "Résolution inconnue"
+
+msgid "Unknown size"
+msgstr "Taille inconnue"
+
+msgid "Unknown sound format"
+msgstr "Format audio inconnu"
+
+msgid "Unmark all items"
+msgstr "Vider la \"markerlist\""
+
+msgid "Unpublished"
+msgstr "Non publié"
+
+msgid "Untitled"
+msgstr "Sans titre"
+
+msgid "Update"
+msgstr "Mise à jour"
+
+msgid "Update %(version)s was successfully installed"
+msgstr "La mise à jour %(version)s a été installée"
+
+msgid "Update (version %(version)s) failed. Please reboot."
+msgstr "Echec de la mise à jour (version %(version)s). Veuillez redémarrer."
+
+msgid "Update Web Services content"
+msgstr "Mettre à jour le contenu des services Web"
+
+msgid "Update in progress (version %(version)s)"
+msgstr "Mise à jour en cours (version %(version)s)"
+
+msgid "Update mode"
+msgstr "Mode de mise à jour"
+
+msgid "Update process aborted"
+msgstr "Mise à jour interrompue"
+
+msgid "Update was successfully installed. The box will reboot automatically"
+msgstr "La mise à jour a réussi. Redémarrage automatique."
+
+msgid "User defined"
+msgstr "Choix utilisateur"
+
+msgid "Variety show"
+msgstr "Variétés"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Video parameters"
+msgstr "Paramètres Vidéo"
+
+msgid "Video/Photo"
+msgstr "Vidéo/Photo"
+
+msgid "Views"
+msgstr "Visionné"
+
+msgid "WPA key"
+msgstr "clé WPA"
+
+msgid "Warning"
+msgstr "Avertissement"
+
+msgid ""
+"Warning, when you activate this option, some short black screens may be "
+"displayed at the beginning and the end of playback. Don't worry about it; "
+"your box is just switching its frame rate to guarantee you the best image!"
+msgstr ""
+"Attention, si vous activez cette option, un écran noir peut apparaître en "
+"début et fin de lecture de vidéo. Ne vous inquiétez pas, votre produit "
+"adapte la fréquence d'affichage pour proposer la meilleure image!"
+
+msgid "Water sports"
+msgstr "Sports nautiques"
+
+msgid "Web Browser"
+msgstr "Navigateur Web"
+
+msgid "Web Services"
+msgstr "Services Web"
+
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Welcome !"
+msgstr "Bienvenue !"
+
+msgid "Winter sports"
+msgstr "Sports d'hiver"
+
+msgid "Wireless"
+msgstr "Wifi"
+
+msgid "Wrong PIN code"
+msgstr "Mauvais code secret"
+
+msgid "YYYY/MM/DD"
+msgstr "AAAA/MM/JJ"
+
+msgid "Year"
+msgstr "Année"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid ""
+"You are about to reset the box. Are you sure you want to do it?\n"
+"If 'Yes', box will reboot."
+msgstr ""
+"Vous êtes sur le point de réinitialiser votre produit. Confirmez-vous ?\n"
+"Si 'Oui', le produit va redémarrer automatiquement."
+
+msgid "You are already using a more recent firmware"
+msgstr "Vous utilisez déjà un logiciel plus récent"
+
+msgid "You are trying to record a program already over."
+msgstr "Vous essayez d'enregistrer un programme qui est terminé."
+
+msgid ""
+"You are trying to record from a content-protected source.\n"
+"This is forbidden.\n"
+"Cannot start recording on %s."
+msgstr ""
+"Vous essayez d'enregistrer une source dont le contenu est protégé.\n"
+"Cette opération n'est pas autorisée\n"
+"L'enregistrement sur %s ne peut pas démarrer."
+
+msgid ""
+"You are trying to record from a content-protected source.\n"
+"This is forbidden.\n"
+"Recording stopped on %s."
+msgstr ""
+"Vous essayez d'enregistrer une source dont le contenu est protégé.\n"
+"Cette opération n'est pas autorisée\n"
+"L'enregistrement sur %s est interrompu."
+
+msgid "Your display resolution has been restored to its previous setting"
+msgstr ""
+"Votre résolution d'affichage a été restaurée avec les valeurs précédentes"
+
+msgid "Zap to selected channel"
+msgstr "Zapper vers la chaîne sélectionnée"
+
+msgid "channels"
+msgstr "chaînes"
+
+msgid "home"
+msgstr "accueil"
+
+msgid "info"
+msgstr "info"
+
+msgid "key"
+msgstr "clé"
+
+msgid "language"
+msgstr "Langue"
+
+msgid "list"
+msgstr "liste"
+
+msgid "mute"
+msgstr "muet"
+
+msgid "option"
+msgstr "option"
+
+msgid "play / pause"
+msgstr "ok / lecture / pause"
+
+msgid "power"
+msgstr "Marche/ arrêt"
+
+msgid "record"
+msgstr "enregistrer"
+
+msgid "selection"
+msgstr "sélection"
+
+msgid "stop"
+msgstr "stop"
+
+msgid "title"
+msgstr "titre"
+
+msgid "volume +"
+msgstr "volume +"
+
+msgid "volume -"
+msgstr "volume -"
+
+msgid "Led Policy"
+msgstr "Gestion des Leds"
+
+msgid "Monitor"
+msgstr "Surveillance"
+
+msgid "Extras"
+msgstr "Extras"
+
+msgid "Reboot"
+msgstr "Reboot"
+
+msgid "DbUpdater"
+msgstr "DbUpdater"
+
+msgid "InaDyn"
+msgstr "InaDyn"
+
+msgid "Pure FTP"
+msgstr "Serveur FTP"
+
+msgid "Samba Client"
+msgstr "Client Samba"
+
+msgid "Samba Server"
+msgstr "Serveur Samba"
+
+msgid "Transmission"
+msgstr "Transmission"
+
+msgid "Start Extra"
+msgstr "Démarrer l'extra"
+
+msgid "Stop Extra"
+msgstr "Arrêter l'extra"
+
+msgid "Enable Extra"
+msgstr "Activer l'extra"
+
+msgid "Disable Extra"
+msgstr "Désactiver l'extra"
+
+msgid "Reboot Wydevice"
+msgstr "Redémarrer la Wybox"
+
+msgid "Reboot Splash"
+msgstr "Redémarrer le GUI"
+
+msgid "Restart Player"
+msgstr "Redémarrer le lecteur"
+
+msgid "Shutdown Wydevice"
+msgstr "Eteindre la Wybox"
+
+msgid "Original WyDev Reboot"
+msgstr "Redémarrage d'origine"
+
+msgid "Fan Speed : "
+msgstr "Ventilo  : "
+
+msgid "Cpu Temp : "
+msgstr "Temp Cpu : "
+
+msgid "Hdd Temp : "
+msgstr "Temp Hdd : "
+
+msgid "Cpu Usage : -- %"
+msgstr "Conso Cpu : -- %"
+
+msgid "Cpu Usage : %d %%"
+msgstr "Conso Cpu : %d %%"
+
+msgid "Mem Usage : -- %"
+msgstr "Conso Mem : -- %"
+
+msgid "Mem Usage : %d %%"
+msgstr "Conso Mem : %d %%"
+
+msgid "Set Cpu Temp (%d %s)"
+msgstr "Régler Temp Cpu (%d %s)"
+
+msgid "SetPoint : %d \\xc2\\xb0C"
+msgstr "Consigne : %d \\xc2\\xb0C"
+
+msgid "Cpu Setpoint Temperature"
+msgstr "Consigne de temperature Cpu"
+
+msgid "Red"
+msgstr "Rouge"
+
+msgid "Blue"
+msgstr "Bleu"
+
+msgid "Orange"
+msgstr "Orange"
+
+msgid "Used"
+msgstr "Utilisée"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Priority : %d"
+msgstr "Prioritée : %d"
+
+msgid "Led On"
+msgstr "Led On"
+
+msgid "Led Off"
+msgstr "Led Off"
+
+msgid "Led Switch"
+msgstr "Led Switch"
+
+msgid "X Blinks"
+msgstr "X Blinks"
+
+msgid "Quick Blink"
+msgstr "Quick Blink"
+
+msgid "Round Trip"
+msgstr "Round Trip"
+
+msgid "On Time : "
+msgstr "On Time : "
+
+msgid "Off Time : "
+msgstr "Off Time : "
+
+msgid "Nb Blinks : "
+msgstr "Nb Blinks : "
+
+msgid ""
+"Modifications will take effect after reboot.\n"
+"Do you want to reboot now ?"
+msgstr ""
+"Les modifications prendrons effet après redémarrage.\n"
+"Voulez vous redémarrer maintenant ?"
+
+msgid "Copying %s"
+msgstr "Copie de %s"
+
+msgid "Copy \"%s\" to \"%s\""
+msgstr "Copier \"%s\" vers \"%s\""
+
+msgid "Move \"%s\" to \"%s\""
+msgstr "Déplacer \"%s\" vers \"%s\""
+
+msgid "Copying \"%s\" to \"%s\"..."
+msgstr "Copie de \"%s\" vers \"%s\"..."
+
+msgid "Enter the new video name"
+msgstr "Entrer le nouveau nom de la video"
+
+msgid ""
+"File %s already exist.\n"
+"Aborting..."
+msgstr ""
+"Le fichier %s existe déjà.\n"
+"Abandon..."
+
