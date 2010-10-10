@@ -1,8 +1,9 @@
-###################################################################
-#               Wyplayer extras management items                  #
-###################################################################
-#                           Polo                                  #
-###################################################################
+# Extras management items
+
+# Copyright 2010, Polo35
+# Licenced under Academic Free License version 3.0
+# Review wydev_pygui README & LICENSE files for further details.
+
 
 from __future__ import absolute_import
 
@@ -38,10 +39,10 @@ class ExtraSetupItem(ParametersSetupItem):
 		ParametersSetupItem.__init__(self, *args, **kw)
 		self.extra_name = extra_name
 		self.extra_num = extra_num
-		self.Start_Extra_Item = ActionItem('Start: Extra will start now', type_='setupitem', display_type=self._get_extra_status('yes', 1), action=self._start_extra, args=[])
-		self.Stop_Extra_Item = ActionItem('Stop: Extra will stop now', type_='setupitem', display_type=self._get_extra_status('no', 1), action=self._stop_extra, args=[])
-		self.Enable_Extra_Item = ActionItem('Enable: Extra will be automatically started after reboot', type_='setupitem', display_type=self._get_extra_status('running', 2), action=self._enable_extra, args=[])
-		self.Disable_Extra_Item = ActionItem('Disable: Extra will not be automatically started after reboot', type_='setupitem', display_type=self._get_extra_status('stopped', 2), action=self._disable_extra, args=[])
+		self.Start_Extra_Item = ActionItem(_('Start Extra'), type_='setupitem', display_type=self._get_extra_status('yes', 1), action=self._start_extra, args=[])
+		self.Stop_Extra_Item = ActionItem(_('Stop Extra'), type_='setupitem', display_type=self._get_extra_status('no', 1), action=self._stop_extra, args=[])
+		self.Enable_Extra_Item = ActionItem(_('Enable Extra'), type_='setupitem', display_type=self._get_extra_status('running', 2), action=self._enable_extra, args=[])
+		self.Disable_Extra_Item = ActionItem(_('Disable Extra'), type_='setupitem', display_type=self._get_extra_status('stopped', 2), action=self._disable_extra, args=[])
 		self.preview_list = [self.Start_Extra_Item, self.Stop_Extra_Item, self.Enable_Extra_Item, self.Disable_Extra_Item]
 
 	def _get_extra_status(self, val, key):
@@ -111,12 +112,12 @@ class ExtrasConfigurationItem(ParametersSetupItem):
 
 	def _set_preview_list(self):
 #		log.debug('_set_preview_list call')
-		self.preview_list = [ExtraSetupItem(name='DbUpdater', type_='setupitem', menu=self.menu, extra_name='DbUpdater', extra_num=0),
-		ExtraSetupItem(name='InaDyn', type_='setupitem', menu=self.menu, extra_name='InaDyn', extra_num=1),
-		ExtraSetupItem(name='Pure FTP', type_='setupitem', menu=self.menu, extra_name='Pure FTP', extra_num=2),
-		ExtraSetupItem(name='Samba Client', type_='setupitem', menu=self.menu, extra_name='Samba Client', extra_num=3),
-		ExtraSetupItem(name='Samba Server', type_='setupitem', menu=self.menu, extra_name='Samba Server', extra_num=4),
-		ExtraSetupItem(name='Transmission', type_='setupitem', menu=self.menu, extra_name='Transmission', extra_num=5)]
+		self.preview_list = [ExtraSetupItem(name=_('DbUpdater'), type_='setupitem', menu=self.menu, extra_name='DbUpdater', extra_num=0),
+		ExtraSetupItem(name=_('InaDyn'), type_='setupitem', menu=self.menu, extra_name='InaDyn', extra_num=1),
+		ExtraSetupItem(name=_('Pure FTP'), type_='setupitem', menu=self.menu, extra_name='Pure FTP', extra_num=2),
+		ExtraSetupItem(name=_('Samba Client'), type_='setupitem', menu=self.menu, extra_name='Samba Client', extra_num=3),
+		ExtraSetupItem(name=_('Samba Server'), type_='setupitem', menu=self.menu, extra_name='Samba Server', extra_num=4),
+		ExtraSetupItem(name=_('Transmission'), type_='setupitem', menu=self.menu, extra_name='Transmission', extra_num=5)]
 
 	def _get_extras_status(self):
 #		log.debug('_get_extras_status call')

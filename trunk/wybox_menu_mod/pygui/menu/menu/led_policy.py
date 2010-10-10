@@ -1,8 +1,9 @@
-###################################################################
-#                  Wyplayer led policy menu                       #
-###################################################################
-#                           Polo                                  #
-###################################################################
+# Led policy menu
+
+# Copyright 2010, Polo35
+# Licenced under Academic Free License version 3.0
+# Review wydev_pygui README & LICENSE files for further details.
+
 
 from __future__ import absolute_import
 
@@ -77,8 +78,8 @@ class LedUsedSetupItem(LedCommonSetupItem):
 		self.led_num = led_num
 		self.signal_num = signal_num
 		LedCommonSetupItem.__init__(self, *args, **kw)
-		self.preview_list = [LedCommonSetupItem(name='Yes', type_='setupitem', menu=self.menu, display_type=self._get_use('y'), action=self._set_use, args=[0]),
-		LedCommonSetupItem(name='No', type_='setupitem', menu=self.menu, display_type=self._get_use('n'), action=self._set_use, args=[1])]
+		self.preview_list = [LedCommonSetupItem(name=_('Yes'), type_='setupitem', menu=self.menu, display_type=self._get_use('y'), action=self._set_use, args=[0]),
+		LedCommonSetupItem(name=_('No'), type_='setupitem', menu=self.menu, display_type=self._get_use('n'), action=self._set_use, args=[1])]
 
 	def reset_view(self):
 		self.preview_list[0].display_type = self._get_use('y')
@@ -114,11 +115,11 @@ class LedActionChildrenSetupItem(LedCommonSetupItem):
 		self.led_num = led_num
 		self.signal_num = signal_num
 		if self.mode == 'on_time':
-			self.prefix = 'On Time : '
+			self.prefix = _('On Time : ')
 		elif self.mode == 'off_time':
-			self.prefix = 'Off Time : '
+			self.prefix = _('Off Time : ')
 		elif self.mode == 'nb_blinks':
-			self.prefix = 'Nb Blinks : '
+			self.prefix = _('Nb Blinks : ')
 		else:
 		  return
 		if self.mode == 'nb_blinks':
@@ -179,14 +180,14 @@ class LedActionPropertySetupItem(LedCommonSetupItem):
 		self.led_num = led_num
 		self.signal_num = signal_num
 		LedCommonSetupItem.__init__(self, *args, **kw)
-		if self.name == 'Led Switch':
+		if self.name == _('Led Switch'):
 			self.preview_list= [LedActionChildrenSetupItem(type_='setupitem', menu=self.menu, mode='on_time', signal_num=self.signal_num, led_num=self.led_num),
 			LedActionChildrenSetupItem(type_='setupitem', menu=self.menu, mode='off_time', signal_num=self.signal_num, led_num=self.led_num)]
-		elif self.name == 'X Blinks':
+		elif self.name == _('X Blinks'):
 			self.preview_list= [LedActionChildrenSetupItem(type_='setupitem', menu=self.menu, mode='nb_blinks', signal_num=self.signal_num, led_num=self.led_num),
 			LedActionChildrenSetupItem(type_='setupitem', menu=self.menu, mode='on_time', signal_num=self.signal_num, led_num=self.led_num),
 			LedActionChildrenSetupItem(type_='setupitem', menu=self.menu, mode='off_time', signal_num=self.signal_num, led_num=self.led_num)]
-		if self.name == 'Round Trip':
+		if self.name == _('Round Trip'):
 			self.preview_list= [LedActionChildrenSetupItem(type_='setupitem', menu=self.menu, mode='on_time', signal_num=self.signal_num, led_num=self.led_num)]
 
 class LedActionSetupItem(LedCommonSetupItem):
@@ -195,13 +196,13 @@ class LedActionSetupItem(LedCommonSetupItem):
 		self.signal_num = signal_num
 		LedCommonSetupItem.__init__(self, *args, **kw)
 		if self.led_num != 3:
-			self.preview_list= [LedCommonSetupItem(name='Led On', type_='setupitem', menu=self.menu, display_type=self._get_action(0), action=self._set_action, args=[0]),
-			LedCommonSetupItem(name='Led Off', type_='setupitem', menu=self.menu, display_type=self._get_action(1), action=self._set_action, args=[1]),
-			LedActionPropertySetupItem(name='Led Switch', type_='setupitem', menu=self.menu, display_type=self._get_action(2), action=self._set_action, args=[2], signal_num=self.signal_num, led_num=self.led_num),
-			LedActionPropertySetupItem(name='X Blinks', type_='setupitem', menu=self.menu, display_type=self._get_action(3), action=self._set_action, args=[3], signal_num=self.signal_num, led_num=self.led_num),
-			LedCommonSetupItem(name='Quick Blink', type_='setupitem', menu=self.menu, display_type=self._get_action(4), action=self._set_action, args=[4])]
+			self.preview_list= [LedCommonSetupItem(name=_('Led On'), type_='setupitem', menu=self.menu, display_type=self._get_action(0), action=self._set_action, args=[0]),
+			LedCommonSetupItem(name=_('Led Off'), type_='setupitem', menu=self.menu, display_type=self._get_action(1), action=self._set_action, args=[1]),
+			LedActionPropertySetupItem(name=_('Led Switch'), type_='setupitem', menu=self.menu, display_type=self._get_action(2), action=self._set_action, args=[2], signal_num=self.signal_num, led_num=self.led_num),
+			LedActionPropertySetupItem(name=_('X Blinks'), type_='setupitem', menu=self.menu, display_type=self._get_action(3), action=self._set_action, args=[3], signal_num=self.signal_num, led_num=self.led_num),
+			LedCommonSetupItem(name=_('Quick Blink'), type_='setupitem', menu=self.menu, display_type=self._get_action(4), action=self._set_action, args=[4])]
 		else:
-			self.preview_list= [LedActionPropertySetupItem(name='Round Trip', type_='setupitem', menu=self.menu, display_type=self._get_action(5), action=self._set_action, args=[5], signal_num=self.signal_num, led_num=self.led_num)]
+			self.preview_list= [LedActionPropertySetupItem(name=_('Round Trip'), type_='setupitem', menu=self.menu, display_type=self._get_action(5), action=self._set_action, args=[5], signal_num=self.signal_num, led_num=self.led_num)]
 
 	def reset_view(self):
 		for i in range(len(self.preview_list)):
@@ -263,11 +264,11 @@ class LedPrioritySetupItem(LedCommonSetupItem):
 	def __init__(self, signal_num, led_num, *args, **kw):
 		self.led_num = led_num
 		self.signal_num = signal_num
-		self.name = 'Priority : %d'%(self._get_value())
+		self.name = _('Priority : %d') % (self._get_value())
 		LedCommonSetupItem.__init__(self, name=self.name, *args, **kw)
 
 	def reset_view(self):
-		self.name = 'Priority : %d'%(self._get_value())
+		self.name = _('Priority : %d') % (self._get_value())
 		LedCommonSetupItem.reset_view(self)
 
 	def _get_value(self):
@@ -292,7 +293,7 @@ class LedPrioritySetupItem(LedCommonSetupItem):
 					led.attrib['priority'] = '10'
 				else:
 					led.attrib['priority'] = new_value
-		self.name = 'Priority : %d'%(self._get_value())
+		self.name = _('Priority : %d') % (self._get_value())
 		self.reset_view()
 
 
@@ -301,8 +302,8 @@ class LedColorSetupItem(LedCommonSetupItem):
 		self.led_num = led_num
 		self.signal_num = signal_num
 		LedCommonSetupItem.__init__(self, *args, **kw)
-		self.preview_list= [LedUsedSetupItem(name="Used", type_='setupitem', menu=self.menu, signal_num=self.signal_num, led_num=self.led_num),
-		LedActionSetupItem(name="Action", type_='setupitem', menu=self.menu, signal_num=self.signal_num, led_num=self.led_num),
+		self.preview_list= [LedUsedSetupItem(name=_("Used"), type_='setupitem', menu=self.menu, signal_num=self.signal_num, led_num=self.led_num),
+		LedActionSetupItem(name=_("Action"), type_='setupitem', menu=self.menu, signal_num=self.signal_num, led_num=self.led_num),
 		LedPrioritySetupItem(type_='setupitem', menu=self.menu, signal_num=self.signal_num, led_num=self.led_num)]
 
 
@@ -310,10 +311,10 @@ class LedSignalSetupItem(LedCommonSetupItem):
 	def __init__(self, signal_num, *args, **kw):
 		self.signal_num = signal_num
 		LedCommonSetupItem.__init__(self, *args, **kw)
-		self.preview_list = [LedColorSetupItem(name="Red", type_='setupitem', menu=self.menu, display_type=self._get_led(0), action=self._set_led, args=[0], signal_num=self.signal_num, led_num=0),
-		LedColorSetupItem(name="Blue", type_='setupitem', menu=self.menu, display_type=self._get_led(1), action=self._set_led, args=[1], signal_num=self.signal_num, led_num=1),
-		LedColorSetupItem(name="Orange", type_='setupitem', menu=self.menu, display_type=self._get_led(2), action=self._set_led, args=[2], signal_num=self.signal_num, led_num=2),
-		LedColorSetupItem(name="All", type_='setupitem', menu=self.menu, display_type=self._get_led(3), action=self._set_led, args=[3], signal_num=self.signal_num, led_num=3)]
+		self.preview_list = [LedColorSetupItem(name=_("Red"), type_='setupitem', menu=self.menu, display_type=self._get_led(0), action=self._set_led, args=[0], signal_num=self.signal_num, led_num=0),
+		LedColorSetupItem(name=_("Blue"), type_='setupitem', menu=self.menu, display_type=self._get_led(1), action=self._set_led, args=[1], signal_num=self.signal_num, led_num=1),
+		LedColorSetupItem(name=_("Orange"), type_='setupitem', menu=self.menu, display_type=self._get_led(2), action=self._set_led, args=[2], signal_num=self.signal_num, led_num=2),
+		LedColorSetupItem(name=_("All"), type_='setupitem', menu=self.menu, display_type=self._get_led(3), action=self._set_led, args=[3], signal_num=self.signal_num, led_num=3)]
 
 	def _get_led(self, val):
 		global glob_led_signal_list
@@ -356,7 +357,7 @@ class LedPolicySetupMenu(Menu):
 		for i in range(len(glob_led_signal_list)):
 			main_items.append(LedSignalSetupItem(name=glob_led_signal_list[i].attrib["name"], type_='setupitem', menu=self, signal_num=i))
 		self.eventhandler = LedPolicyMenuEventHandler(self)
-		Menu.__init__(self, name='Led Policy', choices=main_items, type='ledsetup', **kw)
+		Menu.__init__(self, name=_('Led Policy'), choices=main_items, type='ledsetup', **kw)
 		self.available_choices = ['main_list', 'led_list', 'property_list', 'option0_list', 'option1_list']
 		self._getitems_keywords.update(dict(led_list=(lambda : self.get_item_list('led_list')), property_list=(lambda : self.get_item_list('property_list')), option0_list=(lambda : self.get_item_list('option0_list')), option1_list=(lambda : self.get_item_list('option1_list'))))
 		self._browse_main()
@@ -491,14 +492,14 @@ class LedPolicySetupMenu(Menu):
 		main_items = []
 		for i in range(len(glob_led_signal_list)):
 			main_items.append(LedSignalSetupItem(name=glob_led_signal_list[i].attrib["name"], type_='setupitem', menu=self, signal_num=i))
-		self.reset(name='Led Policy', choices=main_items, type='ledsetup', universe='setup')
+		self.reset(name=_('Led Policy'), choices=main_items, type='ledsetup', universe='setup')
 		self._browse_main()
 
 
 	def apply_change(self):
 		global glob_led_policy_etree
 		glob_led_policy_etree.write('/etc/led_policy.xml', 'UTF-8')
-		w = ConfirmWindow(text='Modifications will take effect after reboot.\nDo you want to reboot now ?', confirm_action=self._reinit_box, buttons=[Button(_('Yes'), False), Button(_('No'), True)])
+		w = ConfirmWindow(text=_('Modifications will take effect after reboot.\nDo you want to reboot now ?'), confirm_action=self._reinit_box, buttons=[Button(_('Yes'), False), Button(_('No'), True)])
 		w.show()
 
 	def _reinit_box(self):

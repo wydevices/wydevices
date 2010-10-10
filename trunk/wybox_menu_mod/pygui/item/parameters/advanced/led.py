@@ -1,8 +1,9 @@
-###################################################################
-#                  Wyplayer led management items                  #
-###################################################################
-#                           Polo                                  #
-###################################################################
+# Led management items
+
+# Copyright 2010, Polo35
+# Licenced under Academic Free License version 3.0
+# Review wydev_pygui README & LICENSE files for further details.
+
 
 from __future__ import absolute_import
 

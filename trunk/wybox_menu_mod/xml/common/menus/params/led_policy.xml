@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<wyboxmmi version="0.1">
+<!-- 	
+###################################################################################################################
+-->
+    <pages>
+	
+        <page id="menu_ledsetup">
+               <container name="main" left="-100%">
+		
+		<image file="%(skins)s/wybox/images/menus/navigator/screensaver/back-screensaver.png" preserve_aspect="false" name="back-screensaver" bottom="0%" height="56%"/>		
+		
+		<textblock i18n="true" color="255 255 255 255" height="6%" style="font=Wyplay font_size=36 align=center" text="Led Policy Manager" top="46%" maxlen="30"/>
+		
+		<image file="%(skins)s/wybox/images/remote/stop.png" keep_real_size="true" name="stop"  vcenter="90%" left="10%"/>
+		<textblock i18n="true" color="130 130 130 255" height="6%" left="17%" vcenter="90%" style="font=Wyplay font_size=30 align=left" text="Factory Settings" /> 
+		
+		<image file="%(skins)s/wybox/images/remote/rec.png" keep_real_size="true" name="rec"  vcenter="90%" left="40%"/>
+		<textblock i18n="true" color="130 130 130 255" height="6%" left="47%" vcenter="90%" style="font=Wyplay font_size=30 align=left" text="Apply Changes" /> 
+			
+		<image file="%(skins)s/wybox/images/help/rotation.png" keep_real_size="true" name="rec"  vcenter="90%" left="70%"/>
+		<textblock i18n="true" color="130 130 130 255" height="6%" left="77%" vcenter="90%" style="font=Wyplay font_size=30 align=left" text="Increase/Decrease" /> 
+			
+		<textblock i18n="true" color="255 255 255 255" height="6%" left="10%" style="font=Wyplay font_size=32 align=left" top="54%" text="Signal" /> 
+		<textblock i18n="true" color="255 255 255 255" height="6%" left="30%" style="font=Wyplay font_size=32 align=left" top="54%" text="Led" /> 
+		<textblock i18n="true" color="255 255 255 255" height="6%" left="42%" style="font=Wyplay font_size=32 align=left" top="54%" text="Property" /> 
+		<textblock i18n="true" color="255 255 255 255" height="6%" left="57%" style="font=Wyplay font_size=32 align=left" top="54%" text="Options 1" /> 
+		<textblock i18n="true" color="255 255 255 255" height="6%" left="75%" style="font=Wyplay font_size=32 align=left" top="54%" text="Options 2" /> 
+			
+		<list   name="main_list" 
+			top="61%" 
+			left="10%" 
+			width="20%" 
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,13% 0%,26% 0%,39%" 
+			style_name="text" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			selected_item="1" 
+			text_color="130 130 130 255" 
+			selected_text_color="167 197 12 255" 
+			font_style="font=Wyplay align=left font_size=30" 
+			selected_font_style="font=Wyplay align=left font_size=30 wrap=char" 
+			maxlen="20">
+		</list>
+
+		<list   name="led_list" 
+			top="61%" 
+			left="32%" 
+			width="12%" 
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,13% 0%,26% 0%,39%" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			style_name="icon_text_hybrid" 
+			preserve_icon_size="true"
+			text_offset="2%,-1%" 
+			selected_text_offset="2%,-1%" 
+			selected_item="1" 
+			text_color="130 130 130 255" 
+			selected_text_color="167 197 12 255" 
+			font_style="font=Wyplay align=left font_size=30" 
+			selected_font_style="font=Wyplay align=left font_size=30 wrap=char" 
+			repository="%(skins)s/wybox/images/menus/navigator/hand/" 
+			maxlen="20">							
+		</list>
+
+		<list   name="property_list" 
+			top="61%" 
+			left="42%" 
+			width="15%" 
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,13% 0%,26% 0%,39%" 
+			style_name="text" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			selected_item="1" 
+			text_color="130 130 130 255" 
+			selected_text_color="167 197 12 255" 
+			font_style="font=Wyplay align=left font_size=30" 
+			selected_font_style="font=Wyplay align=left font_size=30 wrap=char" 
+			maxlen="20">
+		</list>
+
+		<list   name="option0_list" 
+			top="61%" 
+			left="59%" 
+			width="20%" 
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,13% 0%,26% 0%,39%" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			style_name="icon_text_hybrid" 
+			preserve_icon_size="true"
+			text_offset="2%,-1%" 
+			selected_text_offset="2%,-1%" 
+			selected_item="1" 
+			text_color="130 130 130 255" 
+			selected_text_color="167 197 12 255" 
+			font_style="font=Wyplay align=left font_size=30" 
+			selected_font_style="font=Wyplay align=left font_size=30 wrap=char" 
+			repository="%(skins)s/wybox/images/menus/navigator/hand/" 
+			maxlen="20">							
+		</list>
+
+		<list   name="option1_list" 
+			top="61%" 
+			left="74%" 
+			width="20%" 
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,13% 0%,26% 0%,39%" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			style_name="icon_text_hybrid" 
+			preserve_icon_size="true"
+			text_offset="2%,-1%" 
+			selected_text_offset="2%,-1%" 
+			selected_item="1" 
+			text_color="130 130 130 255" 
+			selected_text_color="167 197 12 255" 
+			font_style="font=Wyplay align=left font_size=30" 
+			selected_font_style="font=Wyplay align=left font_size=30 wrap=char" 
+			repository="%(skins)s/wybox/images/menus/navigator/hand/" 
+			maxlen="20">							
+		</list>
+
+		<image file="%(skins)s/wybox/images/menus/params/navigator/setup-selection-area.png" preserve_aspect="false" left="9%" top="60%" height="25%" width="20%">
+			<animation tplid="selection_on_signal_list"/>
+			<animation tplid="selection_on_led_list"/>
+			<animation tplid="selection_on_property_list"/>
+			<animation tplid="selection_on_option0_list"/>
+			<animation tplid="selection_on_option1_list"/>
+		</image>
+	
+                <animation tplid="creation_led" />
+		<animation tplid="remove_led" />
+            </container>
+        </page>
+        
+    </pages>
+
+    <templates>
+        <animations>	
+	
+		<animation event="on_create" id="creation_led">
+			<move duration="0.2" left="0%" />
+		</animation>
+
+		<animation event="on_remove" id="remove_led">
+			<move duration="0.2" left="100%">
+				<move duration="0" left="-100%"/>
+			</move>
+		</animation>
+
+		<animation id="selection_on_signal_list" event="on_main_list_focus">		
+			<move duration="0.1" left="9%"/>
+			<size duration="0.1" width="20%"/>
+		</animation>
+	
+		<animation id="selection_on_led_list" event="on_led_list_focus">		
+			<move duration="0.1" left="29%"/>
+			<size duration="0.1" width="12%"/>
+		</animation>
+	
+		<animation id="selection_on_property_list" event="on_property_list_focus">		
+			<move duration="0.1" left="41%"/>
+			<size duration="0.1" width="15%"/>
+		</animation>
+	
+		<animation id="selection_on_option0_list" event="on_option0_list_focus">		
+			<move duration="0.1" left="56%"/>
+			<size duration="0.1" width="17%"/>
+		</animation>
+	
+		<animation id="selection_on_option1_list" event="on_option1_list_focus">		
+			<move duration="0.1" left="73%"/>
+			<size duration="0.1" width="18%"/>
+		</animation>
+	
+        </animations>
+    </templates>
+</wyboxmmi>
+

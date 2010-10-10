@@ -1,8 +1,9 @@
-###################################################################
-#                 Wyplayer HW monitoring items                    #
-###################################################################
-#                           Polo                                  #
-###################################################################
+# HW monitoring items
+
+# Copyright 2010, Polo35
+# Licenced under Academic Free License version 3.0
+# Review wydev_pygui README & LICENSE files for further details.
+
 
 from __future__ import absolute_import
 
@@ -44,24 +45,24 @@ class HwMonitoringItem(ParametersSetupItem):
 	def __init__(self, device, *args, **kw):
 		self.device = device
 		if self.device == 'Fan':
-			self.prefix = 'Fan Speed : '
-			self.unit = 'Rpm'
+			self.prefix = _('Fan Speed : ')
+			self.unit = _('Rpm')
 			self.div = 1
 			self.command = 'cat /sys/devices/platform/stm-pwm/pwm1 | tr -d "\n"'
 		elif self.device == 'Cpu':
-			self.prefix = 'Cpu Temp : '
+			self.prefix = _('Cpu Temp : ')
 			self.unit = '\xc2\xb0C'
 			self.command = 'cat /sys/bus/i2c/devices/0-0048/temp1_input | tr -d "\n"'
 			self.div = 1000
 		elif self.device == 'Hdd':
-			self.prefix = 'Hdd Temp : '
+			self.prefix = _('Hdd Temp : ')
 			self.unit = '\xc2\xb0C'
 			self.command = '/wymedia/usr/bin/hddtemp -n /dev/sda -f /wymedia/usr/lib/share/misc/hddtemp.db 2> /dev/null | tr -d "\n"'
 			self.div = 1
 		self.name = '%s-- %s'%(self.prefix, self.unit)
 		ParametersSetupItem.__init__(self, name=self.name, *args, **kw)
 		if self.device == 'Cpu':
-			self.preview_list = [CpuTempSetPointItem(name='Set Cpu Temp (%d %s)'%(self._get_setpoint_temp(), self.unit), type_='setupitem', menu=self.menu)]
+			self.preview_list = [CpuTempSetPointItem(name=_('Set Cpu Temp (%d %s)') % (self._get_setpoint_temp(), self.unit), type_='setupitem', menu=self.menu)]
 
 	def _get_setpoint_temp(self):
 		try:
@@ -96,12 +97,12 @@ class HwMonitoringItem(ParametersSetupItem):
 
 class CpuLoadMonitoringItem(ParametersSetupItem):
 	def __init__(self, *args, **kw):
-		self.name = 'Cpu Usage : -- %'
+		self.name = _('Cpu Usage : -- %')
 		ParametersSetupItem.__init__(self, name=self.name, *args, **kw)
 
 	def reset_view(self):
 #		log.debug('reset_view call')
-		new_name = 'Cpu Usage : %d %%'%(self._get_value())
+		new_name = _('Cpu Usage : %d %%') % (self._get_value())
 		if new_name != self.name:
 			self.name = new_name
 			ParametersSetupItem.reset_view(self)
@@ -124,12 +125,12 @@ class CpuLoadMonitoringItem(ParametersSetupItem):
 
 class MemLoadMonitoringItem(ParametersSetupItem):
 	def __init__(self, *args, **kw):
-		self.name = 'Mem Usage : -- %'
+		self.name = _('Mem Usage : -- %')
 		ParametersSetupItem.__init__(self, name=self.name, *args, **kw)
 
 	def reset_view(self):
 #		log.debug('reset_view call')
-		new_name = 'Mem Usage : %d %%'%(self._get_value())
+		new_name = _('Mem Usage : %d %%') % (self._get_value())
 		if new_name != self.name:
 			self.name = new_name
 			ParametersSetupItem.reset_view(self)

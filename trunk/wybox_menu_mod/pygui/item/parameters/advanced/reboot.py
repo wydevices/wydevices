@@ -1,8 +1,9 @@
-###################################################################
-#               Wyplayer reboot management items                  #
-###################################################################
-#                           Polo                                  #
-###################################################################
+# Reboot management items
+
+# Copyright 2010, Polo35
+# Licenced under Academic Free License version 3.0
+# Review wydev_pygui README & LICENSE files for further details.
+
 
 from __future__ import absolute_import
 
@@ -35,8 +36,8 @@ class RebootConfigurationItem(ParametersSetupItem):
 
 	def browse(self):
 		if self.menu.selected_main.__eq__(self):
-			return [RebootWyDevItem(name='Reboot Wydevice: it\'s the same than using the clip. Full Reboot.', type_='action', user_arg='/sbin/reboot'),
-			RebootWyDevItem(name='Reboot Splash: restarts the python GUI, will free mem and less time than a full reboot. Do not restarts transmission.', type_='action', user_arg='/bin/killall python2.5'),
-			RebootWyDevItem(name='Restart Player: is ok when the player is hung after a crash.', type_='action', user_arg='/wymedia/usr/bin/pkill wyplayer'),
-			RebootWyDevItem(name='Shutdown Wydevice: turns off device and HDD. Good for nights of before planning a trip, for example. ', type_='action', user_arg='/sbin/poweroff'),
-			ReInitBoxItem(name='Original WyDev Reboot', type_='setupitem')]
+			return [RebootWyDevItem(name=_('Reboot Wydevice'), type_='action', user_arg='/sbin/reboot'),
+			RebootWyDevItem(name=_('Reboot Splash'), type_='action', user_arg='/bin/killall python2.5'),
+			RebootWyDevItem(name=_('Restart Player'), type_='action', user_arg='/wymedia/usr/bin/pkill wyplayer'),
+			RebootWyDevItem(name=_('Shutdown Wydevice'), type_='action', user_arg='/sbin/poweroff'),
+			ReInitBoxItem(name=_('Original WyDev Reboot'), type_='setupitem')]
