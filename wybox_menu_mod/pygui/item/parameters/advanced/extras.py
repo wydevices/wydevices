@@ -31,13 +31,12 @@ import os
 
 
 global_extras_readed = 0
-global_extras_status = [['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', '']]
+global_extras_status = [['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', '']]
 
 
 class ExtraSetupItem(ParametersSetupItem):
-	def __init__(self, extra_name, extra_num, *args, **kw):
+	def __init__(self, extra_num, *args, **kw):
 		ParametersSetupItem.__init__(self, *args, **kw)
-		self.extra_name = extra_name
 		self.extra_num = extra_num
 		self.Start_Extra_Item = ActionItem(_('Start Extra'), type_='setupitem', display_type=self._get_extra_status('yes', 1), action=self._start_extra, args=[])
 		self.Stop_Extra_Item = ActionItem(_('Stop Extra'), type_='setupitem', display_type=self._get_extra_status('no', 1), action=self._stop_extra, args=[])
@@ -112,12 +111,15 @@ class ExtrasConfigurationItem(ParametersSetupItem):
 
 	def _set_preview_list(self):
 #		log.debug('_set_preview_list call')
-		self.preview_list = [ExtraSetupItem(name=_('DbUpdater'), type_='setupitem', menu=self.menu, extra_name='DbUpdater', extra_num=0),
-		ExtraSetupItem(name=_('InaDyn'), type_='setupitem', menu=self.menu, extra_name='InaDyn', extra_num=1),
-		ExtraSetupItem(name=_('Pure FTP'), type_='setupitem', menu=self.menu, extra_name='Pure FTP', extra_num=2),
-		ExtraSetupItem(name=_('Samba Client'), type_='setupitem', menu=self.menu, extra_name='Samba Client', extra_num=3),
-		ExtraSetupItem(name=_('Samba Server'), type_='setupitem', menu=self.menu, extra_name='Samba Server', extra_num=4),
-		ExtraSetupItem(name=_('Transmission'), type_='setupitem', menu=self.menu, extra_name='Transmission', extra_num=5)]
+		self.preview_list = [ExtraSetupItem(name=_('Cron Deamon'), type_='setupitem', menu=self.menu, extra_num=0),
+		ExtraSetupItem(name=_('InaDyn DNS Client'), type_='setupitem', menu=self.menu, extra_num=1),
+		ExtraSetupItem(name=_('Pure FTP Server'), type_='setupitem', menu=self.menu, extra_num=2),
+		ExtraSetupItem(name=_('Remote Sync'), type_='setupitem', menu=self.menu, extra_num=3),
+		ExtraSetupItem(name=_('Samba Client'), type_='setupitem', menu=self.menu, extra_num=4),
+		ExtraSetupItem(name=_('Samba Server'), type_='setupitem', menu=self.menu, extra_num=5),
+		ExtraSetupItem(name=_('Syslog Deamon'), type_='setupitem', menu=self.menu, extra_num=6),
+		ExtraSetupItem(name=_('Transmission Client'), type_='setupitem', menu=self.menu, extra_num=7),
+		ExtraSetupItem(name=_('Wymod Control Panel'), type_='setupitem', menu=self.menu, extra_num=8)]
 
 	def _get_extras_status(self):
 #		log.debug('_get_extras_status call')
