@@ -253,10 +253,18 @@
 			<animation tplid="creation_selection"/>
 			<animation tplid="deletion_selection"/>
 			<animation tplid="selection_main_list"/>
-			<animation tplid="selection_options_list_advanced"/>					
+			<animation tplid="selection_center_list_general"/>
+			<animation tplid="selection_options_list_general"/>					
 		</image>
 			
-		<list tplid="main_list"/>							
+		<list tplid="main_list" maxlen="26"/>
+		
+		<list tplid="center_list"/>		
+
+		<list tplid="options_list"
+			left="50%"
+			style_name="icon_text_hybrid"
+			maxlen="18"/>
 			
 		<animation tplid="deletion_setup"/>
 	</container>
@@ -501,11 +509,6 @@
 	<animation id="selection_options_list_network" event="on_options_list_focus">
 		<size duration="0.2" width="38%" height="49%"/>
 		<move duration="0.2" top="53%" left="60%"/>		
-	</animation>
-	
-	<!--animation for menu_notebook_setup_advanced-->
-	<animation id="selection_options_list_advanced" event="on_options_list_focus">
-		<move duration="0.2" top="53%" left="57%"/>
 	</animation>
 	
 	<!--animation for menu_notebook_setup_version-->

@@ -254,10 +254,18 @@
 			<animation tplid="creation_selection"/>
 			<animation tplid="deletion_selection"/>
 			<animation tplid="selection_main_list"/>
-			<animation tplid="selection_options_list_advanced"/>					
+			<animation tplid="selection_center_list_general"/>
+			<animation tplid="selection_options_list_general"/>					
 		</image>
 			
-		<list tplid="main_list"/>							
+		<list tplid="main_list" maxlen="26"/>
+		
+		<list tplid="center_list"/>		
+
+		<list tplid="options_list"
+			left="50%"
+			style_name="icon_text_hybrid"
+			maxlen="18"/>
 			
 		<animation tplid="deletion_setup"/>
 	</container>
