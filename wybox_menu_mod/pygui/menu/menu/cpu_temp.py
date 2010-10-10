@@ -1,8 +1,9 @@
-###################################################################
-#               Wyplayer cpu setpoint temp menu                   #
-###################################################################
-#                           Polo                                  #
-###################################################################
+# Cpu setpoint temp menu
+
+# Copyright 2010, Polo35
+# Licenced under Academic Free License version 3.0
+# Review wydev_pygui README & LICENSE files for further details.
+
 
 from __future__ import absolute_import
 
@@ -19,7 +20,7 @@ glob_setpoint_temp = 0
 
 class TempSetupItem(Item):
 	def __init__(self, *args, **kw):
-		self.name = 'SetPoint : %d \xc2\xb0C'%(self._get_value())
+		self.name = _('SetPoint : %d \xc2\xb0C') % (self._get_value())
 		Item.__init__(self, name=self.name, *args, **kw)
 
 	def _get_value(self):
@@ -33,7 +34,7 @@ class TempSetupItem(Item):
 			glob_setpoint_temp = 55
 		elif glob_setpoint_temp <= 40:
 			glob_setpoint_temp = 40
-		self.name = 'SetPoint : %d \xc2\xb0C'%(self._get_value())
+		self.name = _('SetPoint : %d \xc2\xb0C') % (self._get_value())
 		self.reset_view()
 
 class CpuTempSetupMenu(Menu):
@@ -41,7 +42,7 @@ class CpuTempSetupMenu(Menu):
 	def __init__(self, **kw):
 		self.eventhandler = CpuTempMenuEventHandler(self)
 		self._get_setpoint_temp()
-		Menu.__init__(self, name='Cpu Setpoint Temperature', choices=[TempSetupItem(type_='setupitem', menu=self)], type='cputempsetup', **kw)
+		Menu.__init__(self, name=_('Cpu Setpoint Temperature'), choices=[TempSetupItem(type_='setupitem', menu=self)], type='cputempsetup', **kw)
 
 
 	def _get_setpoint_temp(self):
@@ -68,7 +69,7 @@ class CpuTempSetupMenu(Menu):
 			else:
 				os.write(output, line)
 		os.close(output)
-		w = ConfirmWindow(text='Modifications will take effect after reboot.\nDo you want to reboot now ?', confirm_action=self._reinit_box, buttons=[Button(_('Yes'), False), Button(_('No'), True)])
+		w = ConfirmWindow(text=_('Modifications will take effect after reboot.\nDo you want to reboot now ?'), confirm_action=self._reinit_box, buttons=[Button(_('Yes'), False), Button(_('No'), True)])
 		w.show()
 
 	def _reinit_box(self):

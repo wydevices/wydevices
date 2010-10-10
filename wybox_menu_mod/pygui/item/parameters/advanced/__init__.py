@@ -1,8 +1,9 @@
-###################################################################
-#               Wyplayer advanced parameters items                #
-###################################################################
-#                           Polo                                  #
-###################################################################
+# 1dvanced parameters items
+
+# Copyright 2010, Polo35
+# Licenced under Academic Free License version 3.0
+# Review wydev_pygui README & LICENSE files for further details.
+
 
 from __future__ import absolute_import
 
@@ -18,10 +19,10 @@ def getitem(menu):
 
 class AdvancedSetupItem(GenericContainer):
 	def browse(self):
-		return [LedConfigurationItem(name='Led Policy', type_='setupitem', menu=self.menu),
-		MonitorConfigurationItem(name='Monitor', type_='setupitem', menu=self.menu),
-		ExtrasConfigurationItem(name='Extras', type_='setupitem', menu=self.menu),
-		RebootConfigurationItem(name='Reboot', type_='setupitem', menu=self.menu)]
+		return [LedConfigurationItem(name=_('Led Policy'), type_='setupitem', menu=self.menu),
+		MonitorConfigurationItem(name=_('Monitor'), type_='setupitem', menu=self.menu),
+		ExtrasConfigurationItem(name=_('Extras'), type_='setupitem', menu=self.menu),
+		RebootConfigurationItem(name=_('Reboot'), type_='setupitem', menu=self.menu)]
 
 	def update_name(self):
 		self._name = _('Advanced')

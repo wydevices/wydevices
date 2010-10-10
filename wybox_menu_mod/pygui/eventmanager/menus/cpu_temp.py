@@ -1,8 +1,9 @@
-###################################################################
-#            Wyplayer cpu setpoint temp menu eventmanager         #
-###################################################################
-#                           Polo                                  #
-###################################################################
+# Cpu setpoint temp menu eventmanager
+
+# Copyright 2010, Polo35
+# Licenced under Academic Free License version 3.0
+# Review wydev_pygui README & LICENSE files for further details.
+
 
 from pygui.eventmanager.menus.core import MenuEventHandler
 from pygui.shared import pygui_globs

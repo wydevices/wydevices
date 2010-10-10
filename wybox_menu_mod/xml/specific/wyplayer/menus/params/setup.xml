@@ -1,0 +1,484 @@
+<wyboxmmi version="0.1">
+<!-- 	
+###################################################################################################################
+				Revision of last commit: 			$Revision: 2060 $
+				Author of last commit: 			$Author: yblanes $	
+				Date of last commit: 			$Date: 2009-01-21 14:51:02 +0100 (mer, 21 jan 2009) $		
+				Copyright (c) 2006-2008 Wyplay SAS
+###################################################################################################################
+-->
+
+	<pages>
+	<page id="menu_notebook_setup_parameters">	
+
+		<container name="main" opacity="0">						
+			
+			
+			<image file="%(skins)s/wybox/images/menus/params/navigator/back-params.png" preserve_aspect="false" name="back-params"/>
+			
+			<!-- Clock -->
+			<image file="%(skins)s/wybox/images/menus/params/info_icons/clock.png" name="clock_img" top="11%" hcenter="30%" keep_real_size="true" />
+			<clock name="clock" top="10%" left="33%" width="17%" height="12%" style="font=Wyplay font_size=30 align=left" color="130 130 130 255" global_format="%time\n%date" />
+			
+			<!-- Resolution -->
+			<image file="%(skins)s/wybox/images/menus/params/info_icons/tv_icon_selected.png" name="resolution" vcenter="12%" left="50%" keep_real_size="true"/>
+			<textblock i18n="true" name="connection" style="font=Wyplay font_size=30 align=left wrap=char" text="" color="130 130 130 255" left="55%" vcenter="12%" maxlen="15" height="5%" width="15%"/>
+				
+			<!-- network -->
+			<image repository="%(skins)s/wybox/images/menus/params/info_icons/" name="network_icon" vcenter="19%" left="50%" keep_real_size="true"/>
+			<textblock i18n="true" name="network" style="font=Wyplay font_size=30 align=left wrap=char" text="" color="130 130 130 255" left="55%" vcenter="19%" maxlen="28" height="5%" width="40%"/>
+				
+			<!-- available space -->
+			<image file="%(skins)s/wybox/images/menus/params/info_icons/space_disk_icon_selected.png" name="space_available_icon" vcenter="93%" hcenter="40%" keep_real_size="true" />
+			<textblock i18n="true" name="space_available" style="font=Wyplay font_size=30 align=left wrap=word" text="" color="130 130 130 255" left="43%" vcenter="93%" maxlen="35" height="5%" width="50%"/>
+			
+			<container name="list_zone">				
+
+				<image file="%(skins)s/wybox/images/menus/params/navigator/arrow_down.png" keep_real_size="true" preserve_aspect="true" hcenter="50%" top="40%">
+					<animation tplid="arrow_on_show"/>
+					<animation tplid="arrow_on_hide"/>
+				</image>
+
+				<container name="menu_lists">
+					<list name="main_list" 
+						centered="True" 
+						positions="20%,30% 30%,30% 40%,30% 50%,30% 60%,30% 70%,30% 80%,30%" 
+						duration="0.1" 
+						style_name="image" 
+						preserve_icon_aspect="true" 
+						preserve_icon_size="false" 
+						icon_size="6%,10%" 
+						selected_icon_size="8%,14%" 
+						repository="%(skins)s/wybox/images/menus/params/navigator/">	
+					</list>
+					
+					<list name="main_list" 
+						left="16%" 
+						top="39%"
+						centered="False" 
+						positions="0%,0%" 
+						duration="0.1" 
+						style_name="text" 
+						selected_text_color="167 197 12 255" 
+						selected_font_style="font=Wyplay align=left font_size=36">						
+					</list>
+					
+					<animation tplid="hide_all_list"/>
+					<animation tplid="show_all_list"/>
+					
+				</container>
+			</container>
+		<animation tplid="creation_setup"/>				
+		<animation tplid="deletion_setup"/>
+		</container>
+	</page>
+	
+	<!-- ######################################### TV ############################# -->
+	<page id="menu_notebook_setup_tv">	
+		<container name="main">
+			
+			
+			<image tplid="back-params"/>
+				
+			<image tplid="arrow_up"/>
+
+			<image tplid="setup-selection-area-large" />
+				
+			<list tplid="main_list" width="35%" maxlen="25"/>
+				
+			<list tplid="options_list"/>
+				
+			<list tplid="options_auto_list"/>
+				
+			<image file="%(skins)s/wybox/images/menus/params/navigator/start.png" left="61%" keep_real_size="true" vcenter="59%" opacity="0">
+				<animation tplid="show_tv_button"/>
+				<animation tplid="remove_tv_button_on_top"/>
+				<animation tplid="remove_tv_button_on_bottom"/>
+			</image>				
+				
+			<animation tplid="deletion_menu"/>
+		</container>
+	</page>
+
+		<!-- ######################################### GENERAL ############################# -->
+
+	<page id="menu_notebook_setup_general">
+	
+	<container name="main">
+		
+		
+		<image tplid="back-params"/>
+			
+		<image tplid="arrow_up"/>
+
+		<image tplid="setup-selection-area-general" />
+				
+		<list tplid="main_list" maxlen="22" width="30%"/>
+		
+		<list tplid="center_list"/>
+		
+		<list tplid="options_list" left="67%"/>
+		
+		<list tplid="aspect_ratio_options_list"/>		
+
+		<animation tplid="deletion_menu"/>
+	</container>
+	</page>
+	
+	<!-- ######################################### VIDEO/PHOTO ############################# -->
+	
+	<page id="menu_notebook_setup_videophoto">
+	
+	<container name="main">
+		
+		
+		<image tplid="back-params"/>
+			
+		<image tplid="arrow_up"/>
+
+		<image tplid="setup-selection-area-videophoto" />
+				
+		<list tplid="main_list" maxlen="21" width="30%"/>
+		
+		<list tplid="center_list"/>
+		
+		<list tplid="options_list" left="67%"/>
+		
+		<list tplid="aspect_ratio_options_list"/>		
+
+		<animation tplid="deletion_menu"/>
+	</container>
+	</page>
+	
+	<!-- ######################################### CONNECTIONS ############################# -->
+	
+	<page id="menu_notebook_setup_connections">
+	
+	<container name="main">
+		
+		
+		<image tplid="back-params"/>
+			
+		<image tplid="arrow_up"/>
+
+		<image tplid="setup-selection-area-large" />
+				
+		<list tplid="main_list"	maxlen="30"	width="40%"/>		
+		
+		<list tplid="options_list"/>
+		
+		<list tplid="aspect_ratio_options_list"/>		
+
+		<animation tplid="deletion_menu"/>
+	</container>
+	</page>
+
+	<!-- ######################################### NETWORK ############################# -->
+
+	<page id="menu_notebook_setup_network">
+
+	<container name="main">
+		
+
+		<image tplid="back-params"/>
+				
+			<image tplid="arrow_up"/>
+
+			<image tplid="setup-selection-area-large" />
+							
+			<list tplid="main_list" width="35%" maxlen="25"/>
+				
+			<list tplid="options_list" selected_text_color="130 130 130 255"/>
+			
+		<animation tplid="deletion_menu"/>
+	</container>
+	</page>
+
+	<!-- ######################################### ADVANCED ############################# -->
+
+	<page id="menu_notebook_setup_advanced">
+
+	<container name="main">
+		
+		
+		<image tplid="back-params"/>
+			
+		<image tplid="arrow_up"/>
+
+		<image tplid="setup-selection-area-advanced" />
+				
+		<list tplid="main_list" maxlen="22" width="30%"/>
+		
+		<list tplid="center_list"/>
+		
+		<list tplid="options_list" left="67%"/>
+		
+		<animation tplid="deletion_menu"/>
+	</container>
+	</page>
+
+	<!-- ######################################### VERSION ############################# -->
+
+	<page id="menu_notebook_setup_version">
+		<container name="main">
+			
+			<image tplid="back-params"/>
+					
+			<image tplid="arrow_up"/>
+
+			<image tplid="setup-selection-area-large" width="45%" />
+						
+			<list tplid="main_list" width="35%" maxlen="25"/>
+			<animation tplid="deletion_menu"/>
+		</container>
+	</page>
+	
+	
+</pages>
+
+	<templates>
+	<objects>
+		<list id="main_list" 
+			name="main_list" 
+			top="45%" 
+			left="15%" 
+			width="25%" 
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,13% 0%,26% 0%,39% 0%,52% 0%,65% 0%,78%" 
+			style_name="text_hybrid" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			selected_item="1" 
+			text_color="130 130 130 255" 
+			selected_text_color="167 197 12 255" 
+			font_style="font=Wyplay align=left font_size=30" 
+			selected_font_style="font=Wyplay align=left font_size=30 wrap=char" 
+			maxlen="20">
+		</list>
+		
+		<list id="center_list" 
+			name="center_list" 
+			left="40%" 
+			top="45%" 
+			width="30%"
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,13% 0%,26% 0%,39% 0%,52% 0%,65% 0%,78%" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			style_name="icon_text_hybrid" 
+			preserve_icon_size="true"
+			text_offset="2%,-1%" 
+			selected_text_offset="2%,-1%" 
+			selected_item="1" 
+			text_color="130 130 130 255" 
+			selected_text_color="167 197 12 255" 
+			font_style="font=Wyplay align=left font_size=30" 
+			selected_font_style="font=Wyplay align=left font_size=30 wrap=char" 
+			repository="%(skins)s/wybox/images/menus/navigator/hand/" 
+			maxlen="20">							
+		</list>
+		
+		<list id="options_list"
+			name="options_list" 
+			left="62%" 
+			top="45%" 
+			width="30%"
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,13% 0%,26% 0%,39% 0%,52% 0%,65% 0%,78%" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			style_name="icon_text_hybrid" 
+			preserve_icon_size="true" 
+			text_offset="2%,-1%" 
+			selected_text_offset="2%,-1%" 
+			selected_item="1" 
+			text_color="130 130 130 255" 
+			selected_text_color="167 197 12 255" 
+			font_style="font=Wyplay align=left font_size=30" 
+			selected_font_style="font=Wyplay align=left font_size=30 wrap=char" 
+			repository="%(skins)s/wybox/images/menus/navigator/hand/" 
+			maxlen="25">				
+		</list>
+		
+		<list id="options_auto_list" 
+			name="options_auto_list" 
+			left="62%" 
+			top="45%" 
+			width="30%"
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,13% 0%,26% 0%,39% 0%,52% 0%,65% 0%,78%" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			style_name="icon_text_hybrid" 
+			preserve_icon_size="true" 
+			text_offset="2%,-1%" 
+			selected_text_offset="2%,-1%" 
+			selected_item="1" 
+			text_color="130 130 130 255" 
+			selected_text_color="167 197 12 255" 
+			font_style="font=Wyplay align=left font_size=30" 
+			selected_font_style="font=Wyplay align=left font_size=30 wrap=char" 
+			repository="%(skins)s/wybox/images/menus/navigator/hand/" 
+			maxlen="15">				
+		</list>
+		
+		<list id="aspect_ratio_options_list" 
+			name="aspect_ratio_options_list" 
+			left="50%" 
+			top="30%" 
+			width="30%"
+			height="45%"
+			centered="False" 
+			duration="0.1" 
+			positions="0%,0% 0%,30%" 
+			post_position="0%,91%" 
+			pre_position="0%,-13%" 
+			style_name="image_hybrid" 
+			preserve_icon_size="true" 
+			selected_item="1" 			
+			repository="%(skins)s/wybox/images/menus/params/navigator/aspect_ratio/" 
+			>				
+		</list>
+		
+		<image id="arrow_up" file="%(skins)s/wybox/images/menus/params/navigator/arrow_up.png" keep_real_size="true" preserve_aspect="true" hcenter="50%" top="40%" opacity="0">
+			<animation tplid="arrow_on_hide"/>
+			<animation tplid="arrow_on_show"/>
+			<animation tplid="arrow_on_focus"/>
+			<animation tplid="arrow_on_blur"/>			
+		</image>				
+		
+		<image id="setup-selection-area-large" file="%(skins)s/wybox/images/menus/params/navigator/setup-selection-area.png" preserve_aspect="false" left="14%" top="45%" height="45%" width="35%">
+			<animation tplid="selection_on_main_list_large"/>
+			<animation tplid="selection_on_options_list"/>
+			<animation tplid="selection_on_options_auto_list_tv"/>
+			<animation tplid="selection_on_aspect_ratio_options_list"/>
+		</image>
+		
+		<image id="setup-selection-area-general" file="%(skins)s/wybox/images/menus/params/navigator/setup-selection-area.png" preserve_aspect="false" left="14%" top="45%" height="45%" width="26%">
+			<animation tplid="selection_on_main_list_general"/>
+			<animation tplid="selection_on_center_list_general"/>
+			<animation tplid="selection_on_options_list_general"/>
+		</image>
+	
+		<image id="setup-selection-area-advanced" file="%(skins)s/wybox/images/menus/params/navigator/setup-selection-area.png" preserve_aspect="false" left="14%" top="45%" height="45%" width="26%">
+			<animation tplid="selection_on_main_list_general"/>
+			<animation tplid="selection_on_center_list_general"/>
+			<animation tplid="selection_on_options_list_advanced"/>
+		</image>
+	
+		<image id="setup-selection-area-videophoto" file="%(skins)s/wybox/images/menus/params/navigator/setup-selection-area.png" preserve_aspect="false" left="14%" top="45%" height="45%" width="26%">
+			<animation tplid="selection_on_main_list_general"/>
+			<animation tplid="selection_on_center_list_general"/>
+			<animation tplid="selection_on_options_list_videophoto"/>
+		</image>
+	
+		<image id="back-params" file="%(skins)s/wybox/images/menus/params/navigator/back-params.png" preserve_aspect="false" name="back-params" top="23%" left="15%" width="80%" height="14%"/>
+		
+	</objects>
+
+	<animations>
+	
+	<animation id="creation_setup" event="on_create">		
+		<opacity duration="0.5" opacity="255"/>
+	</animation>
+
+	<animation id="deletion_setup" event="on_remove">
+		<opacity duration="0.5" opacity="0"/>
+	</animation>	
+
+	<animation id="deletion_menu" event="on_remove">
+		<opacity duration="0.1" opacity="0"/>
+	</animation>
+	
+	<animation id="arrow_on_hide" event="on_hide">
+		<opacity duration="0.1" opacity="0"/>
+	</animation>
+	
+	<animation id="arrow_on_show" event="on_show">
+		<opacity duration="0.1" opacity="255"/>
+	</animation>
+	
+	<animation id="arrow_on_focus" event="on_main_list_focus">
+		<opacity duration="0.1" opacity="255"/>
+	</animation>
+	
+	<animation id="arrow_on_blur" event="on_main_list_blur">
+		<opacity duration="0.1" opacity="0"/>
+	</animation>
+	
+	<animation id="selection_on_main_list_large" event="on_main_list_focus">		
+		<move duration="0.1" left="14%"/>
+		<size duration="0.1" width="35%"/>
+	</animation>
+	
+	<animation id="selection_on_options_list" event="on_options_list_focus">		
+		<move duration="0.1" left="59%"/>
+		<size duration="0.1" width="30%"/>
+	</animation>	
+	
+	<animation id="selection_on_main_list_general" event="on_main_list_focus">		
+		<move duration="0.1" left="14%"/>
+		<size duration="0.1" width="26%"/>
+	</animation>
+	
+	<animation id="selection_on_center_list_general" event="on_center_list_focus">		
+		<move duration="0.1" left="39%"/>
+		<size duration="0.1" width="25%"/>
+	</animation>
+	
+	<animation id="selection_on_options_list_general" event="on_options_list_focus">		
+		<move duration="0.1" left="64%"/>
+		<size duration="0.1" width="25%"/>
+	</animation>
+	
+	<animation id="selection_on_options_list_advanced" event="on_options_list_focus">		
+		<move duration="0.1" left="64%"/>
+		<size duration="0.1" width="30%"/>
+	</animation>
+	
+	<animation id="selection_on_options_list_videophoto" event="on_options_list_focus">		
+		<move duration="0.1" left="64%"/>
+		<size duration="0.1" width="30%"/>
+	</animation>
+	
+	<animation id="selection_on_aspect_ratio_options_list" event="on_aspect_ratio_options_list_focus">		
+		<move duration="0.1" left="59%"/>
+		<size duration="0.1" width="30%"/>
+	</animation>
+	
+	<animation id="selection_on_options_auto_list_tv" event="on_options_auto_list_focus">
+		<move duration="0.1" left="59%"/>
+		<size duration="0.1" width="30%"/>
+	</animation>
+		
+	<animation id="show_tv_button" event="main_list_no_limit">	
+		<opacity duration="0" opacity="255"/>
+	</animation>
+	
+	<animation id="remove_tv_button_on_top" event="main_list_top_limit">	
+		<opacity duration="0" opacity="0"/>
+	</animation>
+	
+	<animation id="remove_tv_button_on_bottom" event="main_list_bottom_limit">	
+		<opacity duration="0" opacity="0"/>
+	</animation>
+	
+	<animation id="show_all_list" event="on_show">
+		<opacity duration="0.3" opacity="255"/>
+	</animation>
+	
+	<animation id="hide_all_list" event="on_hide">
+		<opacity duration="0" opacity="130"/>
+	</animation>
+	
+</animations>
+</templates>
+</wyboxmmi>
