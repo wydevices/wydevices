@@ -32,21 +32,20 @@ cp -r $dir/xml/common/menus /usr/share/pygui/skins/wybox/xml
 
 # Checking installed skin
 echo "Checking installed skin..."
-SKIN_DATE=`ls -al /wymedia/Perso/test_skin/ZoltarTV/ObjectBiblio.xml | sed "s/ * / /g" | cut -d " " -f 6-8`
+SKIN_DATE=`ls -al /usr/share/pygui/skins/wybox/xml/ObjectBiblio.xml | sed "s/ * / /g" | cut -d " " -f 6-8`
 
 # Copying new specific xml files
-echo "Copying new specific xml files..."
 case "$SKIN_DATE" in
 	"Oct 22 2009" )
-		echo "MediaTitan skin found"
+		echo "Copying MediaTitan specific xml files..."
 		cp -r $dir/xml/specific/mediatitan/menus /usr/share/pygui/skins/wybox/xml
 		;;
 	"Sep 4 2009" )
-		echo "WyPlayer skin found"
+		echo "Copying WyPlayer specific xml files..."
 		cp -r $dir/xml/specific/wyplayer/menus /usr/share/pygui/skins/wybox/xml
 		;;
 	"Sep 14 2009" )
-		echo "ZoltarTV skin found"
+		echo "Copying ZoltarTV specific xml files..."
 		cp -r $dir/xml/specific/zoltartv/menus /usr/share/pygui/skins/wybox/xml
 		;;
 	* )
