@@ -13,7 +13,7 @@ dir=`pwd`
 
 # Saving original python files
 echo "Saving original python files..."
-cp /usr/lib/python2.5/site-packages/pygui/action/core.pyo /usr/lib/python2.5/site-packages/pygui/action/core.pyo_bak
+cp /usr/lib/python2.5/site-packages/pygui/actions/core.pyo /usr/lib/python2.5/site-packages/pygui/actions/core.pyo_bak
 cp /usr/lib/python2.5/site-packages/pygui/facilities/turlututube.pyo /usr/lib/python2.5/site-packages/pygui/facilities/turlututube.pyo_bak
 cp /usr/lib/python2.5/site-packages/pygui/item/parameters/advanced/__init__.pyo /usr/lib/python2.5/site-packages/pygui/item/parameters/advanced/__init__.pyo_bak
 
