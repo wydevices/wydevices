@@ -12,7 +12,6 @@ from __future__ import absolute_import
 import os
 import re
 import glob
-import time
 import shutil
 
 from peewee.formatters import ellipsize
@@ -52,7 +51,6 @@ class Rec2VidThread(HookThread):
 			self.actual_chunk_name = os.path.basename(chunk)
 #			print ('copying %s' % chunk)
 			shutil.copyfileobj(open(chunk, 'rb'), self.dest_file)
-			time.sleep(1)
 			self.elapsed_chunk += 1
 			if self.canceled == True:
 				break
