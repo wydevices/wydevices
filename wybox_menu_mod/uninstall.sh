@@ -11,8 +11,8 @@ dir=`pwd`
 
 # Restoring original python files
 echo "Restoring original python files..."
-rm /usr/lib/python2.5/site-packages/pygui/action/core.py
-rm /usr/lib/python2.5/site-packages/pygui/action/core.pyo
+rm /usr/lib/python2.5/site-packages/pygui/actions/core.py
+rm /usr/lib/python2.5/site-packages/pygui/actions/core.pyo
 rm /usr/lib/python2.5/site-packages/pygui/eventmanager/menus/cpu_temp.py
 rm /usr/lib/python2.5/site-packages/pygui/eventmanager/menus/cpu_temp.pyo
 rm /usr/lib/python2.5/site-packages/pygui/eventmanager/menus/led_policy.py
@@ -33,7 +33,7 @@ rm /usr/lib/python2.5/site-packages/pygui/menu/menu/cpu_temp.py
 rm /usr/lib/python2.5/site-packages/pygui/menu/menu/cpu_temp.pyo
 rm /usr/lib/python2.5/site-packages/pygui/menu/menu/led_policy.py
 rm /usr/lib/python2.5/site-packages/pygui/menu/menu/led_policy.pyo
-mv /usr/lib/python2.5/site-packages/pygui/action/core.pyo_bak /usr/lib/python2.5/site-packages/pygui/action/core.pyo
+mv /usr/lib/python2.5/site-packages/pygui/actions/core.pyo_bak /usr/lib/python2.5/site-packages/pygui/actions/core.pyo
 mv /usr/lib/python2.5/site-packages/pygui/facilities/turlututube.pyo_bak /usr/lib/python2.5/site-packages/pygui/facilities/turlututube.pyo
 mv /usr/lib/python2.5/site-packages/pygui/item/parameters/advanced/__init__.pyo_bak /usr/lib/python2.5/site-packages/pygui/item/parameters/advanced/__init__.pyo
 
