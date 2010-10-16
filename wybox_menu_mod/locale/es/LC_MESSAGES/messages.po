@@ -2075,7 +2075,7 @@ msgid "volume -"
 msgstr "volumen -"
 
 msgid "Led Policy"
-msgstr "Led Policy"
+msgstr "Política Leds Frontal"
 
 msgid "Monitor"
 msgstr "Monitor"
@@ -2087,106 +2087,106 @@ msgid "Reboot"
 msgstr "Reboot"
 
 msgid "Cron Deamon"
-msgstr "Deamon Cron"
+msgstr "Planificador Cron"
 
 msgid "InaDyn DNS Client"
-msgstr "InaDyn Client DNS"
+msgstr "Cliente InaDyn"
 
 msgid "Pure FTP Server"
-msgstr "Serveur Pure FTP"
+msgstr "Servidor Pure FTP"
 
 msgid "Remote Sync"
-msgstr "Remote Sync"
+msgstr "RSync"
 
 msgid "Samba Client"
-msgstr "Client Samba"
+msgstr "Cliente Samba"
 
 msgid "Samba Server"
-msgstr "Serveur Samba"
+msgstr "Servidor Samba"
 
 msgid "Syslog Deamon"
-msgstr "Deamon Syslog"
+msgstr "Demonio Syslog"
 
 msgid "Transmission Client"
-msgstr "Client Transmission"
+msgstr "Cliente Transmission"
 
 msgid "Wymod Control Panel"
 msgstr "Wymod Control Panel"
 
 msgid "Start Extra"
-msgstr "Start Extra"
+msgstr "Arrancar Extra"
 
 msgid "Stop Extra"
-msgstr "Stop Extra"
+msgstr "Parar Extra"
 
 msgid "Enable Extra"
-msgstr "Enable Extra"
+msgstr "Habilitar Extra"
 
 msgid "Disable Extra"
-msgstr "Disable Extra"
+msgstr "Deshabilitar Extra"
 
 msgid "Reboot Wydevice"
-msgstr "Reboot Wydevice"
+msgstr "Reiniciar Wydevice"
 
 msgid "Reboot Splash"
-msgstr "Reboot Splash"
+msgstr "Reiniciar GUI(Splash)"
 
 msgid "Restart Player"
-msgstr "Restart Player"
+msgstr "Reiniciar Reproductor"
 
 msgid "Shutdown Wydevice"
-msgstr "Shutdown Wydevice"
+msgstr "Apagar Wydevice"
 
 msgid "Original WyDev Reboot"
-msgstr "Original WyDev Reboot"
+msgstr "Original WyPlay Reboot"
 
 msgid "Fan Speed : "
-msgstr "Fan Speed : "
+msgstr "Velocidad Ventilador : "
 
 msgid "Cpu Temp : "
-msgstr "Cpu Temp : "
+msgstr "Temperatura CPU : "
 
 msgid "Hdd Temp : "
-msgstr "Hdd Temp : "
+msgstr "Temperatura HDD : "
 
 msgid "Set Cpu Temp (%d %s)"
-msgstr "Set Cpu Temp (%d %s)"
+msgstr "Fijar temperatura CPU (%d %s)"
 
 msgid "Cpu Usage : -- %"
-msgstr "Cpu Usage : -- %"
+msgstr "Uso de Cpu : -- %"
 
 msgid "Cpu Usage : %d %%"
-msgstr "Cpu Usage : %d %%"
+msgstr "Uso de CPU : %d %%"
 
 msgid "Mem Usage : -- %"
-msgstr "Mem Usage : -- %"
+msgstr "Uso de memoria : -- %"
 
 msgid "Mem Usage : %d %%"
-msgstr "Mem Usage : %d %%"
+msgstr "Uso de memoria : %d %%"
 
 msgid "SetPoint : %d \\xc2\\xb0C"
 msgstr "SetPoint : %d \\xc2\\xb0C"
 
 msgid "Cpu Setpoint Temperature"
-msgstr "Cpu Setpoint Temperature"
+msgstr "Temperatura Cpu Setpoint"
 
 msgid "Red"
-msgstr "Red"
+msgstr "Rojo"
 
 msgid "Blue"
-msgstr "Blue"
+msgstr "Azul"
 
 msgid "Orange"
-msgstr "Orange"
+msgstr "Naranja"
 
 msgid "Used"
-msgstr "Used"
+msgstr "En uso"
 
 msgid "Action"
-msgstr "Action"
+msgstr "Accion"
 
 msgid "Priority : %d"
-msgstr "Priority : %d"
+msgstr "Prioridad : %d"
 
 msgid "Led On"
 msgstr "Led On"
@@ -2195,13 +2195,13 @@ msgid "Led Off"
 msgstr "Led Off"
 
 msgid "Led Switch"
-msgstr "Led Switch"
+msgstr "Led Alterno"
 
 msgid "X Blinks"
-msgstr "X Blinks"
+msgstr "X Parpadeos"
 
 msgid "Quick Blink"
-msgstr "Quick Blink"
+msgstr "Parpadeo Rapido"
 
 msgid "Round Trip"
 msgstr "Round Trip"
@@ -2219,27 +2219,27 @@ msgid ""
 "Modifications will take effect after reboot.\n"
 "Do you want to reboot now ?"
 msgstr ""
-"Modifications will take effect after reboot.\n"
-"Do you want to reboot now ?"
+"Las modificaciones tendrán efecto tras el reinicio.\n"
+"Quiere Reiniciar Ahora ?"
 
 msgid "Copying %s"
-msgstr "Copying %s"
+msgstr "Copiando %s"
 
 msgid "Copy \"%s\" to \"%s\""
-msgstr "Copy \"%s\" to \"%s\""
+msgstr "Copiando \"%s\" a \"%s\""
 
 msgid "Move \"%s\" to \"%s\""
-msgstr "Move \"%s\" to \"%s\""
+msgstr "Moviendo \"%s\" a \"%s\""
 
 msgid "Copying \"%s\" to \"%s\"..."
-msgstr "Copying \"%s\" to \"%s\"..."
+msgstr "Copiando \"%s\" a \"%s\"..."
 
 msgid "Enter the new video name"
-msgstr "Enter the new video name"
+msgstr "Introduzca el nombre del video"
 
 msgid ""
 "File %s already exist.\n"
 "Aborting..."
 msgstr ""
-"File %s already exist.\n"
-"Aborting..."
+"El archivo %s ya existe.\n"
+"Abortando..."
