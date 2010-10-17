@@ -2226,10 +2226,10 @@ msgid "Copying %s"
 msgstr "Copiando %s"
 
 msgid "Copy \"%s\" to \"%s\""
-msgstr "Copiando \"%s\" a \"%s\""
+msgstr "Copiar \"%s\" a \"%s\""
 
 msgid "Move \"%s\" to \"%s\""
-msgstr "Moviendo \"%s\" a \"%s\""
+msgstr "Mover \"%s\" a \"%s\""
 
 msgid "Copying \"%s\" to \"%s\"..."
 msgstr "Copiando \"%s\" a \"%s\"..."
