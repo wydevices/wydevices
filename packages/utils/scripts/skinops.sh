@@ -133,7 +133,7 @@ case $1 in
         -c | /c | -checkconsistency)
                 if [ -h /usr/bin/splash.py ]; then
                       echo "Splash.py is a link"
-                      echo "Active skin: $(ls /usr/bin/splash.py -l |cut -d" " -f29 |cut -d"/" -f4)"
+                      echo "Active skin: $(ls /usr/bin/splash.py -l |cut -d" " -f28 |cut -d"/" -f4)"
                       echo ""
                 fi
                 echo $(cat /etc/local_conf.py |grep themes)
