@@ -27,8 +27,7 @@ if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !em
     $filename = $_GET['name'];
 
     if (file_exists($record_file_dir)) {
-        unset($record_chunk_filepath);
-        $record_filesize = 0;
+        unset($record_chunk_filepath, $record_filesize);
         $i = 0;
 
         $handle_record_file_dir = opendir($record_file_dir);
@@ -121,15 +120,12 @@ echo "<tr>\n
         \t<td><b>Periodicity</b></td>\n
     </tr>\n";
 
-$r = 0;
-$record_file_dir = "";
+unset($r, $record_file_dir, $recording);
 
 //Loop into myrecords.fxd for each record and get informations
-foreach ($xml_records->recordings->recording as $recording) {
-    $record_file_info = "";
-    $record_size = 0;
-    $record_size_mb = "";
-    $record_periodic = 0;
+for ($i = 0; $i < $nb_record; $i++) {
+    unset($record_file_info, $record_status, $record_size, $record_size_mb, $record_duration, $record_periodic, $record_name, $record_periodic_id);
+    $recording = $xml_records->recordings->recording[$i];
 
     //Get value from XML and convert it if necessary
     $record_periodic_id = $recording['periodicity_rule_id'];
@@ -185,7 +181,6 @@ foreach ($xml_records->recordings->recording as $recording) {
     }
     echo "</tr>\n";
 }
-
 
 /*
  * List all records not referenced into myrecords.fxd
