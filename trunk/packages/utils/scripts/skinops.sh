@@ -170,12 +170,11 @@ case $1 in
                 fi
                 echo $(cat /etc/local_conf.py |grep themes)
                 echo $(cat /etc/local_conf.py |grep use_serialized_theme)
-                echo "Wyplay Skin Size:" $(du -ch /usr/share/pygui/* |tail -n1)
+                echo "System Skin Size:" $(du -ch /usr/share/pygui/* |tail -n1)
                 echo "Mod Skin Size:" $(du -ch /usr/share/wydevpygui/* |tail -n1)
         ;;
         *)
-                echo "Usage: $0 -skinsystem | -skinmod | -checkconsistency | -exportskin | -importskin | -rebootskin | -flashmod | -redfiff |
--checkconsistency | -themeserialized | -nothemeserialized"
+                echo "Usage: $0 -skinsystem | -skinmod | -checkconsistency | -exportskin | -importskin | -exportimagepack | -importimagepack | -rebootskin | -flashmod | -redfiff | -themeserialized | -nothemeserialized"
 
                 echo "Usage: $0 -s | -c | -m | -e | -i | -r | -f | -d | -c | -t | -nt"
                 echo ""
@@ -191,6 +190,8 @@ case $1 in
                 echo "   ..:: Skin operations ::.."
                 echo "[-e] -exportskin : compress skin to /wymedia/usr/share/skins/"
                 echo "[-i] -importskin : uncompress skin from /wymedia/usr/share/skins/modskin.tar.gz"
+                echo "[-ei] -exportimagepack : export imagepack to /wymedia/usr/share/imagepacks/"
+                echo "[-ii] -importimagepack : import imagepack from /wymedia/usr/share/imagepacks/"
                 echo "[-r] -rebootskin : Restart splash applying changes to skin"
                 echo "[-d] -redfiff : dfiff again all modskin png's"
                 echo ""
