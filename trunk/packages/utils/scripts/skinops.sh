@@ -122,10 +122,14 @@ case $1 in
         ;;
         -ii | /ii | -importimagepack)
                 logger "Packaged imagepack exported to: /wymedia/usr/share/imagepacks"
-						rm -Rf /usr/share/pygui/skins/wybox/images/
-						rm -Rf /usr/share/pygui/skins/wybox/splash/
+
+				if [ -e /wymedia/usr/share/imagepacks/imagepack.tar.gz ]; then		
 						tar zxf /wymedia/usr/share/imagepacks/imagepack.tar.gz -C /
-                        tar zxf /wymedia/usr/share/imagepacks/imagepacksplash.tar.gz -C /
+                fi
+				if [ -e /wymedia/usr/share/imagepacks/imagepacksplash.tar.gz ]; then		
+						tar zxf /wymedia/usr/share/imagepacks/imagepacksplash.tar.gz -C /
+				fi		
+						
 						sync
         ;;
 
