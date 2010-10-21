@@ -1,7 +1,7 @@
 <?php
 echo "<h2> Skins Operations </h2>";
 echo '<blockquote><pre>';
-echo system("skinops.sh -c");
+echo system("/wymedia/usr/bin/skinops.sh -c");
 echo '</pre></blockquote>';
 ?>
 
@@ -12,7 +12,7 @@ echo '</pre></blockquote>';
 
 <table>
 <tr><td><input id="flashmod" name="skinops" type="radio" value="f" /></td><td>Flash Mod</td></tr>
-<tr><td><input id="skinwyplay" name="skinops" type="radio" value="skinwyplay" /></td><td>System Skin</td></tr>
+<tr><td><input id="skinwyplay" name="skinops" type="radio" value="s" /></td><td>System Skin</td></tr>
 <tr><td><input id="skinmod" name="skinops" type="radio" value="m" /></td><td>Mod Skin</td></tr>
 <tr><td><input id="export" name="skinops" type="radio" value="c" /></td><td>Export Skin to /wymedia/usr/share/skins/modskin.tar.gz</td></tr>
 <tr><td><input id="import" name="skinops" type="radio" value="e" /></td><td>Import Skin from /wymedia/usr/share/skins/modskin.tar.gz</td></tr>
