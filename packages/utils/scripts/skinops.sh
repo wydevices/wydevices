@@ -125,9 +125,14 @@ case $1 in
 
 				if [ -e /wymedia/usr/share/imagepacks/imagepack.tar.gz ]; then		
 						tar zxf /wymedia/usr/share/imagepacks/imagepack.tar.gz -C /
-                fi
+				logger "Imported imagepack"
+				echo "Imported imagepack"
+				fi
 				if [ -e /wymedia/usr/share/imagepacks/imagepacksplash.tar.gz ]; then		
 						tar zxf /wymedia/usr/share/imagepacks/imagepacksplash.tar.gz -C /
+				logger "Imported Splash"
+				echo "Imported Splash"
+				
 				fi		
 						
 						sync
