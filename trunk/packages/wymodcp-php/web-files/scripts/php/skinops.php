@@ -5,7 +5,7 @@
 <?php
 echo "<h2> Skin Operation Results </h2>";
 $skinopsparam = $_GET['skinops'];
-$command= "skinops.sh -".$skinopsparam;
+$command= "/wymedia/usr/bin/skinops.sh -".$skinopsparam;
 
 echo "<b>".$command."</b>";
 echo "<pre>";
