@@ -106,11 +106,34 @@ case $1 in
                 fi
                 sync
         ;;
+		        -ei | /ei | -exportimagepack)
+                logger "Packaged imagepack exported to: /wymedia/usr/share/imagepacks"
+                if [ -d /wymedia/usr/share/imagepacks/ ]; then
+                        rm -f /wymedia/usr/share/imagepacks/imagepack.tar.gz
+						rm -f /wymedia/usr/share/imagepacks/imagepacksplash.tar.gz
+                        tar czvf /wymedia/usr/share/imagepacks/imagepack.tar.gz /usr/share/pygui/skins/wybox/images/
+						tar czvf /wymedia/usr/share/imagepacks/imagepacksplash.tar.gz /usr/share/pygui/skins/wybox/splash/
+                else
+                        mkdir /wymedia/usr/share/imagepacks/
+                        tar czvf /wymedia/usr/share/imagepacks/imagepack.tar.gz /usr/share/pygui/skins/wybox/images/
+						tar czvf /wymedia/usr/share/imagepacks/imagepacksplash.tar.gz /usr/share/pygui/skins/wybox/splash/
+                fi
+                sync
+        ;;
+        -ii | /ii | -importimagepack)
+                logger "Packaged imagepack exported to: /wymedia/usr/share/imagepacks"
+						rm -Rf /usr/share/pygui/skins/wybox/images/
+						rm -Rf /usr/share/pygui/skins/wybox/splash/
+						tar zxf /wymedia/usr/share/imagepacks/imagepack.tar.gz -C /
+                        tar zxf /wymedia/usr/share/imagepacks/imagepacksplash.tar.gz -C /
+						sync
+        ;;
+
         -r | /r | -rebootskin)
                 logger "Rebooting Splash to update skin"
                 sync
                 killall python2.5
-                ;;
+        ;;
         -f | /f | -flashmod)
                 logger "Flashing modskin"
                 rm /wymedia/usr/share/wydevpygui -Rf
@@ -125,7 +148,7 @@ case $1 in
                         fi
                 ln -s /wymedia/usr/share/wydevpygui /usr/share/wydevpygui
                 chmod +x /wymedia/usr/share/wydevpygui/skins/wybox/splash/modsplash.py
-                ;;
+        ;;
         -d | /d | -redfiff)
                 logger "Re-dfiffing skin"
                 find /wymedia/usr/share/wydevpygui/skins/wybox/ -name *.png -exec python2.5 -O /usr/share/pygui/skins/png2dfiff.py {} \;
