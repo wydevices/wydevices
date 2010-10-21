@@ -31,3 +31,11 @@ for i in $(find -name *.png); do
 	fi
 let j=j+1
 done
+
+
+#
+# Para empaquetar nuevamente:
+# por ejemplo desde: /cygdrive/c/DATA/WYDEV/skins/imagepacks/ZTV
+#       tar czvf imagepacksplash.tar.gz ./usr/share/pygui/skins/wybox/splash/
+#       tar czvf imagepack.tar.gz ./usr/share/pygui/skins/wybox/images/
+#
