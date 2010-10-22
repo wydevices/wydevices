@@ -16,8 +16,8 @@ echo '</pre></blockquote>';
 <tr><td><input id="skinmod" name="skinops" type="radio" value="m" /></td><td>Mod Skin</td></tr>
 <tr><td><input id="export" name="skinops" type="radio" value="c" /></td><td>Export Skin to /wymedia/usr/share/skins/modskin.tar.gz</td></tr>
 <tr><td><input id="import" name="skinops" type="radio" value="e" /></td><td>Import Skin from /wymedia/usr/share/skins/modskin.tar.gz</td></tr>
-<tr><td><input id="exportimgpck" name="skinops" type="radio" value="ei" /></td><td>Export Skin to /wymedia/usr/share/skins/modskin.tar.gz</td></tr>
-<tr><td><input id="importimgpck" name="skinops" type="radio" value="ii" /></td><td>Import Skin from /wymedia/usr/share/skins/modskin.tar.gz</td></tr>
+<tr><td><input id="exportimgpck" name="skinops" type="radio" value="ei" /></td><td>export imagepack to /wymedia/usr/share/imagepacks/</td></tr>
+<tr><td><input id="importimgpck" name="skinops" type="radio" value="ii" /></td><td>import imagepack from /wymedia/usr/share/imagepacks/</td></tr>
 <tr><td><input id="reboot" name="skinops" type="radio" value="r" /></td><td>Reboot skin</td></tr>
 <tr><td><input id="redfiff" name="skinops" type="radio" value="d" /></td><td>Redfiff skin</td></tr>
 <tr><td><input id="themeserialized" name="skinops"  type="radio" value="t" /></td><td>Theme Serialized</td></tr>
