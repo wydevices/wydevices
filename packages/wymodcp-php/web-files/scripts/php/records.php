@@ -106,26 +106,25 @@ if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
     exit;
 }
 
-echo "There are ".$nb_record." records.<br />\n";
-echo "There are ".$nb_rules." periodicity rules.<br />\n";
-echo "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br /><br />\n";
-echo "<table>\n";
-echo "<tr>\n
-        \t<td><b>Date</b></td>\n
-        \t<td><b>Channel</b></td>\n
-        \t<td><b>Record name</b></td>\n
-        \t<td><b>Duration</b></td>\n
-        \t<td><b>Size</b></td>\n
-        \t<td><b>Status</b></td>\n
-        \t<td><b>Periodicity</b></td>\n
-    </tr>\n";
+echo "There are ".$nb_record." records.<br />";
+echo "There are ".$nb_rules." periodicity rules.<br />";
+echo "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br /><br />";
+echo "<table>";
+echo "<tr>
+        \t<td><b>Date</b></td>
+        \t<td><b>Channel</b></td>
+        \t<td><b>Record name</b></td>
+        \t<td><b>Duration</b></td>
+        \t<td><b>Size</b></td>
+        \t<td><b>Status</b></td>
+        \t<td><b>Periodicity</b></td>
+    </tr>";
 
 unset($r, $record_file_dir, $recording);
 
 //Loop into myrecords.fxd for each record and get informations
-for ($i = 0; $i < $nb_record; $i++) {
+foreach ($xml_records->recordings->recording as $recording) {
     unset($record_file_info, $record_status, $record_size, $record_size_mb, $record_duration, $record_periodic, $record_name, $record_periodic_id);
-    $recording = $xml_records->recordings->recording[$i];
 
     //Get value from XML and convert it if necessary
     $record_periodic_id = $recording['periodicity_rule_id'];
@@ -148,7 +147,7 @@ for ($i = 0; $i < $nb_record; $i++) {
         $record_file_dir[$r] = str_replace($record_path, "", $record_file_dir[$r]);
         $record_file_dir[$r] = str_replace("/", "", $record_file_dir[$r]);
 
-        $record_name = "<a href=\"scripts/php/records.php?path=".$record_file_dir[$r]."&amp;name=".$record_name."\">".$record_name."</a>\n";
+        $record_name = "<a href=\"scripts/php/records.php?path=".$record_file_dir[$r]."&amp;name=".$record_name."\">".$record_name."</a>";
         $r++;
     }
 
@@ -167,19 +166,19 @@ for ($i = 0; $i < $nb_record; $i++) {
         default : $record_status = "Unknown"; break;
     }
 
-    echo "<tr>\n
-            \t<td>".$record_start_time."</td>\n
-            \t<td>".$record_channel."</td>\n
-            \t<td>".$record_name."</td>\n
-            \t<td>".$record_duration."</td>\n
-            \t<td>".$record_size_mb."</td>\n
-            \t<td>".$record_status."</td>\n";
+    echo "<tr>
+            \t<td>".$record_start_time."</td>
+            \t<td>".$record_channel."</td>
+            \t<td>".$record_name."</td>
+            \t<td>".$record_duration."</td>
+            \t<td>".$record_size_mb."</td>
+            \t<td>".$record_status."</td>";
     if ($record_periodic_id > 0) {
-        echo "\t<td>".$record_periodicity[$record_periodic_id - 1]."</td>\n";
+        echo "\t<td>".$record_periodicity[$record_periodic_id - 1]."</td>";
     } else {
-        echo "\t<td></td>\n";
+        echo "\t<td></td>";
     }
-    echo "</tr>\n";
+    echo "</tr>";
 }
 
 /*
@@ -192,10 +191,9 @@ if ($handle_record_path = opendir($record_path)) {
     while (false !== ($record_dir = readdir($handle_record_path))) {
         $record_dir_match = 0;
 
-        if ($record_dir != "." && $record_dir != "..") {
-            for ($i = 0; $i <= $nb_record_dir; $i++) { if ($record_dir == $record_file_dir[$i]) $record_dir_match = 1; }
-            $record_file_info = $record_path.$record_dir.$recordxml_name;
-        }
+        for ($i = 0; $i <= $nb_record_dir; $i++) { if ($record_dir == $record_file_dir[$i]) $record_dir_match = 1; }
+        $record_file_info = $record_path.$record_dir."/".$recordxml_name;
+
         if (!$record_dir_match && file_exists($record_file_info) && false !== ($xml_record=simplexml_load_file($record_file_info))) {
             $record_size = $xml_record->record[0]->information->size;
             $record_size_kb = substr($record_size, 0, strlen($record_size) - 3); //Get only KB size
@@ -213,16 +211,16 @@ if ($handle_record_path = opendir($record_path)) {
             $record_file_path = str_replace($record_path, "", $record_file_path);
             $record_file_path = str_replace("/", "", $record_file_path);
 
-            $record_name = "<a href=\"scripts/php/records.php?path=".$record_file_path."&amp;name=".$record_name."\">".$record_name."</a>\n";
+            $record_name = "<a href=\"scripts/php/records.php?path=".$record_file_path."&amp;name=".$record_name."\">".$record_name."</a>";
 
-            echo "<tr>\n
-                    \t<td>".$record_start_time."</td>\n
-                    \t<td>".$record_channel."</td>\n
-                    \t<td>".$record_name."</td>\n
-                    \t<td>".$record_duration."</td>\n
-                    \t<td>".$record_size_mb."</td>\n
-                    \t<td>".$record_status."</td>\n
-                    \t<td></td>\n</tr>\n";
+            echo "<tr>
+                    \t<td>".$record_start_time."</td>
+                    \t<td>".$record_channel."</td>
+                    \t<td>".$record_name."</td>
+                    \t<td>".$record_duration."</td>
+                    \t<td>".$record_size_mb."</td>
+                    \t<td>".$record_status."</td>
+                    \t<td></td>\n</tr>";
         }
     }
     closedir($handle_record_path);
