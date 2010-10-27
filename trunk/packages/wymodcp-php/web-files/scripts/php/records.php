@@ -11,6 +11,11 @@
  *    - Group records are in the same schedule rule and add a possibility to expand this group.
  *    - Schedule a single record.
  *    - Schedule a periodic record.
+ *    - Rename a record.
+ *    - Delete a record.
+ *    - Download only N chunck from start or end.
+ *    - Create a cron job for run a rec2vid.
+ *    - FIX: Template bug when you are lot of records to display (cut into pages).
  * 
  */
 
