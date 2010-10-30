@@ -8,6 +8,7 @@
  * 
  * TODO :
  *    - Add a cleaner for myrecords.fxd (In conflict record, Rules not linked, Record without video content, etc ...)
+ *    - Add a cleaner for malformed records directories.
  *    - Group records are in the same schedule rule and add a possibility to expand this group.
  *    - Schedule a single record.
  *    - Schedule a periodic record.
@@ -87,7 +88,6 @@ if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !em
     }
     exit;
 }
-
 
 /*
  * Load myrecords.fxd file, this files contain scheduled record
@@ -199,7 +199,7 @@ if ($handle_record_path = opendir($record_path)) {
         for ($i = 0; $i <= $nb_record_dir; $i++) { if ($record_dir == $record_file_dir[$i]) $record_dir_match = 1; }
         $record_file_info = $record_path.$record_dir."/".$recordxml_name;
 
-        if (!$record_dir_match && file_exists($record_file_info) && false !== ($xml_record=simplexml_load_file($record_file_info))) {
+        if (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) > 0 && false !== ($xml_record=simplexml_load_file($record_file_info))) {
             $record_size = $xml_record->record[0]->information->size;
             $record_size_kb = substr($record_size, 0, strlen($record_size) - 3); //Get only KB size
             $record_size_mb = round($record_size_kb / 1048576,1); //Record size in MB
@@ -226,6 +226,8 @@ if ($handle_record_path = opendir($record_path)) {
                     \t<td>".$record_size_mb."</td>
                     \t<td>".$record_status."</td>
                     \t<td></td>\n</tr>";
+        } elseif (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) == 0) { //Malformed case : record.xml = 0 byte
+            echo "<tr><td colspan=\"2\"></td><td colspan=\"5\"><i>Malformed record.xml in ".str_replace($recordxml_name, "", $record_file_info)."</i></td></tr>\n";
         }
     }
     closedir($handle_record_path);
