@@ -8,7 +8,6 @@
  * 
  * TODO :
  *    - Add a cleaner for myrecords.fxd (In conflict record, Rules not linked, Record without video content, etc ...)
- *    - Add a cleaner for malformed records directories.
  *    - Group records are in the same schedule rule and add a possibility to expand this group.
  *    - Schedule a single record.
  *    - Schedule a periodic record.
@@ -24,6 +23,29 @@ $myrecord_path = "/wymedia/timeshift/"; //Path of the myrecords.fxd file
 $record_path   = $myrecord_path."records/"; //Path of records
 $myrecord_name = "myrecords.fxd";
 $recordxml_name= "record.xml";
+
+// Function to recursively delete a directory
+function rmdir_recursive($dir) {
+    if (is_dir($dir)) {
+        $objects = scandir($dir);
+        foreach ($objects as $object) {
+            if ($object != "." && $object != "..") {
+                if (filetype($dir."/".$object) == "dir") rmdir_recursive($dir."/".$object); else unlink($dir."/".$object);
+            }
+        }
+        reset($objects);
+        rmdir($dir);
+    }
+}
+
+/*
+ * Remove and Cleanup part
+ */
+if ($_GET['remove'] == 1 && !empty($_GET['remove']) && isset($_GET['path']) && !empty($_GET['path'])) {
+    rmdir_recursive($_GET['path']);
+    header("Location: /index.html");
+    exit;
+}
 
 /*
  * Download a record
@@ -116,13 +138,14 @@ echo "There are ".$nb_rules." periodicity rules.<br />";
 echo "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br /><br />";
 echo "<table>";
 echo "<tr>
+        \t<td><b>Action</b></td>
         \t<td><b>Date</b></td>
+        \t<td><b>Periodicity</b></td>
         \t<td><b>Channel</b></td>
+        \t<td><b>Status</b></td>
         \t<td><b>Record name</b></td>
         \t<td><b>Duration</b></td>
         \t<td><b>Size</b></td>
-        \t<td><b>Status</b></td>
-        \t<td><b>Periodicity</b></td>
     </tr>";
 
 unset($r, $record_file_dir, $recording);
@@ -157,32 +180,35 @@ foreach ($xml_records->recordings->recording as $recording) {
     }
 
     switch($record_status){
-        case 0  : $record_status = "Unknown"; break;
-        case 1  : $record_status = "Scheduled"; break;
-        case 2  : $record_status = "Running"; break;
-        case 3  : $record_status = "In conflict"; break;
-        case 4  : $record_status = "Completed"; break;
-        case 5  : $record_status = "Canceled"; break;
-        case 6  : $record_status = "Missed"; break;
-        case 7  : $record_status = "Aborted"; break;
-        case 8  : $record_status = "Macrovision"; break;
-        case 9  : $record_status = "Disk space error"; break;
-        case 10 : $record_status = "System failure"; break;
-        default : $record_status = "Unknown"; break;
+        case 0  : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" />"; break;
+        case 1  : $record_status = "<img src=\"style/awaiting.png\" title=\"Scheduled\" />"; break;
+        case 2  : $record_status = "<img src=\"style/media-record.png\" title=\"Running\" />"; break;
+        case 3  : $record_status = "<img src=\"style/expired.png\" title=\"In conflict\" />"; break;
+        case 4  : $record_status = "<img src=\"style/available.png\" title=\"Completed\" />"; break;
+        case 5  : $record_status = "<img src=\"style/expired.png\" title=\"Canceled\" />"; break;
+        case 6  : $record_status = "<img src=\"style/expired.png\" title=\"Missed\" />"; break;
+        case 7  : $record_status = "<img src=\"style/expired.png\" title=\"Aborted\" />"; break;
+        case 8  : $record_status = "<img src=\"style/expired.png\" title=\"Macrovision\" />"; break;
+        case 9  : $record_status = "<img src=\"style/expired.png\" title=\"Disk space error\" />"; break;
+        case 10 : $record_status = "<img src=\"style/expired.png\" title=\"System failure\" />"; break;
+        default : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" />"; break;
     }
 
     echo "<tr>
-            \t<td>".$record_start_time."</td>
-            \t<td>".$record_channel."</td>
+            \t<td></td>
+            \t<td>".$record_start_time."</td>";
+
+    if ($record_periodic_id > 0) {
+        echo "\t<td align=\"center\">".$record_periodicity[$record_periodic_id - 1]."</td>";
+    } else {
+        echo "\t<td align=\"center\"></td>";
+    }
+
+    echo "\t<td>".$record_channel."</td>
+            \t<td align=\"center\">".$record_status."</td>
             \t<td>".$record_name."</td>
             \t<td>".$record_duration."</td>
-            \t<td>".$record_size_mb."</td>
-            \t<td>".$record_status."</td>";
-    if ($record_periodic_id > 0) {
-        echo "\t<td>".$record_periodicity[$record_periodic_id - 1]."</td>";
-    } else {
-        echo "\t<td></td>";
-    }
+            \t<td>".$record_size_mb."</td>";
     echo "</tr>";
 }
 
@@ -196,8 +222,13 @@ if ($handle_record_path = opendir($record_path)) {
     while (false !== ($record_dir = readdir($handle_record_path))) {
         $record_dir_match = 0;
 
-        for ($i = 0; $i <= $nb_record_dir; $i++) { if ($record_dir == $record_file_dir[$i]) $record_dir_match = 1; }
+        for ($i = 0; $i <= $nb_record_dir; $i++) {
+            if ($record_dir == $record_file_dir[$i]) $record_dir_match = 1;
+        }
         $record_file_info = $record_path.$record_dir."/".$recordxml_name;
+
+        //Get full path of record.xml directory
+        $recordxml_dir    = str_replace("/".$recordxml_name, "", $record_file_info);
 
         if (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) > 0 && false !== ($xml_record=simplexml_load_file($record_file_info))) {
             $record_size = $xml_record->record[0]->information->size;
@@ -209,7 +240,7 @@ if ($handle_record_path = opendir($record_path)) {
             $record_channel = $xml_record->record[0]->information->channel;
             $record_name = $xml_record->record[0]->information->name;
             $record_duration = date("H:i:s", intval($xml_record->record[0]->information->stop_time - $xml_record->record[0]->information->start_time));
-            $record_status = "";
+            $record_status = "<img src=\"style/modem.png\" title=\"On disk\" />";
 
             //Get only record directory name
             $record_file_path = str_replace($recordxml_name, "", $record_file_info);
@@ -219,20 +250,34 @@ if ($handle_record_path = opendir($record_path)) {
             $record_name = "<a href=\"scripts/php/records.php?path=".$record_file_path."&amp;name=".$record_name."\">".$record_name."</a>";
 
             echo "<tr>
+                    \t<td align=\"center\">
+                        <a onclick=\"if (confirm('Are you sure to delete \\n".$recordxml_dir." ?')) window.location = 'scripts/php/records.php?path=".$recordxml_dir."&amp;remove=1';\" href=\"#\">
+                            <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" />
+                        </a>
+                       </td>
                     \t<td>".$record_start_time."</td>
+                    \t<td></td>
                     \t<td>".$record_channel."</td>
+                    \t<td align=\"center\">".$record_status."</td>
                     \t<td>".$record_name."</td>
                     \t<td>".$record_duration."</td>
-                    \t<td>".$record_size_mb."</td>
-                    \t<td>".$record_status."</td>
-                    \t<td></td>\n</tr>";
+                    \t<td>".$record_size_mb."</td>\n</tr>";
         } elseif (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) == 0) { //Malformed case : record.xml = 0 byte
-            echo "<tr><td colspan=\"2\"></td><td colspan=\"5\"><i>Malformed record.xml in ".str_replace($recordxml_name, "", $record_file_info)."</i></td></tr>\n";
+            echo "<tr>
+                    <td align=\"center\">
+                        <a onclick=\"if (confirm('Are you sure to delete \\n ".$recordxml_dir." ?')) window.location = 'scripts/php/records.php?path=".$recordxml_dir."&amp;remove=1';\" href=\"#\">
+                            <img border=\"0\" src=\"style/edit-clear.png\" title=\"Clean\" />
+                        </a>
+                    </td>
+                    <td colspan=\"3\"><i>Malformed record.xml</i></td>
+                    <td align=\"center\"><img src=\"style/important.png\" title=\"Error\" /></td>
+                    <td colspan=\"3\"><i>in ".$recordxml_dir."</i></td>
+                  </tr>\n";
         }
     }
     closedir($handle_record_path);
 } else {
-    echo "<tr><td colspan=\"7\">Cannot open ".$record_path." directory !</td></tr>\n";
+    echo "<tr><td colspan=\"8\"><b><i>Cannot open ".$record_path." directory !</i></b></td></tr>\n";
 }
 
 echo "</table>\n";
