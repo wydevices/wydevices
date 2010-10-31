@@ -1,7 +1,7 @@
 #!/wymedia/usr/bin/php-cgi
 <?php
 header("Cache-Control: no-cache");
-sleep(4);
+sleep(2);
 
 $p = $_GET['page'];
 
