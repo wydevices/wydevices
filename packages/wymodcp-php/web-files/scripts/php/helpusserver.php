@@ -1,22 +1,28 @@
-<h2>Welcome to the cloud Enviroment</h2>
-<?php $targetcmd= "strings /dev/mtd2 |grep WC |cut -d= -f2"; ?>
+<html>
 
-<form action="http://foro.wydev.es/wydevware/target.php" method="get" id="target">
-<table>
-<tr><td>
-        <input type="text" id="target" name="target" value="<?php system($targetcmd) ?>"> Target
-</td></tr><tr><td>
-        <input type="text" id="username" name="username"> Wydev's forum username </input>
-</td></tr><tr><td>
-        <input type="submit">
-</td></tr>
-</table>
+  <head>
+    <!-- charset must remain utf-8 to be handled properly by Processing -->
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-<!-- be ready for next wydevelopment integration -->
-<iframe src="http://foro.wydev.es/wydevware/index.php" width="100%" height="500"></iframe>
-<!-- be ready for next wydevelopment integration -->
-
-</form>
+    <title>wydevware</title>
 
 
+  </head>
 
+  <body>
+        <img src="http://foro.wydev.es/download/file.php?avatar=54_1284403959.png"></img>
+        <h1><strong>News:</strong></h1><h3> Last available firmware: <a href="http://foro.wydev.es/viewtopic.php?f=20&t=366">3.1</a><br>
+         Last update released version: <a href="http://foro.wydev.es/download/file.php?id=183">r249</a></h3><b>R249 Description:</b>
+
+<small>Corrected TV Channel bugfixes and added improvements. Amazing records control panel, more info at home, new cloud wydevware integration... stills working in progress!!</small>
+<br>    <a href="http://foro.wydev.es/wydevware/ViewTargetsStatistics.php"> View Statistics! </a>
+        <h1> Coming Soon!....</h1>
+<?php system("cat /wymedia/usr/etc/wydev-mod-version");?>
+<hr>
+<a href="./currentvm/Wybox-OVF-v0.1.zip">Download Wybox Virtual Machine</a>
+<hr>
+
+
+
+  </body>
+</html>
