@@ -1,38 +1,8 @@
 <html>
 <head><script src="../js/wydev.js" type="text/javascript"></script></head>
-<body onload="UpdateTV()";">
-<?php 
-$id = $_REQUEST["channel"];
-$newid = $_REQUEST["neworder"]; 
-$newname = $_REQUEST["newname"];  
-$totalchannels = $_REQUEST["totalchannels"] + 1;  
-
-
-
-	$objDB = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
-
-	$sql = "update T_SERVICE set LOGICAL_CHANNEL_NUMBER=".$totalchannels." where LOGICAL_CHANNEL_NUMBER=".$newid;
-	$res = $objDB->query($sql);
-
-	$sql = "update T_SERVICE set LOGICAL_CHANNEL_NUMBER=".$newid." where LOGICAL_CHANNEL_NUMBER=".$id;
-	$res = $objDB->query($sql);
-
-	$sql = "update T_SERVICE set LOGICAL_CHANNEL_NUMBER=".$id." where LOGICAL_CHANNEL_NUMBER=".$totalchannels;
-	$res = $objDB->query($sql);
-
-
-	if ($newname){
-
-	$sql = "update T_SERVICE set NAME=\"".$newname."\" where LOGICAL_CHANNEL_NUMBER=".$newid;
-	echo $sql;
-	$res = $objDB->query($sql);
-	}
-
-?>
-
+<body >
 <h2>Channel List</h2>
-
-<div id="channellist"></div>
+<div id="channellist"><?php include 'channelform.php' ?></div>
 
 <h2>Modify Channel List</h2>
 <form id=channel name=channelform action="javascript:UpdateTV(this.form);" method="put">
