@@ -15,17 +15,26 @@
 <tr><td>Fan Speed & Temperatures: </td><td> <?php system("/wymedia/usr/bin/temp") ?> </td></tr>
 <tr><td>dm-0 Slave: </td><td> <?php system("ls /sys/block/dm-0/slaves")?> </td></tr>
 <tr><td>Board: </td><td> <?php system("cat /proc/fb |cut -c3-")?> </td></tr>
-<tr><td>Net Settings: </td><td> <?php system("ifconfig | grep inet |grep -v 127.0.0.1 |cut -d: -f2-4")?></td></tr>
-<tr><td>Route table: </td><td><pre> <?php system("route")?></pre></td></tr>
-
 </table>
 
-<h3> MTD2 Dumped Data </h3>
+<table>
+<tr><td><h3> MTD & MTD2 Dumped Data </h3></td><td><h3> tbd </h3></td><td><h3> local_conf.py </h3></td></tr>
+<tr><td>
 <pre>
+<?php system("strings /dev/mtd")?> 
 <?php system("strings /dev/mtd2")?> 
 </pre>
-
-
+</td><td><pre>
+<?php system("strings /etc/wynetwork.conf")?> 
+</pre>
+</td>
+<td>
+<pre>
+<?php system("strings /etc/local_conf.py")?> 
+</pre>
+</td>
+</tr>
+</table>
 
 <hr>
 
