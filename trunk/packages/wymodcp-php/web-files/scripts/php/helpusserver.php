@@ -13,7 +13,7 @@
 </table>
 
 <!-- be ready for next wydevelopment integration -->
-<iframe src="foro.wydev.es/wydevware/index.php" width="100%" height="500"></iframe>
+<iframe src="http://foro.wydev.es/wydevware/index.php" width="100%" height="500"></iframe>
 <!-- be ready for next wydevelopment integration -->
 
 </form>
