@@ -10,9 +10,16 @@
 <?php 
 
 system("cat /wymedia/usr/etc/wydev-mod-version");
-system("cat /wymedia/usr/etc/wydev-mod-updaterelease");
-system ("wget http://foro.wydev.es/wydevware/updates/latest.tar.gz -q && mv latest.tar.gz /wymedia/usr/share/updates/");
-system ("wget http://foro.wydev.es/wydevware/updates/latest.txt -q && mv latest.txt /wymedia/usr/share/updates/wydev-mod-updaterelease");
+$current = system("cat /wymedia/usr/etc/wydev-mod-updaterelease");
+system ("wget http://foro.wydev.es/wydevware/updates/latest.txt -q");
+$latest = system ("cat latest.txt");
+
+if ($current != $latest) {
+	system ("wget http://foro.wydev.es/wydevware/updates/latest.tar.gz -q && mv latest.tar.gz /wymedia/usr/share/updates/");
+}
+else {
+	echo "System up to date");
+}
 
 ?>
 <hr>
