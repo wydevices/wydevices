@@ -22,6 +22,7 @@ if ($downloaded != $latest) {
 	echo "<br>Downloading version:<br>";
 	system ("wget http://foro.wydev.es/wydevware/updates/latest.tar.gz -q && mv latest.tar.gz /wymedia/usr/share/updates/");
 	system ("mv latest.txt /wymedia/usr/share/updates/wydev-mod-updaterelease");
+	system ("rm /wymedia/usr/share/wymodcp/scripts/php/update.php");
 	system ("wget http://wydevices.googlecode.com/svn/trunk/packages/wymodcp-php/web-files/scripts/php/update.php");
 	system ("mv update.php /wymedia/usr/share/wymodcp/scripts/php/");
 	}
