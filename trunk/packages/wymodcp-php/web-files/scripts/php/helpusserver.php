@@ -14,6 +14,7 @@ $downloaded = system("cat /wymedia/usr/share/updates/wydev-mod-updaterelease");
 echo "<br>Current version:<br>";
 $current = system("cat /wymedia/usr/etc/wydev-mod-updaterelease");
 echo "<br>Download latest:<br>";
+system ("rm latest.txt");
 system ("wget http://foro.wydev.es/wydevware/updates/latest.txt -q");
 echo "<br>Show Downloaded:<br>";
 $latest = system ("cat latest.txt");
