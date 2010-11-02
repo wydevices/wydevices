@@ -1,4 +1,4 @@
-        <img src="http://foro.wydev.es/download/file.php?avatar=54_1284403959.png"></img>
+		<br>
         <h1><strong>News:</strong></h1><h3> Last available firmware: <a href="http://foro.wydev.es/viewtopic.php?f=20&t=366">3.1</a><br>
          Last update released version: <a href="http://foro.wydev.es/wydevware/updates/r249.tar.gz">r249</a></h3><b>R249 Description:</b>
 
