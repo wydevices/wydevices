@@ -18,7 +18,7 @@ if ($current != $latest) {
 	system ("wget http://foro.wydev.es/wydevware/updates/latest.tar.gz -q && mv latest.tar.gz /wymedia/usr/share/updates/");
 }
 else {
-	echo "System up to date");
+	echo ("System up to date");
 }
 
 ?>
