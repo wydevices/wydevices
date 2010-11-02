@@ -17,12 +17,12 @@ $latest = system ("cat latest.txt");
 if ($downloaded != $latest) {
 	system ("wget http://foro.wydev.es/wydevware/updates/latest.tar.gz -q && mv latest.tar.gz /wymedia/usr/share/updates/");
 	echo "<script src='./scripts/js/wydev.js' type='text/javascript'></script>";
-	echo "<table><tr><td><button onclick='updatefromlocal()'></td><td><b>Update from /wymedia/usr/share/updates/</b></td></tr></table>";
 	system ("mv latest.txt /wymedia/usr/share/updates/wydev-mod-updaterelease");
 	}
 else {
 	 system("cat /wymedia/usr/share/updates/wydev-mod-updaterelease");
 	 echo ("as latest available");
+	 echo "<table><tr><td><button onclick='updatefromlocal()'></td><td><b>Update from /wymedia/usr/share/updates/</b></td></tr></table>";
 }
 
 ?>
