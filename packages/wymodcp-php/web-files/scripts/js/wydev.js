@@ -1,3 +1,51 @@
+function logicfire(curdivid,channelid){
+
+//alert (curdivid+"-"+channelid);
+
+var stage = document.channelform.stage.value;
+
+if (stage == '0') {
+				sourceid=channelid;
+				document.channelform.stage.value = '1'
+				return false;
+				}
+else
+				{
+				destinationid=channelid;
+				orderchannel(sourceid,destinationid);
+				document.channelform.stage.value = '0'
+				return false;				
+				}
+}
+
+
+function orderchannel(source,destination){
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function() {
+			if(xmlhttp.readyState==4) {
+				document.getElementById('channellist').innerHTML=xmlhttp.responseText;
+			}
+		}
+var totalchannels = document.channelform.totalchannels.value;
+
+//alert (source+" Will move to "+destination+" Considering totalchannles as:"+totalchannels);
+
+		composeuri="channel="+source+"&totalchannels="+totalchannels+"&neworder="+destination;
+//		alert (composeuri);
+	
+		xmlhttp.open("GET","./scripts/php/channelform.php?"+composeuri,true);
+		xmlhttp.send(null);
+}
+
+
+
 	function ShowExtras() {
 		var xmlhttp;
 		if (window.XMLHttpRequest) {
