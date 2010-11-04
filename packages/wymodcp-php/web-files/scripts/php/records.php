@@ -12,7 +12,6 @@
  *    - Schedule a single record.
  *    - Schedule a periodic record.
  *    - Rename a record.
- *    - Delete a record.
  *    - Download only N chunck from start or end.
  *    - Create a cron job for run a rec2vid.
  *    - FIX: Template bug when you are lot of records to display (cut into pages).
@@ -21,7 +20,7 @@
 
 $myrecord_path = "/wymedia/timeshift/"; //Path of the myrecords.fxd file
 $record_path   = $myrecord_path."records/"; //Path of records
-$myrecord_name = "myrecords.fxd";
+$myrecord_name = "myrecords.fxd"; //Name of principal record file
 $recordxml_name= "record.xml";
 
 // Function to recursively delete a directory
@@ -39,10 +38,54 @@ function rmdir_recursive($dir) {
 }
 
 /*
+ * Load myrecords.fxd file, this files contain scheduled record
+ */
+if (!file_exists($myrecord_path.$myrecord_name)) {
+    echo "XML record file doesn't exist (".$myrecord_path.$myrecord_name.")\n";
+    exit;
+}
+
+if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
+    $nb_rules = count($xml_records->periodicity->rule);
+    $nb_record = count($xml_records->recordings->recording);
+    $last_saved = $xml_records->general['save_time'];
+
+    for ($p = 0; $p < $nb_rules; $p++) { //Get periodic name
+        $periodicity = $xml_records->periodicity->rule[$p];
+        $record_periodicity[$p] = $periodicity->extern_name; //Get perdiocity name (daily, weekly, etc ...)
+    }
+} else {
+    trigger_error("Error reading XML file", E_USER_ERROR);
+    exit;
+}
+
+/*
  * Remove and Cleanup part
  */
-if ($_GET['remove'] == 1 && !empty($_GET['remove']) && isset($_GET['path']) && !empty($_GET['path'])) {
-    rmdir_recursive($_GET['path']);
+if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
+    $xml_write_records = new SimpleXMLElement($myrecord_path.$myrecord_name, null, true);
+    $xml_write_records->general['save_time'] = time(); //Get current UNIX time into XML buffer
+
+    if (isset($_GET['id']) && intval($_GET['id']) >= 0 ) {
+        $del_record_id = intval($_GET['id']);
+        unset($xml_write_records->recordings->recording[$del_record_id]);
+    }
+
+    if (isset($_GET['path']) && !empty($_GET['path'])) {
+        rmdir_recursive($record_path.$_GET['path']);
+    }
+
+    //Fix XML generated code by asXML function
+    $new_myrecords = str_replace("/>", " />", $xml_write_records->asXML());
+    $new_myrecords = str_replace("<?xml version=\"1.0\"?>\n", "", $new_myrecords);
+    $new_myrecords = str_replace("&#xEE;", "î", $new_myrecords);
+
+    //Write updated XML data into myrecords.fxd by regenerating this file
+    $myrecord_write = fopen($myrecord_path.$myrecord_name, 'w') or die("ERROR : Can't open file ".$myrecord_path.$myrecord_name);
+    fwrite($myrecord_write, $new_myrecords);
+    fclose($myrecord_write);
+
+    unset($xml_write_records);
     header("Location: /index.html");
     exit;
 }
@@ -112,51 +155,36 @@ if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !em
 }
 
 /*
- * Load myrecords.fxd file, this files contain scheduled record
+ * Display content of myrecords.fxd file
  */
-if (!file_exists($myrecord_path.$myrecord_name)) {
-    echo "XML record file doesn't exist (".$myrecord_path.$myrecord_name.")\n";
-    exit;
-}
-
-if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
-    $nb_rules = count($xml_records->periodicity->rule);
-    $nb_record = count($xml_records->recordings->recording);
-    $last_saved = $xml_records->general['save_time'];
-
-    for ($p = 0; $p < $nb_rules; $p++) { //Get periodic name
-        $periodicity = $xml_records->periodicity->rule[$p];
-        $record_periodicity[$p] = $periodicity->extern_name; //Get perdiocity name (daily, weekly, etc ...)
-    }
-} else {
-    trigger_error("Error reading XML file", E_USER_ERROR);
-    exit;
-}
-
-echo "There are ".$nb_record." records.<br />";
-echo "There are ".$nb_rules." periodicity rules.<br />";
-echo "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br /><br />";
+//echo "There are ".$nb_record." records.<br />";
+//echo "There are ".$nb_rules." periodicity rules.<br />";
+echo "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br />";
 echo "<table>";
+echo "<tr><td colspan=\"8\"><hr width=\"100%\" /></td></tr>";
 echo "<tr>
         \t<td><b>Action</b></td>
         \t<td><b>Date</b></td>
-        \t<td><b>Periodicity</b></td>
+        \t<td><b>Frequency</b></td>
         \t<td><b>Channel</b></td>
         \t<td><b>Status</b></td>
         \t<td><b>Record name</b></td>
         \t<td><b>Duration</b></td>
-        \t<td><b>Size</b></td>
+        \t<td align=\"center\"><b>Size</b></td>
     </tr>";
+echo "<tr><td colspan=\"8\"><hr width=\"100%\" /></td></tr>";
 
 unset($r, $record_file_dir, $recording);
 
 //Loop into myrecords.fxd for each record and get informations
-foreach ($xml_records->recordings->recording as $recording) {
-    unset($record_file_info, $record_status, $record_size, $record_size_mb, $record_duration, $record_periodic, $record_name, $record_periodic_id);
+for ($i = 0; $i < $nb_record; $i++) {
+    unset($record_file_info, $record_status, $record_size, $record_size_mb, $record_duration, $record_periodic, $record_name, $record_id, $record_periodic_id, $record_name_link);
+    $recording = $xml_records->recordings->recording[$i];
 
     //Get value from XML and convert it if necessary
     $record_periodic_id = $recording['periodicity_rule_id'];
     $record_name = $recording['name'];
+    $record_id = intval($recording['id']);
     $record_start_time = date("Y-m-d H:i:s", intval($recording['start_time'] - $recording['start_padding']));
     $record_duration = date("H:i:s", intval($recording['stop_time'] - $recording['start_time'] - 3600));
     $record_channel = $recording->service['name'];
@@ -168,15 +196,17 @@ foreach ($xml_records->recordings->recording as $recording) {
         $record_size = $xml_record->record[0]->information->size;
         $record_size_kb = substr($record_size, 0, strlen($record_size) - 3); //Get only KB size
         $record_size_mb = round($record_size_kb / 1048576,1); //Record size in MB
-        $record_size_mb .= " GB";
+        $record_size_mb .= "GB";
 
         //Get only record directory name
         $record_file_dir[$r] = str_replace($recordxml_name, "", $record_file_info);
         $record_file_dir[$r] = str_replace($record_path, "", $record_file_dir[$r]);
         $record_file_dir[$r] = str_replace("/", "", $record_file_dir[$r]);
 
-        $record_name = "<a href=\"scripts/php/records.php?path=".$record_file_dir[$r]."&amp;name=".$record_name."\">".$record_name."</a>";
+        $record_name_link = "<a href=\"scripts/php/records.php?path=".$record_file_dir[$r]."&amp;name=".$record_name."\">".$record_name."</a>";
         $r++;
+    } else {
+        $record_name_link = $record_name;
     }
 
     switch($record_status){
@@ -195,7 +225,11 @@ foreach ($xml_records->recordings->recording as $recording) {
     }
 
     echo "<tr>
-            \t<td></td>
+            \t<td align=\"center\">
+                <a onclick=\"if (confirm('Are you sure to delete (id ".$i.") \\n ".$record_name." ?')) window.location = 'scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]."';\" href=\"#\">
+                    <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" />
+                </a>
+            </td>
             \t<td>".$record_start_time."</td>";
 
     if ($record_periodic_id > 0) {
@@ -206,7 +240,7 @@ foreach ($xml_records->recordings->recording as $recording) {
 
     echo "\t<td>".$record_channel."</td>
             \t<td align=\"center\">".$record_status."</td>
-            \t<td>".$record_name."</td>
+            \t<td>".$record_name_link."</td>
             \t<td>".$record_duration."</td>
             \t<td>".$record_size_mb."</td>";
     echo "</tr>";
@@ -227,8 +261,10 @@ if ($handle_record_path = opendir($record_path)) {
         }
         $record_file_info = $record_path.$record_dir."/".$recordxml_name;
 
-        //Get full path of record.xml directory
-        $recordxml_dir    = str_replace("/".$recordxml_name, "", $record_file_info);
+        //Get only record directory name
+        $record_file_path = str_replace($recordxml_name, "", $record_file_info);
+        $record_file_path = str_replace($record_path, "", $record_file_path);
+        $record_file_path = str_replace("/", "", $record_file_path);
 
         if (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) > 0 && false !== ($xml_record=simplexml_load_file($record_file_info))) {
             $record_size = $xml_record->record[0]->information->size;
@@ -242,16 +278,11 @@ if ($handle_record_path = opendir($record_path)) {
             $record_duration = date("H:i:s", intval($xml_record->record[0]->information->stop_time - $xml_record->record[0]->information->start_time));
             $record_status = "<img src=\"style/modem.png\" title=\"On disk\" />";
 
-            //Get only record directory name
-            $record_file_path = str_replace($recordxml_name, "", $record_file_info);
-            $record_file_path = str_replace($record_path, "", $record_file_path);
-            $record_file_path = str_replace("/", "", $record_file_path);
-
-            $record_name = "<a href=\"scripts/php/records.php?path=".$record_file_path."&amp;name=".$record_name."\">".$record_name."</a>";
+            $record_name_link = "<a href=\"scripts/php/records.php?path=".$record_file_path."&amp;name=".$record_name."\">".$record_name."</a>";
 
             echo "<tr>
                     \t<td align=\"center\">
-                        <a onclick=\"if (confirm('Are you sure to delete \\n".$recordxml_dir." ?')) window.location = 'scripts/php/records.php?path=".$recordxml_dir."&amp;remove=1';\" href=\"#\">
+                        <a onclick=\"if (confirm('Are you sure to delete \\n".$record_file_path." ?')) window.location = 'scripts/php/records.php?path=".$record_file_path."&amp;remove=1';\" href=\"#\">
                             <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" />
                         </a>
                        </td>
@@ -259,19 +290,19 @@ if ($handle_record_path = opendir($record_path)) {
                     \t<td></td>
                     \t<td>".$record_channel."</td>
                     \t<td align=\"center\">".$record_status."</td>
-                    \t<td>".$record_name."</td>
+                    \t<td>".$record_name_link."</td>
                     \t<td>".$record_duration."</td>
                     \t<td>".$record_size_mb."</td>\n</tr>";
         } elseif (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) == 0) { //Malformed case : record.xml = 0 byte
             echo "<tr>
                     <td align=\"center\">
-                        <a onclick=\"if (confirm('Are you sure to delete \\n ".$recordxml_dir." ?')) window.location = 'scripts/php/records.php?path=".$recordxml_dir."&amp;remove=1';\" href=\"#\">
+                        <a onclick=\"if (confirm('Are you sure to delete \\n ".$record_name." ?')) window.location = 'scripts/php/records.php?path=".$record_file_path."&amp;remove=1';\" href=\"#\">
                             <img border=\"0\" src=\"style/edit-clear.png\" title=\"Clean\" />
                         </a>
                     </td>
                     <td colspan=\"3\"><i>Malformed record.xml</i></td>
                     <td align=\"center\"><img src=\"style/important.png\" title=\"Error\" /></td>
-                    <td colspan=\"3\"><i>in ".$recordxml_dir."</i></td>
+                    <td colspan=\"3\"><i>in ".$record_file_path."</i></td>
                   </tr>\n";
         }
     }
