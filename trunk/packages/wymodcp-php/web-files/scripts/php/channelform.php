@@ -43,28 +43,24 @@ echo "</pre>";
 	$Ctotal=0;
 	$dbfile = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
 	$selectsql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
-	echo "<table border=1>";
+	echo "<div style = 'display: table; margin-left: auto; margin-right: auto; width: 500px;'>";
 	foreach ($dbfile->query($selectsql) as $returnrow) {
 
 		$channelid = $returnrow['LOGICAL_CHANNEL_NUMBER'];
-		$Displaycolumn = $channelid%"3";
+
+			
 		$channelname = $returnrow['NAME'];
 		$Ctotal = $Ctotal+1;
 
+		echo  "<div id=".$Ctotal." style='width=100px;height=40px;background=#ccc; text-align=center;padding: 5px; border: thin solid black;'>";
+		echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
+		echo $channelid." - ".$channelname;
+		echo "</a></div>";
 		
-		switch ($Displaycolumn) {
-			case 0: echo "<td>".$channelid." - ".$channelname."</td></tr>";
-				break;
-			case 1: echo "<tr><td>".$channelid." - ".$channelname."</td>";
-				break;
-			case 2: echo "<td>".$channelid." - ".$channelname."</td>";
-				break;
-			default: echo "default";
-				break;
-		 }
+		
 		
 	}
-	echo "</table>";
+	echo "</div>";
 ?>
 
 <h2>Modify Channel List</h2>
@@ -91,7 +87,7 @@ echo "</pre>";
 </select>
 
 <input type="hidden" id="totalchannels" name="totalchannels" class="text" value="<?php echo $total ?>">
-
+<input type="hidden" id="stage" name="stage" class="text" value="0">
 <br>
 <hr>
 <label> New Order: </label>
