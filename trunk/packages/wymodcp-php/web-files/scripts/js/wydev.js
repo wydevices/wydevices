@@ -1,12 +1,17 @@
 function logicfire(curdivid,channelid){
 
 //alert (curdivid+"-"+channelid);
+var fromdiv = "pos"+curdivid
+//alert (fromdiv);
+
 
 var stage = document.channelform.stage.value;
 
 if (stage == '0') {
 				sourceid=channelid;
-				document.channelform.stage.value = '1'
+				document.channelform.stage.value = '1';
+				document.getElementById(fromdiv).style.background ='#66FF33';
+
 				return false;
 				}
 else

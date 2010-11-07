@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="../../style/wymod.css" />
 <?php 
 $id = $_REQUEST["channel"];
 $newid = $_REQUEST["neworder"]; 
@@ -44,19 +45,40 @@ echo "</pre>";
 	$dbfile = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
 	$selectsql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
 	echo "<div style = 'display: table; margin-left: auto; margin-right: auto; width: 500px;'>";
+
+
 	foreach ($dbfile->query($selectsql) as $returnrow) {
 
 		$channelid = $returnrow['LOGICAL_CHANNEL_NUMBER'];
-
-			
+		$Displaycolumn = $Ctotal%"4";			
 		$channelname = $returnrow['NAME'];
 		$Ctotal = $Ctotal+1;
-
-		echo  "<div id=".$Ctotal." style='width=100px;height=40px;background=#ccc; text-align=center;padding: 5px; border: thin solid black;'>";
-		echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
-		echo $channelid." - ".$channelname;
-		echo "</a></div>";
 		
+		                switch ($Displaycolumn) {
+                        case 0: echo  "<div id=pos".$Ctotal." class=\"column1\">";
+								echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
+								echo $channelid." - ".$channelname;
+								echo "</a></div>";
+                                break;
+                        case 1: echo  "<div id=pos".$Ctotal." class=\"column2\">";
+								echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
+								echo $channelid." - ".$channelname;
+								echo "</a></div>";
+                                break;
+                        case 2: echo  "<div id=pos".$Ctotal." class=\"column3\">";
+								echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
+								echo $channelid." - ".$channelname;
+								echo "</a></div>";
+                                break;
+                        case 3: echo  "<div id=pos".$Ctotal." class=\"column4\">";
+								echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
+								echo $channelid." - ".$channelname;
+								echo "</a></div>";
+                                break;
+						default: echo "default";
+                                break;
+                 }
+
 		
 		
 	}
