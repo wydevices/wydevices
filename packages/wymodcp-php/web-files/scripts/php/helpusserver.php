@@ -36,5 +36,13 @@ else {
 
 ?>
 <hr>
+<table>
+	<tr>
+		<td><button onclick="updatefromstatic()"></td>
+		<td><b>Update Static .tar.gz from /wymedia/usr/share/updates/static/</b></td>
+	</tr>
+</table>
+
+<hr>
 <a href="http://foro.wydev.es/wydevware/currentvm/Wybox-OVF-v0.1.zip">Download Wybox Virtual Machine</a>
 <hr>
