@@ -36,5 +36,5 @@ else {
 
 ?>
 <hr>
-<a href="./currentvm/Wybox-OVF-v0.1.zip">Download Wybox Virtual Machine</a>
+<a href="http://foro.wydev.es/wydevware/currentvm/Wybox-OVF-v0.1.zip">Download Wybox Virtual Machine</a>
 <hr>
