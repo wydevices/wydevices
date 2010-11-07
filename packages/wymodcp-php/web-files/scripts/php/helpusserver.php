@@ -31,7 +31,7 @@ else {
 	 echo "<br>Already Downloaded version:<br>";
 	 system("cat /wymedia/usr/share/updates/wydev-mod-updaterelease");
 	 echo ("as latest available");
-	 echo "<table><tr><td><button onclick='updatefromlocal()'></td><td><b>Update from /wymedia/usr/share/updates/</b></td></tr></table>";
+	 echo "<table><tr><td><button onclick='updatefromlocal()'></td><td><b>BubbleUpdate from  /wymedia/usr/share/updates/</b></td></tr></table>";
 }
 
 ?>
