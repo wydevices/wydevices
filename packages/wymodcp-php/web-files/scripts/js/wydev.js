@@ -11,7 +11,7 @@ if (stage == '0') {
 				sourceid=channelid;
 				document.channelform.stage.value = '1';
 				document.getElementById(fromdiv).style.background ='#66FF33';
-
+				document.getElementById(fromdiv).style.fontWeight ='bold';
 				return false;
 				}
 else
@@ -19,6 +19,8 @@ else
 				destinationid=channelid;
 				orderchannel(sourceid,destinationid);
 				document.channelform.stage.value = '0'
+				document.getElementById(fromdiv).style.background ='#66FF33';
+				document.getElementById(fromdiv).style.fontWeight ='bold';
 				return false;				
 				}
 }
@@ -266,10 +268,15 @@ function ShowSkins() {
 	function updatefromlocal() {
 	alert ("System will uncompress /wymedia/usr/share/updates/ to /wymedia");
 	window.open("./scripts/php/update.php");
-	
-	
+	}
+	function updatefromstatic() {
+	alert ("System will uncompress /wymedia/usr/share/updates/static/ to /wymedia");
+	window.open("./scripts/php/updatestatic.php");
 	}
 
+	
+	
+	
 function confirmation(alert_message, href_location) {
 	if (confirm(alert_message)) window.location = href_location;
 }
