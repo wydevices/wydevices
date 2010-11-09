@@ -1,5 +1,31 @@
 	<script src='./scripts/js/wydev.js' type='text/javascript'></script>
 		<br>
+		<h2> Help us sending statistic info </h2>
+<?php
+$targetcmd= "strings /dev/mtd2 |grep WC |cut -d= -f2";
+
+echo "<h3> You will send to us this information for statistics. Thanks for submitting! </h3>";
+
+?>
+
+<table>
+</table>
+
+<form action="http://foro.wydev.es/wydevware/statistics.php" method="get" id="target">
+<table>
+
+<tr><td><b><input type="text" id="manufacturer" name="manufacturer" value="<?php system("cat /proc/wybox/MN")?>"> Manufacturer</td></tr>
+<tr><td><b><input type="text" id="wydevversion" name="wydevversion" value="<?php system("cat /wymedia/usr/etc/wydev-mod-version")?>"> WydevFirmVersion</td></tr>
+<tr><td><b><input type="text" id="bubbleversion" name="bubbleversion" value="<?php  system("cat /wymedia/usr/etc/wydev-mod-updaterelease"); ?>"> Bubble Update Version</td></tr>
+<tr><td><input type="text" id="moddedtarget" name="moddedtarget" value="<?php system("cat /proc/wybox/WC")?>"> Modded Target</td></tr>
+<tr><td><input type="text" id="realtarget" name="realtarget" value="<?php system("strings /dev/mtd2 |grep WC |cut -d= -f2")?> "> Real Target</td></tr>
+<tr><td><input type="text" id="username" name="username"> Wydevelopment username </input></td></tr>
+<tr><td>
+        <input type="submit">
+</td></tr>
+</table>
+
+		<hr>
         <h1><strong>News:</strong></h1>
 		Last available firmware: <a href="http://foro.wydev.es/viewtopic.php?f=20&t=366">3.1</a><br>
         Last update released version: <a href="http://foro.wydev.es/wydevware/updates/latest.tar.gz">r270</a><br>
