@@ -1,6 +1,6 @@
-function Reboot(composedata){
+function Skinops(composedata){
 
-var path = "./scripts/php/reboot.php"
+var path = "./scripts/php/skins.php"
 
 
 alert (composedata);
@@ -24,6 +24,31 @@ alert (composedata);
 
 }
 
+function Reboot(composedata){
+
+var path = "./scripts/php/reboot.php"
+
+
+//alert (composedata);
+	$.ajax({
+			method: "get",url: path,data: composedata,
+			beforeSend: function(){
+				
+				$("#loading").show("slow");
+				}, //show loading just when link is clicked
+			complete: function(){
+			//alert("complete");
+				$("#loading").hide("slow");
+				}, //stop showing loading when the process is complete
+			success: function(html){ //so, if data is retrieved, store it in html
+			//alert("success");
+				$(".content").show("slow"); //animation
+				$(".content").html(html); //show the html inside .content div
+
+			}
+	}); //close $.ajax(
+
+}
 
 
 function ExtrasHandler(composedata){
