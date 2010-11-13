@@ -8,14 +8,7 @@ echo "<pre>";
 echo "</pre>";
 
  ?>
- <script src="./scripts/js/wydev.js" type="text/javascript"></script>
- 
-<table>
-	<tr>
-		<td><button onclick="updatefromlocal()"></td>
-		<td><b>Update from /wymedia/usr/share/updates/</b></td>
-	</tr>
-</table>
+
 
 
 
