@@ -3,7 +3,7 @@ function Skinops(composedata){
 var path = "./scripts/php/skins.php"
 
 
-alert (composedata);
+//alert (composedata);
 	$.ajax({
 			method: "get",url: path,data: composedata,
 			beforeSend: function(){
