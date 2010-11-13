@@ -25,6 +25,29 @@
 
 														switch(content_show)
 														{
+														case "skins":
+														var path = "./scripts/php/skins.php"
+  														alert (path);
+														$.ajax({
+														method: "get",url: path,data: "",
+																beforeSend: function(){
+																						//alert("tvbeforesend");
+																						$("#loading").show("slow");
+																					}, //show loading just when link is clicked
+																complete: function(){
+																						//alert("tvcomplete");
+																						$("#loading").hide("slow");
+																					}, //stop showing loading when the process is complete
+																success: function(html){ //so, if data is retrieved, store it in html
+																						//alert("tvsuccess");
+																						$(".content").show("slow"); //animation
+																						$(".content").html(html); //show the html inside .content div
+																						}
+																	}); //close $.ajax(
+  														break;
+														case "records":
+														var path = "./scripts/php/records.php"
+											
 														case "TV":
 														var pathtotv = "./scripts/php/channelform.php"
   														//alert (pathtotv);
