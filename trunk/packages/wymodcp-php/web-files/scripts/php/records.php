@@ -33,6 +33,7 @@ function rmdir_recursive($dir) {
             }
         }
         reset($objects);
+		echo "Deleting: ".$dir."\n\t";
         rmdir($dir);
     }
 }
@@ -65,14 +66,17 @@ if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
 if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
     $xml_write_records = new SimpleXMLElement($myrecord_path.$myrecord_name, null, true);
     $xml_write_records->general['save_time'] = time(); //Get current UNIX time into XML buffer
-
+	echo "epoch time operation:".$xml_write_records->general['save_time']."!<br> ";
+	
     if (isset($_GET['id']) && intval($_GET['id']) >= 0 ) {
         $del_record_id = intval($_GET['id']);
         unset($xml_write_records->recordings->recording[$del_record_id]);
-    }
+		echo $del_record_id." As del_record_ID<br>";
+		}
 
     if (isset($_GET['path']) && !empty($_GET['path'])) {
-        rmdir_recursive($record_path.$_GET['path']);
+	echo $record_path.$_GET['path']." - As rmdir recursive vars<br>";
+	rmdir_recursive($record_path.$_GET['path']);
     }
 
     //Fix XML generated code by asXML function
@@ -86,8 +90,9 @@ if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
     fclose($myrecord_write);
 
     unset($xml_write_records);
-    header("Location: /index.html");
-    exit;
+    // header("Location: /index.html");
+	//header("Location: /records.php");
+	//exit;
 }
 
 /*
@@ -158,8 +163,27 @@ if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !em
  * Display content of myrecords.fxd file
  */
 //echo "There are ".$nb_record." records.<br />";
-//echo "There are ".$nb_rules." periodicity rules.<br />";
-echo "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br />";
+//echo "There are ".$nb_rules." periodicity rules.<br />";o "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br />";
+
+// Added extra read for ajax refreshed info
+
+if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
+    $nb_rules = count($xml_records->periodicity->rule);
+    $nb_record = count($xml_records->recordings->recording);
+    $last_saved = $xml_records->general['save_time'];
+
+    for ($p = 0; $p < $nb_rules; $p++) { //Get periodic name
+        $periodicity = $xml_records->periodicity->rule[$p];
+        $record_periodicity[$p] = $periodicity->extern_name; //Get perdiocity name (daily, weekly, etc ...)
+    }
+} else {
+    trigger_error("Error reading XML file", E_USER_ERROR);
+    exit;
+}
+
+
+// Added extra read for ajax refreshed info
+echo "<div id=\"recordsdiv\">";
 echo "<table>";
 echo "<tr><td colspan=\"8\"><hr width=\"100%\" /></td></tr>";
 echo "<tr>
@@ -168,6 +192,7 @@ echo "<tr>
         \t<td><b>Frequency</b></td>
         \t<td><b>Channel</b></td>
         \t<td><b>Status</b></td>
+		\t<td><b>Path</b></td>
         \t<td><b>Record name</b></td>
         \t<td><b>Duration</b></td>
         \t<td align=\"center\"><b>Size</b></td>
@@ -209,24 +234,42 @@ for ($i = 0; $i < $nb_record; $i++) {
         $record_name_link = $record_name;
     }
 
-    switch($record_status){
-        case 0  : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" />"; break;
-        case 1  : $record_status = "<img src=\"style/awaiting.png\" title=\"Scheduled\" />"; break;
-        case 2  : $record_status = "<img src=\"style/media-record.png\" title=\"Running\" />"; break;
-        case 3  : $record_status = "<img src=\"style/expired.png\" title=\"In conflict\" />"; break;
-        case 4  : $record_status = "<img src=\"style/available.png\" title=\"Completed\" />"; break;
-        case 5  : $record_status = "<img src=\"style/expired.png\" title=\"Canceled\" />"; break;
-        case 6  : $record_status = "<img src=\"style/expired.png\" title=\"Missed\" />"; break;
-        case 7  : $record_status = "<img src=\"style/expired.png\" title=\"Aborted\" />"; break;
-        case 8  : $record_status = "<img src=\"style/expired.png\" title=\"Macrovision\" />"; break;
-        case 9  : $record_status = "<img src=\"style/expired.png\" title=\"Disk space error\" />"; break;
-        case 10 : $record_status = "<img src=\"style/expired.png\" title=\"System failure\" />"; break;
-        default : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" />"; break;
-    }
+	
+	
 
+    switch($record_status){
+        case 0  : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" />";
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]; break;
+        case 1  : $record_status = "<img src=\"style/awaiting.png\" title=\"Scheduled\" />";
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1"; break;
+		case 2  : $record_status = "<img src=\"style/media-record.png\" title=\"Running\" />";
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]; break;
+		case 3  : $record_status = "<img src=\"style/expired.png\" title=\"In conflict\" />"; 
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;
+		case 4  : $record_status = "<img src=\"style/available.png\" title=\"Completed\" />"; 
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;
+		case 5  : $record_status = "<img src=\"style/expired.png\" title=\"Canceled\" />";
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;  
+		case 6  : $record_status = "<img src=\"style/expired.png\" title=\"Missed\" />";
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1";break;  
+		case 7  : $record_status = "<img src=\"style/expired.png\" title=\"Aborted\" />";
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1";break;     
+		case 8  : $record_status = "<img src=\"style/expired.png\" title=\"Macrovision\" />";
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;   
+		case 9  : $record_status = "<img src=\"style/expired.png\" title=\"Disk space error\" />";
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;      
+		case 10 : $record_status = "<img src=\"style/expired.png\" title=\"System failure\" />"; 
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;       
+		default : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" />";
+				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;
+	}
+
+	//\"\"if (confirm('Are you sure to delete (id ".$i.") \\n ".$record_name." \\n and path:".$record_file_dir[intval($r - 1)]."?')) ReloadRecords('scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]."');\
+	
+	
     echo "<tr>
-            \t<td align=\"center\">
-                <a onclick=\"if (confirm('Are you sure to delete (id ".$i.") \\n ".$record_name." ?')) window.location = 'scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]."';\" href=\"#\">
+            \t<td align=\"center\">.$i
+			<a onclick=\"ReloadRecords('".$RecordsUri."');\" href=\"#\">                
                     <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" />
                 </a>
             </td>
@@ -240,7 +283,8 @@ for ($i = 0; $i < $nb_record; $i++) {
 
     echo "\t<td>".$record_channel."</td>
             \t<td align=\"center\">".$record_status."</td>
-            \t<td>".$record_name_link."</td>
+            \t<td>".$RecordsUri."</td>
+			\t<td>".$record_name_link."</td>
             \t<td>".$record_duration."</td>
             \t<td>".$record_size_mb."</td>";
     echo "</tr>";
@@ -281,8 +325,8 @@ if ($handle_record_path = opendir($record_path)) {
             $record_name_link = "<a href=\"scripts/php/records.php?path=".$record_file_path."&amp;name=".$record_name."\">".$record_name."</a>";
 
             echo "<tr>
-                    \t<td align=\"center\">
-                        <a onclick=\"if (confirm('Are you sure to delete \\n".$record_file_path." ?')) window.location = 'scripts/php/records.php?path=".$record_file_path."&amp;remove=1';\" href=\"#\">
+                    \t<td align=\"center\">.$i
+                        <a onclick=\"ReloadRecords('scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
                             <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" />
                         </a>
                        </td>
@@ -296,7 +340,7 @@ if ($handle_record_path = opendir($record_path)) {
         } elseif (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) == 0) { //Malformed case : record.xml = 0 byte
             echo "<tr>
                     <td align=\"center\">
-                        <a onclick=\"if (confirm('Are you sure to delete \\n ".$record_name." ?')) window.location = 'scripts/php/records.php?path=".$record_file_path."&amp;remove=1';\" href=\"#\">
+                        <a onclick=\"ReloadRecords('scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
                             <img border=\"0\" src=\"style/edit-clear.png\" title=\"Clean\" />
                         </a>
                     </td>
@@ -312,4 +356,5 @@ if ($handle_record_path = opendir($record_path)) {
 }
 
 echo "</table>\n";
+echo "<\div>";
 ?>
