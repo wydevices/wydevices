@@ -46,6 +46,12 @@ margin-right: auto;
 width: 500px;'
 }
 
+.docscontainer{
+display: table; 
+margin-left: auto; 
+margin-right: auto; 
+width: 700px;'
+}
 
 #menu li { 
 list-style:none; 
@@ -62,7 +68,7 @@ margin-right:5px;
 padding:7px; 
 color:#FFFFFF; 
 text-decoration:none; 
-width:6em; 
+width:5em; 
 text-align:center;}
 
  
