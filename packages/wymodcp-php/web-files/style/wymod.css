@@ -39,6 +39,14 @@ font-family: verdana, arial, sans-serif;
 font-size: .80em;
 }
 
+.channellistcontainer{
+display: table; 
+margin-left: auto; 
+margin-right: auto; 
+width: 500px;'
+}
+
+
 #menu li { 
 list-style:none; 
 display:inline; }

@@ -1,3 +1,81 @@
+	function ReloadRecords(RecordsUri){
+	
+	//alert (RecordsUri);
+	
+			var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function() {
+			if(xmlhttp.readyState==4) {
+				document.getElementById('recordsdiv').innerHTML=xmlhttp.responseText;
+			}
+		}
+		//alert ("./"+RecordsUri);
+		xmlhttp.open("GET","./"+RecordsUri,true);
+		xmlhttp.send(null);
+	
+	
+	
+	}
+
+function Backops(backop){
+
+var pathtotv = "./scripts/php/channelform.php"
+
+var composedata="backops="+backop+"&op=backops";
+//alert (composedata);
+	$.ajax({
+			method: "get",url: pathtotv,data: composedata,
+			beforeSend: function(){
+				
+				$("#loading").show("slow");
+				}, //show loading just when link is clicked
+			complete: function(){
+			//alert("complete");
+				$("#loading").hide("slow");
+				}, //stop showing loading when the process is complete
+			success: function(html){ //so, if data is retrieved, store it in html
+			//alert("success");
+				$(".content").show("slow"); //animation
+				$(".content").html(html); //show the html inside .content div
+				//$(".backdivclass").hide();
+			}
+	}); //close $.ajax(
+
+}
+
+
+function ChannelRename(newname,channeltoupdate){
+
+var pathtotv = "./scripts/php/channelform.php"
+
+var composedata="channel="+document.channelform.channel.value+"&newname="+document.channelform.newname.value+"&op=rename";
+
+	$.ajax({
+	method: "get",url: pathtotv,data: composedata,
+	beforeSend: function(){
+		alert("Data:"+composedata);
+		$("#loading").show("slow");
+					}, //show loading just when link is clicked
+		complete: function(){
+				//alert("complete");
+			$("#loading").hide("slow");
+			}, //stop showing loading when the process is complete
+			success: function(html){ //so, if data is retrieved, store it in html
+			//alert("success");
+			$(".content").show("slow"); //animation
+			$(".content").html(html); //show the html inside .content div
+			}
+		}); //close $.ajax(
+
+}
+
+
 function logicfire(curdivid,channelid){
 
 //alert (curdivid+"-"+channelid);
@@ -12,6 +90,7 @@ if (stage == '0') {
 				document.channelform.stage.value = '1';
 				document.getElementById(fromdiv).style.background ='#66FF33';
 				document.getElementById(fromdiv).style.fontWeight ='bold';
+				 $("#"+fromdiv).hide("slow");
 				return false;
 				}
 else
@@ -21,6 +100,7 @@ else
 				document.channelform.stage.value = '0'
 				document.getElementById(fromdiv).style.background ='#66FF33';
 				document.getElementById(fromdiv).style.fontWeight ='bold';
+				 $("#"+fromdiv).hide("slow");
 				return false;				
 				}
 }
@@ -37,14 +117,15 @@ function orderchannel(source,destination){
 		}
 		xmlhttp.onreadystatechange=function() {
 			if(xmlhttp.readyState==4) {
-				document.getElementById('channellist').innerHTML=xmlhttp.responseText;
+			//alert("ready");
+			document.getElementById('container').innerHTML=xmlhttp.responseText;
 			}
 		}
 var totalchannels = document.channelform.totalchannels.value;
 
 //alert (source+" Will move to "+destination+" Considering totalchannles as:"+totalchannels);
 
-		composeuri="channel="+source+"&totalchannels="+totalchannels+"&neworder="+destination;
+		composeuri="channel="+source+"&totalchannels="+totalchannels+"&neworder="+destination+"&op=ajaxreorder";
 //		alert (composeuri);
 	
 		xmlhttp.open("GET","./scripts/php/channelform.php?"+composeuri,true);
@@ -153,7 +234,7 @@ function ShowSkins() {
 			}
 		}
 
-		xmlhttp.open("GET","./scripts/php/records.php",true);
+		xmlhttp.open("GET","./scripts/php/recordsenclosed.php",true);
 		xmlhttp.send(null);
 	}	
 
@@ -193,56 +274,6 @@ function ShowSkins() {
 		}
 
 		xmlhttp.open("GET","./scripts/php/channel-list.php",true);
-		xmlhttp.send(null);
-	}
-		function UpdateTV(form) {
-		var xmlhttp;
-		if (window.XMLHttpRequest) {
-			// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
-		} else {
-			// code for IE6, IE5
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-
-		xmlhttp.onreadystatechange=function() {
-			if(xmlhttp.readyState==4) {
-				document.getElementById('channellist').innerHTML=xmlhttp.responseText;
-			}
-		}
-
-		//alert('inicio');
-		
-		var f= document.channelform.backops;
-		for (var i=0;i<=f.length - 1;i++){
-		//alert('for');
-		if (f[i].checked){
-			//alert('dentroif');
-			backops = f[i].value;
-			composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value+"&backops="+backops;
-			//alert (composeuri);
-					
-
-			window.open("./scripts/php/channelform.php?"+composeuri,true);
-
-
-			}
-			else
-			{
-			//alert('noaction');
-			}
-		}
-		
-				//alert('composeuri fuera if');
-		
-		composeuri="channel="+document.channelform.channel.value+"&totalchannels="+document.channelform.totalchannels.value+"&neworder="+document.channelform.neworder.value+"&newname="+document.channelform.newname.value;
-		//alert (composeuri);
-	
-		
-		//xmlhttp.open("GET","channelform.php?"+composeuri,true);
-		xmlhttp.open("GET","./scripts/php/channelform.php?"+composeuri,true);
-	
-		
 		xmlhttp.send(null);
 	}
 	function ShowHome() {
