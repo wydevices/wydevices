@@ -66,6 +66,29 @@
 																	}); //close $.ajax(
   														break;
 
+														case "docs":
+														var path = "./scripts/php/docs.php"
+											
+														$.ajax({
+														method: "get",url: path,data: "",
+																beforeSend: function(){
+																						//alert("tvbeforesend");
+																						$("#loading").show("slow");
+																					}, //show loading just when link is clicked
+																complete: function(){
+																						//alert("tvcomplete");
+																						$("#loading").hide("slow");
+																					}, //stop showing loading when the process is complete
+																success: function(html){ //so, if data is retrieved, store it in html
+																						//alert("tvsuccess");
+																						$(".content").show("slow"); //animation
+																						$(".content").html(html); //show the html inside .content div
+																						}
+																	}); //close $.ajax(
+  														break;
+														
+														
+
 														default:
 														$.ajax({
 																method: "get",url: "wymod-php.php",data: "page="+content_show,
@@ -105,6 +128,7 @@
             <li id="skins"><a href="#" title="skins">Skins</a></li>
 			<li id="records"><a href="#" title="records">Records</a></li>
 			<li id="TV"><a href="#" title="TV">TV</a></li>
+			<li id="docs"><a href="#" title="docs">Docs</a></li>
 			<li id="helpus"><a href="#" title="helpus">Help us</a></li>
 </ul>
 <br style="clear:both;" />
