@@ -87,7 +87,26 @@
 																	}); //close $.ajax(
   														break;
 														
-														
+														case "extras":
+														var path = "./scripts/php/extras.php"
+											
+														$.ajax({
+														method: "get",url: path,data: "",
+																beforeSend: function(){
+																						//alert("tvbeforesend");
+																						$("#loading").show("slow");
+																					}, //show loading just when link is clicked
+																complete: function(){
+																						//alert("tvcomplete");
+																						$("#loading").hide("slow");
+																					}, //stop showing loading when the process is complete
+																success: function(html){ //so, if data is retrieved, store it in html
+																						//alert("tvsuccess");
+																						$(".content").show("slow"); //animation
+																						$(".content").html(html); //show the html inside .content div
+																						}
+																	}); //close $.ajax(
+  														break;														
 
 														default:
 														$.ajax({
