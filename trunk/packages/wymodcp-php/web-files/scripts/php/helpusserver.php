@@ -1,4 +1,4 @@
-	<script src='./scripts/js/wydev.js' type='text/javascript'></script>
+	<script src='../js/wydev.js' type='text/javascript'></script>
 		<br>
 		<h2> Help us sending statistic info </h2>
 <?php
@@ -11,7 +11,7 @@ echo "<h3> You will send to us this information for statistics. Thanks for submi
 <table>
 </table>
 
-<form action="http://foro.wydev.es/wydevware/statistics.php" method="get" id="target">
+<form action="http://foro.wydev.es/wydevware/statistics.php" method="get" id="target" name="target">
 <table>
 
 <tr><td><b><input type="text" id="manufacturer" name="manufacturer" value="<?php system("cat /proc/wybox/MN")?>"> Manufacturer</td></tr>
@@ -21,10 +21,10 @@ echo "<h3> You will send to us this information for statistics. Thanks for submi
 <tr><td><input type="text" id="realtarget" name="realtarget" value="<?php system("strings /dev/mtd2 |grep WC |cut -d= -f2")?> "> Real Target</td></tr>
 <tr><td><input type="text" id="username" name="username"> Wydevelopment username </input></td></tr>
 <tr><td>
-        <input type="submit">
+        <input type="submit" onclick="javascript:document.getElementById('target').submit();" >
 </td></tr>
 </table>
-
+</form>
 		<hr>
         <h1><strong>News:</strong></h1>
 		Last available firmware: <a href="http://foro.wydev.es/viewtopic.php?f=20&t=366">3.1</a><br>
