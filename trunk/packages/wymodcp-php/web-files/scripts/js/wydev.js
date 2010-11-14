@@ -14,9 +14,10 @@ var path = "./scripts/php/skins.php"
 				}, //stop showing loading when the process is complete
 			success: function(html){ //so, if data is retrieved, store it in html
 			//alert("success");
-				$(".content").show("slow"); //animation
-				$(".content").html(html); //show the html inside .content div
 
+				$(".content").fadeIn("slow"); //animation
+				$(".content").html(html); //show the html inside .content div
+				$("#skincheck").slideUp();
 			}
 	}); //close $.ajax(
 
