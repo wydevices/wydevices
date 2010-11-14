@@ -28,8 +28,12 @@ echo "<h3> You will send to us this information for statistics. Thanks for submi
 		<hr>
         <h1><strong>News:</strong></h1>
 		Last available firmware: <a href="http://foro.wydev.es/viewtopic.php?f=20&t=366">3.1</a><br>
-        Last update released version: <a href="http://foro.wydev.es/wydevware/updates/latest.tar.gz">r270</a><br>
+        Last update released version: <a href="http://foro.wydev.es/wydevware/updates/latest.tar.gz">r298</a><br>
 
+		<b>R298 Description:</b><br>
+		 <small>Bubble Update #2, <a href="http://code.google.com/p/wydevices/source/list">Changes</a></small><br>
+<br>	
+		
 		<b>R270 Description:</b><br>
 		 <small>Bubble Update #1, TV Reordering bugfix for french TDT + Ajax effects, New Records improvements, linked, deletion...</small><br>
 <br>		
