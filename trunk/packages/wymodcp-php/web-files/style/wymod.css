@@ -183,6 +183,39 @@ height: 29px;
 margin: 2px; 
 }
 
+.wydevbutton:hover {
+border: 0;
+background: url(../../style/BTNStage2.png);
+width: 93px;
+height: 29px;
+margin: 2px; 
+}
+.wydevbutton:active {
+border: 0;
+background: url(../../style/BTNStage3.png);
+width: 93px;
+height: 29px;
+margin: 2px; 
+}
+.wydevbutton:link {
+border: 0;
+background: url(../../style/BTNStage1.png);
+width: 93px;
+height: 29px;
+margin: 2px; 
+}
+.wydevbutton:visited {
+border: 0;
+background: url(../../style/BTNStage1.png);
+width: 93px;
+height: 29px;
+margin: 2px; 
+}
+
+
+
+
+
 .wydevhiddenbox {
 border: 0;
 background: url(../../style/RBStage2.png);
