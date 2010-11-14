@@ -66,7 +66,7 @@ if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
 if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
     $xml_write_records = new SimpleXMLElement($myrecord_path.$myrecord_name, null, true);
     $xml_write_records->general['save_time'] = time(); //Get current UNIX time into XML buffer
-	echo "epoch time operation:".$xml_write_records->general['save_time']."!<br> ";
+	//echo "epoch time operation:".$xml_write_records->general['save_time']."!<br> ";
 	
     if (isset($_GET['id']) && intval($_GET['id']) >= 0 ) {
         $del_record_id = intval($_GET['id']);
@@ -192,7 +192,7 @@ echo "<tr>
         \t<td><b>Frequency</b></td>
         \t<td><b>Channel</b></td>
         \t<td><b>Status</b></td>
-		\t<td><b>Path</b></td>
+
         \t<td><b>Record name</b></td>
         \t<td><b>Duration</b></td>
         \t<td align=\"center\"><b>Size</b></td>
@@ -268,7 +268,7 @@ for ($i = 0; $i < $nb_record; $i++) {
 	
 	
     echo "<tr>
-            \t<td align=\"center\">.$i
+            \t<td align=\"center\">
 			<a onclick=\"ReloadRecords('".$RecordsUri."');\" href=\"#\">                
                     <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" />
                 </a>
@@ -283,7 +283,7 @@ for ($i = 0; $i < $nb_record; $i++) {
 
     echo "\t<td>".$record_channel."</td>
             \t<td align=\"center\">".$record_status."</td>
-            \t<td>".$RecordsUri."</td>
+
 			\t<td>".$record_name_link."</td>
             \t<td>".$record_duration."</td>
             \t<td>".$record_size_mb."</td>";
@@ -325,7 +325,7 @@ if ($handle_record_path = opendir($record_path)) {
             $record_name_link = "<a href=\"scripts/php/records.php?path=".$record_file_path."&amp;name=".$record_name."\">".$record_name."</a>";
 
             echo "<tr>
-                    \t<td align=\"center\">.$i
+                    \t<td align=\"center\">
                         <a onclick=\"ReloadRecords('scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
                             <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" />
                         </a>

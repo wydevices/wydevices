@@ -25,6 +25,87 @@
 														// Based on the title of the a link on the menu id, we can select where to go
 														switch(content_show)
 														{
+														case "home":
+														var path = "./scripts/php/home.php"  //set the path here to next ajax method call
+  														//alert (path);
+														$.ajax({
+														method: "get",url: path,data: "",
+																beforeSend: function(){
+																						//alert("Current Stage: Before Send");
+																						$("#loading").show("slow");
+																					}, 
+																complete: function(){
+																						//alert("Current Stage: Complete");
+																						$("#loading").hide("slow");
+																					}, 
+																success: function(html){ 
+																						//alert("Current Stage: Success");
+																						$(".content").show("slow"); //animation
+																						$(".content").html(html); //show the html inside .content div
+																						}
+																	}); //close $.ajax(
+  														break;
+														case "syslog":
+														var path = "./scripts/php/syslog.php"  //set the path here to next ajax method call
+  														//alert (path);
+														$.ajax({
+														method: "get",url: path,data: "",
+																beforeSend: function(){
+																						//alert("Current Stage: Before Send");
+																						$("#loading").show("slow");
+																					}, 
+																complete: function(){
+																						//alert("Current Stage: Complete");
+																						$("#loading").hide("slow");
+																					}, 
+																success: function(html){ 
+																						//alert("Current Stage: Success");
+																						$(".content").show("slow"); //animation
+																						$(".content").html(html); //show the html inside .content div
+																						}
+																	}); //close $.ajax(
+  														break;
+														case "helpus":
+														var path = "./scripts/php/helpus.php"  //set the path here to next ajax method call
+  														//alert (path);
+														$.ajax({
+														method: "get",url: path,data: "",
+																beforeSend: function(){
+																						//alert("Current Stage: Before Send");
+																						$("#loading").show("slow");
+																					}, 
+																complete: function(){
+																						//alert("Current Stage: Complete");
+																						$("#loading").hide("slow");
+																					}, 
+																success: function(html){ 
+																						//alert("Current Stage: Success");
+																						$(".content").show("slow"); //animation
+																						$(".content").html(html); //show the html inside .content div
+																						}
+																	}); //close $.ajax(
+  														break;
+														case "reboot":
+														var path = "./scripts/php/reboot.php"  //set the path here to next ajax method call
+  														//alert (path);
+														$.ajax({
+														method: "get",url: path,data: "",
+																beforeSend: function(){
+																						//alert("Current Stage: Before Send");
+																						$("#loading").show("slow");
+																					}, 
+																complete: function(){
+																						//alert("Current Stage: Complete");
+																						$("#loading").hide("slow");
+																					}, 
+																success: function(html){ 
+																						//alert("Current Stage: Success");
+																						$(".content").show("slow"); //animation
+																						$(".content").html(html); //show the html inside .content div
+																						}
+																	}); //close $.ajax(
+  														break;
+
 														case "skins":
 														var path = "./scripts/php/skins.php"  //set the path here to next ajax method call
   														//alert (path);

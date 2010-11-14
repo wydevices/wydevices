@@ -483,11 +483,11 @@ if ($handle = opendir($initdfolder)) {
 			} ?>
 			</td>
 			
-			<td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo $extraname[0];?>" type="radio" value="true"<?php echo"onclick=\"ExtrasHandler('autostart".$extraname[0]."=true')\"";?> />Enable</td>
-			<td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo $extraname[0];?>" type="radio" value="false"<?php echo"onclick=\"ExtrasHandler('autostart".$extraname[0]."=false')\"";?> />Disable</td>
+			<td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo $extraname[0];?>" type="radio" class="extraenable" value="true"<?php echo"onclick=\"ExtrasHandler('autostart".$extraname[0]."=true')\"";?> />Enable</td>
+			<td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo $extraname[0];?>" type="radio" class="extraenable" value="false"<?php echo"onclick=\"ExtrasHandler('autostart".$extraname[0]."=false')\"";?> />Disable</td>
 			
-			<td><input id="<?php echo $extraname[0];?>" name="activate<?php echo $extraname[0];?>" type="radio" value="true"<?php echo"onclick=\"ExtrasHandler('activate".$extraname[0]."=true')\"";?>/>Start</td>
-			<td><input id="<?php echo $extraname[0];?>" name="activate<?php echo $extraname[0];?>" type="radio" value="false"<?php echo"onclick=\"ExtrasHandler('activate".$extraname[0]."=false')\"";?> />Stop</td>	
+			<td><input id="<?php echo $extraname[0];?>" name="activate<?php echo $extraname[0];?>" type="radio" class="extraenable" value="true"<?php echo"onclick=\"ExtrasHandler('activate".$extraname[0]."=true')\"";?>/>Start</td>
+			<td><input id="<?php echo $extraname[0];?>" name="activate<?php echo $extraname[0];?>" type="radio" class="extraenable" value="false"<?php echo"onclick=\"ExtrasHandler('activate".$extraname[0]."=false')\"";?> />Stop</td>	
 			
 			<?php
 			
