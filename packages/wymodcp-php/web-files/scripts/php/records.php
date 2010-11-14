@@ -15,9 +15,22 @@
  *    - Download only N chunck from start or end.
  *    - Create a cron job for run a rec2vid.
  *    - FIX: Template bug when you are lot of records to display (cut into pages).
+ *    - FIX: Bug that show two times records Schedule + On disk.
+ *    - FIX: The record path aren't the same on each player, detect this.
  * 
  */
 
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+    <title>Wymod Control Panel - Records list</title>
+    <script src="../js/wydev.js" type="text/javascript"></script>
+</head>
+<body>
+<h2>Records List</h2>
+
+<?php
 $myrecord_path = "/wymedia/timeshift/"; //Path of the myrecords.fxd file
 $record_path   = $myrecord_path."records/"; //Path of records
 $myrecord_name = "myrecords.fxd"; //Name of principal record file
@@ -33,7 +46,7 @@ function rmdir_recursive($dir) {
             }
         }
         reset($objects);
-		echo "Deleting: ".$dir."\n\t";
+        echo "Deleting: ".$dir."\n\t";
         rmdir($dir);
     }
 }
@@ -66,17 +79,16 @@ if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
 if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
     $xml_write_records = new SimpleXMLElement($myrecord_path.$myrecord_name, null, true);
     $xml_write_records->general['save_time'] = time(); //Get current UNIX time into XML buffer
-	//echo "epoch time operation:".$xml_write_records->general['save_time']."!<br> ";
-	
+    
     if (isset($_GET['id']) && intval($_GET['id']) >= 0 ) {
         $del_record_id = intval($_GET['id']);
         unset($xml_write_records->recordings->recording[$del_record_id]);
-		echo $del_record_id." As del_record_ID<br>";
-		}
+        echo $del_record_id." As del_record_ID<br>";
+    }
 
     if (isset($_GET['path']) && !empty($_GET['path'])) {
-	echo $record_path.$_GET['path']." - As rmdir recursive vars<br>";
-	rmdir_recursive($record_path.$_GET['path']);
+        echo $record_path.$_GET['path']." - As rmdir recursive vars<br>";
+        rmdir_recursive($record_path.$_GET['path']);
     }
 
     //Fix XML generated code by asXML function
@@ -90,9 +102,6 @@ if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
     fclose($myrecord_write);
 
     unset($xml_write_records);
-    // header("Location: /index.html");
-	//header("Location: /records.php");
-	//exit;
 }
 
 /*
@@ -166,7 +175,6 @@ if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !em
 //echo "There are ".$nb_rules." periodicity rules.<br />";o "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br />";
 
 // Added extra read for ajax refreshed info
-
 if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
     $nb_rules = count($xml_records->periodicity->rule);
     $nb_record = count($xml_records->recordings->recording);
@@ -181,7 +189,6 @@ if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
     exit;
 }
 
-
 // Added extra read for ajax refreshed info
 echo "<div id=\"recordsdiv\">";
 echo "<table>";
@@ -192,7 +199,6 @@ echo "<tr>
         \t<td><b>Frequency</b></td>
         \t<td><b>Channel</b></td>
         \t<td><b>Status</b></td>
-
         \t<td><b>Record name</b></td>
         \t<td><b>Duration</b></td>
         \t<td align=\"center\"><b>Size</b></td>
@@ -234,43 +240,29 @@ for ($i = 0; $i < $nb_record; $i++) {
         $record_name_link = $record_name;
     }
 
-	
-	
-
     switch($record_status){
-        case 0  : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" />";
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]; break;
-        case 1  : $record_status = "<img src=\"style/awaiting.png\" title=\"Scheduled\" />";
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1"; break;
-		case 2  : $record_status = "<img src=\"style/media-record.png\" title=\"Running\" />";
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]; break;
-		case 3  : $record_status = "<img src=\"style/expired.png\" title=\"In conflict\" />"; 
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;
-		case 4  : $record_status = "<img src=\"style/available.png\" title=\"Completed\" />"; 
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;
-		case 5  : $record_status = "<img src=\"style/expired.png\" title=\"Canceled\" />";
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;  
-		case 6  : $record_status = "<img src=\"style/expired.png\" title=\"Missed\" />";
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1";break;  
-		case 7  : $record_status = "<img src=\"style/expired.png\" title=\"Aborted\" />";
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1";break;     
-		case 8  : $record_status = "<img src=\"style/expired.png\" title=\"Macrovision\" />";
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;   
-		case 9  : $record_status = "<img src=\"style/expired.png\" title=\"Disk space error\" />";
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;      
-		case 10 : $record_status = "<img src=\"style/expired.png\" title=\"System failure\" />"; 
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;       
-		default : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" />";
-				  $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];break;
-	}
+        case 0  : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" alt=\"\" />"; break;
+        case 1  : $record_status = "<img src=\"style/awaiting.png\" title=\"Scheduled\" alt=\"\" />"; break;
+        case 2  : $record_status = "<img src=\"style/media-record.png\" title=\"Running\" alt=\"\" />"; break;
+        case 3  : $record_status = "<img src=\"style/expired.png\" title=\"In conflict\" alt=\"\" />"; break;
+        case 4  : $record_status = "<img src=\"style/available.png\" title=\"Completed\" alt=\"\" />"; break;
+        case 5  : $record_status = "<img src=\"style/expired.png\" title=\"Canceled\" alt=\"\" />"; break;  
+        case 6  : $record_status = "<img src=\"style/expired.png\" title=\"Missed\" alt=\"\" />"; break;  
+        case 7  : $record_status = "<img src=\"style/expired.png\" title=\"Aborted\" alt=\"\" />"; break;     
+        case 8  : $record_status = "<img src=\"style/expired.png\" title=\"Macrovision\" alt=\"\" />"; break;   
+        case 9  : $record_status = "<img src=\"style/expired.png\" title=\"Disk space error\" alt=\"\" />"; break;      
+        case 10 : $record_status = "<img src=\"style/expired.png\" title=\"System failure\" alt=\"\" />"; break;       
+        default : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" alt=\"\" />"; break;
+    }
 
-	//\"\"if (confirm('Are you sure to delete (id ".$i.") \\n ".$record_name." \\n and path:".$record_file_dir[intval($r - 1)]."?')) ReloadRecords('scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]."');\
-	
-	
+    //\"\"if (confirm('Are you sure to delete (id ".$i.") \\n ".$record_name." \\n and path:".$record_file_dir[intval($r - 1)]."?')) ReloadRecords('scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]."');\
+
+    $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];
+
     echo "<tr>
             \t<td align=\"center\">
-			<a onclick=\"ReloadRecords('".$RecordsUri."');\" href=\"#\">                
-                    <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" />
+                <a onclick=\"ReloadRecords('".$RecordsUri."');\" href=\"#\">                
+                    <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" alt=\"\" />
                 </a>
             </td>
             \t<td>".$record_start_time."</td>";
@@ -283,8 +275,7 @@ for ($i = 0; $i < $nb_record; $i++) {
 
     echo "\t<td>".$record_channel."</td>
             \t<td align=\"center\">".$record_status."</td>
-
-			\t<td>".$record_name_link."</td>
+            \t<td>".$record_name_link."</td>
             \t<td>".$record_duration."</td>
             \t<td>".$record_size_mb."</td>";
     echo "</tr>";
@@ -320,14 +311,14 @@ if ($handle_record_path = opendir($record_path)) {
             $record_channel = $xml_record->record[0]->information->channel;
             $record_name = $xml_record->record[0]->information->name;
             $record_duration = date("H:i:s", intval($xml_record->record[0]->information->stop_time - $xml_record->record[0]->information->start_time));
-            $record_status = "<img src=\"style/modem.png\" title=\"On disk\" />";
+            $record_status = "<img src=\"style/modem.png\" title=\"On disk\" alt=\"\" />";
 
             $record_name_link = "<a href=\"scripts/php/records.php?path=".$record_file_path."&amp;name=".$record_name."\">".$record_name."</a>";
 
             echo "<tr>
                     \t<td align=\"center\">
                         <a onclick=\"ReloadRecords('scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
-                            <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" />
+                            <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" alt=\"\" />
                         </a>
                        </td>
                     \t<td>".$record_start_time."</td>
@@ -341,11 +332,11 @@ if ($handle_record_path = opendir($record_path)) {
             echo "<tr>
                     <td align=\"center\">
                         <a onclick=\"ReloadRecords('scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
-                            <img border=\"0\" src=\"style/edit-clear.png\" title=\"Clean\" />
+                            <img border=\"0\" src=\"style/edit-clear.png\" title=\"Clean\" alt=\"\" />
                         </a>
                     </td>
                     <td colspan=\"3\"><i>Malformed record.xml</i></td>
-                    <td align=\"center\"><img src=\"style/important.png\" title=\"Error\" /></td>
+                    <td align=\"center\"><img src=\"style/important.png\" title=\"Error\" alt=\"\" /></td>
                     <td colspan=\"3\"><i>in ".$record_file_path."</i></td>
                   </tr>\n";
         }
@@ -354,7 +345,8 @@ if ($handle_record_path = opendir($record_path)) {
 } else {
     echo "<tr><td colspan=\"8\"><b><i>Cannot open ".$record_path." directory !</i></b></td></tr>\n";
 }
-
-echo "</table>\n";
-echo "<\div>";
 ?>
+</table>
+</div>
+</body>
+</html>

@@ -313,7 +313,7 @@ function ShowSkins() {
 			}
 		}
 
-		xmlhttp.open("GET","./scripts/php/recordsenclosed.php",true);
+		xmlhttp.open("GET","./scripts/php/records.php",true);
 		xmlhttp.send(null);
 	}	
 
