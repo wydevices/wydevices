@@ -174,3 +174,51 @@ background= white;
 .page { 
 margin:100px auto 0 auto; 
 width:800px;}	
+
+.wydevbutton {
+border: 0;
+background: url(../../style/BTNStage1.png);
+width: 93px;
+height: 29px;
+margin: 2px; 
+}
+
+.wydevhiddenbox {
+border: 0;
+background: url(../../style/RBStage2.png);
+width: 31px;
+height: 31px;
+margin: 1px; 
+}
+
+.wydevhiddenbox:hover {
+border: 0;
+background: url(../../style/RBStage1.png);
+width: 31px;
+height: 31px;
+margin: 1px; 
+}
+
+.wydevhiddenbox:active {
+border: 0;
+background: url(../../style/RBStage4.png);
+width: 31px;
+height: 31px;
+margin: 1px; 
+}
+
+.wydevhiddenbox:link {
+border: 0;
+background: url(../../style/RBStage3.png);
+width: 31px;
+height: 31px;
+margin: 1px; 
+}
+
+.wydevhiddenbox:visited {
+border: 0;
+background: url(../../style/RBStage3.png);
+width: 31px;
+height: 31px;
+margin: 1px; 
+}

@@ -1,14 +1,12 @@
 function Skinops(composedata){
-
 var path = "./scripts/php/skins.php"
-
-
 //alert (composedata);
 	$.ajax({
 			method: "get",url: path,data: composedata,
 			beforeSend: function(){
 				
 				$("#loading").show("slow");
+				$("#skinform").hide("slow");
 				}, //show loading just when link is clicked
 			complete: function(){
 			//alert("complete");
