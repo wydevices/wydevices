@@ -212,11 +212,7 @@ height: 29px;
 margin: 2px; 
 }
 
-
-
-
-
-.wydevhiddenbox {
+.wydevradio {
 border: 0;
 background: url(../../style/RBStage2.png);
 width: 31px;
@@ -224,7 +220,7 @@ height: 31px;
 margin: 1px; 
 }
 
-.wydevhiddenbox:hover {
+.wydevradio:hover {
 border: 0;
 background: url(../../style/RBStage4.png);
 width: 31px;
@@ -232,7 +228,7 @@ height: 31px;
 margin: 1px; 
 }
 
-.wydevhiddenbox:active {
+.wydevradio:active {
 border: 0;
 background: url(../../style/RBStage4.png);
 width: 31px;
@@ -240,7 +236,7 @@ height: 31px;
 margin: 1px; 
 }
 
-.wydevhiddenbox:link {
+.wydevradio:link {
 border: 0;
 background: url(../../style/RBStage3.png);
 width: 31px;
@@ -248,7 +244,7 @@ height: 31px;
 margin: 1px; 
 }
 
-.wydevhiddenbox:visited {
+.wydevradio:visited {
 border: 0;
 background: url(../../style/RBStage3.png);
 width: 31px;
