@@ -43,17 +43,17 @@ $reboottype=$_REQUEST["reboot"];
 <blockquote>
 <table><tr><td>
 
-		<input id="rebootwydevice" name="reboot"  type="radio" value="rebootwydevice" <?php echo"onclick=\"Reboot('reboot=rebootwydevice')\"";?> />
+		<input id="rebootwydevice" name="reboot"  type="button" class="wydevbutton" value="rebootwydevice" <?php echo"onclick=\"Reboot('reboot=rebootwydevice')\"";?> />
 			Reboot Wydevice </td></tr><tr><td>
-		<input id="rebootsplash" name="reboot"  type="radio" value="rebootsplash" <?php echo"onclick=\"Reboot('reboot=rebootsplash')\"";?>/>
+		<input id="rebootsplash" name="reboot"  type="button" class="wydevbutton" value="rebootsplash" <?php echo"onclick=\"Reboot('reboot=rebootsplash')\"";?>/>
 			Reboot Splash </td></tr><tr><td>
-		<input id="shutdownsplash" name="reboot"  type="radio" value="shutdownsplash" <?php echo"onclick=\"Reboot('reboot=shutdownsplash')\"";?>/>
+		<input id="shutdownsplash" name="reboot"  type="button"class="wydevbutton" value="shutdownsplash" <?php echo"onclick=\"Reboot('reboot=shutdownsplash')\"";?>/>
 			Shutdown Splash </td></tr><tr><td> 
-		<input id="startsplash" name="reboot"  type="radio" value="startsplash" <?php echo"onclick=\"Reboot('reboot=startsplash')\"";?>/>
+		<input id="startsplash" name="reboot"  type="button" class="wydevbutton" value="startsplash" <?php echo"onclick=\"Reboot('reboot=startsplash')\"";?>/>
 			Start Splash </td></tr><tr><td> 
-		<input id="rebootplayer" name="reboot"  type="radio" value="rebootplayer" <?php echo"onclick=\"Reboot('reboot=rebootplayer')\"";?>/>
+		<input id="rebootplayer" name="reboot"  type="button" class="wydevbutton" value="rebootplayer" <?php echo"onclick=\"Reboot('reboot=rebootplayer')\"";?>/>
 			Restart Player </td></tr><tr><td>
-		<input id="shutdown" name="reboot"  type="radio" value="shutdown" <?php echo"onclick=\"Reboot('reboot=shutdown')\"";?>/>
+		<input id="shutdown" name="reboot"  type="button" class="wydevbutton" value="shutdown" <?php echo"onclick=\"Reboot('reboot=shutdown')\"";?>/>SDO</input>
 			Shutdown Wydevice </td></tr><tr><td>
 
 </td>
