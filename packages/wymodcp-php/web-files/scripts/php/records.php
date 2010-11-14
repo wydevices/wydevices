@@ -15,22 +15,9 @@
  *    - Download only N chunck from start or end.
  *    - Create a cron job for run a rec2vid.
  *    - FIX: Template bug when you are lot of records to display (cut into pages).
- *    - FIX: Bug that show two times records Schedule + On disk.
- *    - FIX: The record path aren't the same on each player, detect this.
  * 
  */
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html>
-<head>
-    <title>Wymod Control Panel - Records list</title>
-    <script src="../js/wydev.js" type="text/javascript"></script>
-</head>
-<body>
-<h2>Records List</h2>
-
-<?php
 $myrecord_path = "/wymedia/timeshift/"; //Path of the myrecords.fxd file
 $record_path   = $myrecord_path."records/"; //Path of records
 $myrecord_name = "myrecords.fxd"; //Name of principal record file
@@ -168,6 +155,18 @@ if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !em
     exit;
 }
 
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+    <title>Wymod Control Panel - Records list</title>
+    <script src="scripts/js/wydev.js" type="text/javascript"></script>
+</head>
+<body>
+<h2>Records List</h2>
+
+<?php
 /*
  * Display content of myrecords.fxd file
  */
@@ -188,8 +187,8 @@ if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
     trigger_error("Error reading XML file", E_USER_ERROR);
     exit;
 }
-
 // Added extra read for ajax refreshed info
+
 echo "<div id=\"recordsdiv\">";
 echo "<table>";
 echo "<tr><td colspan=\"8\"><hr width=\"100%\" /></td></tr>";
@@ -224,6 +223,7 @@ for ($i = 0; $i < $nb_record; $i++) {
 
     //Get the record size into the record.xml
     if (file_exists($record_file_info) && false !== ($xml_record=simplexml_load_file($record_file_info))) {
+        $r++;
         $record_size = $xml_record->record[0]->information->size;
         $record_size_kb = substr($record_size, 0, strlen($record_size) - 3); //Get only KB size
         $record_size_mb = round($record_size_kb / 1048576,1); //Record size in MB
@@ -235,9 +235,10 @@ for ($i = 0; $i < $nb_record; $i++) {
         $record_file_dir[$r] = str_replace("/", "", $record_file_dir[$r]);
 
         $record_name_link = "<a href=\"scripts/php/records.php?path=".$record_file_dir[$r]."&amp;name=".$record_name."\">".$record_name."</a>";
-        $r++;
+        $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[$r];
     } else {
         $record_name_link = $record_name;
+        $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1";
     }
 
     switch($record_status){
@@ -255,14 +256,10 @@ for ($i = 0; $i < $nb_record; $i++) {
         default : $record_status = "<img src=\"style/expired.png\" title=\"Unknown\" alt=\"\" />"; break;
     }
 
-    //\"\"if (confirm('Are you sure to delete (id ".$i.") \\n ".$record_name." \\n and path:".$record_file_dir[intval($r - 1)]."?')) ReloadRecords('scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)]."');\
-
-    $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[intval($r - 1)];
-
     echo "<tr>
             \t<td align=\"center\">
-                <a onclick=\"ReloadRecords('".$RecordsUri."');\" href=\"#\">                
-                    <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" alt=\"\" />
+                <a onclick=\"confirmation('Are you sure to delete (id ".$i.") \\n ".$record_name." ?','".$RecordsUri."');\" href=\"#\">
+                    <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete ID : ".$i." LINK : ".$RecordsUri."\" alt=\"\" />
                 </a>
             </td>
             \t<td>".$record_start_time."</td>";
@@ -317,7 +314,7 @@ if ($handle_record_path = opendir($record_path)) {
 
             echo "<tr>
                     \t<td align=\"center\">
-                        <a onclick=\"ReloadRecords('scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
+                        <a onclick=\"confirmation('Are you sure to delete ".$record_name." ?','scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
                             <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" alt=\"\" />
                         </a>
                        </td>
@@ -331,7 +328,7 @@ if ($handle_record_path = opendir($record_path)) {
         } elseif (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) == 0) { //Malformed case : record.xml = 0 byte
             echo "<tr>
                     <td align=\"center\">
-                        <a onclick=\"ReloadRecords('scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
+                        <a onclick=\"confirmation('Are you sure to delete ".$record_name." ?','scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
                             <img border=\"0\" src=\"style/edit-clear.png\" title=\"Clean\" alt=\"\" />
                         </a>
                     </td>

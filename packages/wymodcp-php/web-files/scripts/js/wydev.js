@@ -388,6 +388,6 @@ function ShowSkins() {
 	
 	
 	
-function confirmation(alert_message, href_location) {
-	if (confirm(alert_message)) window.location = href_location;
+function confirmation(alert_message, recordsuri) {
+	if (confirm(alert_message)) ReloadRecords(recordsuri);
 }
