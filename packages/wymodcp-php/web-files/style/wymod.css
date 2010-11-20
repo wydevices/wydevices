@@ -251,3 +251,77 @@ width: 31px;
 height: 31px;
 margin: 1px; 
 }
+
+.datadivid{
+display: table; 
+margin-left: auto; 
+margin-right: auto; 
+width: 250px;
+}
+
+.netdivname{
+display: none;
+visibility:hidden;
+margin-left: auto; 
+margin-right: auto; 
+width: 250px;
+}
+.mtddivname{
+display: none;
+visibility:hidden;
+margin-left: auto; 
+margin-right: auto; 
+width: 250px;
+}
+
+.confdivname{
+display: none;
+margin-left: auto; 
+margin-right: auto; 
+width: 250px;
+}
+
+.consoledivname{
+display: none;
+margin-left: auto; 
+margin-right: auto; 
+width: 250px;
+}
+
+
+.wydevslidebutton {
+border: 0;
+background: url(../../style/BTNSliderStage1.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
+
+.wydevslidebutton:hover {
+border: 0;
+background: url(../../style/BTNSliderStage2.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
+.wydevslidebutton:active {
+border: 0;
+background: url(../../style/BTNSliderStage3.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
+.wydevslidebutton:link {
+border: 0;
+background: url(../../style/BTNSliderStage1.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
+.wydevslidebutton:visited {
+border: 0;
+background: url(../../style/BTNSliderStage4.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
