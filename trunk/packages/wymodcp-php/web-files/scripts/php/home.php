@@ -27,7 +27,18 @@
 <tr><td>Real Target: </td><td> <?php system("strings /dev/mtd2 |grep WC |cut -d= -f2")?> </td></tr>
 <tr><td>Serial Number: </td><td> <?php system("cat /proc/wybox/SN")?> </td></tr>
 <tr><td>Time / Uptime: </td><td> <?php system("uptime |cut -f1 -d,")?> </td></tr>
-<tr><td>Fan Speed & Temperatures: </td><td> <?php system("/wymedia/usr/bin/temp") ?> </td></tr>
+<tr><td>Fan Speed & Temperatures: </td><td> <?php 
+
+echo "Fan: ";
+system("cat /sys/devices/platform/stm-pwm/pwm1 | tr -d");
+echo "Cpu: ";
+system("cat /sys/bus/i2c/devices/0-0048/temp1_input | cut -b 1-2");
+echo ".";
+system("cat /sys/bus/i2c/devices/0-0048/temp1_input | cut -b 3");
+echo "HDD sda: ";
+system("/wymedia/usr/bin/hddtemp -n /dev/sda 2> /dev/null") 
+
+?> </td></tr>
 <tr><td>dm-0 Slave: </td><td> <?php system("ls /sys/block/dm-0/slaves")?> </td></tr>
 <tr><td>Board: </td><td> <?php system("cat /proc/fb |cut -c3-")?> </td></tr>
 </table>
