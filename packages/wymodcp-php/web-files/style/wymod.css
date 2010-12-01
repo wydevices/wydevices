@@ -325,3 +325,41 @@ width: 16px;
 height: 16px;
 margin: 2px; 
 }
+
+
+.renamebutton {
+border: 0;
+background: url(../../style/rename.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
+
+.renamebutton:hover {
+border: 0;
+background: url(../../style/rename.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
+.renamebutton:active {
+border: 0;
+background: url(../../style/rename.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
+.renamebutton:link {
+border: 0;
+background: url(../../style/rename.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
+.renamebutton:visited {
+border: 0;
+background: url(../../style/rename.png);
+width: 16px;
+height: 16px;
+margin: 2px; 
+}
