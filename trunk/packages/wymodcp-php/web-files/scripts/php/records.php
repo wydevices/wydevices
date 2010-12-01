@@ -235,6 +235,7 @@ for ($i = 0; $i < $nb_record; $i++) {
         $record_file_dir[$r] = str_replace("/", "", $record_file_dir[$r]);
 
         $record_name_link = "<a href=\"scripts/php/records.php?path=".$record_file_dir[$r]."&amp;name=".$record_name."\">".$record_name."</a>";
+		$record_name_input = $record_name ;
         $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[$r];
     } else {
         $record_name_link = $record_name;
@@ -272,8 +273,38 @@ for ($i = 0; $i < $nb_record; $i++) {
 
     echo "\t<td>".$record_channel."</td>
             \t<td align=\"center\">".$record_status."</td>
-            \t<td>".$record_name_link."</td>
-            \t<td>".$record_duration."</td>
+            \t<td>
+			
+			<table>
+			<tr>
+				<td>
+				<button class=\"renamebutton\" onClick=
+					\"
+						$('#renamedivid".$i."').slideToggle();
+						$('#reninputdivid".$i."').slideToggle();
+					\" 
+					src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\" />
+				</button>
+				</td><td>
+				<div id=\"renamedivid".$i."\">".$record_name_link."</div>
+				
+				<div id=\"reninputdivid".$i."\" style=\"display:none;\">
+					<input type=\"text\" name=\"renameto\" id=\"renametoid".$i."\" value=\"".$record_name_input."\"></input>
+					<button class=\"\" onClick=
+					\"
+						$('#renamedivid".$i."').slideToggle();
+						$('#reninputdivid".$i."').slideToggle();
+						recordsuri = 'scripts/php/records.php?oldname=".$record_name_input."&amp;newname='+document.getElementById('renametoid".$i."').value+'&amp;id=".$i."&amp;path=".$record_file_dir[$r]."';
+						alert(recordsuri);
+						ReloadRecords(recordsuri);
+					\" 
+					src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\" />
+					</button>
+					</td>
+				</div>
+			</tr>
+			</table>
+			\t<td>".$record_duration."</td>
             \t<td>".$record_size_mb."</td>";
     echo "</tr>";
 }
