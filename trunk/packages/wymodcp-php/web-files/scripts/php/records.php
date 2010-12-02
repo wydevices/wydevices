@@ -92,6 +92,13 @@ if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
 }
 
 /*
+ * Rename a record
+ */
+if ($_GET['rename'] == 1 && !empty($_GET['rename'])) {
+
+}
+
+/*
  * Download a record
  */
 if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !empty($_GET['path'])) {
@@ -171,7 +178,8 @@ if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !em
  * Display content of myrecords.fxd file
  */
 //echo "There are ".$nb_record." records.<br />";
-//echo "There are ".$nb_rules." periodicity rules.<br />";o "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br />";
+//echo "There are ".$nb_rules." periodicity rules.<br />";
+echo "Last modify on ".date("Y-m-d H:i:s", intval($last_saved)).".<br />";
 
 // Added extra read for ajax refreshed info
 if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
@@ -235,7 +243,6 @@ for ($i = 0; $i < $nb_record; $i++) {
         $record_file_dir[$r] = str_replace("/", "", $record_file_dir[$r]);
 
         $record_name_link = "<a href=\"scripts/php/records.php?path=".$record_file_dir[$r]."&amp;name=".$record_name."\">".$record_name."</a>";
-		$record_name_input = $record_name ;
         $RecordsUri = "scripts/php/records.php?id=".$i."&amp;remove=1&amp;path=".$record_file_dir[$r];
     } else {
         $record_name_link = $record_name;
@@ -274,37 +281,35 @@ for ($i = 0; $i < $nb_record; $i++) {
     echo "\t<td>".$record_channel."</td>
             \t<td align=\"center\">".$record_status."</td>
             \t<td>
-			
-			<table>
-			<tr>
-				<td>
-				<button class=\"renamebutton\" onClick=
-					\"
-						$('#renamedivid".$i."').slideToggle();
-						$('#reninputdivid".$i."').slideToggle();
-					\" 
-					src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\" />
-				</button>
-				</td><td>
-				<div id=\"renamedivid".$i."\">".$record_name_link."</div>
-				
-				<div id=\"reninputdivid".$i."\" style=\"display:none;\">
-					<input type=\"text\" name=\"renameto\" id=\"renametoid".$i."\" value=\"".$record_name_input."\"></input>
-					<button class=\"\" onClick=
-					\"
-						$('#renamedivid".$i."').slideToggle();
-						$('#reninputdivid".$i."').slideToggle();
-						recordsuri = 'scripts/php/records.php?oldname=".$record_name_input."&amp;newname='+document.getElementById('renametoid".$i."').value+'&amp;id=".$i."&amp;path=".$record_file_dir[$r]."';
-						alert(recordsuri);
-						ReloadRecords(recordsuri);
-					\" 
-					src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\" />
-					</button>
-					</td>
-				</div>
-			</tr>
-			</table>
-			\t<td>".$record_duration."</td>
+                <table>
+                    <tr><td>
+                        <button class=\"renamebutton\" onClick=
+                            \"
+                                $('#renamedivid".$i."').slideToggle();
+                                $('#reninputdivid".$i."').slideToggle();
+                            \" 
+                            src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
+                        </button>
+                    </td><td>
+                        <div id=\"renamedivid".$i."\">".$record_name_link."</div>
+                        <div id=\"reninputdivid".$i."\" style=\"display:none;\">
+                            <input type=\"text\" name=\"renameto\" id=\"renametoid".$i."\" value=\"".$record_name."\" />
+                            <button class=\"\" onClick=
+                                \"
+                                    var var_new_name = document.getElementById('renametoid".$i."').value;
+                                    $('#renamedivid".$i."').slideToggle();
+                                    $('#reninputdivid".$i."').slideToggle();
+                                    recordsuri = 'scripts/php/records.php?rename=1&amp;oldname=".$record_name."&amp;newname='+var_new_name+'&amp;id=".$i."&amp;path=".$record_file_dir[$r]."';
+                                    //alert(recordsuri);
+                                    confirmation('Are you sure to rename :\\n".$record_name."\\ninto :\\n'+var_new_name+'  ?',recordsuri);
+                                \" 
+                                src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
+                            </button>
+                        </div>
+                    </td></tr>
+                </table>
+            </td>
+            \t<td>".$record_duration."</td>
             \t<td>".$record_size_mb."</td>";
     echo "</tr>";
 }
