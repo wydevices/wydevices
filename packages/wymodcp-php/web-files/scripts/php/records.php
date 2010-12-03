@@ -23,20 +23,7 @@ $record_path   = $myrecord_path."records/"; //Path of records
 $myrecord_name = "myrecords.fxd"; //Name of principal record file
 $recordxml_name= "record.xml";
 
-// Function to recursively delete a directory
-function rmdir_recursive($dir) {
-    if (is_dir($dir)) {
-        $objects = scandir($dir);
-        foreach ($objects as $object) {
-            if ($object != "." && $object != "..") {
-                if (filetype($dir."/".$object) == "dir") rmdir_recursive($dir."/".$object); else unlink($dir."/".$object);
-            }
-        }
-        reset($objects);
-        echo "Deleting: ".$dir."\n\t";
-        rmdir($dir);
-    }
-}
+include("func.records.php");
 
 /*
  * Load myrecords.fxd file, this files contain scheduled record
@@ -64,9 +51,11 @@ if($xml_records=simplexml_load_file($myrecord_path.$myrecord_name)) {
  * Remove and Cleanup part
  */
 if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
+    gui_splash("shutdown");
+
     $xml_write_records = new SimpleXMLElement($myrecord_path.$myrecord_name, null, true);
     $xml_write_records->general['save_time'] = time(); //Get current UNIX time into XML buffer
-    
+
     if (isset($_GET['id']) && intval($_GET['id']) >= 0 ) {
         $del_record_id = intval($_GET['id']);
         unset($xml_write_records->recordings->recording[$del_record_id]);
@@ -78,10 +67,7 @@ if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
         rmdir_recursive($record_path.$_GET['path']);
     }
 
-    //Fix XML generated code by asXML function
-    $new_myrecords = str_replace("/>", " />", $xml_write_records->asXML());
-    $new_myrecords = str_replace("<?xml version=\"1.0\"?>\n", "", $new_myrecords);
-    $new_myrecords = str_replace("&#xEE;", "î", $new_myrecords);
+    $new_myrecords = fix_xml_output($xml_write_records->asXML()); //Fix XML generated code by asXML function
 
     //Write updated XML data into myrecords.fxd by regenerating this file
     $myrecord_write = fopen($myrecord_path.$myrecord_name, 'w') or die("ERROR : Can't open file ".$myrecord_path.$myrecord_name);
@@ -89,13 +75,54 @@ if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
     fclose($myrecord_write);
 
     unset($xml_write_records);
+    gui_splash("start");
 }
 
 /*
  * Rename a record
  */
 if ($_GET['rename'] == 1 && !empty($_GET['rename'])) {
+    gui_splash("shutdown");
 
+    // myrecords.fxd rename part
+    $xml_write_records = new SimpleXMLElement($myrecord_path.$myrecord_name, null, true);
+    $xml_write_records->general['save_time'] = time(); //Get current UNIX time into XML buffer
+
+    if (isset($_GET['id']) && intval($_GET['id']) >= 0 ) {
+        $ren_record_id = intval($_GET['id']);
+        if (isset($_GET['newname'])) {
+            unset($xml_write_records->recordings->recording[$ren_record_id][name]);
+            $xml_write_records->recordings->recording[$ren_record_id]->addAttribute('name', $_GET['newname']);
+        }
+    }
+
+    $new_myrecords = fix_xml_output($xml_write_records->asXML()); //Fix XML generated code by asXML function
+
+    //Write updated XML data into myrecords.fxd by regenerating this file
+    $myrecord_write = fopen($myrecord_path.$myrecord_name, 'w') or die("ERROR : Can't open file ".$myrecord_path.$myrecord_name);
+    fwrite($myrecord_write, $new_myrecords);
+    fclose($myrecord_write);
+
+    unset($xml_write_records);
+
+    // record.xml rename part only if record.xml exist in path
+    $recordxml_fullpath = $record_path."/".$_GET['path']."/".$recordxml_name;
+    if (isset($_GET['newname']) && isset($_GET['path']) && file_exists($recordxml_fullpath)) {
+        $xml_write_records = new SimpleXMLElement($recordxml_fullpath, null, true);
+        $xml_write_records->general['save_time'] = time(); //Get current UNIX time into XML buffer
+
+        $xml_write_records->record->information->name = $_GET['newname'];
+        $new_myrecords = fix_xml_output($xml_write_records->asXML()); //Fix XML generated code by asXML function
+
+        //Write updated XML data into record.xml by regenerating this file
+        $myrecord_write = fopen($recordxml_fullpath, 'w') or die("ERROR : Can't open file ".$recordxml_fullpath);
+        fwrite($myrecord_write, $new_myrecords);
+        fclose($myrecord_write);
+
+        unset($xml_write_records);
+    }
+
+    gui_splash("start");
 }
 
 /*
@@ -266,7 +293,7 @@ for ($i = 0; $i < $nb_record; $i++) {
 
     echo "<tr>
             \t<td align=\"center\">
-                <a onclick=\"confirmation('Are you sure to delete (id ".$i.") \\n ".$record_name." ?','".$RecordsUri."');\" href=\"#\">
+                <a onclick=\"confirmation('! This action going to restart your Wybox GUI !\\nAre you sure to delete (id ".$i.")\\n".$record_name." ?','".$RecordsUri."');\" href=\"#\">
                     <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete ID : ".$i." LINK : ".$RecordsUri."\" alt=\"\" />
                 </a>
             </td>
@@ -299,9 +326,9 @@ for ($i = 0; $i < $nb_record; $i++) {
                                     var var_new_name = document.getElementById('renametoid".$i."').value;
                                     $('#renamedivid".$i."').slideToggle();
                                     $('#reninputdivid".$i."').slideToggle();
-                                    recordsuri = 'scripts/php/records.php?rename=1&amp;oldname=".$record_name."&amp;newname='+var_new_name+'&amp;id=".$i."&amp;path=".$record_file_dir[$r]."';
+                                    recordsuri = 'scripts/php/records.php?rename=1&amp;newname='+var_new_name+'&amp;id=".$i."&amp;path=".$record_file_dir[$r]."';
                                     //alert(recordsuri);
-                                    confirmation('Are you sure to rename :\\n".$record_name."\\ninto :\\n'+var_new_name+'  ?',recordsuri);
+                                    confirmation('! This action going to restart your Wybox GUI !\\nAre you sure to rename :\\n".$record_name."\\ninto :\\n'+var_new_name+'  ?',recordsuri);
                                 \" 
                                 src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
                             </button>
@@ -350,7 +377,7 @@ if ($handle_record_path = opendir($record_path)) {
 
             echo "<tr>
                     \t<td align=\"center\">
-                        <a onclick=\"confirmation('Are you sure to delete ".$record_name." ?','scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
+                        <a onclick=\"confirmation('! This action going to restart your Wybox GUI !\\nAre you sure to delete ".$record_name." ?','scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
                             <img border=\"0\" src=\"style/process-stop.png\" title=\"Delete\" alt=\"\" />
                         </a>
                        </td>
@@ -364,7 +391,7 @@ if ($handle_record_path = opendir($record_path)) {
         } elseif (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) == 0) { //Malformed case : record.xml = 0 byte
             echo "<tr>
                     <td align=\"center\">
-                        <a onclick=\"confirmation('Are you sure to delete ".$record_name." ?','scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
+                        <a onclick=\"confirmation('! This action going to restart your Wybox GUI !\\nAre you sure to delete ".$record_name." ?','scripts/php/records.php?path=".$record_file_path."&amp;remove=1');\" href=\"#\">
                             <img border=\"0\" src=\"style/edit-clear.png\" title=\"Clean\" alt=\"\" />
                         </a>
                     </td>
