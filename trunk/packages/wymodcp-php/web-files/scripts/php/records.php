@@ -347,10 +347,12 @@ for ($i = 0; $i < $nb_record; $i++) {
 if ($handle_record_path = opendir($record_path)) {
     $nb_record_dir = count($record_file_dir);
 
+	$j = 0;
+	
     //List all record directory not existing into myrecords.fxd
     while (false !== ($record_dir = readdir($handle_record_path))) {
         $record_dir_match = 0;
-
+		$j++;
         for ($i = 0; $i <= $nb_record_dir; $i++) {
             if ($record_dir == $record_file_dir[$i]) $record_dir_match = 1;
         }
@@ -385,7 +387,38 @@ if ($handle_record_path = opendir($record_path)) {
                     \t<td></td>
                     \t<td>".$record_channel."</td>
                     \t<td align=\"center\">".$record_status."</td>
-                    \t<td>".$record_name_link."</td>
+					\t<td>
+					<table>
+						<tr>
+							<td>
+								<button class=\"renamebutton\" onClick=
+									\"
+										$('#renamedivhddid".$j."').slideToggle();
+										$('#reninputdivhddid".$j."').slideToggle();
+									\" 
+									src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
+								</button>
+							</td>
+							<td>
+								<div id=\"renamedivhddid".$j."\">".$record_name_link."</div>
+								<div id=\"reninputdivhddid".$j."\" style=\"display:none;\">
+									<input type=\"text\" name=\"renameto\" id=\"renametoidhdd".$j."\" value=\"".$record_name."\" />
+									<button class=\"\" onClick=
+										\"
+											var var_new_name = document.getElementById('renametoidhdd".$j."').value;
+											$('#renamedivhddid".$j."').slideToggle();
+											$('#reninputdivhddid".$j."').slideToggle();
+											recordsuri = 'scripts/php/records.php?rename=2&amp;newname='+var_new_name+'&amp;path=".$record_file_dir[$r]."';
+											alert(recordsuri);
+											confirmation('! This action going to restart your Wybox GUI !\\nAre you sure to rename :\\n".$record_name."\\ninto :\\n'+var_new_name+'  ?',recordsuri);
+										\" 
+										src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
+									</button>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>					
                     \t<td>".$record_duration."</td>
                     \t<td>".$record_size_mb."</td>\n</tr>";
         } elseif (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) == 0) { //Malformed case : record.xml = 0 byte
