@@ -82,30 +82,29 @@ if ($_GET['remove'] == 1 && !empty($_GET['remove'])) {
  * Rename a record
  */
 if ($_GET['rename'] == 1 && !empty($_GET['rename'])) {
-    gui_splash("shutdown");
-
-    // myrecords.fxd rename part
-    $xml_write_records = new SimpleXMLElement($myrecord_path.$myrecord_name, null, true);
-    $xml_write_records->general['save_time'] = time(); //Get current UNIX time into XML buffer
-
+    // myrecords.fxd rename part only if ID and newname param exist
     if (isset($_GET['id']) && intval($_GET['id']) >= 0 ) {
+        $xml_write_records = new SimpleXMLElement($myrecord_path.$myrecord_name, null, true);
+        $xml_write_records->general['save_time'] = time(); //Get current UNIX time into XML buffer
         $ren_record_id = intval($_GET['id']);
+
         if (isset($_GET['newname'])) {
+            gui_splash("shutdown");
             unset($xml_write_records->recordings->recording[$ren_record_id][name]);
             $xml_write_records->recordings->recording[$ren_record_id]->addAttribute('name', $_GET['newname']);
+            $new_myrecords = fix_xml_output($xml_write_records->asXML()); //Fix XML generated code by asXML function
+
+            //Write updated XML data into myrecords.fxd by regenerating this file
+            $myrecord_write = fopen($myrecord_path.$myrecord_name, 'w') or die("ERROR : Can't open file ".$myrecord_path.$myrecord_name);
+            fwrite($myrecord_write, $new_myrecords);
+            fclose($myrecord_write);
+
+            unset($xml_write_records);
+            gui_splash("start");
         }
     }
 
-    $new_myrecords = fix_xml_output($xml_write_records->asXML()); //Fix XML generated code by asXML function
-
-    //Write updated XML data into myrecords.fxd by regenerating this file
-    $myrecord_write = fopen($myrecord_path.$myrecord_name, 'w') or die("ERROR : Can't open file ".$myrecord_path.$myrecord_name);
-    fwrite($myrecord_write, $new_myrecords);
-    fclose($myrecord_write);
-
-    unset($xml_write_records);
-
-    // record.xml rename part only if record.xml exist in path
+    // record.xml rename part only if record.xml exist in path and newname param exist
     $recordxml_fullpath = $record_path."/".$_GET['path']."/".$recordxml_name;
     if (isset($_GET['newname']) && isset($_GET['path']) && file_exists($recordxml_fullpath)) {
         $xml_write_records = new SimpleXMLElement($recordxml_fullpath, null, true);
@@ -121,8 +120,6 @@ if ($_GET['rename'] == 1 && !empty($_GET['rename'])) {
 
         unset($xml_write_records);
     }
-
-    gui_splash("start");
 }
 
 /*
@@ -347,12 +344,12 @@ for ($i = 0; $i < $nb_record; $i++) {
 if ($handle_record_path = opendir($record_path)) {
     $nb_record_dir = count($record_file_dir);
 
-	$j = 0;
-	
+    $j = 0;
+    
     //List all record directory not existing into myrecords.fxd
     while (false !== ($record_dir = readdir($handle_record_path))) {
         $record_dir_match = 0;
-		$j++;
+        $j++;
         for ($i = 0; $i <= $nb_record_dir; $i++) {
             if ($record_dir == $record_file_dir[$i]) $record_dir_match = 1;
         }
@@ -387,38 +384,35 @@ if ($handle_record_path = opendir($record_path)) {
                     \t<td></td>
                     \t<td>".$record_channel."</td>
                     \t<td align=\"center\">".$record_status."</td>
-					\t<td>
-					<table>
-						<tr>
-							<td>
-								<button class=\"renamebutton\" onClick=
-									\"
-										$('#renamedivhddid".$j."').slideToggle();
-										$('#reninputdivhddid".$j."').slideToggle();
-									\" 
-									src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
-								</button>
-							</td>
-							<td>
-								<div id=\"renamedivhddid".$j."\">".$record_name_link."</div>
-								<div id=\"reninputdivhddid".$j."\" style=\"display:none;\">
-									<input type=\"text\" name=\"renameto\" id=\"renametoidhdd".$j."\" value=\"".$record_name."\" />
-									<button class=\"\" onClick=
-										\"
-											var var_new_name = document.getElementById('renametoidhdd".$j."').value;
-											$('#renamedivhddid".$j."').slideToggle();
-											$('#reninputdivhddid".$j."').slideToggle();
-											recordsuri = 'scripts/php/records.php?rename=2&amp;newname='+var_new_name+'&amp;path=".$record_file_dir[$r]."';
-											alert(recordsuri);
-											confirmation('! This action going to restart your Wybox GUI !\\nAre you sure to rename :\\n".$record_name."\\ninto :\\n'+var_new_name+'  ?',recordsuri);
-										\" 
-										src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
-									</button>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</td>					
+                    \t<td>
+                        <table>
+                            <tr><td>
+                                <button class=\"renamebutton\" onClick=
+                                    \"
+                                        $('#renamedivhddid".$j."').slideToggle();
+                                        $('#reninputdivhddid".$j."').slideToggle();
+                                    \" 
+                                    src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
+                                </button>
+                            </td><td>
+                                <div id=\"renamedivhddid".$j."\">".$record_name_link."</div>
+                                <div id=\"reninputdivhddid".$j."\" style=\"display:none;\">
+                                    <input type=\"text\" name=\"renameto\" id=\"renametoidhdd".$j."\" value=\"".$record_name."\" />
+                                    <button class=\"\" onClick=
+                                        \"
+                                            var var_new_name = document.getElementById('renametoidhdd".$j."').value;
+                                            $('#renamedivhddid".$j."').slideToggle();
+                                            $('#reninputdivhddid".$j."').slideToggle();
+                                            recordsuri = 'scripts/php/records.php?rename=1&amp;newname='+var_new_name+'&amp;path=".$record_file_path."';
+                                            //alert(recordsuri);
+                                            confirmation('! This action going to restart your Wybox GUI !\\nAre you sure to rename :\\n".$record_name."\\ninto :\\n'+var_new_name+'  ?',recordsuri);
+                                        \" 
+                                        src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
+                                    </button>
+                                </div>
+                            </td></tr>
+                        </table>
+                    </td>
                     \t<td>".$record_duration."</td>
                     \t<td>".$record_size_mb."</td>\n</tr>";
         } elseif (!$record_dir_match && file_exists($record_file_info) && filesize($record_file_info) == 0) { //Malformed case : record.xml = 0 byte
