@@ -6,7 +6,7 @@ echo "<pre>";
  system("tail -n40 /wymedia/usr/var/log/syslog.log");
 
 echo "</pre>";
-
+echo "<br><br><br><br><br><br><br><br>";
  ?>
 
 
