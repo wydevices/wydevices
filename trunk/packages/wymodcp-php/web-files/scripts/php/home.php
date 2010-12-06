@@ -73,7 +73,7 @@ system("/wymedia/usr/bin/hddtemp -n /dev/sda 2> /dev/null")
 <hr>
 
 <b>Suggest improvements on <a href="http://foro.wydev.es">forum</a>
-
+<br><br><br><br><br><br><br><br>
 
 
 
