@@ -58,9 +58,8 @@ $ tar czf transmission-2.13_sh4.tar.gz usr/
 }}}
 
 *Installation of your Transmission-2.13 :*
-	* !!! You must have wydev-mod-v1 or later installed correctly !!!
-	* download my package from http://argos66.free.fr/transmission-2.13_sh4.tar.gz
-	* transfert transmission-2.13_sh4.tar.gz to /wymedia on your wydevice via ftp or samba.
+	* !!! You must have wydev-mod-v4.1 or later installed correctly !!!
+	* transfert your transmission-2.13_sh4.tar.gz to /wymedia on your wydevice via ftp or samba.
 	* connect to your wydevice via telnet.
 	* launch this commands on your wydevice :
 {{{
