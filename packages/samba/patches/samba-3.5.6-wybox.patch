@@ -1,0 +1,112 @@
+Avoid cross-compile errors in configure
+diff -Naur source3/configure source3wybox/configure
+--- source3/configure	2010-10-07 18:42:24.000000000 +0200
++++ source3/configure-new	2010-12-11 19:16:41.975985807 +0100
+@@ -3444,7 +3444,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: no acceptable C compiler found in \$PATH
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ 
+ # Provide some information about the compiler.
+ $as_echo "$as_me:$LINENO: checking for C compiler version" >&5
+@@ -3616,7 +3616,7 @@
+ $as_echo "$as_me: error: cannot run C compiled programs.
+ If you meant to cross compile, use \`--host'.
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+     fi
+   fi
+ fi
+@@ -3665,7 +3665,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot compute suffix of executables: cannot compile and link
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ fi
+ 
+ rm -f conftest$ac_cv_exeext
+@@ -3725,7 +3725,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot compute suffix of object files: cannot compile
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ fi
+ 
+ rm -f conftest.$ac_cv_objext conftest.$ac_ext
+@@ -4515,7 +4515,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: C preprocessor \"$CPP\" fails sanity check
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ fi
+ 
+ ac_ext=c
+@@ -13080,7 +13080,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -24341,7 +24341,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -24529,7 +24529,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -72570,7 +72570,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -72905,7 +72905,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -73006,7 +73006,7 @@
+ See \`config.log' for more details." >&5
+ $as_echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -107488,7 +107488,7 @@
+     test -z "$as_dirs" || eval "mkdir $as_dirs"
+   } || test -d "$as_dir" || { { $as_echo "$as_me:$LINENO: error: cannot create directory $as_dir" >&5
+ $as_echo "$as_me: error: cannot create directory $as_dir" >&2;}
+-   { (exit 1); exit 1; }; }; }
++   { (true); true; }; }; }
+   ac_builddir=.
+ 
+ case "$ac_dir" in
