@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>remotecss</title>
+
+  <script type="text/javascript">
+  
+  	function PressButton(clickedbutton) {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		xmlhttp.onreadystatechange=function() {
+			if(xmlhttp.readyState==4) {
+			
+			//PressButton(xmlhttp.responseText);
+			}
+		}
+		//alert (clickedbutton);
+		xmlhttp.open("GET","./scripts/php/remotecontrol.php?clickedbutton="+clickedbutton,true);
+		xmlhttp.send(null);
+	}
+    
+  </script>
+  
+  <style type="text/css">
+
+#wheel_rwd {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+border:0.5px;
+}
+
+#wheel_fwd {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#left {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#right {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#up {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#down {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#select{
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#toggle_menu {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#action_menu {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#volume_up {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#volume_down {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#mute {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#record {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#stop {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#info {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#home {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#marker {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#power {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#exit {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#sleep {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#debug {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+#disconnect {
+margin: 0px;
+position: absolute;
+float: none;
+background-color: transparent;
+}
+
+  </style>
+</head><body style="background-image: url(./style/wyremote.png); background-repeat: no-repeat;">
+<div style="top: 85px; left: 44px;" id="wheel_rwd" name="wheel_rwd"><button onclick="PressButton('wheel_rwd')" name="wheel_rwd" type="button"></button></div>
+
+<div style="top: 88px; left: 109px;" id="wheel_fwd" name="wheel_fwd"><button onclick="PressButton('wheel_fwd')" name="wheel_fwd" type="button"></button></div>
+
+<div style="top: 142px; left: 35px;" id="left" name="left"><button onclick="PressButton('left')" name="left" type="button"></button></div>
+
+<div style="top: 136px; left: 112px;" id="right" name="right"><button onclick="PressButton('right')" name="right" type="button"></button></div>
+
+<div style="top: 108px; left: 76px;" id="up" name="up"><button onclick="PressButton('up')" name="up" type="button"></button></div>
+
+<div style="top: 167px; left: 75px;" id="down" name="down"><button onclick="PressButton('down')" name="down" type="button"></button></div>
+
+<div style="top: 140px; left: 78px;" id="select" name="select"><button onclick="PressButton('select')" name="select" type="button"></button></div>
+
+<div style="top: 201px; left: 73px;" id="toggle_menu" name="toggle_menu"><button onclick="PressButton('toggle_menu')" name="toggle_menu" type="button"></button></div>
+
+<div style="top: 192px; left: 112px;" id="action_menu" name="action_menu"><button onclick="PressButton('action_menu')" name="action_menu" type="button"></button></div>
+
+<div style="top: 271px; left: 108px;" id="volume_up" name="volume_up"><button onclick="PressButton('volume_up')" name="volume_up" type="button"></button></div>
+
+<div style="top: 269px; left: 74px;" id="volume_down" name="volume_down"><button onclick="PressButton('volume_down')" name="volume_down" type="button"></button></div>
+
+<div style="top: 264px; left: 40px;" id="mute" name="mute"><button onclick="PressButton('mute')" name="mute" type="button"></button></div>
+
+<div style="top: 232px; left: 37px;" id="record" name="record"><button onclick="PressButton('record')" name="record" type="button"></button></div>
+
+<div style="top: 237px; left: 76px;" id="stop" name="stop"><button onclick="PressButton('stop')" name="stop" type="button"></button></div>
+
+<div style="top: 240px; left: 108px;" id="info" name="info"><button onclick="PressButton('info')" name="info" type="button"></button></div>
+
+<div style="top: 191px; left: 38px;" id="marker" name="marker"><button onclick="PressButton('marker')" name="marker" type="button"></button></div>
+
+<div style="top: 326px; left: 74px;" id="power" name="power"><button onclick="PressButton('power')" name="power" type="button"></button></div>
+
+<div style="top: 380px; left: 112px;" id="exit" name="exit"><button onclick="PressButton('exit')" name="exit" type="button"></button></div>
+
+<div style="top: 378px; left: 74px;" id="sleep" name="sleep"><button onclick="PressButton('sleep')" name="sleep" type="button"></button></div>
+
+<div style="top: 401px; left: 71px;" id="debug" name="debug"><button onclick="PressButton('debug')" name="debug" type="button"></button></div>
+
+<div style="top: 381px; left: 34px;" id="disconnect" name="disconnect"><button onclick="PressButton('disconnect')" name="disconnect" type="button"></button>
+</div>
+
+<div style="top: 43px; left: 77px;" id="home" name="home"><button onclick="PressButton('home')" name="home" type="button"></button>
+</div>
+
+</body></html>
