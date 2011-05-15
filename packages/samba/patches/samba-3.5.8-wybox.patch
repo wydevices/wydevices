@@ -1,7 +1,7 @@
 Avoid cross-compile errors in configure
 diff -Naur source3/configure source3wybox/configure
---- source3/configure	2010-10-07 18:42:24.000000000 +0200
-+++ source3/configure-new	2010-12-11 19:16:41.975985807 +0100
+--- source3/configure	2011-03-06 19:58:41.000000000 +0100
++++ source3/configure-new	2011-05-15 13:00:42.589445191 +0200
 @@ -3444,7 +3444,7 @@
  See \`config.log' for more details." >&5
  $as_echo "$as_me: error: no acceptable C compiler found in \$PATH
@@ -74,7 +74,7 @@ diff -Naur source3/configure source3wybox/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -72570,7 +72570,7 @@
+@@ -72654,7 +72654,7 @@
  See \`config.log' for more details." >&5
  $as_echo "$as_me: error: cannot run test program while cross compiling
  See \`config.log' for more details." >&2;}
@@ -83,7 +83,7 @@ diff -Naur source3/configure source3wybox/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -72905,7 +72905,7 @@
+@@ -72989,7 +72989,7 @@
  See \`config.log' for more details." >&5
  $as_echo "$as_me: error: cannot run test program while cross compiling
  See \`config.log' for more details." >&2;}
@@ -92,7 +92,7 @@ diff -Naur source3/configure source3wybox/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -73006,7 +73006,7 @@
+@@ -73090,7 +73090,7 @@
  See \`config.log' for more details." >&5
  $as_echo "$as_me: error: cannot run test program while cross compiling
  See \`config.log' for more details." >&2;}
@@ -101,7 +101,7 @@ diff -Naur source3/configure source3wybox/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -107488,7 +107488,7 @@
+@@ -107572,7 +107572,7 @@
      test -z "$as_dirs" || eval "mkdir $as_dirs"
    } || test -d "$as_dir" || { { $as_echo "$as_me:$LINENO: error: cannot create directory $as_dir" >&5
  $as_echo "$as_me: error: cannot create directory $as_dir" >&2;}
