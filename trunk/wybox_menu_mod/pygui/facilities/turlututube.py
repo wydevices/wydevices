@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*- 
+
 # Youtube Gdata class
 # Fix Summer 2010 video URL modification
+# Fix Summer 2011 video URL modification
 
-# Copyright 2010, Polo35
+# Copyright 2011, Polo35
 # Licenced under Academic Free License version 3.0
 # Review wydev_pygui README & LICENSE files for further details.
 # Parts taken from 'youtube-dl' : https://github.com/rg3/youtube-dl
@@ -51,9 +54,38 @@ class YoutubeData(object):
 		}
 		
 		_VALID_URL = r'^((?:https?://)?(?:youtu\.be/|(?:\w+\.)?youtube(?:-nocookie)?\.com/)(?!view_play_list|my_playlists|artist|playlist)(?:(?:(?:v|embed|e)/)|(?:(?:watch(?:_popup)?(?:\.php)?)?(?:\?|#!?)(?:.+&)?v=))?)?([0-9A-Za-z_-]+)(?(1).+)?$'
-		# Listed in order of quality
-		_available_formats = ['38', '37', '22', '45', '35', '44', '34', '18', '43', '6', '5', '17', '13']
-  	
+
+		"""
+		|---------------------------------------------------------------------------------------------------------------|
+		|                                       Youtube available formats table                                         |
+		|---------------------------------------------------------------------------------------------------------------|
+		| Format codes              |   5   |  6   | 34|   35  |   18   |   22  |   37  | 38 | 43| 44| 45 |  13  |  17  |
+		|---------------------------------------------------------------------------------------------------------------|
+		| Container                 |             FLV          |              MP4            |    WebM    |     3GP     |
+		|---------------------------------------------------------------------------------------------------------------|
+		|       |Encoding           |Sorenson H.263|              MPEG-4 AVC (H.264)         |     VP8    |MPEG-4 Visual|
+		|       |-------------------------------------------------------------------------------------------------------|
+		|       |Profile            |      –       |    Main   |Baseline|        High        |     –      |      –      |
+		|       |-------------------------------------------------------------------------------------------------------|
+		| Video |Max width (pixels) |  400  | 448  |640|  854  |   640  | 1280  |  1920 |4096|640|854|1280|     176     |
+		|       |-------------------------------------------------------------------------------------------------------|
+		|       |Max height (pixels)|  240  | 336  |360|  480  |   360  |  720  |  1080 |3072|360|480| 720|     144     |
+		|       |-------------------------------------------------------------------------------------------------------|
+		|       |Bitrate (Mbit/s)   | 0.25  | 0.8  |0.5|0.8–1.0|   0.5  |2.0–2.9|3.5–5.0|  – |0.5| 1 |  2 |      –      |
+		|-------|-------------------------------------------------------------------------------------------------------|
+		|       |Encoding           |  MP3         |                  AAC                    |    Vorbis  |     AAC     |
+		|       |-------------------------------------------------------------------------------------------------------|
+		|       |Channels           |  1–2         |                          2 (stereo)                         | 1-2  |
+		|       |-------------------------------------------------------------------------------------------------------|
+		| Audio |Sampling rate (Hz) | 22050 |                                    44100                                  |
+		|       |-------------------------------------------------------------------------------------------------------|
+		|       |Bitrate (kbit/s)   |  64   |  96  |    128    |   96   |       152          |  128  | 192|      –      |
+		|---------------------------------------------------------------------------------------------------------------|
+		"""
+
+		# Available formats in order of quality and compatible with our WyBox
+		_available_formats = ['38', '37', '22', '18']
+
 		# Extract video id from URL
 		mobj = re.match(_VALID_URL, video_uri)
 		
@@ -62,7 +94,6 @@ class YoutubeData(object):
 			return ''
 		
 		video_id = mobj.group(2)
-#		print ('video_id: %s' % video_id)
 		
 		# Get video webpage
 		request = urllib2.Request('http://www.youtube.com/watch?v=%s&gl=US&hl=en&amp;has_verified=1' % video_id)
@@ -76,7 +107,6 @@ class YoutubeData(object):
 		mobj = re.search(r'swfConfig.*?"(http:\\/\\/.*?watch.*?-.*?\.swf)"', video_webpage)
 		if mobj is not None:
 			player_url = re.sub(r'\\(.)', r'\1', mobj.group(1))
-#			print ('player_url: %s' % player_url)
 		else:
 			player_url = None
 
@@ -84,7 +114,6 @@ class YoutubeData(object):
 		for el_type in ['&el=embedded', '&el=detailpage', '&el=vevo', '']:
 			video_info_url = ('http://www.youtube.com/get_video_info?&video_id=%s%s&ps=default&eurl=&gl=US&hl=en'
 					% (video_id, el_type))
-#			print ('video_info_url: %s' % video_info_url)
 			request = urllib2.Request(video_info_url)
 			try:
 				video_info_webpage = urllib2.urlopen(request).read()
@@ -103,10 +132,8 @@ class YoutubeData(object):
 		
 		# Get video token
 		video_token = urllib.unquote_plus(video_info['token'][0])
-#		print ('video_token: %s' % video_token)
 
 		# Get video real url
-#		print video_info
 		if 'conn' in video_info and video_info['conn'][0].startswith('rtmp'):
 			video_real_url = video_info['conn'][0]
 		elif 'url_encoded_fmt_stream_map' in video_info and len(video_info['url_encoded_fmt_stream_map']) >= 1:
@@ -122,11 +149,9 @@ class YoutubeData(object):
 		else:
 			print 'ERROR: no conn or url_encoded_fmt_stream_map information found in video info'
 			return ''
-#		print ('video_real_url: %s' % video_real_url)
 		return video_real_url
 
 	def _get_entries(self, path):
-#		print path
 		return self.service.Get(('/feeds/api/' + path)).entry
 
 	def _get_dict_from_entry(self, e):
@@ -189,24 +214,24 @@ class YoutubeData(object):
 
 if (__name__ == '__main__'):
 	import sys
-	from pygui.facilities.turlututube_wyplay import ToutubeData
-	ttd = ToutubeData()
+#	from pygui.facilities.turlututube_wyplay import ToutubeData
+#	ttd = ToutubeData()
 	ytd = YoutubeData()
 	if (len(sys.argv) > 1):
 		if sys.argv[1].isdigit():
 			what = int(sys.argv[1])
 		else:
 			what = sys.argv[1]
-		print "Polo64 Search"
+		print "Polo Search"
 		for e in ytd.search(what, lang='fr', max_res=1, orderby='rating'):
 			print ('%(title)s / rated: %(rating)s / viewed: %(view_count)s' % e)
 			print e
 			print ('#' * 80)
-		print "Wyplay Search"
-		for e in ttd.search(what, lang='fr', max_res=1, orderby='rating'):
-			print ('%(title)s / rated: %(rating)s / viewed: %(view_count)s' % e)
-			print e
-			print ('#' * 80)
+#		print "Wyplay Search"
+#		for e in ttd.search(what, lang='fr', max_res=1, orderby='rating'):
+#			print ('%(title)s / rated: %(rating)s / viewed: %(view_count)s' % e)
+#			print e
+#			print ('#' * 80)
 	else:
 #		for (i, name,) in enumerate(YoutubeData._standard_feeds):
 #			print 'FEED',
@@ -221,7 +246,7 @@ if (__name__ == '__main__'):
 		print ('#' * 80)
 		print 'Polo Search'
 		print ('#' * 80)
-		for e in ytd.search('Pixar', lang='fr', orderby='viewCount', max_res=1):
+		for e in ytd.search('David GUETTA', lang='fr', orderby='viewCount', max_res=5):
 			print e
 			print 'URI:',
 			print e['uri']()
@@ -237,13 +262,11 @@ if (__name__ == '__main__'):
 #				print e['uri']()
 #				print ('#' * 80)
 
-		print ('#' * 80)
-		print 'Wyplay Search'
-		print ('#' * 80)
-		for e in ttd.search('Pixar', lang='fr', orderby='viewCount', max_res=1):
-			print e
-			print 'URI:',
-			print e['uri']()
-			print ('#' * 80)
-
-
+#		print ('#' * 80)
+#		print 'Wyplay Search'
+#		print ('#' * 80)
+#		for e in ttd.search('Pixar', lang='fr', orderby='viewCount', max_res=1):
+#			print e
+#			print 'URI:',
+#			print e['uri']()
+#			print ('#' * 80)
