@@ -871,7 +871,7 @@ msgid "Friday"
 msgstr "Vendredi"
 
 msgid "From last position"
-msgstr "Depuis le dernière position"
+msgstr "Depuis la dernière position"
 
 msgid "From the beginning"
 msgstr "Depuis le début"
