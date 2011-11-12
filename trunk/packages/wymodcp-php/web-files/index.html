@@ -2,263 +2,117 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>WymodCP 2.0</title>
+<title>WyMod Control Panel v3.0</title>
 
 <!-- JS Libs includes -->
-
-<script type="text/javascript" src="./scripts/js/niftycube.js"></script>
 <script src="./scripts/js/jquery.min.js" type="text/javascript"></script>
 <script src="./scripts/js/wydev.js" type="text/javascript"></script>
 
 <!-- JQuery effects -->
-
 <script type="text/javascript">
-  // When the document loads do everything inside here ...
-     $(document).ready(	function(){
-									Nifty("#menu a","normal all transparent");
-									Nifty("#outcontent","big all transparent");
-									$('.content').load('wymod-php.php');	//by default initally load text from wymod-php.php
-// Event Click on Menu Handler (Here will accept jquery ajax call to php backend files)
-									$('#menu a').click(	function() { //start function when any link is clicked
-														$(".content").slideUp(3000);
-														var content_show = $(this).attr("title"); //retrieve title of link so we can compare with php file
-														// Based on the title of the a link on the menu id, we can select where to go
-														switch(content_show)
-														{
-														case "home":
-														var path = "./scripts/php/home.php"  //set the path here to next ajax method call
-  														//alert (path);
-														$.ajax({
-														method: "get",url: path,data: "",
-																beforeSend: function(){
-																						//alert("Current Stage: Before Send");
-																						$("#loading").show("slow");
-																					}, 
-																complete: function(){
-																						//alert("Current Stage: Complete");
-																						$("#loading").hide("slow");
-																					}, 
-																success: function(html){ 
-																						//alert("Current Stage: Success");
-																						$(".content").show("slow"); //animation
-																						$(".content").html(html); //show the html inside .content div
-																						}
-																	}); //close $.ajax(
-  														break;
-														case "syslog":
-														var path = "./scripts/php/syslog.php"  //set the path here to next ajax method call
-  														//alert (path);
-														$.ajax({
-														method: "get",url: path,data: "",
-																beforeSend: function(){
-																						//alert("Current Stage: Before Send");
-																						$("#loading").show("slow");
-																					}, 
-																complete: function(){
-																						//alert("Current Stage: Complete");
-																						$("#loading").hide("slow");
-																					}, 
-																success: function(html){ 
-																						//alert("Current Stage: Success");
-																						$(".content").show("slow"); //animation
-																						$(".content").html(html); //show the html inside .content div
-																						}
-																	}); //close $.ajax(
-  														break;
-														case "helpus":
-														var path = "./scripts/php/helpus.php"  //set the path here to next ajax method call
-  														//alert (path);
-														$.ajax({
-														method: "get",url: path,data: "",
-																beforeSend: function(){
-																						//alert("Current Stage: Before Send");
-																						$("#loading").show("slow");
-																					}, 
-																complete: function(){
-																						//alert("Current Stage: Complete");
-																						$("#loading").hide("slow");
-																					}, 
-																success: function(html){ 
-																						//alert("Current Stage: Success");
-																						$(".content").show("slow"); //animation
-																						$(".content").html(html); //show the html inside .content div
-																						}
-																	}); //close $.ajax(
-  														break;
-														case "reboot":
-														var path = "./scripts/php/reboot.php"  //set the path here to next ajax method call
-  														//alert (path);
-														$.ajax({
-														method: "get",url: path,data: "",
-																beforeSend: function(){
-																						//alert("Current Stage: Before Send");
-																						$("#loading").show("slow");
-																					}, 
-																complete: function(){
-																						//alert("Current Stage: Complete");
-																						$("#loading").hide("slow");
-																					}, 
-																success: function(html){ 
-																						//alert("Current Stage: Success");
-																						$(".content").show("slow"); //animation
-																						$(".content").html(html); //show the html inside .content div
-																						}
-																	}); //close $.ajax(
-  														break;
+// When the document loads do everything inside here ...
+$(document).ready(	function(){
+  $('.content').load('wymod-php.php'); //by default initally load text from wymod-php.php
+  // Event Click on Menu Handler (Here will accept jquery ajax call to php backend files)
+  $('#menu a').click(	function(){ //start function when any link is clicked
+      $(".content").slideUp(1000);
+      var content_show = $(this).attr("title"); //retrieve title of link so we can compare with php file
+      // Based on the title of the a link on the menu id, we can select where to go
+      switch(content_show){
+        case "home":
+          var path = "./scripts/php/home.php" //set the path here to next ajax method call
+          break;
+        case "syslog":
+          var path = "./scripts/php/syslog.php"
+          break;
+        case "helpus":
+          var path = "./scripts/php/helpus.php"
+          break;
+        case "reboot":
+          var path = "./scripts/php/reboot.php"
+          break;
+        case "skins":
+          var path = "./scripts/php/skins.php"
+          break;
+        case "TV":
+          var path = "./scripts/php/channelform.php"
+          break;
+        case "records":
+          var path = "./scripts/php/records.php"
+          break;
+        case "docs":
+          var path = "./scripts/php/docs.php"
+          break;
+        case "extras":
+          var path = "./scripts/php/extras.php"
+          break;														
+        default:
+          var path = "wymod-php.php"
+          break;
+      }
 
-														case "skins":
-														var path = "./scripts/php/skins.php"  //set the path here to next ajax method call
-  														//alert (path);
-														$.ajax({
-														method: "get",url: path,data: "",
-																beforeSend: function(){
-																						//alert("Current Stage: Before Send");
-																						$("#loading").show("slow");
-																					}, 
-																complete: function(){
-																						//alert("Current Stage: Complete");
-																						$("#loading").hide("slow");
-																					}, 
-																success: function(html){ 
-																						//alert("Current Stage: Success");
-																						$(".content").show("slow"); //animation
-																						$(".content").html(html); //show the html inside .content div
-																						}
-																	}); //close $.ajax(
-  														break;
-
-														case "TV":
-														var path = "./scripts/php/channelform.php"
-  														//alert (path);
-														$.ajax({
-														method: "get",url: path,data: "",
-																beforeSend: function(){
-																						
-																						$("#loading").show("slow");
-																					}, 
-																complete: function(){
-																						
-																						$("#loading").hide("slow");
-																					}, 
-																success: function(html){ 
-																						
-																						$(".content").show("slow"); 
-																						$(".content").html(html); 
-																						}
-																	}); //close $.ajax(
-  														break;
-														case "records":
-														var path = "./scripts/php/records.php"
-											
-														$.ajax({
-														method: "get",url: path,data: "",
-																beforeSend: function(){
-																						//alert("tvbeforesend");
-																						$("#loading").show("slow");
-																					}, //show loading just when link is clicked
-																complete: function(){
-																						//alert("tvcomplete");
-																						$("#loading").hide("slow");
-																					}, //stop showing loading when the process is complete
-																success: function(html){ //so, if data is retrieved, store it in html
-																						//alert("tvsuccess");
-																						$(".content").show("slow"); //animation
-																						$(".content").html(html); //show the html inside .content div
-																						}
-																	}); //close $.ajax(
-  														break;
-
-														case "docs":
-														var path = "./scripts/php/docs.php"
-											
-														$.ajax({
-														method: "get",url: path,data: "",
-																beforeSend: function(){
-																						//alert("tvbeforesend");
-																						$("#loading").show("slow");
-																					}, //show loading just when link is clicked
-																complete: function(){
-																						//alert("tvcomplete");
-																						$("#loading").hide("slow");
-																					}, //stop showing loading when the process is complete
-																success: function(html){ //so, if data is retrieved, store it in html
-																						//alert("tvsuccess");
-																						$(".content").show("slow"); //animation
-																						$(".content").html(html); //show the html inside .content div
-																						}
-																	}); //close $.ajax(
-  														break;
-														
-														case "extras":
-														var path = "./scripts/php/extras.php"
-											
-														$.ajax({
-														method: "get",url: path,data: "",
-																beforeSend: function(){
-																						//alert("tvbeforesend");
-																						$("#loading").show("slow");
-																					}, //show loading just when link is clicked
-																complete: function(){
-																						//alert("tvcomplete");
-																						$("#loading").hide("slow");
-																					}, //stop showing loading when the process is complete
-																success: function(html){ //so, if data is retrieved, store it in html
-																						//alert("tvsuccess");
-																						$(".content").show("slow"); //animation
-																						$(".content").html(html); //show the html inside .content div
-																						}
-																	}); //close $.ajax(
-  														break;														
-
-														default:
-														$.ajax({
-																method: "get",url: "wymod-php.php",data: "page="+content_show,
-																beforeSend: function(){
-																//alert("beforesend");
-																						$("#loading").show("slow");
-																					}, //show loading just when link is clicked
-																complete: function(){
-																//alert("complete");
-																					$("#loading").hide("slow");
-																					}, //stop showing loading when the process is complete
-																success: function(html){ //so, if data is retrieved, store it in html
-																//alert("success");
-																						$(".content").show("slow"); //animation
-																						$(".content").html(html); //show the html inside .content div
-																						}
-																	}); //close $.ajax(
-														}
-
-
-									}); //close click(
-								}); //close $(
+      $.ajax({
+      method: "get",url: path,data: "",
+        beforeSend: function(){
+          //alert("Current Stage: Before Send");
+          $("#loading").show("slow");
+        }, 
+        complete: function(){
+          //alert("Current Stage: Complete");
+          $("#loading").hide("slow");
+        }, 
+        success: function(html){ 
+          //alert("Current Stage: Success");
+          $(".content").show("slow"); //animation
+          $(".content").html(html); //show the html inside .content div
+        }
+      }); //close $.ajax(
+  }); //close click(
+}); //close $(
 </script>
-
 <link rel="stylesheet" type="text/css" href="./style/wymod.css" />
-
 </head>
 
 <body>
-<div class="page">
-<div>
-<ul id="menu">  
-            <li id="home"><a href="#" title="home">Home</a></li>
-            <li id="extras"><a href="#" title="extras">Extras</a></li>
-            <li id="reboot"><a href="#" title="reboot">Reboot</a></li>  
-            <li id="syslog"><a href="#" title="syslog">Syslog</a></li>
-            <li id="skins"><a href="#" title="skins">Skins</a></li>
-			<li id="records"><a href="#" title="records">Records</a></li>
-			<li id="TV"><a href="#" title="TV">TV</a></li>
-			<li id="docs"><a href="#" title="docs">Docs</a></li>
-			<li id="helpus"><a href="#" title="helpus">Help us</a></li>
-</ul>
-<br style="clear:both;" />
-</div>
-<div id="outcontent">
-<br>
-<div id="loading">LOADING</div>
-<div class="content"></div>
-</div>
-</div>
+  <div id="upperbar">
+    <div id="links">
+    </div>
+    <div id="space"></div>
+    <div class="clear"></div>
+  </div>
+
+  <div class="shadow">
+    <div id="header">
+      <ul id="menu">
+        <li id="home"><a href="#" title="home">Home</a></li>
+        <li id="extras"><a href="#" title="extras">Extras</a></li>
+        <li id="reboot"><a href="#" title="reboot">Reboot</a></li>
+        <li id="syslog"><a href="#" title="syslog">Syslog</a></li>
+        <li id="skins"><a href="#" title="skins">Skins</a></li>
+        <li id="records"><a href="#" title="records">Records</a></li>
+        <li id="TV"><a href="#" title="TV">TV</a></li>
+        <li id="docs"><a href="#" title="docs">Docs</a></li>
+        <li id="helpus"><a href="#" title="helpus">Help us</a></li>
+      </ul>
+    </div>
+
+    <div id="entire">
+      <div id="content">
+        <div id="content-full">
+          <br style="clear:both;" />
+          <h1><div id="loading"><br />Loading<br /><br /><br /><br /></div></h1>
+          <div class="content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottombar2">
+  </div>
+
+  <div class="bottombar">
+    <a href="http://code.google.com/p/wydevices/">Project homepage</a>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+    <a href="http://wydev.orgfree.com/foro/">Forum</a>
+  </div>
 </body>
 </html>

@@ -1,10 +1,10 @@
-<?php 
-$id = $_REQUEST["channel"];
-$newid = $_REQUEST["neworder"]; 
-$newname = $_REQUEST["newname"];  
-$totalchannels = $_REQUEST["totalchannels"] + 1;  
-$backops = $_REQUEST["backops"];  
-$operation = $_REQUEST["op"];
+<?php
+$id             = $_REQUEST["channel"];
+$newid          = $_REQUEST["neworder"]; 
+$newname        = $_REQUEST["newname"];  
+$totalchannels  = $_REQUEST["totalchannels"] + 1;  
+$backops        = $_REQUEST["backops"];  
+$operation      = $_REQUEST["op"];
 ?>
 <div id="container">
 
@@ -13,7 +13,6 @@ $operation = $_REQUEST["op"];
 	//Update channels when needed.
 
 switch ($operation){
-
 	case "ajaxreorder":
 		$objDB = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
 		$sql = "update T_SERVICE set LOGICAL_CHANNEL_NUMBER=".$totalchannels." where LOGICAL_CHANNEL_NUMBER=".$newid;
@@ -23,6 +22,7 @@ switch ($operation){
 		$sql = "update T_SERVICE set LOGICAL_CHANNEL_NUMBER=".$id." where LOGICAL_CHANNEL_NUMBER=".$totalchannels;
 		$res = $objDB->query($sql);
 		break;
+
 	case "rename":
 		$objDB = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
 		$sql = "update T_SERVICE set NAME=\"".$newname."\" where LOGICAL_CHANNEL_NUMBER=".$id.";";
@@ -31,8 +31,7 @@ switch ($operation){
 		break;
 	
 	case "backops":
-		switch ($backops) 
-			{
+		switch ($backops) {
 			case "restore": 
 				echo "<pre>";
 				system ("/wymedia/usr/bin/Restore_channels-net /wymedia/Backup/channels-net_backup.tar");
@@ -47,89 +46,82 @@ switch ($operation){
 				break;
 			}
 		break;
+
 	default:
 		echo $operation;
-	break;
+    break;
 }
 
-	
-	
 ?>
-	<hr>
+	<hr />
 	<div class="channellistcontainer">
-	
-	
 <?php
 	echo "<h2>Channel List</h2>";
 	$Ctotal=0;
 	$dbfile = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
 	$selectsql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
-	foreach ($dbfile->query($selectsql) as $returnrow) {
+  foreach ($dbfile->query($selectsql) as $returnrow) {
+    $channelid = $returnrow['LOGICAL_CHANNEL_NUMBER'];
+    $Displaycolumn = $Ctotal%"4";			
+    $channelname = $returnrow['NAME'];
+    $Ctotal = $Ctotal+1;
 
-		$channelid = $returnrow['LOGICAL_CHANNEL_NUMBER'];
-		$Displaycolumn = $Ctotal%"4";			
-		$channelname = $returnrow['NAME'];
-		$Ctotal = $Ctotal+1;
-		
-		                switch ($Displaycolumn) {
-                        case 0: echo  "<div id=pos".$Ctotal." class=\"column1\">";
-								echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
-								echo $channelid." - ".$channelname;
-								echo "</a></div>";
-                                break;
-                        case 1: echo  "<div id=pos".$Ctotal." class=\"column2\">";
-								echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
-								echo $channelid." - ".$channelname;
-								echo "</a></div>";
-                                break;
-                        case 2: echo  "<div id=pos".$Ctotal." class=\"column3\">";
-								echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
-								echo $channelid." - ".$channelname;
-								echo "</a></div>";
-                                break;
-                        case 3: echo  "<div id=pos".$Ctotal." class=\"column4\">";
-								echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
-								echo $channelid." - ".$channelname;
-								echo "</a></div>";
-                                break;
-						default: echo "default";
-                                break;
-                 }
-	}
+    switch ($Displaycolumn) {
+      case 0: echo  "<div id=pos".$Ctotal." class=\"column1\">";
+        echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
+        echo $channelid." - ".$channelname;
+        echo "</a></div>";
+        break;
+      case 1: echo  "<div id=pos".$Ctotal." class=\"column2\">";
+        echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
+        echo $channelid." - ".$channelname;
+        echo "</a></div>";
+        break;
+      case 2: echo  "<div id=pos".$Ctotal." class=\"column3\">";
+        echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
+        echo $channelid." - ".$channelname;
+        echo "</a></div>";
+        break;
+      case 3: echo  "<div id=pos".$Ctotal." class=\"column4\">";
+        echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
+        echo $channelid." - ".$channelname;
+        echo "</a></div>";
+        break;
+      default: echo "default";
+        break;
+    }
+  }
 ?>
-
 	</div> <!-- End of Channel list container -->
 	<h2>Modify Channel List</h2>
 	<form id=channel name=channelform action="javascript:UpdateTV(this.form);" method="put">
-<!-- Channel combo box -->
-	<select id="channel" name="channel"> 
-	<?php
-	$total=0;
-	$dbh = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
-	$sql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
-	foreach ($dbh->query($sql) as $row) {
+  <!-- Channel combo box -->
+    <select id="channel" name="channel"> 
+    <?php
+    $total=0;
+    $dbh = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
+    $sql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
+    foreach ($dbh->query($sql) as $row) {
+      $id = $row['LOGICAL_CHANNEL_NUMBER'];
+      $column = $id%"3";
+      $channel = $row['NAME'];
+      $total = $total+1;
 
-		$id = $row['LOGICAL_CHANNEL_NUMBER'];
-		$column = $id%"3";
-		$channel = $row['NAME'];
-		$total = $total+1;
+      echo "<option value=\"".$id."\" >".$channel."</option> ";
+    }
 
-		echo "<option value=\"".$id."\" >".$channel."</option> ";
-	}
+    ?>
+    </select>
+  <!-- End Channel combo box -->
 
-	?>
-	</select>
-<!-- End Channel combo box -->
-
-	<input type="hidden" id="totalchannels" name="totalchannels" class="text" value="<?php echo $total ?>">
-	<input type="hidden" id="stage" name="stage" class="text" value="0">
-	<br>
-	<hr>
-	<label> New Name: </label>
-	<input id="newname" name="newname" class="text" type="text" maxlength="20" value=""/>  
-		
-	<input type="button" onClick="ChannelRename()" value="Rename" />
+    <input type="hidden" id="totalchannels" name="totalchannels" class="text" value="<?php echo $total ?>">
+    <input type="hidden" id="stage" name="stage" class="text" value="0">
+    <br /><hr />
+    <label> New Name: </label>
+    <input id="newname" name="newname" class="text" type="text" maxlength="20" value=""/>  
+    <input type="button" onClick="ChannelRename()" value="Rename" />
 	</form>
+
 <div id="backopsdiv" class="backdivclass">
 	<h2>Backup and Restore operations</h2>
 	<input type="button" onClick="Backops('backup')" value="Backup" />
@@ -137,4 +129,3 @@ switch ($operation){
 </div>
 
 </div>
-<br><br><br><br><br><br><br><br><br>

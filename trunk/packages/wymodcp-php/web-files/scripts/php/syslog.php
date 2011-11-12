@@ -1,15 +1,7 @@
 <?php
-
-echo "<h2> Syslog </h2>";
-echo "<pre>";
-
- system("tail -n40 /wymedia/usr/var/log/syslog.log");
-
-echo "</pre>";
-echo "<br><br><br><br><br><br><br><br>";
- ?>
-
-
-
-
-
+echo "<h1>Syslog</h1>";
+echo "<dl><dd>Show the 100 last lines from /wymedia/usr/var/log/syslog.log</dl>";
+echo "<textarea rows=\"101\" cols=\"130\" wrap=\"off\" readonly>";
+system("tail -n100 /wymedia/usr/var/log/syslog.log");
+echo "</textarea>";
+?>
