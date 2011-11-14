@@ -374,9 +374,14 @@ if ($handle = opendir($initdfolder)) {
         echo "<tr><td><b>".$extraname[0]."</b></td>";
 
         if ($enable == true) {
-          echo "<td align=\"center\"><img src=./style/available.png onclick=\"ExtrasHandler('autostart".$extraname[0]."=false')\" /></td><td><div style=\"color:#0A0\"><b>running</b></div></td>";
+          echo "<td align=\"center\"><img src=./style/available.png onclick=\"ExtrasHandler('autostart".$extraname[0]."=false')\" /></td>";
         } else {
-          echo "<td align=\"center\"><img src=./style/process-stop.png onclick=\"ExtrasHandler('autostart".$extraname[0]."=true')\" /></td><td><div style=\"color:#F00\"><b>stopped</b></div></td>";
+          echo "<td align=\"center\"><img src=./style/process-stop.png onclick=\"ExtrasHandler('autostart".$extraname[0]."=true')\" /></td>";
+        }
+        if ($status == true) {
+          echo "<td><div style=\"color:#0A0\"><b>running</b></div></td>";
+       	} else {
+          echo "<td><div style=\"color:#F00\"><b>stopped</b></div></td>";
         }
         ?>
         <td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo $extraname[0];?>" type="radio" class="extraenable" value="true"<?php echo"onclick=\"ExtrasHandler('autostart".$extraname[0]."=true')\"";?> />Enable</td>
