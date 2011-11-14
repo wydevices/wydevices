@@ -9,7 +9,7 @@
 <div id="datadivid" name="datadivname">
   <table> 
     <tr><td>Manufacturer: </td><td><b><?php system("cat /proc/wybox/MN")?></td></tr>
-    <tr><td>WydevFirm Version: </td><td><b><?php system("cat /wymedia/usr/etc/wydev-mod-version")?></td></tr>
+    <tr><td>WydevFirm Version: </td><td><b><?php system("cat /wymedia/etc/wydev-mod-version")?></td></tr>
     <tr><td>Bubble Update Version: </td><td><b><?php  system("cat /wymedia/usr/etc/wydev-mod-updaterelease"); ?></td></tr>
     <tr><td>Modded Target: </td><td><?php system("cat /proc/wybox/WC")?></td></tr>
     <tr><td>Real Target: </td><td> <?php system("strings /dev/mtd2 |grep WC |cut -d= -f2")?> </td></tr>
