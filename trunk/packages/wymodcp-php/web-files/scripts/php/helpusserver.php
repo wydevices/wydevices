@@ -13,7 +13,7 @@ echo "<h3> You will send to us this information for statistics. Thanks for submi
 <form action="http://foro.wydev.es/wydevware/statistics.php" method="get" id="target" name="target">
   <table>
     <tr><td><b><input type="text" id="manufacturer" name="manufacturer" value="<?php system("cat /proc/wybox/MN")?>"> Manufacturer</td></tr>
-    <tr><td><b><input type="text" id="wydevversion" name="wydevversion" value="<?php system("cat /wymedia/usr/etc/wydev-mod-version")?>"> WydevFirmVersion</td></tr>
+    <tr><td><b><input type="text" id="wydevversion" name="wydevversion" value="<?php system("cat /wymedia/etc/wydev-mod-version")?>"> WydevFirmVersion</td></tr>
     <tr><td><b><input type="text" id="bubbleversion" name="bubbleversion" value="<?php  system("cat /wymedia/usr/etc/wydev-mod-updaterelease"); ?>"> Bubble Update Version</td></tr>
     <tr><td><input type="text" id="moddedtarget" name="moddedtarget" value="<?php system("cat /proc/wybox/WC")?>"> Modded Target</td></tr>
     <tr><td><input type="text" id="realtarget" name="realtarget" value="<?php system("strings /dev/mtd2 |grep WC |cut -d= -f2")?> "> Real Target</td></tr>
