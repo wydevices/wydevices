@@ -25,8 +25,8 @@ $(document).ready(	function(){
         case "syslog":
           var path = "./scripts/php/syslog.php"
           break;
-        case "helpus":
-          var path = "./scripts/php/helpus.php"
+        case "update":
+          var path = "./scripts/php/update.php"
           break;
         case "reboot":
           var path = "./scripts/php/reboot.php"
@@ -45,7 +45,10 @@ $(document).ready(	function(){
           break;
         case "extras":
           var path = "./scripts/php/extras.php"
-          break;														
+          break;
+        case "config":
+          var path = "./scripts/php/config.php"
+          break;
         default:
           var path = "wymod-php.php"
           break;
@@ -91,8 +94,9 @@ $(document).ready(	function(){
         <li id="skins"><a href="#" title="skins">Skins</a></li>
         <li id="records"><a href="#" title="records">Records</a></li>
         <li id="TV"><a href="#" title="TV">TV</a></li>
+        <li id="config"><a href="#" title="config">Config</a></li>
+        <li id="update"><a href="#" title="update">Update</a></li>
         <li id="docs"><a href="#" title="docs">Docs</a></li>
-        <li id="helpus"><a href="#" title="helpus">Help us</a></li>
       </ul>
     </div>
 

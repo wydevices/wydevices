@@ -24,7 +24,7 @@ $autostartsyslogd=$_REQUEST["autostartsyslogd"];
 
 // ################ syslogd ############################
 if ($autostartsyslogd || $activatesyslogd){
-  echo "<h3><b> syslogd </b> </h3>";
+  echo "<h3><b>syslogd</b></h3>";
   echo "<table border=1><tr><td>AutoStart</td><td>Action</td></tr><tr>";
   echo "<td>";
 
@@ -53,7 +53,6 @@ if ($autostartsyslogd || $activatesyslogd){
   echo "</td></tr></table>";
 }
 // ################ syslogd #############################
-
 // ################ crond ###############################
 if ($autostartcrond || $activatecrond) {
   echo "<h3><b> crond </b> </h3>";
@@ -85,10 +84,8 @@ if ($autostartcrond || $activatecrond) {
   }
   echo "</td></tr></table>";	
 }
-
 // ################ crond ###############################
 // ################ Transmission ###############################
-
 if ($autostarttransmission || $activatetransmission){
   echo "<h3><b> TRANSMISSION </b> </h3>";
   echo "<table border=1><tr><td>AutoStart</td><td>Action</td></tr><tr>";
@@ -119,10 +116,8 @@ if ($autostarttransmission || $activatetransmission){
   }
   echo "</td></tr></table>";	
 }
-
 // ################ Transmission ###############################
 // ################ wymodcp ###############################
-
 if ($autostartwymodcp || $activatewymodcp){
   echo "<h4><b> WYMOD CONTROL PANEL </b> </h4>";
   echo "<table border=1><tr><td>AutoStart</td><td>Action</td></tr><tr>";
@@ -185,7 +180,6 @@ if ($autostartpureftpd || $activatepureftpd){
   }
   echo "</td></tr></table>";	
 }
-
 // ################ pureftpd ###############################
 // ################ sambaserver ###############################
 if ($autostartsambaserver || $activatesambaserver){
@@ -314,7 +308,6 @@ if ($autostartrsync || $activatersync){
   }
   echo "</td></tr></table>";
 }
-
 // ################ rsync ###############################
 // ################ inadyn ###############################
 if ($autostartinadyn || $activateinadyn){
@@ -349,17 +342,14 @@ if ($autostartinadyn || $activateinadyn){
 }
 // ################ inadyn ###############################
 
-
-
 ?>
 <h1>Extras Management</h1><br />
 <form id="extrasform" method="get" action="./scripts/php/extras.php">
 	<div class="extrasclass"><p>Update extras configuration</p>
 		<table>
-	<tr><th align="left">Process</th><th>AutoStart</th><th>Status</th><th>Enable</th><th>Disable</th><th>Start</th><th>Stop</th></tr>
-  <tr><td colspan="7"><hr width="100%" /></td></tr>
+      <tr><th align="left">Process</th><th>AutoStart</th><th>Status</th><th>Enable</th><th>Disable</th><th>Start</th><th>Stop</th></tr>
+      <tr><td colspan="7"><hr width="100%" /></td></tr>
 <?php
-
 $initdfolder = '/wymedia/usr/etc/init.d/';
 if ($handle = opendir($initdfolder)) {
     while (false !== ($file = readdir($handle))) {
@@ -398,11 +388,9 @@ if ($handle = opendir($initdfolder)) {
     </form>	
     <br />
     <h1>Extras Usage</h1>
-    <blockquote>
       <p>
         You can select up to 4 actions to apply to extras services
       </p>
-    </blockquote>
     <h2>Actions</h2>
     <ul>
       <li><b>Enable:</b><dd>Extra will be automatically started after reboot</li>
@@ -412,4 +400,3 @@ if ($handle = opendir($initdfolder)) {
     </ul>
     <br />
 	</div>	
-<br><br>

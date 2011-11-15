@@ -191,7 +191,8 @@ if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !em
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
-    <title>Wymod Control Panel - Records list</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WyMod Control Panel v3.0</title>
     <script src="scripts/js/wydev.js" type="text/javascript"></script>
 </head>
 <body>
@@ -435,6 +436,5 @@ if ($handle_record_path = opendir($record_path)) {
 ?>
 </table>
 </div>
-<br><br><br><br><br><br><br><br><br>
 </body>
 </html>
