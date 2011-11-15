@@ -1,4 +1,3 @@
-#!/wymedia/usr/bin/php-cgi
 <?php
 header("Cache-Control: no-cache");
 

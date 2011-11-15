@@ -375,7 +375,26 @@ function ShowSkins() {
 		xmlhttp.open("GET","./scripts/php/home.php",true);
 		xmlhttp.send(null);
 	}
-	
+
+  function ShowConfig() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		xmlhttp.onreadystatechange=function() {
+			if(xmlhttp.readyState==4) {
+				document.getElementById('showconfig').innerHTML=xmlhttp.responseText;
+			}
+		}
+
+		xmlhttp.open("GET","./scripts/php/config.php",true);
+		xmlhttp.send(null);
+	}
 	function updatefromlocal() {
 	alert ("System will uncompress /wymedia/usr/share/updates/ to /wymedia");
 	window.open("./scripts/php/update.php");
@@ -385,9 +404,19 @@ function ShowSkins() {
 	window.open("./scripts/php/updatestatic.php");
 	}
 
-	
-	
-	
+function checkPass(){
+  var pwd = document.chgpassword.pwd_1.value;
+  var pwd_confirm = document.chgpassword.pwd_2.value;
+  if (pwd != pwd_confirm){
+    alert("Password are different !");
+    document.chgpassword.pwd_1.value = "";
+    document.chgpassword.pwd_2.value = "";
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function confirmation(alert_message, recordsuri) {
 	if (confirm(alert_message)) ReloadRecords(recordsuri);
 }

@@ -15,15 +15,34 @@
     <tr><td>Real Target: </td><td> <?php system("strings /dev/mtd2 |grep WC |cut -d= -f2")?> </td></tr>
     <tr><td>Serial Number: </td><td> <?php system("cat /proc/wybox/SN")?> </td></tr>
     <tr><td>Time / Uptime: </td><td> <?php system("uptime |cut -f1 -d,")?> </td></tr>
-    <tr><td>Fan Speed & Temperatures: </td><td> <?php 
-      echo "Fan: ";
-      system("cat /sys/devices/platform/stm-pwm/pwm1 | tr -d");
-      echo "Cpu: ";
-      system("cat /sys/bus/i2c/devices/0-0048/temp1_input | cut -b 1-2");
-      echo ".";
-      system("cat /sys/bus/i2c/devices/0-0048/temp1_input | cut -b 3");
-      echo "HDD sda: ";
-      system("/wymedia/usr/bin/hddtemp -n /dev/sda 2> /dev/null") 
+    <tr><td>Fan Speed: </td><?php 
+      $fan_speed = exec("cat /sys/devices/platform/stm-pwm/pwm1 | tr -d");
+      echo "<td>".$fan_speed." RPM</td></tr>";
+    ?>
+    <tr><td>Temperatures: </td>
+    <?php 
+      $temp_cpu  = exec("cat /sys/bus/i2c/devices/0-0048/temp1_input | cut -b 1-2");
+      $temp_hdd  = exec("/wymedia/usr/bin/hddtemp -n /dev/sda 2> /dev/null");
+
+      echo "<td>";
+      if ($temp_cpu > 50) {
+        echo "<img src=\"./style/temperature-hot.png\" />";
+      } elseif ($temp_cpu > 47 && $temp_cpu <= 50) {
+        echo "<img src=\"./style/temperature-warn.png\" />";
+      } else {
+        echo "<img src=\"./style/temperature-ok.png\" />";
+      }
+      echo "CPU ".$temp_cpu." °C</td></tr>";
+
+      echo "<tr><td></td><td>";
+      if ($temp_hdd > 50) {
+        echo "<img src=\"./style/temperature-hot.png\" />";
+      } elseif ($temp_hdd > 47 && $temp_hdd <= 50) {
+        echo "<img src=\"./style/temperature-warn.png\" />";
+      } else {
+        echo "<img src=\"./style/temperature-ok.png\" />";
+      }
+      echo "HDD ".$temp_hdd." °C</td></tr>";
     ?></td></tr>
     <tr><td>dm-0 Slave: </td><td> <?php system("ls /sys/block/dm-0/slaves")?> </td></tr>
     <tr><td>Board: </td><td> <?php system("cat /proc/fb |cut -c3-")?> </td></tr>
