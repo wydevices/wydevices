@@ -312,10 +312,10 @@ hr{
 	margin:0 auto;
 	padding:3px;
 	background:url(../style/bgprefooter.png) no-repeat center top;
-	color:#FFF;
-	font-size:0.8em;
+	color:#D00;
+	font-size:18px;
+  font-weight:bold;
 	text-align:center;
-	line-height:2.4em;
 }
 .bottombar a:link,.bottombar a:visited{
 	font-family:Verdana,Arial,sans-serif;
