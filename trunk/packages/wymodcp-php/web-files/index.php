@@ -112,6 +112,9 @@ $(document).ready(	function(){
   </div>
 
   <div class="bottombar2">
+    <?php if (!file_exists("/wymedia/usr/etc/mongoose_htpasswd")) { ?>
+    Go to config menu now for set a password.
+    <?php } ?>
   </div>
 
   <div class="bottombar">

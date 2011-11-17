@@ -358,8 +358,8 @@ if ($handle = opendir($initdfolder)) {
         $extraname  = split(" ",$readstatus);
         $readenable = system("ls /wymedia/usr/etc/rc.d/".$file." 2>/dev/null >/dev/null", $retval);
 
-        if ($extraname[1] == "not") { $status = false; } else { $status = true; }
-        if ($retval       == 1)     { $enable = false; } else { $enable = true; }
+        if (trim($extraname[1]) == "not") { $status = false; } else { $status = true; }
+        if ($retval == 1) { $enable = false; } else { $enable = true; }
 
         echo "<tr><td><b>".$extraname[0]."</b></td>";
 

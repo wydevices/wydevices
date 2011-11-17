@@ -6,8 +6,8 @@ if ($_POST['set_pwd'] == 1 && $_POST['pwd_1'] == "" && $_POST['pwd_2'] == "") {
   exec("rm -f /wymedia/usr/etc/mongoose_htpasswd");
   //Restart mongoose
   exec("extras restart wymodcp");
-  header("refresh:5;url=../../index.html");
-  echo "Blanking password, redirect to Home in 3 secondes.";
+  header("refresh:1;url=../../index.php");
+  echo "<script type=\"text/javascript\">alert(\"Password blanked, redirect to Home.\")</script>";
   exit;
 } elseif ($_POST['set_pwd'] == 1 && !empty($_POST['pwd_1']) && !empty($_POST['pwd_2'])) {
   //Add refence to htpasswd file
@@ -19,8 +19,8 @@ if ($_POST['set_pwd'] == 1 && $_POST['pwd_1'] == "" && $_POST['pwd_2'] == "") {
   unset($_POST['pwd_2']);
   //Restart mongoose
   exec("extras restart wymodcp");
-  header("refresh:3;url=../../index.html");
-  echo "Password changed, redirect to Home in 3 secondes.";
+  header("refresh:1;url=../../index.php");
+  echo "<script type=\"text/javascript\">alert(\"Password changed, redirect to Home.\")</script>";
   exit;
 }
 
@@ -33,8 +33,8 @@ if (!empty($_GET['wyclim_temp']) && $_GET['wyclim_temp'] >= 40 && $_GET['wyclim_
   exec("sed -i '/maxtemp/ {s/".$actual_temp."000/".$_GET['wyclim_temp']."000/g}' /etc/wyclim/pid.conf");
   //Restart wyclim daemon
   exec("ngrestart wyclimd");
-  header("refresh:3;url=../../index.html");
-  echo "Target temperature set to ".$_GET['wyclim_temp'].", redirect to Home in 3 secondes.";
+  header("refresh:3;url=../../index.php");
+  echo "<script type=\"text/javascript\">alert(\"Target temperature set to ".$_GET['wyclim_temp'].", redirect to Home.\")</script>";
   unset($_GET['wyclim_temp']);
   exit;
 }
