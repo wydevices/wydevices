@@ -7,7 +7,6 @@ $backops        = $_REQUEST["backops"];
 $operation      = $_REQUEST["op"];
 ?>
 <div id="container">
-
 <!-- Server side update and rename operations -->
 <?php
 	//Update channels when needed.
@@ -51,12 +50,9 @@ switch ($operation){
 		echo $operation;
     break;
 }
+  echo "<h2>Channel List</h2><br/>";
+  echo "<div class=\"channellistcontainer\">";
 
-?>
-	<hr />
-	<div class="channellistcontainer">
-<?php
-	echo "<h2>Channel List</h2>";
 	$Ctotal=0;
 	$dbfile = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
 	$selectsql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
@@ -67,29 +63,23 @@ switch ($operation){
     $Ctotal = $Ctotal+1;
 
     switch ($Displaycolumn) {
-      case 0: echo  "<div id=pos".$Ctotal." class=\"column1\">";
-        echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
-        echo $channelid." - ".$channelname;
-        echo "</a></div>";
+      case 0:
+        echo  "<div id=pos".$Ctotal." class=\"column1\">";
         break;
-      case 1: echo  "<div id=pos".$Ctotal." class=\"column2\">";
-        echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
-        echo $channelid." - ".$channelname;
-        echo "</a></div>";
+      case 1:
+        echo  "<div id=pos".$Ctotal." class=\"column2\">";
         break;
-      case 2: echo  "<div id=pos".$Ctotal." class=\"column3\">";
-        echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
-        echo $channelid." - ".$channelname;
-        echo "</a></div>";
+      case 2: 
+        echo  "<div id=pos".$Ctotal." class=\"column3\">";
         break;
-      case 3: echo  "<div id=pos".$Ctotal." class=\"column4\">";
-        echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>";
-        echo $channelid." - ".$channelname;
-        echo "</a></div>";
+      case 3:
+        echo  "<div id=pos".$Ctotal." class=\"column4\">";
         break;
-      default: echo "default";
+      default:
+        echo "default";
         break;
     }
+    echo  "<a href='#' onclick=logicfire(".$Ctotal.",".$channelid."); style='line-height=40px'>".$channelid." - ".$channelname."</a></div>";
   }
 ?>
 	</div> <!-- End of Channel list container -->
@@ -97,35 +87,33 @@ switch ($operation){
 	<form id=channel name=channelform action="javascript:UpdateTV(this.form);" method="put">
   <!-- Channel combo box -->
     <select id="channel" name="channel"> 
-    <?php
-    $total=0;
-    $dbh = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
-    $sql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
-    foreach ($dbh->query($sql) as $row) {
-      $id = $row['LOGICAL_CHANNEL_NUMBER'];
-      $column = $id%"3";
-      $channel = $row['NAME'];
-      $total = $total+1;
+      <?php
+      $total=0;
+      $dbh = new PDO('sqlite:/etc/params/wyscan/wyscan.db');
+      $sql = 'SELECT LOGICAL_CHANNEL_NUMBER, NAME FROM T_SERVICE ORDER BY LOGICAL_CHANNEL_NUMBER ASC';
+      foreach ($dbh->query($sql) as $row) {
+        $id = $row['LOGICAL_CHANNEL_NUMBER'];
+        $column = $id%"3";
+        $channel = $row['NAME'];
+        $total = $total+1;
 
-      echo "<option value=\"".$id."\" >".$channel."</option> ";
-    }
-
-    ?>
+        echo "<option value=\"".$id."\" >".$channel."</option> ";
+      }
+      ?>
     </select>
-  <!-- End Channel combo box -->
+    <!-- End Channel combo box -->
 
-    <input type="hidden" id="totalchannels" name="totalchannels" class="text" value="<?php echo $total ?>">
-    <input type="hidden" id="stage" name="stage" class="text" value="0">
-    <br /><hr />
-    <label> New Name: </label>
-    <input id="newname" name="newname" class="text" type="text" maxlength="20" value=""/>  
-    <input type="button" onClick="ChannelRename()" value="Rename" />
+    <input type="hidden" id="totalchannels" name="totalchannels" class="text" value="<?php echo $total ?>" />
+    <input type="hidden" id="stage" name="stage" class="text" value="0" />
+    <hr /><br />
+    <label>New Name:</label>
+    <input id="newname" name="newname" class="text" type="text" maxlength="20" value="" />
+    <input type="button" class="button" style="width: 100px" onClick="ChannelRename()" value="Rename" />
+    <hr /><br />
+    <div id="backopsdiv" class="backdivclass">
+      <h2>Backup and Restore operations</h2>
+      <input type="button" class="button" style="width: 100px" onClick="Backops('backup')" value="Backup" />&nbsp;&nbsp;
+      <input type="button" class="button" style="width: 100px" onClick="Backops('restore')" value="Restore" />
+    </div>
 	</form>
-
-<div id="backopsdiv" class="backdivclass">
-	<h2>Backup and Restore operations</h2>
-	<input type="button" onClick="Backops('backup')" value="Backup" />
-	<input type="button" onClick="Backops('restore')" value="Restore" />
-</div>
-
 </div>

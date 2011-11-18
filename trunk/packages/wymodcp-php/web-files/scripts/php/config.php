@@ -33,7 +33,7 @@ if (!empty($_GET['wyclim_temp']) && $_GET['wyclim_temp'] >= 40 && $_GET['wyclim_
   exec("sed -i '/maxtemp/ {s/".$actual_temp."000/".$_GET['wyclim_temp']."000/g}' /etc/wyclim/pid.conf");
   //Restart wyclim daemon
   exec("ngrestart wyclimd");
-  header("refresh:3;url=../../index.php");
+  header("refresh:1;url=../../index.php");
   echo "<script type=\"text/javascript\">alert(\"Target temperature set to ".$_GET['wyclim_temp'].", redirect to Home.\")</script>";
   unset($_GET['wyclim_temp']);
   exit;
@@ -51,7 +51,7 @@ if (!empty($_GET['wyclim_temp']) && $_GET['wyclim_temp'] >= 40 && $_GET['wyclim_
   </tr>
   <tr><td></td><td align="left">New password :</td><td align="left"><input type="password" name="pwd_1" /></td></tr>
   <tr><td></td><td align="left">Confirm password :</td><td align="left"><input type="password" name="pwd_2" /></td></tr>
-  <tr><td></td><td align="right" colspan="2"><input type="hidden" name="set_pwd" value="1" /><input type="submit" /></td></tr>
+  <tr><td></td><td align="right" colspan="2"><input type="hidden" name="set_pwd" value="1" /><input type="submit" class="button" style="width: 100px"/></td></tr>
   </table>
 </form>
 <br /><hr width="100%" />
@@ -96,7 +96,7 @@ if (!empty($_GET['wyclim_temp']) && $_GET['wyclim_temp'] >= 40 && $_GET['wyclim_
       </select>
     </td>
   </tr>
-  <tr><td></td><td align="right" colspan="2"><input type="submit" /></td></tr>
+  <tr><td></td><td align="right" colspan="2"><input type="submit" class="button" style="width: 100px"/></td></tr>
   </table>
 </form>
 <br /><hr width="100%" />
