@@ -39,17 +39,17 @@ switch ($reboottype) {
 <blockquote>
   <table>
     <tr><td>
-      <input id="rebootwydevice" name="reboot"  type="button" class="wydevbutton" value="rebootwydevice" <?php echo"onclick=\"Reboot('reboot=rebootwydevice')\"";?> />
+      <input id="rebootwydevice" name="reboot" class="button" type="button" style="width: 200px" value="rebootwydevice" <?php echo"onclick=\"Reboot('reboot=rebootwydevice')\"";?> />
         Reboot Wydevice </td></tr><tr><td>
-      <input id="rebootsplash" name="reboot"  type="button" class="wydevbutton" value="rebootsplash" <?php echo"onclick=\"Reboot('reboot=rebootsplash')\"";?>/>
+      <input id="rebootsplash" name="reboot" class="button" type="button" style="width: 200px" value="rebootsplash" <?php echo"onclick=\"Reboot('reboot=rebootsplash')\"";?>/>
         Reboot Splash </td></tr><tr><td>
-      <input id="shutdownsplash" name="reboot"  type="button"class="wydevbutton" value="shutdownsplash" <?php echo"onclick=\"Reboot('reboot=shutdownsplash')\"";?>/>
+      <input id="shutdownsplash" name="reboot" class="button" type="button" style="width: 200px" value="shutdownsplash" <?php echo"onclick=\"Reboot('reboot=shutdownsplash')\"";?>/>
         Shutdown Splash </td></tr><tr><td> 
-      <input id="startsplash" name="reboot"  type="button" class="wydevbutton" value="startsplash" <?php echo"onclick=\"Reboot('reboot=startsplash')\"";?>/>
+      <input id="startsplash" name="reboot" class="button" type="button" style="width: 200px" value="startsplash" <?php echo"onclick=\"Reboot('reboot=startsplash')\"";?>/>
         Start Splash </td></tr><tr><td> 
-      <input id="rebootplayer" name="reboot"  type="button" class="wydevbutton" value="rebootplayer" <?php echo"onclick=\"Reboot('reboot=rebootplayer')\"";?>/>
+      <input id="rebootplayer" name="reboot" class="button" type="button" style="width: 200px" value="rebootplayer" <?php echo"onclick=\"Reboot('reboot=rebootplayer')\"";?>/>
         Restart Player </td></tr><tr><td>
-      <input id="shutdown" name="reboot"  type="button" class="wydevbutton" value="shutdown" <?php echo"onclick=\"Reboot('reboot=shutdown')\"";?>/>SDO</input>
+      <input id="shutdown" name="reboot" class="button" type="button" style="width: 200px" value="shutdown" <?php echo"onclick=\"Reboot('reboot=shutdown')\"";?>/>
         Shutdown Wydevice </td></tr><tr><td>
     </td></tr>
   </table>
@@ -66,7 +66,7 @@ switch ($reboottype) {
       <li>Reboot Player:<dd>is ok when the player is hung after a crash.</li>
       <li>Shutdown Wydevice:<dd>turns off device and HDD. Good for nights of before planning a trip, for example</li>
     </ul>
-	</td><td><input type="submit"/></td></tr>
+	</td></tr>
 </table>
 </form>	        
 

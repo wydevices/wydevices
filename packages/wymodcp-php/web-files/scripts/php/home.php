@@ -17,7 +17,7 @@
     <tr><td>Time / Uptime: </td><td> <?php system("uptime |cut -f1 -d,")?> </td></tr>
     <tr><td>Fan Speed: </td><?php 
       $fan_speed = exec("cat /sys/devices/platform/stm-pwm/pwm1 | tr -d");
-      echo "<td>".$fan_speed." RPM</td></tr>";
+      echo "<td><img src=\"./style/fan.png\" />&nbsp;".$fan_speed." RPM</td></tr>";
     ?>
     <tr><td>Temperatures: </td>
     <?php 
@@ -32,17 +32,17 @@
       } else {
         echo "<img src=\"./style/temperature-ok.png\" />";
       }
-      echo "CPU ".$temp_cpu." °C</td></tr>";
+      echo "&nbsp;CPU ".$temp_cpu." °C</td></tr>";
 
       echo "<tr><td></td><td>";
-      if ($temp_hdd > 50) {
+      if ($temp_hdd > 45) {
         echo "<img src=\"./style/temperature-hot.png\" />";
-      } elseif ($temp_hdd > 47 && $temp_hdd <= 50) {
+      } elseif ($temp_hdd > 40 && $temp_hdd <= 45) {
         echo "<img src=\"./style/temperature-warn.png\" />";
       } else {
         echo "<img src=\"./style/temperature-ok.png\" />";
       }
-      echo "HDD ".$temp_hdd." °C</td></tr>";
+      echo "&nbsp;HDD ".$temp_hdd." °C</td></tr>";
     ?></td></tr>
     <tr><td>dm-0 Slave: </td><td> <?php system("ls /sys/block/dm-0/slaves")?> </td></tr>
     <tr><td>Board: </td><td> <?php system("cat /proc/fb |cut -c3-")?> </td></tr>
