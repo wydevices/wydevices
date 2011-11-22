@@ -5,8 +5,9 @@
 <title>WyMod Control Panel v3.0</title>
 
 <!-- JS Libs includes -->
-<script src="./scripts/js/jquery.min.js" type="text/javascript"></script>
-<script src="./scripts/js/wydev.js" type="text/javascript"></script>
+<script type="text/javascript" src="./scripts/js/jquery.min.js"></script>
+<script type="text/javascript" src="./scripts/js/jquery.form.js"></script>
+<script type="text/javascript" src="./scripts/js/wydev.js"></script>
 
 <!-- JQuery effects -->
 <script type="text/javascript">
@@ -78,10 +79,9 @@ $(document).ready(	function(){
 
 <body>
   <div id="upperbar">
-    <div id="links">
-    </div>
-    <div id="space"></div>
-    <div class="clear"></div>
+    <div id="links"><a href="http://code.google.com/p/wydevices/"><img src="./style/wydev_logo.png"></a></div>
+    <!--<div id="space"><img src="./style/wydev_logo.png"></div>-->
+    <!--<div class="clear"><img src="./style/wydev_logo.png"></div>-->
   </div>
 
   <div class="shadow">

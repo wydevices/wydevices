@@ -319,7 +319,7 @@ for ($i = 0; $i < $nb_record; $i++) {
                         <div id=\"renamedivid".$i."\">".$record_name_link."</div>
                         <div id=\"reninputdivid".$i."\" style=\"display:none;\">
                             <input type=\"text\" name=\"renameto\" id=\"renametoid".$i."\" value=\"".$record_name."\" />
-                            <button class=\"\" onClick=
+                            <button class=\"valid_renamebutton\" onClick=
                                 \"
                                     var var_new_name = document.getElementById('renametoid".$i."').value;
                                     $('#renamedivid".$i."').slideToggle();
@@ -328,7 +328,7 @@ for ($i = 0; $i < $nb_record; $i++) {
                                     //alert(recordsuri);
                                     confirmation('! This action going to restart your Wybox GUI !\\nAre you sure to rename :\\n".$record_name."\\ninto :\\n'+var_new_name+'  ?',recordsuri);
                                 \" 
-                                src=\"style/rename.png\" title=\"Rename\" alt=\"Rename a record...\">
+                                src=\"style/rename.png\" title=\"OK for this name\" alt=\"Rename a record...\">
                             </button>
                         </div>
                     </td></tr>

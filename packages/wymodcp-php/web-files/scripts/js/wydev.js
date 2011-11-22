@@ -1,137 +1,57 @@
-function Skinops(composedata){
-  var path = "./scripts/php/skins.php"
-  //alert (composedata);
-
-	$.ajax({
-			method: "get",url: path,data: composedata,
-			beforeSend: function(){
-				$("#loading").show("fast");
-				$("#skinform").hide("fast");
-				}, //show loading just when link is clicked
-			complete: function(){
-			//alert("complete");
-				$("#loading").hide("fast");
-				}, //stop showing loading when the process is complete
-			success: function(html){ //so, if data is retrieved, store it in html
-			//alert("success");
-				$(".content").fadeIn("fast"); //animation
-				$(".content").html(html); //show the html inside .content div
-				$("#skincheck").slideUp();
-			}
-	}); //close $.ajax(
-}
-
-function Reboot(composedata){
-  var path = "./scripts/php/reboot.php"
-  //alert (composedata);
-
-	$.ajax({
-			method: "get",url: path,data: composedata,
-			beforeSend: function(){
-				$("#loading").show("fast");
-				}, //show loading just when link is clicked
-			complete: function(){
-			//alert("complete");
-				$("#loading").hide("fast");
-				}, //stop showing loading when the process is complete
-			success: function(html){ //so, if data is retrieved, store it in html
-			//alert("success");
-				$(".content").show("fast"); //animation
-				$(".content").html(html); //show the html inside .content div
-			}
-	}); //close $.ajax(
-
-}
-
-function ExtrasHandler(composedata){
-  var path = "./scripts/php/extras.php"
-  //alert (composedata);
-
-	$.ajax({
-			method: "get",url: path,data: composedata,
-			beforeSend: function(){
-				$("#loading").show("fast");
-				}, //show loading just when link is clicked
-			complete: function(){
-			//alert("complete");
-				$("#loading").hide("fast");
-				}, //stop showing loading when the process is complete
-			success: function(html){ //so, if data is retrieved, store it in html
-			//alert("success");
-				$(".content").show("fast"); //animation
-				$(".content").html(html); //show the html inside .content div
-			}
-	}); //close $.ajax(
-
-}
-
-function ReloadRecords(RecordsUri){
-  //alert (RecordsUri);
-  var xmlhttp;
-
-  if (window.XMLHttpRequest) {
-    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-  } else {
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-  }
-  xmlhttp.onreadystatechange=function() {
-    if(xmlhttp.readyState==4) {
-      document.getElementById('recordsdiv').innerHTML=xmlhttp.responseText;
-    }
-  }
-  //alert ("./"+RecordsUri);
-  xmlhttp.open("GET","./"+RecordsUri,true);
-  xmlhttp.send(null);
-}
-
-function Backops(backop){
-  var pathtotv = "./scripts/php/channelform.php"
-  var composedata="backops="+backop+"&op=backops";
-  //alert (composedata);
-
-	$.ajax({
-    method: "get",url: pathtotv,data: composedata,
+function jQueryHandler(form, path, composedata){
+  $.ajax({
+    method: "get",url: path,data: composedata,
     beforeSend: function(){
       $("#loading").show("fast");
+      if (form == "skin") $("#skinform").hide("fast");
       }, //show loading just when link is clicked
     complete: function(){
-    //alert("complete");
+      //alert("complete");
       $("#loading").hide("fast");
       }, //stop showing loading when the process is complete
     success: function(html){ //so, if data is retrieved, store it in html
-    //alert("success");
-      $(".content").show("fast"); //animation
+      //alert("success");
+      if (form == "skin") {
+        $(".content").fadeIn("fast");
+      } else {
+        $(".content").show("fast"); //animation
+      }
       $(".content").html(html); //show the html inside .content div
-      //$(".backdivclass").hide();
+      if (form == "skin") $("#skincheck").slideUp();
     }
-	}); //close $.ajax(
+  }); //close $.ajax(
+}
+
+function Skinops(composedata){
+  var path = "./scripts/php/skins.php";
+  jQueryHandler("skin", path, composedata);
+}
+
+function Reboot(composedata){
+  var path = "./scripts/php/reboot.php";
+  jQueryHandler("reboot", path, composedata);
+}
+
+function ExtrasHandler(composedata){
+  var path = "./scripts/php/extras.php";
+  jQueryHandler("extras", path, composedata);
+}
+
+function Backops(backop){
+  var path = "./scripts/php/channelform.php";
+  var composedata = "backops="+backop+"&op=backops";
+  jQueryHandler("backops", path, composedata);
 }
 
 function ChannelRename(newname,channeltoupdate){
-  var pathtotv = "./scripts/php/channelform.php"
+  var path = "./scripts/php/channelform.php";
   var composedata="channel="+document.channelform.channel.value+"&newname="+document.channelform.newname.value+"&op=rename";
-
-	$.ajax({
-    method: "get",url: pathtotv,data: composedata,
-    beforeSend: function(){
-      alert("Data:"+composedata);
-      $("#loading").show("fast");
-      }, //show loading just when link is clicked
-    complete: function(){
-        //alert("complete");
-      $("#loading").hide("fast");
-      }, //stop showing loading when the process is complete
-      success: function(html){ //so, if data is retrieved, store it in html
-      //alert("success");
-      $(".content").show("fast"); //animation
-      $(".content").html(html); //show the html inside .content div
-      }
-  }); //close $.ajax(
+  jQueryHandler("skin", path, composedata);
 }
 
 function logicfire(curdivid,channelid){
   //alert (curdivid+"-"+channelid);
-  var fromdiv = "pos"+curdivid
+  var fromdiv = "pos"+curdivid;
   //alert (fromdiv);
   var stage = document.channelform.stage.value;
 
@@ -153,171 +73,32 @@ function logicfire(curdivid,channelid){
   }
 }
 
-function orderchannel(source,destination){
-		var xmlhttp;
+function ShowPage(page_name, page_path) {
+  var xmlhttp;
 
-		if (window.XMLHttpRequest) {
-			xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-		} else {
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-		}
-		xmlhttp.onreadystatechange=function() {
-			if(xmlhttp.readyState==4) {
-			//alert("ready");
-			document.getElementById('container').innerHTML=xmlhttp.responseText;
-			}
-		}
+  if (window.XMLHttpRequest) {
+    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
+  } else xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
 
+  xmlhttp.onreadystatechange=function(){if(xmlhttp.readyState==4){document.getElementById(page_name).innerHTML=xmlhttp.responseText;}}
+  xmlhttp.open("GET","./"+page_path,true);
+  xmlhttp.send(null);
+}
+
+function ShowExtras() {ShowPage("showextras", "scripts/php/extras.php");}
+function ShowReboot() {ShowPage("showreboot", "scripts/php/reboot.php");}
+function ShowSkins()  {ShowPage("showskins",  "scripts/php/skinforms.php");}
+function ShowSyslog() {ShowPage("showsyslog", "scripts/php/syslog.php");}
+function ShowRecords(){ShowPage("showrecords","scripts/php/records.php");}
+function ShowUpdate() {ShowPage("showupdate", "scripts/php/update.php");}
+function ShowTV()     {ShowPage("showtv",     "scripts/php/channel-list.php");}
+function ShowHome()   {ShowPage("showhome",   "scripts/php/home.php");}
+
+function orderchannel(source,destination) {
   var totalchannels = document.channelform.totalchannels.value;
   //alert (source+" Will move to "+destination+" Considering totalchannles as:"+totalchannels);
-	composeuri="channel="+source+"&totalchannels="+totalchannels+"&neworder="+destination+"&op=ajaxreorder";
-  //alert (composeuri);
-  xmlhttp.open("GET","./scripts/php/channelform.php?"+composeuri,true);
-  xmlhttp.send(null);
-}
-
-function ShowExtras() {
-  var xmlhttp;
-
-  if (window.XMLHttpRequest) {
-    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-  } else {
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-  }
-
-  xmlhttp.onreadystatechange=function() {
-    if(xmlhttp.readyState==4) {
-      document.getElementById('showextras').innerHTML=xmlhttp.responseText;
-    }
-  }
-
-  xmlhttp.open("GET","./scripts/php/extras.php",true);
-  xmlhttp.send(null);
-}
-
-function ShowReboot() {
-  var xmlhttp;
-
-  if (window.XMLHttpRequest) {
-    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-  } else {
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-  }
-  xmlhttp.onreadystatechange=function() {
-    if(xmlhttp.readyState==4) {
-      document.getElementById('showreboot').innerHTML=xmlhttp.responseText;
-    }
-  }
-
-  xmlhttp.open("GET","./scripts/php/reboot.php",true);
-  xmlhttp.send(null);
-}
-
-function ShowSkins() {
-  var xmlhttp;
-
-  if (window.XMLHttpRequest) {
-    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-  } else {
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-  }
-  xmlhttp.onreadystatechange=function() {
-    if(xmlhttp.readyState==4) {
-      document.getElementById('showskins').innerHTML=xmlhttp.responseText;
-    }
-  }
-
-  xmlhttp.open("GET","./scripts/php/skinforms.php",true);
-  xmlhttp.send(null);
-}
-
-function ShowSyslog() {
-  var xmlhttp;
-
-  if (window.XMLHttpRequest) {
-    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-  } else {
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-  }
-  xmlhttp.onreadystatechange=function() {
-    if(xmlhttp.readyState==4) {
-      document.getElementById('showsyslog').innerHTML=xmlhttp.responseText;
-    }
-  }
-
-  xmlhttp.open("GET","./scripts/php/syslog.php",true);
-  xmlhttp.send(null);
-}
-	
-function ShowRecords() {
-  var xmlhttp;
-
-  if (window.XMLHttpRequest) {
-    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-  } else {
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-  }
-  xmlhttp.onreadystatechange=function() {
-    if(xmlhttp.readyState==4) {
-      document.getElementById('showrecords').innerHTML=xmlhttp.responseText;
-    }
-  }
-
-  xmlhttp.open("GET","./scripts/php/records.php",true);
-  xmlhttp.send(null);
-}	
-
-function ShowHelpUs() {
-  var xmlhttp;
-
-  if (window.XMLHttpRequest) {
-    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-  } else {
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-  }
-  xmlhttp.onreadystatechange=function() {
-    if(xmlhttp.readyState==4) {
-      document.getElementById('showhelpus').innerHTML=xmlhttp.responseText;
-    }
-  }
-
-  xmlhttp.open("GET","./scripts/php/helpus.php",true);
-  xmlhttp.send(null);
-}
-
-function ShowTV() {
-  var xmlhttp;
-  if (window.XMLHttpRequest) {
-    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-  } else {
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-  }
-  xmlhttp.onreadystatechange=function() {
-    if(xmlhttp.readyState==4) {
-      document.getElementById('showtv').innerHTML=xmlhttp.responseText;
-    }
-  }
-
-  xmlhttp.open("GET","./scripts/php/channel-list.php",true);
-  xmlhttp.send(null);
-}
-
-function ShowHome() {
-  var xmlhttp;
-
-  if (window.XMLHttpRequest) {
-    xmlhttp=new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
-  } else {
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-  }
-  xmlhttp.onreadystatechange=function() {
-    if(xmlhttp.readyState==4) {
-      document.getElementById('showhome').innerHTML=xmlhttp.responseText;
-    }
-  }
-
-  xmlhttp.open("GET","./scripts/php/home.php",true);
-  xmlhttp.send(null);
+  composeuri = "./scripts/php/channelform.php?channel="+source+"&totalchannels="+totalchannels+"&neworder="+destination+"&op=ajaxreorder";
+  ShowPage("container", composeuri);
 }
 
 function checkPass(){
@@ -334,5 +115,70 @@ function checkPass(){
 }
 
 function confirmation(alert_message, recordsuri) {
-	if (confirm(alert_message)) ReloadRecords(recordsuri);
+	if (confirm(alert_message)) ShowPage("recordsdiv", recordsuri);
+}
+
+function initAjaxForm(form_id, form_validations){
+		var form = '#' + form_id;
+		var form_message = form + '-message';
+
+		/* enable/disable submit button */
+		var disableSubmit = function(val){$(form + ' input[type=submit]').attr('disabled', val);};
+
+		/* setup jQuery Plugin 'ajaxForm' */
+		var options = {
+				dataType:	'json',
+				beforeSubmit: function(){
+						/* run form validations if they exist */
+						if(typeof form_validations == "function" && !form_validations()) {
+								/* this will prevent the form from being submitted */
+								return false;
+						}
+						disableSubmit(true);
+						/* you can use these methods to access element style or css */
+						$(form_message).attr('style','display:none');
+						$('#package_filename').attr('style','display:none');
+						$('#package_author').attr('style','display:none');
+            $('#package_version').attr('style','display:none');
+            $('#package_install_log').attr('style','display:none');
+            $('#package_description').attr('style','display:none');
+						$(".upload_wait").css("display", "block");
+				},
+				success: function(json){
+						/*
+						 * The response from AJAX request will look something like this:
+						 *  status : success or error,
+						 *  message : File uploaded successfully.
+						 *  file : filename
+						 *  type : image file type
+             * 
+						 * Once the jQuery Form Plugin receives the response, it evaluates the string into a JavaScript object, allowing you to access
+						 * object members as demonstrated below.
+						 */
+						$(".upload_wait").css("display", "none");
+						disableSubmit(false);
+						if(json.status == 'error') {
+							$(form_message).attr('style','display:block');
+							$(form_message).html('<span style="color:#F00;font-weight:bold;">' + json.message + '</span>');
+						} else {
+							$(form_message).attr('style','display:block');
+							$('#package_filename').attr('style','display:block');
+							$('#package_author').attr('style','display:block');
+              $('#package_version').attr('style','display:block');
+              $('#package_install_log').attr('style','display:block');
+              $('#package_description').attr('style','display:block');
+							$(form_message).html(json.message);
+							$('#package_filename').html('<b>File Name: </b>' + json.package_filename);
+							$('#package_author').html('<b>Author: </b>' + json.package_author);
+              $('#package_version').html('<b>Version: </b>' + json.package_version);
+              $('#package_install_log').html('<b>Install log: </b>' + json.package_install_log);
+              $('#package_description').html('<b>Description: </b>' + json.package_description);
+						}
+						if(json.status == 'success') {
+							$(form).clearForm(); /* clears the form but this does not clear the file input field */
+							$("form")[ 0 ].reset(); /* or you can use this to clear all the fields */
+						}
+				}
+		};
+		$(form).ajaxForm(options);
 }

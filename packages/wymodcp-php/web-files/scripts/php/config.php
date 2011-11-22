@@ -1,7 +1,7 @@
 <?php
 if ($_POST['set_pwd'] == 1 && $_POST['pwd_1'] == "" && $_POST['pwd_2'] == "") {
   //Remove refence to htpasswd file
-  exec("sed -i 's/global_passwords_file/#global_passwords_file/g' /wymedia/usr/etc/mongoose.conf");
+  exec("sed -i 's/^.*global_passwords_file/global_passwords_file/' /wymedia/usr/etc/mongoose.conf");
   //Remove password file
   exec("rm -f /wymedia/usr/etc/mongoose_htpasswd");
   //Restart mongoose

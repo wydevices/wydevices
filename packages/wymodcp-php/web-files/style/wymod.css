@@ -71,7 +71,7 @@ a.underline{
 	margin:0 auto;
 	margin-top: 5px;
 	margin-bottom: 0px;
-	height:25px;
+  height:94px;
 	background:url(../style/upperbar.png);
 	font-family:Verdana,Arial,sans-serif;
 	line-height:1.8em;
@@ -82,7 +82,7 @@ a.underline{
 #upperbar #links{
 	float:left;
 	width: 345px;
-	margin-top: 1px;
+	margin-top: 5px;
 	padding-top: 1px;
 }
 #upperbar a:link,#upperbar a:visited{
@@ -307,7 +307,6 @@ hr{
   height:25px;
   font-size: 9px;
 }
-
 /* Footers */
 .bottombar {
 	height:34px;
@@ -348,73 +347,27 @@ hr{
 }
 .renamebutton {
   border: 0;
-  background: url(../../style/rename.png);
+  background: url(../style/rename.png);
   width: 16px;
   height: 16px;
-  margin: 2px; 
 }
-.renamebutton:hover {
+.valid_renamebutton {
   border: 0;
-  background: url(../../style/rename.png);
+  background: url(../style/valid_rename.png);
   width: 16px;
   height: 16px;
-  margin: 2px; 
 }
-.renamebutton:active {
+.wydevslidebutton, .wydevslidebutton:hover {
   border: 0;
-  background: url(../../style/rename.png);
+  background: url(../style/BTNSliderStage1.png);
   width: 16px;
   height: 16px;
-  margin: 2px; 
 }
-.renamebutton:link {
+.wydevslidebutton:active, .wydevslidebutton:link {
   border: 0;
-  background: url(../../style/rename.png);
+  background: url(../style/BTNSliderStage2.png);
   width: 16px;
   height: 16px;
-  margin: 2px; 
-}
-.renamebutton:visited {
-  border: 0;
-  background: url(../../style/rename.png);
-  width: 16px;
-  height: 16px;
-  margin: 2px; 
-}
-.wydevslidebutton {
-  border: 0;
-  background: url(../../style/BTNSliderStage1.png);
-  width: 16px;
-  height: 16px;
-  margin: 2px; 
-}
-.wydevslidebutton:hover {
-  border: 0;
-  background: url(../../style/BTNSliderStage2.png);
-  width: 16px;
-  height: 16px;
-  margin: 2px; 
-}
-.wydevslidebutton:active {
-  border: 0;
-  background: url(../../style/BTNSliderStage3.png);
-  width: 16px;
-  height: 16px;
-  margin: 2px; 
-}
-.wydevslidebutton:link {
-  border: 0;
-  background: url(../../style/BTNSliderStage1.png);
-  width: 16px;
-  height: 16px;
-  margin: 2px; 
-}
-.wydevslidebutton:visited {
-  border: 0;
-  background: url(../../style/BTNSliderStage4.png);
-  width: 16px;
-  height: 16px;
-  margin: 2px;
 }
 #menu {
 	list-style:none;
@@ -470,3 +423,19 @@ hr{
 .small.button, .small.button:visited { font-size: 11px; padding: 0; }
 .button, .button:visited, .medium.button, .medium.button:visited { font-size: 13px; font-weight: bold; line-height: 1; /*text-shadow: 0 -1px 1px rgba(0,0,0,0.25);*/ }
 .large.button, .large.button:visited { font-size: 14px; padding: 8px 14px 9px; }
+
+.upload_wait {
+  position:absolute;
+  top:36%;
+  left:50%;
+  margin-left:-150px;
+  height:70px;
+  width:300px;
+  background: #ebebeb;
+  border:solid 3px #636363;
+  display:none;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  text-align:center;
+}

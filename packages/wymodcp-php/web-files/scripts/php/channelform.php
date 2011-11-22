@@ -108,12 +108,12 @@ switch ($operation){
     <hr /><br />
     <label>New Name:</label>
     <input id="newname" name="newname" class="text" type="text" maxlength="20" value="" />
-    <input type="button" class="button" style="width: 100px" onClick="ChannelRename()" value="Rename" />
+    <input type="button" class="button" style="width: 100px" onClick="javascript:ChannelRename()" value="Rename" />
     <hr /><br />
     <div id="backopsdiv" class="backdivclass">
       <h2>Backup and Restore operations</h2>
-      <input type="button" class="button" style="width: 100px" onClick="Backops('backup')" value="Backup" />&nbsp;&nbsp;
-      <input type="button" class="button" style="width: 100px" onClick="Backops('restore')" value="Restore" />
+      <input type="button" class="button" style="width: 100px" onClick="javascript:Backops('backup')" value="Backup" />&nbsp;&nbsp;
+      <input type="button" class="button" style="width: 100px" onClick="javascript:Backops('restore')" value="Restore" />
     </div>
 	</form>
 </div>
