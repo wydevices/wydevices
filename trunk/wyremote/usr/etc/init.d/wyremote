@@ -1,0 +1,52 @@
+#!/bin/sh
+
+export LD_LIBRARY_PATH="/wymedia/usr/lib:/wymedia/wyremote/usr/lib"
+PIDFILE=/var/run/wyremote.pid
+DAEMON=/wymedia/wyremote/usr/bin/mongoose
+CONFIG=/wymedia/wyremote/usr/etc/mongoose.conf
+
+case "$1" in
+        start)
+                if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+                        echo "wyremote already running."
+                        exit 0
+                fi
+                if [ ! -f "$DAEMON.conf" ]; then
+                        ln -s $CONFIG "$DAEMON.conf" &>/dev/null
+                fi
+                echo -n "Starting wyremote..."
+                /wymedia/usr/bin/extras start wymodcp >/dev/null 2>&1 &
+                $DAEMON  >/dev/null 2>&1 &
+                echo $! > $PIDFILE
+                echo ok
+                ;;
+        stop)
+                if [ ! -s $PIDFILE ]; then
+                        echo "wyremote not running."
+                        exit 0
+                fi
+                echo -n "Stopping wyremote..."
+                kill $(cat $PIDFILE) >/dev/null 2>&1
+                rm -f $PIDFILE
+                echo ok
+                ;;
+        restart)
+                $0 stop
+                $0 start
+                ;;
+        status)
+                if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+                        echo "wyremote running"
+                else
+                        echo "wyremote not running"
+                        exit 1
+                fi
+                exit 0
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart|status}"
+                exit 1
+                ;;
+esac
+
+exit 0
