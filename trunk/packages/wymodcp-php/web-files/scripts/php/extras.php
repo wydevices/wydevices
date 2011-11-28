@@ -152,7 +152,7 @@ if ($autostartwymodcp || $activatewymodcp){
 }
 // ################ wymodcp ###############################
 // ################ wyremote ###############################
-if ($autostartwyremote || $activatewytemote){
+if ($autostartwyremote || $activatewyremote){
   echo "<h4><b> WYREMOTE </b> </h4>";
   echo "<table border=1><tr><td>AutoStart</td><td>Action</td></tr><tr>";
   echo "<td>";
