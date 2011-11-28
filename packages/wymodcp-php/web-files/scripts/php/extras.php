@@ -21,6 +21,8 @@ $activatecrond=$_REQUEST["activatecrond"];
 $autostartcrond=$_REQUEST["autostartcrond"];
 $activatesyslogd=$_REQUEST["activatesyslogd"];
 $autostartsyslogd=$_REQUEST["autostartsyslogd"];
+$activatewyremote=$_REQUEST["activatewyremote"];
+$autostartwyremote=$_REQUEST["autostartwyremote"];
 
 // ################ syslogd ############################
 if ($autostartsyslogd || $activatesyslogd){
@@ -149,6 +151,38 @@ if ($autostartwymodcp || $activatewymodcp){
   echo "</td></tr></table>";	
 }
 // ################ wymodcp ###############################
+// ################ wyremote ###############################
+if ($autostartwyremote || $activatewytemote){
+  echo "<h4><b> WYREMOTE </b> </h4>";
+  echo "<table border=1><tr><td>AutoStart</td><td>Action</td></tr><tr>";
+  echo "<td>";
+
+  if ($autostartwyremote == "") { 
+    echo "NULL";
+  } else {
+    if ($autostartwyremote == "true") {
+      echo ("Enabled!");
+      system ("ln -sf ../init.d/wyremote /wymedia/usr/etc/rc.d/");
+    } else {
+      echo ("Disabled!");
+      system ("rm  /wymedia/usr/etc/rc.d/wyremote");
+    }
+  }
+
+  echo "</td><td>";
+
+  if ($activatewyremote == "") { 
+    echo "NULL";
+  } else {
+    if ($activatewyremote == "true") {
+      system ("/wymedia/usr/etc/init.d/wyremote start");
+    } else {
+      system ("/wymedia/usr/etc/init.d/wyremote stop");
+    }
+  }
+  echo "</td></tr></table>";	
+}
+// ################ wyremote ###############################
 // ################ pureftpd ###############################
 if ($autostartpureftpd || $activatepureftpd){
   echo "<h4><b> PURE-FTPD </b> </h4>";
