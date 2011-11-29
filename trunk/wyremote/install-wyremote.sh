@@ -9,6 +9,7 @@ if [ $? -eq 0 ]; then
 
 	ln -s /wymedia/wyremote/usr/share/wymodcp/wyremote.html /wymedia/usr/share/wymodcp/wyremote.html
 	ln -s /wymedia/wyremote/usr/share/wymodcp/scripts/php/remotecontrol.php /wymedia/usr/share/wymodcp/scripts/php/remotecontrol.php
+  ln -s /wymedia/wyremote/usr/share/wymodcp/style/wyremote.png /wymedia/usr/share/wymodcp/style/wyremote.png
 	ln -s /wymedia/wyremote/usr/etc/init.d/wyremote /wymedia/usr/etc/init.d/wyremote
 	ln -s /wymedia/usr/bin/mongoose /wymedia/wyremote/usr/bin/mongoose
 
@@ -20,13 +21,13 @@ if [ $? -eq 0 ]; then
 
 	sync
 
-	echo "Se ha instalado wyremote."
-	echo "Se reinicia el sistema en 5 segundos."
+	echo "Se ha instalado wyremote. | wyremote is installed."
+	echo "Se reinicia el sistema en 5 segundos. | The system is restarted in 5 seconds."
 	sleep 5
 	reboot
 
 else
 
-	 echo "No se ha instalado wyremote."
+	 echo "No se ha instalado wyremote. | wyremote is not installed."
 
 fi
