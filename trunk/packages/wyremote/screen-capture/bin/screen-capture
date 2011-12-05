@@ -1,13 +1,8 @@
 #!/bin/sh
 
 
-export LD_LIBRARY_PATH="/wymedia/usr/lib:/wymedia/screen-capture/lib"
-
-if [ ! -f "/usr/lib/GraphicsMagick-1.1.14" ]; then
-	ln -s /wymedia/screen-capture/lib/GraphicsMagick-1.1.14 /usr/lib/GraphicsMagick-1.1.14
-fi
-/wymedia/screen-capture/bin/fbcat /dev/fb0 > /wymedia/screen-capture/tmp/capture.pnm
-/wymedia/screen-capture/bin/gm convert /wymedia/screen-capture/tmp/capture.pnm /wymedia/usr/share/wymodcp/capture.png
-rm -f /wymedia/screen-capture/tmp/capture.pnm
-
 export LD_LIBRARY_PATH="/wymedia/usr/lib"
+
+/wymedia/usr/bin/fbcat /dev/fb0 > /wymedia/usr/tmp/capture.pnm
+/wymedia/usr/bin/gm convert /wymedia/usr/tmp/capture.pnm /wymedia/usr/share/wymodcp/capture.png
+rm -f /wymedia/usr/tmp/capture.pnm

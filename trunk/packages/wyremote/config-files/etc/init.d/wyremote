@@ -1,9 +1,9 @@
 #!/bin/sh
 
-export LD_LIBRARY_PATH="/wymedia/usr/lib:/wymedia/wyremote/usr/lib"
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
 PIDFILE=/var/run/wyremote.pid
-DAEMON=/wymedia/wyremote/usr/bin/mongoose
-CONFIG=/wymedia/wyremote/usr/etc/mongoose.conf
+DAEMON=/wymedia/usr/bin/wyremote/mongoose
+CONFIG=/wymedia/usr/etc/wyremote/mongoose.conf
 
 case "$1" in
         start)
