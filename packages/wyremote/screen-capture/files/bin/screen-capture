@@ -1,8 +1,10 @@
 #!/bin/sh
 
 
-export LD_LIBRARY_PATH="/wymedia/usr/lib"
+export LD_LIBRARY_PATH="/wymedia/usr/lib:/wymedia/usr/lib/gm"
 
 /wymedia/usr/bin/fbcat /dev/fb0 > /wymedia/usr/tmp/capture.pnm
 /wymedia/usr/bin/gm convert /wymedia/usr/tmp/capture.pnm /wymedia/usr/share/wymodcp/capture.png
 rm -f /wymedia/usr/tmp/capture.pnm
+
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
