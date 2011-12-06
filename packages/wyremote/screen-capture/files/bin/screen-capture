@@ -3,6 +3,9 @@
 
 export LD_LIBRARY_PATH="/wymedia/usr/lib:/wymedia/usr/lib/gm"
 
+rm /usr/lib/GraphicsMagick-1.1.14
+ln -s /wymedia/usr/lib/GraphicsMagick-1.1.14 /usr/lib/GraphicsMagick-1.1.14
+
 /wymedia/usr/bin/fbcat /dev/fb0 > /wymedia/usr/tmp/capture.pnm
 /wymedia/usr/bin/gm convert /wymedia/usr/tmp/capture.pnm /wymedia/usr/share/wymodcp/capture.png
 rm -f /wymedia/usr/tmp/capture.pnm
