@@ -417,6 +417,15 @@ if ($handle = opendir($initdfolder)) {
     }
     closedir($handle);
 }
+
+$readstatuswyremote = exec($initdfolder."wyremote status");
+$extranamewyremote  = split(" ",$readstatuswyremote);
+if (trim($extranamewyremote[1]) == "not") { $statuswyremote = false; } else { $statuswyremote = true; }
+if ($statuswyremote == true) {
+        echo "<tr><td></td></tr>";
+        echo "<tr><td><b><a href=./wyremote.php target=_new>Access to wyremote</a></b></td></tr>";
+
+}
 ?>
       </table>
     </form>	
