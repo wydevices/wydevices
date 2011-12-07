@@ -1,12 +1,14 @@
-#summary First video showing the development framework for wydevices
+#summary Video's showing the development framework for wydevices
 #labels Phase-Requirements
 
 = Introduction =
 
-This is the video:
+Next links provides videos related to our activities:
 
-http://dl.dropbox.com/u/1975297/Wymod-DeveloperFramework.ogv
+http://dl.dropbox.com/u/1975297/wycast/2010-07-29_using_wydevmodv1_from_a_windows_virtual_machine.avi
 
-And more information can be acquired in the portal:
+http://dl.dropbox.com/u/1975297/wycast/2010-07-29_wydevmodv2__creating_the_wydemo_pendrive_on_a_linux_box.avi
 
-http://www.wydevelopment.eu/index.php/es/videotutoriales/147-a-wydevices-wydeveloper-framework
+http://dl.dropbox.com/u/1975297/wycast/2010-07-29_wydevmodv2__installation_process.avi
+
+http://dl.dropbox.com/u/1975297/wycast/2010-07-29_wymodcpphp__preview.avi
