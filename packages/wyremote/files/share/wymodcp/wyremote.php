@@ -66,7 +66,6 @@ function PressButton(clickedbutton) {
 
 <td>
 <?php
-system ("sleep 5");
 system ("sh /wymedia/usr/bin/screen-capture > /dev/null 2>&1");
 ?>
 <img src="./capture.png" width="1000" height="563">
