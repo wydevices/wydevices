@@ -6,7 +6,7 @@
 
 <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
 
-<title>wyremote 0.2</title>
+<title>wyremote 0.4</title>
 
 <script type="text/javascript">
 function PressButton(clickedbutton) {
