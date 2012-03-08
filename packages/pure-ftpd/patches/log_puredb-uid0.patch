@@ -1,16 +1,16 @@
 Allow virtual user with uid=0 and gid=0 to login
-diff -Naur pure-ftpd-1.0.29/src/log_puredb.c pure-ftpd-1.0.29wybox/src/log_puredb.c
---- pure-ftpd-1.0.29/src/log_puredb.c	2010-03-15 16:20:25.000000000 +0100
-+++ pure-ftpd-1.0.29wybox/src/log_puredb.c	2010-06-20 15:03:32.497736885 +0200
-@@ -225,9 +225,9 @@
-         return -1;
+diff -Naur pure-ftpd-1.0.35/src/log_puredb.c pure-ftpd-1.0.35wybox/src/log_puredb.c
+--- pure-ftpd-1.0.35/src/log_puredb.c	2011-10-31 16:33:27.000000000 +0100
++++ pure-ftpd-1.0.35wybox/src/log_puredb.c	2012-03-08 20:08:14.645756062 +0100
+@@ -226,9 +226,9 @@
      }
      result->gid = (gid_t) strtoul(line, NULL, 10);
+ #ifndef ACCEPT_ROOT_VIRTUAL_USERS
 -    if (result->uid <= (uid_t) 0 || result->gid <= (gid_t) 0) {
-+    /*if (result->uid <= (uid_t) 0 || result->gid <= (gid_t) 0) {
++/*    if (result->uid <= (uid_t) 0 || result->gid <= (gid_t) 0) {
          return -1;
 -    }
 +    }*/
+ #endif
      if (my_strtok2(NULL, *PW_LINE_SEP) == NULL) {   /* gecos */
          return -1;
-     }

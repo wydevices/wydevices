@@ -439,3 +439,10 @@ hr{
   border-radius: 4px;
   text-align:center;
 }
+
+#wyremote_table {
+  position:fixed;
+  top: 160px;
+  left: 0px;
+  z-index:1;
+}

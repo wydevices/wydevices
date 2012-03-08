@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>WyMod Control Panel v3.0</title>
+<title>WyMod Control Panel v3.1</title>
 
 <!-- JS Libs includes -->
 <script type="text/javascript" src="./scripts/js/jquery.min.js"></script>
@@ -44,8 +44,8 @@ $(document).ready(	function(){
         case "docs":
           var path = "./scripts/php/docs.php"
           break;
-        case "extras":
-          var path = "./scripts/php/extras.php"
+        case "wyremote":
+          var path = "./scripts/php/wyremote.php"
           break;
         case "config":
           var path = "./scripts/php/config.php"
@@ -88,7 +88,7 @@ $(document).ready(	function(){
     <div id="header">
       <ul id="menu">
         <li id="home"><a href="#" title="home">Home</a></li>
-        <li id="extras"><a href="#" title="extras">Extras</a></li>
+        <li id="wyremote"><a href="#" title="wyremote">WyRemote</a></li>
         <li id="reboot"><a href="#" title="reboot">Reboot</a></li>
         <li id="syslog"><a href="#" title="syslog">Syslog</a></li>
         <li id="skins"><a href="#" title="skins">Skins</a></li>

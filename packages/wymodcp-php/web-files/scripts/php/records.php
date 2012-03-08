@@ -192,7 +192,7 @@ if (isset($_GET['name']) && !empty($_GET['name']) && isset($_GET['path']) && !em
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>WyMod Control Panel v3.0</title>
+    <title>WyMod Control Panel v3.1</title>
     <script src="scripts/js/wydev.js" type="text/javascript"></script>
 </head>
 <body>

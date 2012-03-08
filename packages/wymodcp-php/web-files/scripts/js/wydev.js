@@ -22,6 +22,10 @@ function jQueryHandler(form, path, composedata){
   }); //close $.ajax(
 }
 
+function PressButton(composedata) {
+	jQueryHandler("wyremote","./scripts/php/wyremote.php","clickedbutton="+composedata);
+}
+
 function Skinops(composedata){
   var path = "./scripts/php/skins.php";
   jQueryHandler("skin", path, composedata);
@@ -33,7 +37,7 @@ function Reboot(composedata){
 }
 
 function ExtrasHandler(composedata){
-  var path = "./scripts/php/extras.php";
+  var path = "./scripts/php/config.php";
   jQueryHandler("extras", path, composedata);
 }
 
@@ -85,14 +89,14 @@ function ShowPage(page_name, page_path) {
   xmlhttp.send(null);
 }
 
-function ShowExtras() {ShowPage("showextras", "scripts/php/extras.php");}
-function ShowReboot() {ShowPage("showreboot", "scripts/php/reboot.php");}
-function ShowSkins()  {ShowPage("showskins",  "scripts/php/skinforms.php");}
-function ShowSyslog() {ShowPage("showsyslog", "scripts/php/syslog.php");}
-function ShowRecords(){ShowPage("showrecords","scripts/php/records.php");}
-function ShowUpdate() {ShowPage("showupdate", "scripts/php/update.php");}
-function ShowTV()     {ShowPage("showtv",     "scripts/php/channel-list.php");}
-function ShowHome()   {ShowPage("showhome",   "scripts/php/home.php");}
+function ShowWyRemote() {ShowPage("showwyremote","scripts/php/wyremote.php");}
+function ShowReboot() {ShowPage("showreboot",    "scripts/php/reboot.php");}
+function ShowSkins()  {ShowPage("showskins",     "scripts/php/skinforms.php");}
+function ShowSyslog() {ShowPage("showsyslog",    "scripts/php/syslog.php");}
+function ShowRecords(){ShowPage("showrecords",   "scripts/php/records.php");}
+function ShowUpdate() {ShowPage("showupdate",    "scripts/php/update.php");}
+function ShowTV()     {ShowPage("showtv",        "scripts/php/channel-list.php");}
+function ShowHome()   {ShowPage("showhome",      "scripts/php/home.php");}
 
 function orderchannel(source,destination) {
   var totalchannels = document.channelform.totalchannels.value;
