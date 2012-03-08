@@ -38,12 +38,78 @@ if (!empty($_GET['wyclim_temp']) && $_GET['wyclim_temp'] >= 40 && $_GET['wyclim_
   unset($_GET['wyclim_temp']);
   exit;
 }
+
+include("func.extras.php");
 ?>
 <h1>Configuration</h1><br />
 
+<h2>Extras Management</h2>
+<form id="extrasform" method="get" action="./scripts/php/config.php">
+	<div class="extrasclass"><p>Update extras configuration</p>
+		<table>
+      <tr><th align="left">Process</th><th>AutoStart</th><th>Status</th><th>Enable</th><th>Disable</th><th>Start</th><th>Stop</th></tr>
+      <tr><td colspan="7"><hr width="100%" /></td></tr>
+<?php
+$initdfolder = '/wymedia/usr/etc/init.d/';
+if ($handle = opendir($initdfolder)) {
+  while (false !== ($file = readdir($handle))) {
+    if ($file != "." && $file != "..") {
+      $readstatus = exec($initdfolder.$file." status");
+      $extraname  = split(" ",$readstatus);
+      $readenable = system("ls /wymedia/usr/etc/rc.d/".$file." 2>/dev/null >/dev/null", $retval);
+
+      if (trim($extraname[1]) == "not") { $status = false; } else { $status = true; }
+      if ($retval == 1) { $enable = false; } else { $enable = true; }
+
+      echo "<tr><td><b>".$extraname[0]."</b></td>";
+
+      if ($enable == true) {
+        echo "<td align=\"center\"><img src=./style/available.png onclick=\"javascript:ExtrasHandler('autostart".$extraname[0]."=false')\" /></td>";
+      } else {
+        echo "<td align=\"center\"><img src=./style/process-stop.png onclick=\"javascript:ExtrasHandler('autostart".$extraname[0]."=true')\" /></td>";
+      }
+      if ($status == true) {
+        echo "<td><div style=\"color:#0A0\"><b>running</b></div></td>";
+      } else {
+        echo "<td><div style=\"color:#F00\"><b>stopped</b></div></td>";
+      }
+      ?>
+      <td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo $extraname[0];?>" type="radio" class="extraenable" value="true"<?php echo"onclick=\"javascript:ExtrasHandler('autostart".$extraname[0]."=true')\"";?> />Enable</td>
+      <td><input id="<?php echo $extraname[0];?>" name="autostart<?php echo $extraname[0];?>" type="radio" class="extraenable" value="false"<?php echo"onclick=\"javascript:ExtrasHandler('autostart".$extraname[0]."=false')\"";?> />Disable</td>
+      <td><input id="<?php echo $extraname[0];?>" name="activate<?php echo $extraname[0];?>" type="radio" class="extraenable" value="true"<?php echo"onclick=\"javascript:ExtrasHandler('activate".$extraname[0]."=true')\"";?>/>Start</td>
+      <td><input id="<?php echo $extraname[0];?>" name="activate<?php echo $extraname[0];?>" type="radio" class="extraenable" value="false"<?php echo"onclick=\"javascript:ExtrasHandler('activate".$extraname[0]."=false')\"";?> />Stop</td>	
+      <?php
+    }
+  }
+  closedir($handle);
+}
+/*
+$readstatuswyremote = exec($initdfolder."wyremote status");
+$extranamewyremote  = split(" ",$readstatuswyremote);
+if (trim($extranamewyremote[1]) == "not") { $statuswyremote = false; } else { $statuswyremote = true; }
+if ($statuswyremote == true) {
+    echo "<tr><td></td></tr>";
+    echo "<tr><td><b><a href=./wyremote.php target=_new>Access to wyremote</a></b></td></tr>";
+}
+*/
+?>
+    </table>
+</form>	
+<br />
+<h2>Extras Usage</h2>
+  <p>You can select up to 4 actions to apply to extras services</p>
+<h2>Actions</h2>
+<ul>
+  <li><b>Enable:</b>Extra will be automatically started after reboot</li>
+  <li><b>Start:</b>Extra will start now</li>
+  <li><b>Stop:</b>Extra will stop now</li>
+  <li><b>Disable:</b>Extra will not be automatically started after reboot</li>
+</ul>
+<br />
+
 <form name="chgpassword" id="chgpassword" method="post" action="./scripts/php/config.php" onSubmit="return checkPass();">
   <table>
-  <tr><td></td><td align="left"><h2>Change web access password</h2></td></tr>
+  <tr><td></td><td align="left"><h1>Change web access password</h1></td></tr>
   <tr><td></td>
     <td align="left" colspan="2">
       <i>Leave blank for unset password</i><br /><br />
@@ -58,7 +124,7 @@ if (!empty($_GET['wyclim_temp']) && $_GET['wyclim_temp'] >= 40 && $_GET['wyclim_
 
 <form id="chgwyclim" method="get" action="./scripts/php/config.php">
   <table>
-  <tr><td></td><td align="left" colspan="2"><h2>Change CPU target temperature</h2></td></tr>
+  <tr><td></td><td align="left" colspan="2"><h1>Change CPU target temperature</h1></td></tr>
   <tr><td></td>
     <td align="left" colspan="2">
       <i>By default CPU temperature are target to 50 °C.<br />
