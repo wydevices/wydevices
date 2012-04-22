@@ -1,0 +1,60 @@
+diff -Naur cifs-utils-5.4/configure cifs-utils-5.4wybox/configure
+--- cifs-utils-5.4/configure	2012-04-18 21:54:37.000000000 +0200
++++ cifs-utils-5.4wybox/configure	2012-04-22 19:28:06.161192393 +0200
+@@ -4796,7 +4796,7 @@
+ $as_echo "#define HAVE_MALLOC 1" >>confdefs.h
+ 
+ else
+-  $as_echo "#define HAVE_MALLOC 0" >>confdefs.h
++  $as_echo "#define HAVE_MALLOC 1" >>confdefs.h
+ 
+    case " $LIBOBJS " in
+   *" malloc.$ac_objext "* ) ;;
+@@ -4805,7 +4805,7 @@
+ esac
+ 
+ 
+-$as_echo "#define malloc rpl_malloc" >>confdefs.h
++#$as_echo "#define malloc rpl_malloc" >>confdefs.h
+ 
+ fi
+ 
+@@ -4863,7 +4863,7 @@
+ $as_echo "#define HAVE_REALLOC 1" >>confdefs.h
+ 
+ else
+-  $as_echo "#define HAVE_REALLOC 0" >>confdefs.h
++  $as_echo "#define HAVE_REALLOC 1" >>confdefs.h
+ 
+    case " $LIBOBJS " in
+   *" realloc.$ac_objext "* ) ;;
+@@ -4872,7 +4872,7 @@
+ esac
+ 
+ 
+-$as_echo "#define realloc rpl_realloc" >>confdefs.h
++#$as_echo "#define realloc rpl_realloc" >>confdefs.h
+ 
+ fi
+ 
+diff -Naur cifs-utils-5.4/Makefile.am cifs-utils-5.4wybox/Makefile.am
+--- cifs-utils-5.4/Makefile.am	2012-04-18 21:40:06.000000000 +0200
++++ cifs-utils-5.4wybox/Makefile.am	2012-04-22 19:25:49.296665864 +0200
+@@ -1,4 +1,4 @@
+-AM_CFLAGS = -Wall -Wextra -Werror
++AM_CFLAGS = -Wall -Wextra
+ ACLOCAL_AMFLAGS = -I aclocal
+ 
+ root_sbindir = $(ROOTSBINDIR)
+diff -Naur cifs-utils-5.4/Makefile.in cifs-utils-5.4wybox/Makefile.in
+--- cifs-utils-5.4/Makefile.in	2012-04-18 21:54:38.000000000 +0200
++++ cifs-utils-5.4wybox/Makefile.in	2012-04-22 19:26:10.934289945 +0200
+@@ -306,7 +306,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-AM_CFLAGS = -Wall -Wextra -Werror
++AM_CFLAGS = -Wall -Wextra
+ ACLOCAL_AMFLAGS = -I aclocal
+ root_sbindir = $(ROOTSBINDIR)
+ mount_cifs_SOURCES = mount.cifs.c mtab.c resolve_host.c util.c
