@@ -1,0 +1,12 @@
+diff -Naur cifs-utils-5.4/mount.cifs.c cifs-utils-5.4wybox/mount.cifs.c
+--- cifs-utils-5.4/mount.cifs.c	2012-04-18 21:40:06.000000000 +0200
++++ cifs-utils-5.4wybox/mount.cifs.c	2012-04-22 19:20:06.891231122 +0200
+@@ -1653,7 +1653,7 @@
+ 		goto del_mtab_exit;
+ 	}
+ 
+-	mtabtmpfile = mktemp(mtabtmpfile);
++	mtabtmpfile = mkstemp(mtabtmpfile);
+ 	if (!mtabtmpfile) {
+ 		fprintf(stderr, "del_mtab: cannot setup tmp file destination");
+ 		rc = EX_FILEIO;
