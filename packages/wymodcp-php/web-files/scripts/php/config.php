@@ -58,7 +58,7 @@ if ($handle = opendir($initdfolder)) {
       $extraname  = split(" ",$readstatus);
 
       if (trim($extraname[1]) == "not") { $status = false; } else { $status = true; }
-      if (file_exists("/wymedia/usr/etc/rc.d/".$file)) { $enable = false; } else { $enable = true; }
+      if (file_exists("/wymedia/usr/etc/rc.d/".$file)) { $enable = true; } else { $enable = false; }
 
       echo "<tr><td><b>".$extraname[0]."</b></td>";
 
