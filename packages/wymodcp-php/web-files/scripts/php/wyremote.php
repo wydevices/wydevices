@@ -1,75 +1,39 @@
 <?php 
 
 $video_resolution = exec("fbset -i -fb /dev/fb0 | grep mode | head -n 1");
+system("fb2png capture.png");
 
 unset($cb);
+unset($remote_action);
 
 if (!empty($_REQUEST["clickedbutton"])){
   $cb = $_REQUEST["clickedbutton"];
+
   switch ($cb){
-    case "wheel_rwd":
-      system ("wget http://127.0.0.1:81/scripts/expect/WHEEL_RWD.cgi");
-      break;
-    case "wheel_fwd":
-      system ("wget http://127.0.0.1:81/scripts/expect/WHEEL_FWD.cgi");
-      break;
-    case "left":
-      system ("wget http://127.0.0.1:81/scripts/expect/LEFT.cgi");
-      break;
-    case "right":
-      system ("wget http://127.0.0.1:81/scripts/expect/RIGHT.cgi");
-      break;
-    case "up":
-      system ("wget http://127.0.0.1:81/scripts/expect/UP.cgi");
-      break;
-    case "down":
-      system ("wget http://127.0.0.1:81/scripts/expect/DOWN.cgi");
-      break;
-    case "select":
-      system ("wget http://127.0.0.1:81/scripts/expect/SELECT.cgi");
-      break;
-    case "toggle_menu":
-      system ("wget http://127.0.0.1:81/scripts/expect/TOGGLE_MENU.cgi");
-      break;
-    case "action_menu":
-      system ("wget http://127.0.0.1:81/scripts/expect/ACTION_MENU.cgi");
-      break;
-    case "volume_up":
-      system ("wget http://127.0.0.1:81/scripts/expect/VOLUME_UP.cgi");
-      break;
-    case "volume_down":
-      system ("wget http://127.0.0.1:81/scripts/expect/VOLUME_DOWN.cgi");
-      break;
-    case "mute":
-      system ("wget http://127.0.0.1:81/scripts/expect/MUTE.cgi");
-      break;
-    case "record":
-      system ("wget http://127.0.0.1:81/scripts/expect/RECORD.cgi");
-      break;
-    case "stop":
-      system ("wget http://127.0.0.1:81/scripts/expect/STOP.cgi");
-      break;
-    case "info":
-      system ("wget http://127.0.0.1:81/scripts/expect/INFO.cgi");
-      break;
-    case "home":
-      system ("wget http://127.0.0.1:81/scripts/expect/HOME.cgi");
-      break;
-    case "marker":
-      system ("wget http://127.0.0.1:81/scripts/expect/MARKER.cgi");
-      break;
-    case "power":
-      system ("wget http://127.0.0.1:81/scripts/expect/POWER.cgi");
-      break;
-    case "exit":
-      system ("wget http://127.0.0.1:81/scripts/expect/EXIT.cgi");
-      break;
-    case "sleep":
-      system ("wget http://127.0.0.1:81/scripts/expect/SLEEP.cgi");
-      break;
-    default :
-      echo "DEFAULT";
+    case "wheel_rwd": $remote_action = "WHEEL_RWD"; break;
+    case "wheel_fwd": $remote_action = "WHEEL_FWD"; break;
+    case "left": $remote_action = "LEFT"; break;
+    case "right": $remote_action = "RIGHT"; break;
+    case "up": $remote_action = "UP"; break;
+    case "down": $remote_action = "DOWN"; break;
+    case "select": $remote_action = "SELECT"; break;
+    case "toggle_menu": $remote_action = "TOGGLE_MENU"; break;
+    case "action_menu": $remote_action = "ACTION_MENU"; break;
+    case "volume_up": $remote_action = "VOLUME_UP"; break;
+    case "volume_down": $remote_action = "VOLUME_DOWN"; break;
+    case "mute": $remote_action = "MUTE"; break;
+    case "record": $remote_action = "RECORD"; break;
+    case "stop": $remote_action = "STOP"; break;
+    case "info": $remote_action = "INFO"; break;
+    case "home": $remote_action = "HOME"; break;
+    case "marker": $remote_action = "MARKER"; break;
+    case "power": $remote_action = "POWER"; break;
+    case "exit": $remote_action = "EXIT"; break;
+    case "sleep": $remote_action = "SLEEP"; break;
+    default : unset($remote_action); echo "DEFAULT";
   }
+
+  system("/wymedia/usr/bin/empty.sh \"".$remote_action."\"");
 }
 ?>
 
@@ -106,9 +70,9 @@ if (!empty($_REQUEST["clickedbutton"])){
 </td>
 <td width="100%" align="right">
   <?php system ("sh /wymedia/usr/bin/screen-capture >/dev/null 2>&1"); ?>
-  <!-- Detect resolution ratio for size image to target ratio -->
+  <!-- TODO : Detect resolution ratio for resize image to target ratio -->
   <!--<img src="./capture.png" width="720" height="406">--><!-- For 16:9 -->
-  <img src="./capture.png" width="720" height="576"><!-- For 4:3 -->
+  <img src="./scripts/php/capture.png" width="720" height="576"><!-- For 4:3 -->
   <br /><br />
   <table>
     <tr><td>
@@ -116,7 +80,7 @@ if (!empty($_REQUEST["clickedbutton"])){
       Last action : <?php if (!$cb) {echo "nothing";} else {echo $cb;} ?>
     </td></tr>
     <tr><td>
-      <form><input value="Reload screen capture" onclick="javascript:ShowHome();" class="button" type="button" style="width: 200px" /></form>
+      <form><input value="Reload screen capture" onclick="ShowWyRemote();" class="button" type="button" style="width: 200px" /></form>
     </td></tr>
   </table>
 </td>
