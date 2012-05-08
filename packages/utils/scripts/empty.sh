@@ -1,5 +1,5 @@
 #!/bin/sh
 
-empty -f -i in -o out -L /wymedia/usr/var/log/empty_log telnet 127.0.0.1 31337
-empty -s -o in "$1\n"
-empty -s -o in "DISCONNECT\n"
+empty -f -i /tmp/in -o /tmp/out -L /wymedia/usr/var/log/empty_log telnet 127.0.0.1 31337
+empty -s -o /tmp/in "$1\n"
+empty -s -o /tmp/in "DISCONNECT\n"
