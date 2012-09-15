@@ -1,70 +1,70 @@
 <?php 
+
 $cb = $_REQUEST["clickedbutton"];
-echo $cb;
+
 switch ($cb){
-
 case "wheel_rwd":
-			system ("wget http://127.0.0.1:81/scripts/expect/WHEEL_RWD.cgi");
+			system ("empty.sh WHEEL_FWD");
 			break;
-
 case "wheel_fwd":
-			system ("wget http://127.0.0.1:81/scripts/expect/WHEEL_FWD.cgi");
+			system ("empty.sh WHEEL_FWD");
 			break;
 case "left":
-			system ("wget http://127.0.0.1:81/scripts/expect/LEFT.cgi");
+			system ("empty.sh LEFT");
 			break;
 case "right":
-			system ("wget http://127.0.0.1:81/scripts/expect/RIGHT.cgi");
+			system ("empty.sh RIGHT");
 			break;
 case "up":
-			system ("wget http://127.0.0.1:81/scripts/expect/UP.cgi");
+			system ("empty.sh UP");
 			break;
 case "down":
-			system ("wget http://127.0.0.1:81/scripts/expect/DOWN.cgi");
+			system ("empty.sh DOWN");
 			break;
 case "select":
-			system ("wget http://127.0.0.1:81/scripts/expect/SELECT.cgi");
+			system ("empty.sh SELECT");
 			break;
 case "toggle_menu":
-			system ("wget http://127.0.0.1:81/scripts/expect/TOGGLE_MENU.cgi");
+			system ("empty.sh TOGGLE_MENU");
 			break;
 case "action_menu":
-			system ("wget http://127.0.0.1:81/scripts/expect/ACTION_MENU.cgi");
+			system ("empty.sh ACTION_MENU");
 			break;
 case "volume_up":
-			system ("wget http://127.0.0.1:81/scripts/expect/VOLUME_UP.cgi");
+			system ("empty.sh VOLUME_UP");
 			break;
 case "volume_down":
-			system ("wget http://127.0.0.1:81/scripts/expect/VOLUME_DOWN.cgi");
+			system ("empty.sh VOLUME_DOWN");
 			break;
 case "mute":
-			system ("wget http://127.0.0.1:81/scripts/expect/MUTE.cgi");
+			system ("empty.sh MUTE");
 			break;
 case "record":
-			system ("wget http://127.0.0.1:81/scripts/expect/RECORD.cgi");
+			system ("empty.sh RECORD");
 			break;
 case "stop":
-			system ("wget http://127.0.0.1:81/scripts/expect/STOP.cgi");
+			system ("empty.sh STOP");
 			break;
 case "info":
-			system ("wget http://127.0.0.1:81/scripts/expect/INFO.cgi");
+			system ("empty.sh INFO");
 			break;
 case "home":
-			system ("wget http://127.0.0.1:81/scripts/expect/HOME.cgi");
+			system ("empty.sh HOME");
 			break;
 case "marker":
-			system ("wget http://127.0.0.1:81/scripts/expect/MARKER.cgi");
+			system ("empty.sh MARKER");
 			break;
 case "power":
-			system ("wget http://127.0.0.1:81/scripts/expect/POWER.cgi");
+			system ("empty.sh POWER");
 			break;
 case "exit":
-			system ("wget http://127.0.0.1:81/scripts/expect/EXIT.cgi");
+			system ("empty.sh EXIT");
 			break;
 case "sleep":
-			system ("wget http://127.0.0.1:81/scripts/expect/SLEEP.cgi");
+			system ("empty.sh SLEEP");
 			break;
 default :
 			echo "DEFAULT";
 }
+
 ?>
