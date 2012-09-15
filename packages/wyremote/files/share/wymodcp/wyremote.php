@@ -1,12 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 
 <head>
 
-<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-
-<title>wyremote 0.4</title>
+<title>wyremote 0.5</title>
 
 <script type="text/javascript">
 function PressButton(clickedbutton) {
@@ -66,7 +62,7 @@ function PressButton(clickedbutton) {
 
 <td>
 <?php
-system ("sh /wymedia/usr/bin/screen-capture > /dev/null 2>&1");
+system("fb2png capture.png");
 ?>
 <img src="./capture.png" width="1000" height="563">
 <form>
