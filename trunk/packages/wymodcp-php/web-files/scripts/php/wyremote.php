@@ -1,7 +1,6 @@
 <?php 
 
 $video_resolution = exec("fbset -i -fb /dev/fb0 | grep mode | head -n 1");
-system("fb2png capture.png");
 
 unset($cb);
 unset($remote_action);
@@ -34,6 +33,9 @@ if (!empty($_REQUEST["clickedbutton"])){
   }
 
   system("/wymedia/usr/bin/empty.sh \"".$remote_action."\"");
+  $time = time();
+  system ("rm -rf captures/*");
+  system ("fb2png captures/\"".$time."\".png");
 }
 ?>
 
@@ -72,7 +74,11 @@ if (!empty($_REQUEST["clickedbutton"])){
   <?php system ("sh /wymedia/usr/bin/screen-capture >/dev/null 2>&1"); ?>
   <!-- TODO : Detect resolution ratio for resize image to target ratio -->
   <!--<img src="./capture.png" width="720" height="406">--><!-- For 16:9 -->
-  <img src="./scripts/php/capture.png" width="720" height="576"><!-- For 4:3 -->
+  <!-- <img src="./scripts/php/capture.png" width="720" height="576"> --><!-- For 4:3 -->
+<?php
+$capture = exec("ls captures");
+echo "<img src='./scripts/php/captures/$capture' width='720' height='405'>";
+?>
   <br /><br />
   <table>
     <tr><td>
