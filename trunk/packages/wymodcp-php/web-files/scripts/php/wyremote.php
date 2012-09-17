@@ -6,6 +6,7 @@ unset($cb);
 unset($remote_action);
 
 if (!empty($_REQUEST["clickedbutton"])){
+
   $cb = $_REQUEST["clickedbutton"];
 
   switch ($cb){
@@ -33,13 +34,13 @@ if (!empty($_REQUEST["clickedbutton"])){
   }
 
   system("/wymedia/usr/bin/empty.sh \"".$remote_action."\"");
-  $time = time();
-  system ("rm -rf captures/*");
-  system ("fb2png captures/\"".$time."\".png");
+
 }
+
 ?>
 
 <table>
+
 <td>
 <div id="wyremote_table">
   <img src="./style/wyremote.png" width="300" height="786" border="0" usemap="#map" />
@@ -70,24 +71,28 @@ if (!empty($_REQUEST["clickedbutton"])){
   </map>
 </div>
 </td>
+
 <td width="100%" align="right">
-  <?php system ("sh /wymedia/usr/bin/screen-capture >/dev/null 2>&1"); ?>
   <!-- TODO : Detect resolution ratio for resize image to target ratio -->
   <!--<img src="./capture.png" width="720" height="406">--><!-- For 16:9 -->
   <!-- <img src="./scripts/php/capture.png" width="720" height="576"> --><!-- For 4:3 -->
 <?php
+$time = time();
+system ("rm -f captures/*");
+system ("fb2png captures/\"".$time."\".png");
 $capture = exec("ls captures");
-echo "<img src='./scripts/php/captures/$capture' width='720' height='405'>";
+echo "<img src='./scripts/php/captures/$capture' width='720' height='406'>";
 ?>
-  <br /><br />
-  <table>
-    <tr><td>
-      FrameBuffer original resolution <?php echo $video_resolution; ?><br />
-      Last action : <?php if (!$cb) {echo "nothing";} else {echo $cb;} ?>
-    </td></tr>
-    <tr><td>
-      <form><input value="Reload screen capture" onclick="ShowWyRemote();" class="button" type="button" style="width: 200px" /></form>
-    </td></tr>
-  </table>
+<br /><br />
+<table>
+<tr><td>
+FrameBuffer original resolution <?php echo $video_resolution; ?><br />
+Last action : <?php if (!$cb) {echo "nothing";} else {echo $cb;} ?>
+</td></tr>
+<tr><td>
+<form><input value="Reload screen capture" onclick="ShowWyRemote();" class="button" type="button" style="width: 200px" /></form>
+</td></tr>
+</table>
 </td>
+
 </table>
