@@ -1,6 +1,9 @@
 #!/bin/sh
 # Start & stop wymodcp
 
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
+export PATH="/wymedia/usr/bin:$PATH"
+
 PIDFILE=/var/run/wymodcp.pid
 DAEMON=/wymedia/usr/bin/mongoose
 CONFIG=/wymedia/usr/etc/mongoose.conf
