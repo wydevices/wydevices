@@ -1,0 +1,71 @@
+#!/bin/sh
+# Start & stop cifs-client
+
+export LD_LIBRARY_PATH="/wymedia/usr/lib"
+export PATH="/wymedia/usr/bin:$PATH"
+export HOME="/wymedia"
+
+PIDFILE=/var/run/cifs.pid
+DIRNAME="CIFS-Shares"
+
+
+case "$1" in
+
+        start)
+                if [ -s $PIDFILE ]; then
+                        echo "cifs-client already running."
+                        exit 0
+                fi
+                echo -n "Starting cifs-client..."
+                /sbin/modprobe cifs
+                mkdir -p "/wymedia/My Videos/$DIRNAME"
+                mkdir -p "/wymedia/My Photos/$DIRNAME"
+                mkdir -p "/wymedia/My Music/$DIRNAME"
+                #mount --bind "/wymedia/My Videos/$DIRNAME" "/wymedia/My Photos/$DIRNAME"
+                #mount --bind "/wymedia/My Videos/$DIRNAME" "/wymedia/My Music/$DIRNAME"
+                echo $! > $PIDFILE
+                echo ok
+                ;;
+
+        stop)
+                if [ ! -s $PIDFILE ]; then
+                        echo "cifs-client not running."
+                        exit 0
+                fi
+                echo -n "Stopping cifs-client..."
+                #umount "/wymedia/My Photos/$DIRNAME" 2> /dev/null
+                #umount "/wymedia/My Music/$DIRNAME" 2> /dev/null
+                #killall -q mount.cifs
+                #umount "/wymedia/My Videos/$DIRNAME" 2> /dev/null
+                rmdir "/wymedia/My Photos/$DIRNAME" 2> /dev/null
+                rmdir "/wymedia/My Music/$DIRNAME" 2> /dev/null
+                rmdir "/wymedia/My Videos/$DIRNAME" 2> /dev/null
+                /sbin/rmmod cifs
+                rm -f $PIDFILE
+                echo ok
+                ;;
+
+        restart)
+                $0 stop
+                sleep 1
+                $0 start
+                ;;
+
+        status)
+                if [ -s $PIDFILE ]; then
+                        echo "cifs-client running"
+                else
+                        echo "cifs-client not running"
+                        exit 1
+                fi
+                exit 0
+                ;;
+
+        *)
+                echo "Usage: $0 {start|stop|restart|status}"
+                exit 1
+                ;;
+
+esac
+
+exit 0
