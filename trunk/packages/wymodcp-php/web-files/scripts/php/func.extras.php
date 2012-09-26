@@ -23,6 +23,8 @@ $activatesyslogd=$_REQUEST["activatesyslogd"];
 $autostartsyslogd=$_REQUEST["autostartsyslogd"];
 $activatewyremote=$_REQUEST["activatewyremote"];
 $autostartwyremote=$_REQUEST["autostartwyremote"];
+$activatecifsclient=$_REQUEST["activatecifs-client"];
+$autostartcifsclient=$_REQUEST["autostartcifs-client"];
 
 // ################ syslogd ############################
 if ($autostartsyslogd || $activatesyslogd){
@@ -247,6 +249,38 @@ if ($autostartsambaserver || $activatesambaserver){
   echo "</td></tr></table>";
 }
 // ################ sambaserver ###############################
+// ################ cifsclient ###############################
+if ($autostartcifsclient || $activatecifsclient){
+  echo "<h4><b> CIFS Client </b> </h4>";
+  echo "<table border=1><tr><td>AutoStart</td><td>Action</td></tr><tr>";
+  echo "<td>";
+
+  if ($autostartcifsclient == "") {
+    echo "NULL";
+  } else {
+    if ($autostartcifsclient == "true") {
+      echo ("Enabled!");
+      system ("ln -sf ../init.d/cifs-client /wymedia/usr/etc/rc.d/");
+    } else {
+      echo ("Disabled!");
+      system ("rm  /wymedia/usr/etc/rc.d/cifs-client");
+    }
+  }
+
+  echo "</td><td>";
+
+  if ($activatecifsclient == "") {
+    echo "NULL";
+  } else {
+    if ($activatecifsclient == "true") {
+      system ("/wymedia/usr/etc/init.d/cifs-client start");
+    } else {
+      system ("/wymedia/usr/etc/init.d/cifs-client stop");
+    }
+  }
+  echo "</td></tr></table>";
+}
+// ################ cifsclient ###############################
 // ################ sambaclient ###############################
 if ($autostartsambaclient || $activatesambaclient){
   echo "<h4><b> SAMBA CLIENT </b> </h4>";
