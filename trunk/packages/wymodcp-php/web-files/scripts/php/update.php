@@ -1,3 +1,5 @@
+<script src='./scripts/js/wydev.js' type='text/javascript'></script>
+
 <?php
 /*
  * Update process :
@@ -13,24 +15,55 @@
  */
 ?>
 <h1>Wybox automatic update</h1><br />
-<form name="auto_update" id="auto_update" method="post" action="./scripts/php/upload.php">
-  <table width="100%">
-    <tr><td></td>
-      <td align="left" colspan="2">
-        <i>Here you can find available update found on official wydev repository.</i><br /><br />
-      </td>
-    </tr>
-    <tr><td></td><td align="left">Available soon ...</td></tr>
-    <tr><td colspan="2"><br /></td></tr>
-    <tr>
-      <td></td>
-      <td align="right" colspan="2">
-        <input type="hidden" name="auto_update" value="1" />
-        <input disabled="disabled" type="submit" class="button" value="Update now" style="width: 100px"/>
-      </td>
-    </tr>
-  </table>
-</form>
+
+<table width="100%">
+<tr><td></td>
+<td align="left" colspan="2">
+<i>Here you can find available update found on official Wydev repository.</i><br /><br />
+</td>
+</tr>
+
+
+<tr>
+<td>Installed version of wybox-extras:</td>
+<td><b><?php $current = system("cat /wymedia/usr/etc/wydev-mod-updaterelease"); ?></b></td>
+</tr>
+
+<tr>
+<td>Latest packaged version of wybox-extras:</td>
+<?php system ("cd /wymedia/usr/share/updates; wget http://wydevices.googlecode.com/files/wybox-extras-latest.txt > /dev/null 2>&1"); ?>
+<td><b><?php $latest = system("cat /wymedia/usr/share/updates/wybox-extras-latest.txt"); ?></td>
+</tr>
+
+<?php
+if ($current < $latest) {
+	if (file_exists("/wymedia/usr/share/updates/wybox-extras-".$latest.".tar.gz")) {
+		echo "<tr><td><i>There is available a newer version of wybox-extras.</i></td><td></td></tr>";
+		echo "<tr><td>Update wybox.extras (the system will reboot):</td><td><button onclick='updatefromlocal()'>Click here!</button></td></tr>";
+	} else {
+		system ("wget http://wydevices.googlecode.com/files/wybox-extras-latest.tar.gz -q");
+                system ("wget http://wydevices.googlecode.com/files/wybox-extras-latest.md5 -q");
+		echo "<tr><td>Downloading latest packaged wybox-extras:</td><td>";		
+		$checkmd5 = system ("md5sum -c wybox-extras-latest.md5");
+		$checkmd52 = split(" ",$checkmd5);
+		if ($checkmd52[1] == "OK") {
+			system ("mv wybox-extras-latest.tar.gz /wymedia/usr/share/updates/wybox-extras-".$latest.".tar.gz");
+			system ("rm -f wybox-extras-latest.md5");
+			echo "<tr><td><i>There are available a newer version of wybox-extras.</i></td><td></td></tr>";
+			echo "<tr><td>Update wybox.extras (the system will reboot):</td><td><button onclick='updatefromlocal()'>Click here!</button></td></tr>";
+		} else {
+			system ("rm -f wybox-extras-latest*");
+			echo "<td><b>Download failed.</b></td></tr>";
+		}		
+	}
+} else {
+	echo "<tr><td></td><td><b>wybox-extras is updated.</b></td></tr>";
+}
+?>
+
+
+</table>
+
 <br /><hr width="100%" />
 
 <h1>Add or update your wybox manually</h1><br />

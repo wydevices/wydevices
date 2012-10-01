@@ -186,3 +186,9 @@ function initAjaxForm(form_id, form_validations){
 		};
 		$(form).ajaxForm(options);
 }
+
+function updatefromlocal() {
+	alert ("System will uncompress /wymedia/usr/share/updates/ to /wymedia");
+	window.open("./scripts/php/updatewe.php");
+}
+
