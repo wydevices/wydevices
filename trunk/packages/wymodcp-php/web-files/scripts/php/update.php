@@ -31,11 +31,12 @@
 
 <tr>
 <td>Latest packaged version of wybox-extras:</td>
-<?php system ("cd /wymedia/usr/share/updates; wget http://wydevices.googlecode.com/files/wybox-extras-latest.txt > /dev/null 2>&1"); ?>
-<td><b><?php $latest = system("cat /wymedia/usr/share/updates/wybox-extras-latest.txt"); ?></td>
+<?php system ("wget http://wydevices.googlecode.com/files/wybox-extras-latest.txt > /dev/null 2>&1"); ?>
+<td><b><?php $latest = system("cat wybox-extras-latest.txt"); ?></td>
 </tr>
 
 <?php
+system ("mv -f wybox-extras-latest.txt /wymedia/usr/share/updates/");
 if ($current < $latest) {
 	if (file_exists("/wymedia/usr/share/updates/wybox-extras-".$latest.".tar.gz")) {
 		echo "<tr><td><i>There is available a newer version of wybox-extras.</i></td><td></td></tr>";
