@@ -24,6 +24,33 @@ if ($_POST['set_pwd'] == 1 && $_POST['pwd_1'] == "" && $_POST['pwd_2'] == "") {
   exit;
 }
 
+if ($_POST['cifs_mount'] == 1 && !empty($_POST['cifs_server']) && !empty($_POST['cifs_share'])) {
+  exec("modprobe cifs && mkdir -p /wymedia/My\ Videos/cifs");
+  if (!empty($_POST['cifs_username'])) {
+    $user_pass=",user=".$_POST['cifs_username'].",pass=".$_POST['cifs_password'];
+  } else {
+    $user_pass = "";
+  }
+  if (empty($_POST['cifs_my_folder'])) {
+    $cifs_my_folder = "My\ Videos";
+  } else {
+    $cifs_my_folder = trim($_POST['cifs_my_folder']);
+  }
+
+  exec("mount.cifs //".$_POST['cifs_server']."/".$_POST['cifs_share']." /wymedia/".$cifs_my_folder."/CIFS-Shares -o rw".$user_pass);
+
+  header("refresh:1;url=../../index.php");
+  echo "<script type=\"text/javascript\">alert(\"Mounting to ".$_POST['cifs_server'].", redirect to Home.\")</script>";
+  exit;
+}
+
+if ($_POST['cifs_umount'] == 1 & !empty($_POST['cifs_mountfolder'])) {
+  exec("umount ".$_POST['cifs_mountfolder']);
+  header("refresh:1;url=../../index.php");
+  echo "<script type=\"text/javascript\">alert(\"Umount ".$_POST['cifs_mountfolder'].", redirect to Home.\")</script>";
+  exit;
+}
+
 if (!empty($_GET['wyclim_temp']) && $_GET['wyclim_temp'] >= 40 && $_GET['wyclim_temp'] <= 50) {
   //Get current temp target
   $actual_temp = exec("cat /etc/wyclim/pid.conf | grep maxtemp | cut -b 9-10");
@@ -106,17 +133,57 @@ if ($statuswyremote == true) {
 </ul>
 <br />
 
-<form name="chgpassword" id="chgpassword" method="post" action="./scripts/php/config.php" onSubmit="return checkPass();">
+<form name="chgpassword" id="chgpassword" method="post" action="./scripts/php/config.php">
   <table>
   <tr><td></td><td align="left"><h1>Change web access password</h1></td></tr>
   <tr><td></td>
     <td align="left" colspan="2">
-      <i>Leave blank for unset password</i><br /><br />
+      <i>Leave blank for unset password<br />
+      </i><br /><br />
     </td>
   </tr>
   <tr><td></td><td align="left">New password :</td><td align="left"><input type="password" name="pwd_1" /></td></tr>
   <tr><td></td><td align="left">Confirm password :</td><td align="left"><input type="password" name="pwd_2" /></td></tr>
   <tr><td></td><td align="right" colspan="2"><input type="hidden" name="set_pwd" value="1" /><input type="submit" class="button" style="width: 100px"/></td></tr>
+  </table>
+</form>
+<br /><hr width="100%" />
+
+<form name="cifs" id="cifs" method="post" action="./scripts/php/config.php">
+  <table>
+  <tr><td></td><td align="left"><h1>CIFS mount point</h1></td></tr>
+  <tr><td></td>
+    <td align="left" colspan="2">
+      <i>Leave user/password blank if not required.</i><br /><br />
+      <?php 
+        $mounted_cifs = exec("mount | grep cifs");
+        if (!empty($mounted_cifs)) {
+          $tab_mounted_cifs = explode(" ", $mounted_cifs);
+          echo "<b>".$tab_mounted_cifs[0]."</b> -> <b>".$tab_mounted_cifs[2]." ".$tab_mounted_cifs[3]."</b>";
+          ?><input type="hidden" name="cifs_umount" value="1" />
+          <input type="hidden" name="cifs_mountfolder" value=<?php echo "\"".$tab_mounted_cifs[2]."\ ".$tab_mounted_cifs[3]."\""; ?> />
+          &nbsp;&nbsp;&nbsp;<input type="submit" class="button" value="umount" style="width: 100px"/><?php
+        }
+      ?>
+      <br /><br />
+    </td>
+  </tr>
+  <?php if (empty($mounted_cifs)) {?>
+  <tr><td></td><td align="left">CIFS server :</td><td align="left"><input type="inputbox" name="cifs_server" /></td></tr>
+  <tr><td></td><td align="left">Share name :</td><td align="left"><input type="inputbox" name="cifs_share" /></td></tr>
+  <tr><td></td><td align="left">Username :</td><td align="left"><input type="inputbox" name="cifs_username" /></td></tr>
+  <tr><td></td><td align="left">Password :</td><td align="left"><input type="password" name="cifs_password" /></td></tr>
+  <!--<tr><td></td><td align="left">Permanent mount (Add entry to fstab)</td><td align="left"><input type="checkbox" name="cifs_fstab" /><i></i></td></tr>-->
+  <tr><td></td><td align="left">Mount destination :</td><td align="left">
+    <select name="cifs_my_folder">
+      <option value="My\ Videos">My Videos</option>
+      <option value="My\ Photos">My Photos</option>
+      <option value="My\ Music">My Music</option>
+    </select>
+    <br /><br />
+  </td></tr>
+  <tr><td></td><td align="right" colspan="2"><input type="hidden" name="cifs_mount" value="1" /><input type="submit" class="button" value="Mount" style="width: 100px"/></td></tr>
+  <?php } ?>
   </table>
 </form>
 <br /><hr width="100%" />
