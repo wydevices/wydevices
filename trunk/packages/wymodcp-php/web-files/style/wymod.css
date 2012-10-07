@@ -417,13 +417,22 @@ hr{
   position: relative;
   cursor: pointer;
 }
-
+#progress-outer {
+    background: #333;
+    -webkit-border-radius: 13px;
+    height: 10px;
+    width: 200px;
+    padding: 3px;
+}
+#progress-inner {
+    height: 100%;
+    -webkit-border-radius: 9px;
+}
 .button:hover { background-color: #111; color: #fff; }
 .button:active { top: 1px; }
 .small.button, .small.button:visited { font-size: 11px; padding: 0; }
 .button, .button:visited, .medium.button, .medium.button:visited { font-size: 13px; font-weight: bold; line-height: 1; /*text-shadow: 0 -1px 1px rgba(0,0,0,0.25);*/ }
 .large.button, .large.button:visited { font-size: 14px; padding: 8px 14px 9px; }
-
 .upload_wait {
   position:absolute;
   top:36%;
@@ -439,7 +448,6 @@ hr{
   border-radius: 4px;
   text-align:center;
 }
-
 #wyremote_table {
   position:fixed;
   top: 160px;
