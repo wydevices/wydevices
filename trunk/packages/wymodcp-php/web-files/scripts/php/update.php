@@ -36,9 +36,9 @@
 </tr>
 
 <?php
-system ("mv -f wybox-extras-latest.txt /wymedia/usr/share/updates/");
+system ("mv -f wybox-extras-latest.txt /wymedia/tmp");
 if ($current < $latest) {
-	if (file_exists("/wymedia/usr/share/updates/wybox-extras-".$latest.".tar.gz")) {
+	if (file_exists("/wymedia/tmp/wybox-extras-".$latest.".tar.gz")) {
 		echo "<tr><td><i>There is available a newer version of wybox-extras.</i></td><td></td></tr>";
 		echo "<tr><td>Update wybox.extras (the system will reboot):</td><td><button onclick='updatefromlocal()'>Click here!</button></td></tr>";
 	} else {
@@ -48,7 +48,7 @@ if ($current < $latest) {
 		$checkmd5 = system ("md5sum -c wybox-extras-latest.md5");
 		$checkmd52 = split(" ",$checkmd5);
 		if ($checkmd52[1] == "OK") {
-			system ("mv wybox-extras-latest.tar.gz /wymedia/usr/share/updates/wybox-extras-".$latest.".tar.gz");
+			system ("mv wybox-extras-latest.tar.gz /wymedia/tmp/wybox-extras-".$latest.".tar.gz");
 			system ("rm -f wybox-extras-latest.md5");
 			echo "<tr><td><i>There are available a newer version of wybox-extras.</i></td><td></td></tr>";
 			echo "<tr><td>Update wybox.extras (the system will reboot):</td><td><button onclick='updatefromlocal()'>Click here!</button></td></tr>";
