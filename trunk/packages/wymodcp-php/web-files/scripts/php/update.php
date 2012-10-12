@@ -31,29 +31,29 @@
 
 <tr>
 <td>Latest packaged version of wybox-extras:</td>
-<?php system ("wget http://wydevices.googlecode.com/files/wybox-extras-latest.txt > /dev/null 2>&1"); ?>
-<td><b><?php $latest = system("cat wybox-extras-latest.txt"); ?></td>
+<?php system ("wget http://wydevices.googlecode.com/files/we-latest.txt > /dev/null 2>&1"); ?>
+<td><b><?php $latest = system("cat we-latest.txt"); ?></td>
 </tr>
 
 <?php
-system ("mv -f wybox-extras-latest.txt /wymedia/tmp");
+system ("mv -f we-latest.txt /wymedia/tmp/wybox-extras-latest.txt");
 if ($current < $latest) {
 	if (file_exists("/wymedia/tmp/wybox-extras-".$latest.".tar.gz")) {
 		echo "<tr><td><i>There is available a newer version of wybox-extras.</i></td><td></td></tr>";
 		echo "<tr><td>Update wybox.extras (the system will reboot):</td><td><button onclick='updatefromlocal()'>Click here!</button></td></tr>";
 	} else {
-		system ("wget http://wydevices.googlecode.com/files/wybox-extras-latest.tar.gz -q");
-                system ("wget http://wydevices.googlecode.com/files/wybox-extras-latest.md5 -q");
+		system ("wget http://wydevices.googlecode.com/files/we-latest.tar.gz -q");
+                system ("wget http://wydevices.googlecode.com/files/we-latest.md5 -q");
 		echo "<tr><td>Downloading latest packaged wybox-extras:</td><td>";		
-		$checkmd5 = system ("md5sum -c wybox-extras-latest.md5");
+		$checkmd5 = system ("md5sum -c we-latest.md5");
 		$checkmd52 = split(" ",$checkmd5);
 		if ($checkmd52[1] == "OK") {
-			system ("mv wybox-extras-latest.tar.gz /wymedia/tmp/wybox-extras-".$latest.".tar.gz");
-			system ("rm -f wybox-extras-latest.md5");
+			system ("mv we-latest.tar.gz /wymedia/tmp/wybox-extras-".$latest.".tar.gz");
+			system ("rm -f we-latest.md5");
 			echo "<tr><td><i>There are available a newer version of wybox-extras.</i></td><td></td></tr>";
 			echo "<tr><td>Update wybox.extras (the system will reboot):</td><td><button onclick='updatefromlocal()'>Click here!</button></td></tr>";
 		} else {
-			system ("rm -f wybox-extras-latest*");
+			system ("rm -f we-latest*");
 			echo "<td><b>Download failed.</b></td></tr>";
 		}		
 	}
