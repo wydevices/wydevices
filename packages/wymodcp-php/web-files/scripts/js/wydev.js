@@ -188,7 +188,7 @@ function initAjaxForm(form_id, form_validations){
 }
 
 function updatefromlocal() {
-	alert ("System will uncompress /wymedia/usr/share/updates/ to /wymedia");
+	alert ("It will install the latest version of wybox-extras.");
 	window.open("./scripts/php/updatewe.php");
 }
 
