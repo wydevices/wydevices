@@ -19,10 +19,6 @@ case "$1" in
                 echo -n "Starting cifs-client..."
                 /sbin/modprobe cifs
                 mkdir -p "/wymedia/My Videos/$DIRNAME"
-                mkdir -p "/wymedia/My Photos/$DIRNAME"
-                mkdir -p "/wymedia/My Music/$DIRNAME"
-                #mount --bind "/wymedia/My Videos/$DIRNAME" "/wymedia/My Photos/$DIRNAME"
-                #mount --bind "/wymedia/My Videos/$DIRNAME" "/wymedia/My Music/$DIRNAME"
                 echo $! > $PIDFILE
                 echo ok
                 ;;
@@ -37,9 +33,9 @@ case "$1" in
                 #umount "/wymedia/My Music/$DIRNAME" 2> /dev/null
                 #killall -q mount.cifs
                 #umount "/wymedia/My Videos/$DIRNAME" 2> /dev/null
-                rmdir "/wymedia/My Photos/$DIRNAME" 2> /dev/null
-                rmdir "/wymedia/My Music/$DIRNAME" 2> /dev/null
                 rmdir "/wymedia/My Videos/$DIRNAME" 2> /dev/null
+                rm -f "/wymedia/My Music/$DIRNAME" 2> /dev/null
+                rm -f "/wymedia/My Photos/$DIRNAME" 2> /dev/null
                 /sbin/rmmod cifs
                 rm -f $PIDFILE
                 echo ok

@@ -31,13 +31,10 @@ if ($_POST['cifs_mount'] == 1 && !empty($_POST['cifs_server']) && !empty($_POST[
   } else {
     $user_pass = "";
   }
-  if (empty($_POST['cifs_my_folder'])) {
-    $cifs_my_folder = "My\ Videos";
-  } else {
-    $cifs_my_folder = trim($_POST['cifs_my_folder']);
-  }
 
-  exec("mount.cifs //".$_POST['cifs_server']."/".$_POST['cifs_share']." /wymedia/".$cifs_my_folder."/CIFS-Shares -o rw".$user_pass);
+  exec("mount.cifs //".$_POST['cifs_server']."/".$_POST['cifs_share']." /wymedia/My\ Videos/CIFS-Shares -o rw".$user_pass);
+  exec("ln -s /wymedia/My\ Videos/CIFS-Shares /wymedia/My\ Music/CIFS-Shares");
+  exec("ln -s /wymedia/My\ Videos/CIFS-Shares /wymedia/My\ Photos/CIFS-Shares");
 
   header("refresh:1;url=../../index.php");
   echo "<script type=\"text/javascript\">alert(\"Mounting to ".$_POST['cifs_server'].", redirect to Home.\")</script>";
@@ -46,6 +43,9 @@ if ($_POST['cifs_mount'] == 1 && !empty($_POST['cifs_server']) && !empty($_POST[
 
 if ($_POST['cifs_umount'] == 1 & !empty($_POST['cifs_mountfolder'])) {
   exec("umount ".$_POST['cifs_mountfolder']);
+  exec("rm -f /wymedia/My\ Music/CIFS-Shares");
+  exec("rm -f /wymedia/My\ Photos/CIFS-Shares");
+
   header("refresh:1;url=../../index.php");
   echo "<script type=\"text/javascript\">alert(\"Umount ".$_POST['cifs_mountfolder'].", redirect to Home.\")</script>";
   exit;
@@ -160,7 +160,8 @@ if ($statuswyremote == true) {
         if (!empty($mounted_cifs)) {
           $tab_mounted_cifs = explode(" ", $mounted_cifs);
           echo "<b>".$tab_mounted_cifs[0]."</b> -> <b>".$tab_mounted_cifs[2]." ".$tab_mounted_cifs[3]."</b>";
-          ?><input type="hidden" name="cifs_umount" value="1" />
+          ?>
+          <input type="hidden" name="cifs_umount" value="1" />
           <input type="hidden" name="cifs_mountfolder" value=<?php echo "\"".$tab_mounted_cifs[2]."\ ".$tab_mounted_cifs[3]."\""; ?> />
           &nbsp;&nbsp;&nbsp;<input type="submit" class="button" value="umount" style="width: 100px"/><?php
         }
@@ -174,14 +175,6 @@ if ($statuswyremote == true) {
   <tr><td></td><td align="left">Username :</td><td align="left"><input type="inputbox" name="cifs_username" /></td></tr>
   <tr><td></td><td align="left">Password :</td><td align="left"><input type="password" name="cifs_password" /></td></tr>
   <!--<tr><td></td><td align="left">Permanent mount (Add entry to fstab)</td><td align="left"><input type="checkbox" name="cifs_fstab" /><i></i></td></tr>-->
-  <tr><td></td><td align="left">Mount destination :</td><td align="left">
-    <select name="cifs_my_folder">
-      <option value="My\ Videos">My Videos</option>
-      <option value="My\ Photos">My Photos</option>
-      <option value="My\ Music">My Music</option>
-    </select>
-    <br /><br />
-  </td></tr>
   <tr><td></td><td align="right" colspan="2"><input type="hidden" name="cifs_mount" value="1" /><input type="submit" class="button" value="Mount" style="width: 100px"/></td></tr>
   <?php } ?>
   </table>
