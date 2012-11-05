@@ -1,0 +1,13 @@
+-----------------------------------------------------------------------------
+
+  Copyright 2012, Polo35
+  Licenced under Academic Free License version 3.0
+  Review Wydev-Python2.5 README & LICENSE files for further details.
+  
+-----------------------------------------------------------------------------
+
+Introduction
+-----------------------------------------------------------------------------
+
+This package is aimed to open the python2.5 library present in WyDevices.
+With this opened python2.5 library we're able to add improvements and bugfixs to the GUI wrote in python.
