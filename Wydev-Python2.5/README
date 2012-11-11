@@ -22,8 +22,36 @@ Anyway, a big part is now fully recovered, and it's possible to add improvements
 
 
 -----------------------------------------------------------------------------
-  What to do and How-to do it 
+  Installation
 -----------------------------------------------------------------------------
+
+- Boot on Wyplay firmware using BASE_FIRMWARE trick.
+- Open telnet.
+- Find your firmware partition.
+   Type "ls /sys/block/dm-0/slaves". If result is "sda6" note "sda8", if the reslut is "sda8" note "sda6".
+- Check the JFS filesystem.
+   Type "fsck-jfs /dev/sdax" where "sdax" is the above noted "sda".
+- Make a directory under "/wymedia".
+   Type "mkdir /wymedia/root" where "root" is the dir you want to create.
+- Mount the partition.
+   Type "mount /dev/sdax /wymedia/root" where "sdax" is the above noted "sda" and where "root" is the dir you just created.
+- Save old python2.5 library.
+   Type "tar zcvf /wymedia/root/usr/lib/python2.5 /wymedia/python2.5-save.tar.gz" where "root" is the dir you just created.
+- Delete python2.5 library.
+   Type "rm -Rf /wymedia/root/usr/lib/python2.5".
+- Checkout Wydev-Python2.5 on your computer.
+   Next step is to compile svn for sh4 and directly checkout packages from our repository.
+- Copy the checked-out "Wydev-Python2.5" folder as "python2.5" on the Wybox under "/wymedia/root/usr/lib".
+- Reboot.
+
+
+If something goes wrong, you can restore the archive "/wymedia/python2.5-save.tar.gz" using the same method to acces partitons.
+
+
+-----------------------------------------------------------------------------
+  What to do next and How-to do it 
+-----------------------------------------------------------------------------
+
 There's still lot of compilated python files (".pyo") to recover.
 
 To do so, there's a folder call "site-packages-decomp" which contain disassembled and decompilated packages files.
@@ -56,6 +84,7 @@ Python code recovery:
 - When you think you've obtain a good result, delete the decompilated code without error part of ".py" file.
 
 Debugging:
+
 - Open a telnet.
 - Type "ngzap splash". You obtain a "splash zapped" message.
 - Type "ngstop splash". You obtain a "splash stopped" message and screen freeze.
@@ -65,3 +94,4 @@ Debugging:
 - Restart the GUI to activate modification.
 - You can now copy your decompilated ".py" file to "/usr/lib/python2.5/site-packages/..." folder, and restart GUI to start debbuging.
 - Be sure to never restart the Wybox with a non working GUI!!!
+
