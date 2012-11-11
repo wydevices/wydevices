@@ -1,4 +1,4 @@
 #!/bin/sh
 
-LD_TRACE_LOADED_OBJECTS=1 $1
-
+#LD_TRACE_LOADED_OBJECTS=1 $1
+/lib/ld-linux.so.2 --list `which $1`
