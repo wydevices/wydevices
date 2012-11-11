@@ -5,9 +5,63 @@
   Review Wydev-Python2.5 README & LICENSE files for further details.
   
 -----------------------------------------------------------------------------
-
-Introduction
+  Introduction
 -----------------------------------------------------------------------------
 
-This package is aimed to open the python2.5 library present in WyDevices.
-With this opened python2.5 library we're able to add improvements and bugfixs to the GUI wrote in python.
+This package is aimed to open the python2.5 library and site-packages present in WyDevices.
+
+Indeed Wyplay didn't release the sources of this lib and site-packages.
+
+Python2.5 was opened with official sources from Python website.
+http://www.python.org/ftp/python/2.5/Python-2.5.tgz
+
+Site-packages were decompilated with the UnPyc program modded for a better decompilation.
+But decompilation isn't an exact sciences, it was a bit fastidious to obtain good results.
+
+Anyway, a big part is now fully recovered, and it's possible to add improvements and bugfixs to the GUI ("site-packages/pygui").
+
+
+-----------------------------------------------------------------------------
+  What to do and How-to do it 
+-----------------------------------------------------------------------------
+There's still lot of compilated python files (".pyo") to recover.
+
+To do so, there's a folder call "site-packages-decomp" which contain disassembled and decompilated packages files.
+
+Inside this folder, for each ".pyo" file there's a ".py" and a ".py_asm" file.
+
+The ".py_asm" file contain the disassembled code.
+You can take a look to "Python Bytecode Instructions" chapter of this page:
+http://docs.python.org/2/library/dis.html
+
+The ".py" file contain the decompilated code.
+It's not ready to debug files, but it contain a very big part of the code.
+If you look at the end of the file, you'll find the code UnPyc successful decompile.
+All code above is decompilation without error handling.
+This allow to recover all part UnPyc failed to decompile.
+
+
+Here my way to obtain a full recovered file.
+It's just my way, you can do it as you want. ;)
+
+
+Python code recovery:
+
+- With Ultraedit, open the ".py" and ".pyo" files in dual mode.
+- Find the last occurence of "from __future__ import absolute_import" in ".py" file. It's the start point of python code.
+- At top of ".py_asm" file you can see "IMPORT_NAME         '__future__'", it's the start point of opcodes.
+- Scroll both file and you'll find all opcodes in ".py_asm" file correspond to codes in ".py" file.
+- If it's not the case, search fo missing code in decompilated code without error part of ".py" file and copy it if possible.
+- If you don't find the code, you can rewrite it using opcodes from ".py_asm" file.
+- When you think you've obtain a good result, delete the decompilated code without error part of ".py" file.
+
+Debugging:
+- Open a telnet.
+- Type "ngzap splash". You obtain a "splash zapped" message.
+- Type "ngstop splash". You obtain a "splash stopped" message and screen freeze.
+- Type "python2.5 -O /wymedia/usr/share/pygui/skins/splash.py". The GUI restart.
+- Ctrl+C stop the GUI. Line above to restart.
+- If you want to activate debug message, open "/usr/lib/python2.5/site-packages/peewee/debug.py" file and replace "log_level = logging.ERROR" by "log_level = logging.DEBUG".
+- Restart the GUI to activate modification.
+- You can now copy your decompilated ".py" file to "/usr/lib/python2.5/site-packages/..." folder, and restart GUI to start debbuging.
+- Be sure to never restart the Wybox with a non working GUI!!!
