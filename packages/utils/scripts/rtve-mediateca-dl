@@ -1,0 +1,345 @@
+#!/bin/sh
+
+# Copyright (C) 2010, 2011, 2012 Sergio García-Cuevas González.
+#  
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# rtve-mediateca-dl
+# 
+# Download a video or audio file from the "mediateca" of RTVE:
+# <http://www.rtve.es/mediateca/>.
+# 
+# Usage:
+#   download-from-rtve-mediateca [OPTIONS] ADDRESS
+
+SUCCESS=0
+FAILURE=1
+
+QUIET_OUTPUT=0
+NORMAL_OUTPUT=1
+VERBOSE_OUTPUT=2
+
+NAME=rtve-mediateca-dl
+VERSION=4.0.1
+
+RTVE_MEDIATECA_DL=`basename "$0"`
+
+
+usage() {
+  printf 'Usage: %s [OPTIONS] ADDRESS\n' "$RTVE_MEDIATECA_DL"
+  printf 'Download a video or audio file from the "mediateca"\n'
+  printf 'and "TVE a la Carta" sections of RTVE.\n'
+  printf '\n'
+  printf '  -q,  --quiet         quiet (no output)\n'
+  printf '  -t,  --title         use title in file names\n'
+  printf '  -aN, --assets=N      download the first N assets only\n'
+  printf '  -c,  --continue      resume the download of partially-retrieved files\n'
+  printf '  -s,  --simulate      do not download the media files\n'
+  printf '  -w,  --no-overwrites do not overwrite existing files\n'
+  printf '  -v,  --verbose       verbose output\n'
+  printf '  -h,  --help          display this help and exit\n'
+  printf '       --version       output version information and exit\n'
+  printf '\n'
+  printf 'Mail bug reports and suggestions to <webmaster@sgcg.es>.\n'
+}
+
+version() {
+  printf '%s %s\n' "$NAME" "$VERSION"
+  printf 'Copyright (C) 2010, 2011, 2012 Sergio García-Cuevas González <webmaster@sgcg.es>.\n'
+  printf 'License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n'
+  printf '\n'
+  printf 'This is free software; you are free to change and redistribute it.\n'
+  printf 'There is NO WARRANTY, to the extent permitted by law.\n'
+}
+
+# Print a message only if the verbosity meets a minimum level.
+# Input:
+#   - $1: the minimum level of verbosity for the message to be printed;
+#   - $2: the message.
+# Output:
+#   - the message on stdout if the verbosity level is met.
+output() {
+  target_verbosity="$1"
+  message="$2"
+  if [ $verbosity -ge $target_verbosity ]; then
+    printf '%s\n' "$message"
+  fi
+}
+
+# Retrieve resource (e.g. metadata) files.
+# Input:
+#   - $1: resource file URI.
+# Output:
+#   - contents of the resource file go on stdout.
+retrieve_resource() {
+  resource_uri="$1"
+  options=--quiet
+  if [ $verbosity = $VERBOSE_OUTPUT ]; then
+    options=''
+  fi
+  wget $options "$resource_uri" -O -
+}
+
+# Retrieve media files.
+# Input:
+#   - $1: media URI;
+#   - $2: output file name (optional).
+retrieve_media() {
+  media_uri="$1"
+  output_file="$2"
+  options=''
+  if [ $verbosity = $QUIET_OUTPUT ]; then
+    options=--quiet
+  fi
+  if [ $continue_retrieving = yes ]; then
+    options="$options --continue"
+  fi
+  if [ $overwrite = no ]; then
+    options="$options --no-clobber"
+  fi
+  output $VERBOSE_OUTPUT "Retrieving media file $media_uri..." >&2
+  if [ $# != 2 ]; then
+    output_file=$(basename "$media_uri")
+  fi
+  wget $options "$media_uri" -O "$output_file"
+}
+
+# Decode the media URI.
+# Input:
+#   - first line of stdin contains the obfuscated URI;
+#   - second line of stdin contains the key.
+# Output:
+#   - the plaintext URI goes on stdout.
+decode() {
+  awk '
+function first_pass (cyphertext)
+{
+  intermediate_cyphertext = ""
+  increment = 1
+  text_index = 0
+  while (text_index < length (cyphertext))
+  {
+    text_index = text_index + increment
+    intermediate_cyphertext = intermediate_cyphertext \
+                              substr (cyphertext, text_index, 1)
+    increment = increment + 1;
+    if (increment == 5) increment = 1;
+  }
+  return intermediate_cyphertext
+}
+
+function second_pass (key, cyphertext)
+{
+  plaintext = "";
+  key_index = 0;
+  increment = 4;
+  while (key_index < length (key))
+  {
+    key_index = key_index + 1
+    text_index = substr (key, key_index, 1) * 10
+    key_index = key_index + increment
+    text_index = text_index + substr (key, key_index, 1)
+    text_index = text_index + 1
+    increment = increment + 1;
+    if (increment == 5) increment = 1;
+    plaintext = plaintext \
+                substr (cyphertext, text_index, 1)
+  }
+  return plaintext
+}
+
+NR == 1 { cyphertext = $1
+          intermediate_cyphertext = first_pass(cyphertext) }
+NR == 2 { key = $1
+          plaintext = second_pass(key, intermediate_cyphertext)
+          print plaintext
+          quit }'
+}
+ 
+# Retrieve the manager.
+# It is part of the URI that points to the metadata.
+# Output goes on stdout.
+get_manager()
+{
+  output $VERBOSE_OUTPUT "Obtaining manager..." >&2
+  manager_uri=http://www.rtve.es/odin/loki/Cg==/
+  retrieve_resource $manager_uri | \
+  sed 's/^.*"\([^"]*\)"}$/\1/'
+}
+
+# Extract the metadata (obfuscated media URI and key).
+# Input:
+#   - base64-encoded picture with metadata.
+# Output:
+#   - first line of stdout has the cyphertext;
+#   - second line of stdout has the key.
+extract_metadata()
+{
+  base64 -d | \
+  strings | \
+  sed '1d
+       2 { s/^....//
+           s/#$// }
+       3 { s/[^0-9].*$//
+           q }'
+}
+
+# Obtain an asset's media URI.
+# Input:
+#   - $1: asset number;
+#   - $2: media type;
+#   - $3: asset name.
+# Output:
+#   - media URI on stdout.
+get_media_uri()
+{
+  asset="$1"
+  media_type="$2"
+  asset_name="$3"
+  base_uri=http://www.rtve.es/ztnr/movil/thumbnail
+  resource_uri=$(printf '%s/%s/%s/%s.png' \
+                        $base_uri \
+                        "$manager_uri" \
+                        "$media_type" \
+                        "$asset")
+  output $VERBOSE_OUTPUT "Obtaining media URI for asset $asset ($media_type) -- $asset_name..." >&2
+  retrieve_resource "$resource_uri" | \
+  extract_metadata | \
+  decode
+}
+
+# Order-preserving duplicate-entry removal.
+# Input:
+#   - stdin: a list of entries.
+# Output:
+#   - stdout: the same list without duplicate entries.
+deduplicate()
+{
+  nl | \
+  sort -k2 | \
+  uniq -f1 | \
+  sort -nk1 | \
+  sed 's/^[[:blank:]]*[^[:blank:]]*[[:blank:]]*//'
+}
+
+# Obtain the assets present in a web page.
+# Input:
+#   - $1: web page's address.
+# Output:
+#   - asset name, asset number and media type on stdout, one line per asset.
+# Exit status:
+#   - zero if assets were found;
+#   - nonzero if assets could not be found.
+get_assets()
+{
+  address="$1"
+  output $VERBOSE_OUTPUT "Obtaining assets from $address..." >&2
+  retrieve_resource "$address" | \
+  sed -n '/data-permaLink/s@^.*data-permaLink="[^"]*/\([^/]*\)/[0-9]*/".*data-assetID="\([^_]*\)_[^_]*_\([^"]*\)".*$@\1 \2 \3@p' | \
+  deduplicate | \
+  grep '^[^ ]\+ [^ ]\+ [^ ]\+$'
+}
+
+
+# Process [OPTIONS]
+verbosity=$NORMAL_OUTPUT
+use_title=no
+assets=all
+continue_retrieving=no
+simulate=no
+overwrite=yes
+while [ $# != 0 ]; do
+  case "$1" in
+    -h|--help) usage
+               exit $SUCCESS
+               ;;
+    --version) version $SUCCESS
+               exit
+               ;;
+    -t|--title) use_title=yes
+                ;;
+    -a*) assets=${1#-a}
+         ;;
+    --assets=*) assets=${1#--assets=}
+                ;;
+    -c|--continue) continue_retrieving=yes
+                ;;
+    -s|--simulate) simulate=yes
+                   ;;
+    -w|--no-overwrites) overwrite=no
+                   ;;
+    -q|--quiet) verbosity=$QUIET_OUTPUT
+                ;;
+    -v|--verbose) verbosity=$VERBOSE_OUTPUT
+                  ;;
+    *) address="$1"
+       ;;
+  esac
+  shift
+done
+  
+if [ "x$address" = "x" ]; then
+  usage >&2
+  exit $FAILURE
+fi
+if printf '%s' "$assets" | grep -q '[^0-9]'; then
+  if [ "$assets" != all ]; then
+    usage >&2
+    exit $FAILURE
+  fi
+fi
+
+
+
+# Do the actual work.
+retrieved_assets=0
+manager=$(get_manager)
+{
+  get_assets "$address" || \
+  {
+    printf '%s: Could not extract the asset Id(s) from %s.\n' \
+           "$RTVE_MEDIATECA_DL" "$address" >&2
+    exit $FAILURE
+  }
+} | \
+while read name asset type; do
+  retrieved_assets=$((retrieved_assets + 1))
+  if [ $assets != all ]; then
+    if [ $retrieved_assets -gt $assets ]; then
+      break
+    fi
+  fi
+  media_uri=$(get_media_uri "$asset" "$type" "$name")
+  if [ "x$media_uri" = x ]; then
+    printf '%s: No media URI for asset %s (%s) -- %s.\n' \
+           "$RTVE_MEDIATECA_DL" "$asset" "$type" "$name" >&2
+    false
+  fi
+  if [ $simulate = yes ]; then
+    printf 'Asset: %s (%s) -- %s, URI: %s.\n' \
+           "$asset" "$type" "$name" "$media_uri"
+  else
+    suffix=$(printf '%s' "$media_uri" | sed 's/^.*\(\.[^.]*\)$/\1/')
+    if [ $use_title = yes ]; then
+      retrieve_media "$media_uri" "$name$suffix"
+    else
+      retrieve_media "$media_uri"
+    fi
+    if [ $? != 0 ]; then
+      printf '%s: Could not download content from asset %s (%s) -- %s, URI: %s.\n' \
+             "$RTVE_MEDIATECA_DL" "$uri" "$type" "$name" "$media_uri"  >&2
+      false
+    fi
+  fi
+done
