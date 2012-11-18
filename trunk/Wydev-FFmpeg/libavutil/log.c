@@ -27,21 +27,29 @@
 #include "avutil.h"
 
 int av_log_level = AV_LOG_INFO;
+//FILE * pOutFile;
 
 void av_log_default_callback(void* ptr, int level, const char* fmt, va_list vl)
 {
     static int print_prefix=1;
     AVClass* avc= ptr ? *(AVClass**)ptr : NULL;
+    
+//    pOutFile = fopen ("/log_ffmpeg.txt","a+");
+
     if(level>av_log_level)
         return;
 #undef fprintf
     if(print_prefix && avc) {
         fprintf(stderr, "[%s @ %p]", avc->item_name(ptr), ptr);
+//        fprintf(pOutFile, "[%s @ %p]", avc->item_name(ptr), ptr);
     }
 
     print_prefix= strstr(fmt, "\n") != NULL;
 
     vfprintf(stderr, fmt, vl);
+//    vfprintf(pOutFile, fmt, vl);
+//    fflush(pOutFile);
+//    fclose (pOutFile);
 }
 
 static void (*av_log_callback)(void*, int, const char*, va_list) = av_log_default_callback;
@@ -71,5 +79,5 @@ void av_log_set_level(int level)
 
 void av_log_set_callback(void (*callback)(void*, int, const char*, va_list))
 {
-    av_log_callback = callback;
+//    av_log_callback = callback;
 }

@@ -918,6 +918,9 @@ int attribute_align_arg avcodec_decode_video(AVCodecContext *avctx, AVFrame *pic
     int ret;
 
     *got_picture_ptr= 0;
+
+    av_log(NULL, AV_LOG_DEBUG, "avcodec_decode_video codec:%s\n", avctx->codec->name);
+
     if((avctx->coded_width||avctx->coded_height) && avcodec_check_dimensions(avctx,avctx->coded_width,avctx->coded_height))
         return -1;
     if((avctx->codec->capabilities & CODEC_CAP_DELAY) || buf_size){
@@ -939,6 +942,8 @@ int attribute_align_arg avcodec_decode_audio2(AVCodecContext *avctx, int16_t *sa
                          const uint8_t *buf, int buf_size)
 {
     int ret;
+
+    av_log(NULL, AV_LOG_DEBUG, "avcodec_decode_audio2 codec:%s\n", avctx->codec->name);
 
     if((avctx->codec->capabilities & CODEC_CAP_DELAY) || buf_size){
         //FIXME remove the check below _after_ ensuring that all audio check that the available space is enough
@@ -1546,3 +1551,13 @@ void av_log_missing_feature(void *avc, const char *feature, int want_sample)
                 "and contact the FFmpeg-devel mailing list.");
     av_log(avc, AV_LOG_WARNING, "\n");
 }
+
+void av_log_ask_for_sample(void *avc, const char *msg)
+{
+    if (msg)
+        av_log(avc, AV_LOG_WARNING, "%s ", msg);
+    av_log(avc, AV_LOG_WARNING, "If you want to help, upload a sample "
+            "of this file to ftp://upload.libav.org/MPlayer/incoming/ "
+            "and contact the libav-devel mailing list.\n");
+}
+

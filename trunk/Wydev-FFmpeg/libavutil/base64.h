@@ -37,4 +37,9 @@ int av_base64_decode(uint8_t * out, const char *in, int out_length);
  */
 char *av_base64_encode(char * buf, int buf_len, const uint8_t * src, int len);
 
+/**
+ * Calculate the output size needed to base64-encode x bytes.
+ */
+#define AV_BASE64_SIZE(x)  (((x)+2) / 3 * 4 + 1)
+
 #endif /* AVUTIL_BASE64_H */

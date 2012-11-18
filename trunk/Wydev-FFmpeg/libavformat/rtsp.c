@@ -729,7 +729,7 @@ static int url_readbuf(URLContext *h, unsigned char *buf, int size)
 
     len = 0;
     while (len < size) {
-        ret = url_read(h, buf+len, size-len);
+        ret = url_read_complete(h, buf+len, size-len);
         if (ret < 1)
             return ret;
         len += ret;
