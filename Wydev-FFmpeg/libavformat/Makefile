@@ -18,9 +18,8 @@ OBJS-$(CONFIG_AMR_DEMUXER)               += amr.o
 OBJS-$(CONFIG_AMR_MUXER)                 += amr.o
 OBJS-$(CONFIG_APC_DEMUXER)               += apc.o
 OBJS-$(CONFIG_APE_DEMUXER)               += ape.o
-OBJS-$(CONFIG_ASF_DEMUXER)               += asf.o asfcrypt.o riff.o
-OBJS-$(CONFIG_ASF_MUXER)                 += asf-enc.o riff.o
-OBJS-$(CONFIG_ASF_STREAM_MUXER)          += asf-enc.o riff.o
+OBJS-$(CONFIG_ASF_DEMUXER)               += asfdec.o asf.o asfcrypt.o \
+                                            riff.o avlanguage.o
 OBJS-$(CONFIG_AU_DEMUXER)                += au.o raw.o
 OBJS-$(CONFIG_AU_MUXER)                  += au.o
 OBJS-$(CONFIG_AVI_DEMUXER)               += avidec.o riff.o
@@ -202,10 +201,12 @@ OBJS-$(CONFIG_VHOOK)                     += framehook.o
 OBJS+= avio.o aviobuf.o
 
 OBJS-$(CONFIG_FILE_PROTOCOL)             += file.o
-OBJS-$(CONFIG_HTTP_PROTOCOL)             += http.o
+OBJS-$(CONFIG_HTTP_PROTOCOL)             += http.o httpauth.o
 OBJS-$(CONFIG_PIPE_PROTOCOL)             += file.o
 OBJS-$(CONFIG_RTP_PROTOCOL)              += rtpproto.o
 OBJS-$(CONFIG_TCP_PROTOCOL)              += tcp.o
 OBJS-$(CONFIG_UDP_PROTOCOL)              += udp.o
+OBJS-$(CONFIG_MMSH_PROTOCOL)             += mmsh.o mms.o asf.o
+OBJS-$(CONFIG_MMST_PROTOCOL)             += mmst.o mms.o asf.o
 
 include $(SUBDIR)../subdir.mak

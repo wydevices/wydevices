@@ -30,6 +30,14 @@
 #undef NDEBUG
 #include <assert.h>
 
+extern AVInputFormat asf_demuxer;
+
+#define RELATIVE_TS_BASE (INT64_MAX - (1LL<<48))
+
+static int is_relative(int64_t ts) {
+    return ts > (RELATIVE_TS_BASE - (1LL<<48));
+}
+
 /**
  * @file libavformat/utils.c
  * various utility functions for use within FFmpeg
@@ -110,6 +118,15 @@ AVOutputFormat *av_oformat_next(AVOutputFormat *f)
 void av_register_input_format(AVInputFormat *format)
 {
     AVInputFormat **p;
+
+    // Wydev hack. Prevent Wyplay libs from registering some of their formats
+    if ((!strcmp(format->name, "asf2"))
+    || (!strcmp(format->name, "asf") && format != &(asf_demuxer)))
+    {
+        av_log(NULL, AV_LOG_DEBUG, "Wydev prevent Wyplay %s InputFormat registering\n", format->name);
+        return;
+    }
+
     p = &first_iformat;
     while (*p != NULL) p = &(*p)->next;
     *p = format;
@@ -230,6 +247,9 @@ enum CodecID av_guess_codec(AVOutputFormat *fmt, const char *short_name,
 AVInputFormat *av_find_input_format(const char *short_name)
 {
     AVInputFormat *fmt;
+
+    av_log(NULL, AV_LOG_DEBUG, "av_find_input_format short_name:%s\n", short_name);
+
     for(fmt = first_iformat; fmt != NULL; fmt = fmt->next) {
         if (!strcmp(fmt->name, short_name))
             return fmt;
@@ -291,6 +311,13 @@ int av_get_packet(ByteIOContext *s, AVPacket *pkt, int size)
     return ret;
 }
 
+void av_shrink_packet(AVPacket *pkt, int size)
+{
+    if (pkt->size <= size) return;
+    pkt->size = size;
+    memset(pkt->data + size, 0, FF_INPUT_BUFFER_PADDING_SIZE);
+}
+
 int av_dup_packet(AVPacket *pkt)
 {
     if (pkt->destruct != av_destruct_packet) {
@@ -349,25 +376,31 @@ AVInputFormat *av_probe_input_format(AVProbeData *pd, int is_opened){
 
 static int set_codec_from_probe_data(AVStream *st, AVProbeData *pd, int score)
 {
-    AVInputFormat *fmt;
-    fmt = av_probe_input_format2(pd, 1, &score);
+    static const struct {
+        const char *name; enum CodecID id; enum CodecType type;
+    } fmt_id_type[] = {
+        { "aac"      , CODEC_ID_AAC       , CODEC_TYPE_AUDIO },
+        { "ac3"      , CODEC_ID_AC3       , CODEC_TYPE_AUDIO },
+        { "dts"      , CODEC_ID_DTS       , CODEC_TYPE_AUDIO },
+        { "eac3"     , CODEC_ID_EAC3      , CODEC_TYPE_AUDIO },
+        { "h264"     , CODEC_ID_H264      , CODEC_TYPE_VIDEO },
+        { "m4v"      , CODEC_ID_MPEG4     , CODEC_TYPE_VIDEO },
+        { "mp3"      , CODEC_ID_MP3       , CODEC_TYPE_AUDIO },
+        { "mpegvideo", CODEC_ID_MPEG2VIDEO, CODEC_TYPE_VIDEO },
+        { 0 }
+    };
+    AVInputFormat *fmt = av_probe_input_format2(pd, 1, &score);
 
     if (fmt) {
-        if (!strcmp(fmt->name, "mp3")) {
-            st->codec->codec_id = CODEC_ID_MP3;
-            st->codec->codec_type = CODEC_TYPE_AUDIO;
-        } else if (!strcmp(fmt->name, "ac3")) {
-            st->codec->codec_id = CODEC_ID_AC3;
-            st->codec->codec_type = CODEC_TYPE_AUDIO;
-        } else if (!strcmp(fmt->name, "mpegvideo")) {
-            st->codec->codec_id = CODEC_ID_MPEG2VIDEO;
-            st->codec->codec_type = CODEC_TYPE_VIDEO;
-        } else if (!strcmp(fmt->name, "m4v")) {
-            st->codec->codec_id = CODEC_ID_MPEG4;
-            st->codec->codec_type = CODEC_TYPE_VIDEO;
-        } else if (!strcmp(fmt->name, "h264")) {
-            st->codec->codec_id = CODEC_ID_H264;
-            st->codec->codec_type = CODEC_TYPE_VIDEO;
+        int i;
+        av_log(NULL, AV_LOG_DEBUG, "Probe with size=%d %s with score=%d\n",
+               pd->buf_size, fmt->name, score);
+        for (i = 0; fmt_id_type[i].name; i++) {
+            if (!strcmp(fmt->name, fmt_id_type[i].name)) {
+                st->codec->codec_id   = fmt_id_type[i].id;
+                st->codec->codec_type = fmt_id_type[i].type;
+                break;
+            }
         }
     }
     return !!fmt;
@@ -758,21 +791,23 @@ static void update_initial_timestamps(AVFormatContext *s, int stream_index,
     AVStream *st= s->streams[stream_index];
     AVPacketList *pktl= s->packet_buffer;
 
-    if(st->first_dts != AV_NOPTS_VALUE || dts == AV_NOPTS_VALUE || st->cur_dts == AV_NOPTS_VALUE)
+    if(st->first_dts != AV_NOPTS_VALUE || dts == AV_NOPTS_VALUE || st->cur_dts == AV_NOPTS_VALUE || is_relative(dts))
         return;
 
-    st->first_dts= dts - st->cur_dts;
+    st->first_dts= dts - (st->cur_dts - RELATIVE_TS_BASE);
     st->cur_dts= dts;
+
+    if (is_relative(pts))
+        pts += st->first_dts - RELATIVE_TS_BASE;
 
     for(; pktl; pktl= pktl->next){
         if(pktl->pkt.stream_index != stream_index)
             continue;
-        //FIXME think more about this check
-        if(pktl->pkt.pts != AV_NOPTS_VALUE && pktl->pkt.pts == pktl->pkt.dts)
-            pktl->pkt.pts += st->first_dts;
+        if(is_relative(pktl->pkt.pts))
+            pktl->pkt.pts += st->first_dts - RELATIVE_TS_BASE;
 
-        if(pktl->pkt.dts != AV_NOPTS_VALUE)
-            pktl->pkt.dts += st->first_dts;
+        if(is_relative(pktl->pkt.dts))
+            pktl->pkt.dts += st->first_dts - RELATIVE_TS_BASE;
 
         if(st->start_time == AV_NOPTS_VALUE && pktl->pkt.pts != AV_NOPTS_VALUE)
             st->start_time= pktl->pkt.pts;
@@ -1289,9 +1324,9 @@ int av_index_search_timestamp(AVStream *st, int64_t wanted_timestamp,
 
 int av_seek_frame_binary(AVFormatContext *s, int stream_index, int64_t target_ts, int flags){
     AVInputFormat *avif= s->iformat;
-    int64_t pos_min, pos_max, pos, pos_limit;
+    int64_t av_uninit(pos_min), av_uninit(pos_max), pos, pos_limit;
     int64_t ts_min, ts_max, ts;
-    int index;
+    int ret, index;
     AVStream *st;
 
     if (stream_index < 0)
@@ -1344,8 +1379,11 @@ int av_seek_frame_binary(AVFormatContext *s, int stream_index, int64_t target_ts
         return -1;
 
     /* do the seek */
-    url_fseek(s->pb, pos, SEEK_SET);
+    ret = url_fseek(s->pb, pos, SEEK_SET);
+    if (ret < 0)
+        return ret;
 
+    av_read_frame_flush(s);
     av_update_cur_dts(s, st, ts);
 
     return 0;
@@ -1359,6 +1397,11 @@ int64_t av_gen_search(AVFormatContext *s, int stream_index, int64_t target_ts, i
 #ifdef DEBUG_SEEK
     av_log(s, AV_LOG_DEBUG, "gen_seek: %d %"PRId64"\n", stream_index, target_ts);
 #endif
+
+    if(ts_min >= target_ts){
+        *ts_ret= ts_min;
+        return pos_min;
+    }
 
     if(ts_min == AV_NOPTS_VALUE){
         pos_min = s->data_offset;
@@ -1390,6 +1433,11 @@ int64_t av_gen_search(AVFormatContext *s, int stream_index, int64_t target_ts, i
                 break;
         }
         pos_limit= pos_max;
+    }
+
+    if(ts_max <= target_ts){
+        *ts_ret= ts_max;
+        return pos_max;
     }
 
     if(ts_min > ts_max){
@@ -1452,7 +1500,7 @@ av_log(s, AV_LOG_DEBUG, "%"PRId64" %"PRId64" %"PRId64" / %"PRId64" %"PRId64" %"P
 
     pos = (flags & AVSEEK_FLAG_BACKWARD) ? pos_min : pos_max;
     ts  = (flags & AVSEEK_FLAG_BACKWARD) ?  ts_min :  ts_max;
-#ifdef DEBUG_SEEK
+#if 0
     pos_min = pos;
     ts_min = read_timestamp(s, stream_index, &pos_min, INT64_MAX);
     pos_min++;
@@ -3206,6 +3254,33 @@ void url_split(char *proto, int proto_size,
     }
 }
 
+int url_join(char *str, int size, const char *proto,
+                const char *authorization, const char *hostname,
+                int port, const char *fmt, ...)
+{
+
+    str[0] = '\0';
+    if (proto)
+        av_strlcatf(str, size, "%s://", proto);
+    if (authorization && authorization[0])
+        av_strlcatf(str, size, "%s@", authorization);
+
+        /* Not an IPv6 address, just output the plain string. */
+        av_strlcat(str, hostname, size);
+
+    if (port >= 0)
+        av_strlcatf(str, size, ":%d", port);
+    if (fmt) {
+        va_list vl;
+        int len = strlen(str);
+
+        va_start(vl, fmt);
+        vsnprintf(str + len, size > len ? size - len : 0, fmt, vl);
+        va_end(vl);
+    }
+    return strlen(str);
+}
+
 char *ff_data_to_hex(char *buff, const uint8_t *src, int s)
 {
     int i;
@@ -3213,6 +3288,22 @@ char *ff_data_to_hex(char *buff, const uint8_t *src, int s)
                                         '4', '5', '6', '7',
                                         '8', '9', 'A', 'B',
                                         'C', 'D', 'E', 'F' };
+
+    for(i = 0; i < s; i++) {
+        buff[i * 2]     = hex_table[src[i] >> 4];
+        buff[i * 2 + 1] = hex_table[src[i] & 0xF];
+    }
+
+    return buff;
+}
+
+char *ff_data_to_hex_lower(char *buff, const uint8_t *src, int s)
+{
+    int i;
+    static const char hex_table[16] = { '0', '1', '2', '3',
+                                        '4', '5', '6', '7',
+                                        '8', '9', 'a', 'b',
+                                        'c', 'd', 'e', 'f' };
 
     for(i = 0; i < s; i++) {
         buff[i * 2]     = hex_table[src[i] >> 4];
@@ -3233,3 +3324,58 @@ void av_set_pts_info(AVStream *s, int pts_wrap_bits,
     if(gcd>1)
         av_log(NULL, AV_LOG_DEBUG, "st:%d removing common factor %d from timebase\n", s->index, gcd);
 }
+
+void ff_parse_key_value(const char *str, ff_parse_key_val_cb callback_get_buf,
+                        void *context)
+{
+    const char *ptr = str;
+
+    /* Parse key=value pairs. */
+    for (;;) {
+        const char *key;
+        char *dest = NULL, *dest_end;
+        int key_len, dest_len = 0;
+
+        /* Skip whitespace and potential commas. */
+        while (*ptr && (isspace(*ptr) || *ptr == ','))
+            ptr++;
+        if (!*ptr)
+            break;
+
+        key = ptr;
+
+        if (!(ptr = strchr(key, '=')))
+            break;
+        ptr++;
+        key_len = ptr - key;
+
+        callback_get_buf(context, key, key_len, &dest, &dest_len);
+        dest_end = dest + dest_len - 1;
+
+        if (*ptr == '\"') {
+            ptr++;
+            while (*ptr && *ptr != '\"') {
+                if (*ptr == '\\') {
+                    if (!ptr[1])
+                        break;
+                    if (dest && dest < dest_end)
+                        *dest++ = ptr[1];
+                    ptr += 2;
+                } else {
+                    if (dest && dest < dest_end)
+                        *dest++ = *ptr;
+                    ptr++;
+                }
+            }
+            if (*ptr == '\"')
+                ptr++;
+        } else {
+            for (; *ptr && !(isspace(*ptr) || *ptr == ','); ptr++)
+                if (dest && dest < dest_end)
+                    *dest++ = *ptr;
+        }
+        if (dest)
+            *dest = 0;
+    }
+}
+

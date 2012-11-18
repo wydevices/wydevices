@@ -234,6 +234,23 @@ void put_strz(ByteIOContext *s, const char *str)
         put_byte(s, 0);
 }
 
+int put_str16le(ByteIOContext *s, const char *str)
+{
+    const uint8_t *q = str;
+    int ret = 0;
+
+    while (*q) {
+        uint32_t ch;
+        uint16_t tmp;
+
+        GET_UTF8(ch, *q++, break;)
+        PUT_UTF16(ch, tmp, put_le16(s, tmp);ret += 2;)
+    }
+    put_le16(s, 0);
+    ret += 2;
+    return ret;
+}
+
 void put_le64(ByteIOContext *s, uint64_t val)
 {
     put_le32(s, (uint32_t)(val & 0xffffffff));
@@ -484,6 +501,28 @@ char *get_strz(ByteIOContext *s, char *buf, int maxlen)
 
     return buf;
 }
+
+#define GET_STR16(type, read) \
+    int get_str16 ##type(ByteIOContext *pb, int maxlen, char *buf, int buflen)\
+{\
+    char* q = buf;\
+    int ret = 0;\
+    while (ret + 1 < maxlen) {\
+        uint8_t tmp;\
+        uint32_t ch;\
+        GET_UTF16(ch, (ret += 2) <= maxlen ? read(pb) : 0, break;)\
+        if (!ch)\
+            break;\
+        PUT_UTF8(ch, tmp, if (q - buf < buflen - 1) *q++ = tmp;)\
+    }\
+    *q = 0;\
+    return ret;\
+}\
+
+GET_STR16(le, get_le16)
+GET_STR16(be, get_be16)
+
+#undef GET_STR16
 
 uint64_t get_be64(ByteIOContext *s)
 {

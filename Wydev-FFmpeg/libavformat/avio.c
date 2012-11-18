@@ -18,9 +18,13 @@
  * License along with FFmpeg; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
+#include <unistd.h>
 #include "avformat.h"
+#include "os_support.h"
 #include "libavutil/avstring.h"
+#include "http.h"
 
+extern URLProtocol http_protocol;
 static int default_interrupt_cb(void);
 
 URLProtocol *first_protocol = NULL;
@@ -36,88 +40,193 @@ URLProtocol *av_protocol_next(URLProtocol *p)
 int register_protocol(URLProtocol *protocol)
 {
     URLProtocol **p;
+
+    // Wydev hack. Prevent Wyplay libs from registering some of their protocols
+    if (!strcmp(protocol->name, "http") && protocol != &(http_protocol))
+    {
+        av_log(NULL, AV_LOG_DEBUG, "Wydev prevent Wyplay %s protocol registering\n", protocol->name);
+        return 0;
+    }
+
     p = &first_protocol;
-    while (*p != NULL) p = &(*p)->next;
+    while (*p != NULL)p = &(*p)->next;
     *p = protocol;
     protocol->next = NULL;
     return 0;
 }
 
-int url_open2(URLContext **puc, const char *filename, int flags, int *interrupted)
+static int url_alloc_for_protocol (URLContext **puc, struct URLProtocol *up,
+                                   const char *filename, int flags)
 {
     URLContext *uc;
-    URLProtocol *up;
-    const char *p;
-    char proto_str[128], *q;
     int err;
 
-    p = filename;
-    q = proto_str;
-    while (*p != '\0' && *p != ':') {
-        /* RFC 3986 section 3.1: scheme = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." ) */
-        if ((p == filename && !isalpha(*p)) || \
-	    (!isalpha(*p) && !isdigit(*p) && *p != '+' && *p != '-' && *p != '.'))
-            goto file_proto;
-        if ((q - proto_str) < sizeof(proto_str) - 1)
-            *q++ = *p;
-        p++;
-    }
-    /* if the protocol has length 1, we consider it is a dos drive */
-    if (*p == '\0' || (q - proto_str) <= 1) {
-    file_proto:
-        strcpy(proto_str, "file");
-    } else {
-        *q = '\0';
-    }
-
-    up = first_protocol;
-    while (up != NULL) {
-        if (!strcmp(proto_str, up->name))
-            goto found;
-        up = up->next;
-    }
-    err = AVERROR(ENOENT);
-    goto fail;
- found:
-    uc = av_malloc(sizeof(URLContext) + strlen(filename) + 1);
+    uc = av_mallocz(sizeof(URLContext) + strlen(filename) + 1);
     if (!uc) {
         err = AVERROR(ENOMEM);
         goto fail;
     }
-#if LIBAVFORMAT_VERSION_INT >= (52<<16)
     uc->filename = (char *) &uc[1];
-#endif
     strcpy(uc->filename, filename);
     uc->prot = up;
     uc->flags = flags;
     uc->is_streamed = 0; /* default = not streamed */
     uc->max_packet_size = 0; /* default: stream file */
-    uc->interrupted = interrupted;
-    err = up->url_open(uc, filename, flags);
-    if (err < 0) {
-        av_free(uc);
-        *puc = NULL;
-        return err;
+    if (!strcmp(up->name, "http")) {
+        uc->priv_data = av_mallocz(sizeof(HTTPContext));
     }
+
     *puc = uc;
     return 0;
  fail:
     *puc = NULL;
+
     return err;
+}
+
+int url_connect(URLContext* uc)
+{
+    int err;
+
+    err = uc->prot->url_open(uc, uc->filename, uc->flags);
+    if (err)
+        return err;
+    //We must be careful here as url_seek() could be slow, for example for http
+    if(   (uc->flags & (URL_WRONLY | URL_RDWR))
+       || !strcmp(uc->prot->name, "file"))
+        if(!uc->is_streamed && url_seek(uc, 0, SEEK_SET) < 0)
+            uc->is_streamed= 1;
+    return 0;
+}
+
+int url_open_protocol (URLContext **puc, struct URLProtocol *up,
+                       const char *filename, int flags)
+{
+    int ret;
+
+    ret = url_alloc_for_protocol(puc, up, filename, flags);
+    if (ret)
+        goto fail;
+    ret = url_connect(*puc);
+    if (!ret)
+        return 0;
+ fail:
+    url_close(*puc);
+    *puc = NULL;
+    return ret;
+}
+
+#define URL_SCHEME_CHARS                        \
+    "abcdefghijklmnopqrstuvwxyz"                \
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"                \
+    "0123456789+-."
+
+int url_alloc(URLContext **puc, const char *filename, int flags)
+{
+    URLProtocol *up;
+    char proto_str[128], proto_nested[128], *ptr;
+    size_t proto_len = strspn(filename, URL_SCHEME_CHARS);
+
+    if (filename[proto_len] != ':' || is_dos_path(filename))
+        strcpy(proto_str, "file");
+    else
+        av_strlcpy(proto_str, filename, FFMIN(proto_len+1, sizeof(proto_str)));
+
+    av_strlcpy(proto_nested, proto_str, sizeof(proto_nested));
+    if ((ptr = strchr(proto_nested, '+')))
+        *ptr = '\0';
+
+    // Fix mms protocol handling.
+    // mms:// is infact mmsh://
+    if (!strcmp(proto_str, "mms"))
+    {
+        // Append "h" to "mms"
+        av_strlcat(proto_str, "h", sizeof(proto_str));
+    }
+
+    up = first_protocol;
+    while (up != NULL) {
+        if (!strcmp(proto_str, up->name))
+            return url_alloc_for_protocol (puc, up, filename, flags);
+        up = up->next;
+    }
+    *puc = NULL;
+    return AVERROR(ENOENT);
 }
 
 int url_open(URLContext **puc, const char *filename, int flags)
 {
-    return url_open2(puc, filename, flags, NULL);
+    int ret;
+
+    ret = url_alloc(puc, filename, flags);
+    if (ret)
+        return ret;
+    ret = url_connect(*puc);
+    if (!ret)
+        return 0;
+    url_close(*puc);
+    *puc = NULL;
+    return ret;
+}
+
+int url_open2(URLContext **puc, const char *filename, int flags, int *interrupted)
+{
+    int ret;
+
+    ret = url_alloc(puc, filename, flags);
+    if (ret)
+        return ret;
+    (*puc)->interrupted = interrupted;
+    ret = url_connect(*puc);
+    if (!ret)
+        return 0;
+    url_close(*puc);
+    *puc = NULL;
+    return ret;
+}
+
+static inline int retry_transfer_wrapper(URLContext *h, unsigned char *buf, int size, int size_min,
+                                         int (*transfer_func)(URLContext *h, unsigned char *buf, int size))
+{
+    int ret, len;
+    int fast_retries = 5;
+
+    len = 0;
+    while (len < size_min) {
+        ret = transfer_func(h, buf+len, size-len);
+        if (ret == AVERROR(EINTR))
+            continue;
+        if (h->flags & URL_FLAG_NONBLOCK)
+            return ret;
+        if (ret == AVERROR(EAGAIN)) {
+            ret = 0;
+            if (fast_retries)
+                fast_retries--;
+            else
+                usleep(1000);
+        } else if (ret < 1)
+            return ret < 0 ? ret : len;
+        if (ret)
+           fast_retries = FFMAX(fast_retries, 2);
+        len += ret;
+        if (url_interrupt_cb())
+            return AVERROR_EXIT;
+    }
+    return len;
 }
 
 int url_read(URLContext *h, unsigned char *buf, int size)
 {
-    int ret;
     if (h->flags & URL_WRONLY)
         return AVERROR(EIO);
-    ret = h->prot->url_read(h, buf, size);
-    return ret;
+    return retry_transfer_wrapper(h, buf, size, 1, h->prot->url_read);
+}
+
+int url_read_complete(URLContext *h, unsigned char *buf, int size)
+{
+    if (h->flags & URL_WRONLY)
+        return AVERROR(EIO);
+    return retry_transfer_wrapper(h, buf, size, size, h->prot->url_read);
 }
 
 #if defined(CONFIG_MUXERS) || defined(CONFIG_PROTOCOLS)
@@ -153,8 +262,15 @@ int url_close(URLContext *h)
 
     if (h->prot->url_close)
         ret = h->prot->url_close(h);
+    if (!strcmp(h->prot->name, "http")) {
+        av_free(h->priv_data);
+    }
     av_free(h);
     return ret;
+}
+
+int url_check_interrupted(URLContext *h) {
+    return url_interrupt_cb() || (h->interrupted && *h->interrupted);
 }
 
 int url_ctl(URLContext *h, int cmd, void *arg)

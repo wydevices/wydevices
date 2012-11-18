@@ -110,8 +110,16 @@ int av_new_packet(AVPacket *pkt, int size);
 int av_get_packet(ByteIOContext *s, AVPacket *pkt, int size);
 
 /**
+ * Reduce packet size, correctly zeroing padding
+ *
+ * @param pkt packet
+ * @param size new size
+ */
+void av_shrink_packet(AVPacket *pkt, int size);
+
+/**
  * @warning This is a hack - the packet memory allocation stuff is broken. The
- * packet is allocated if it was not really allocated
+ * packet is allocated if it was not really allocated.
  */
 int av_dup_packet(AVPacket *pkt);
 
@@ -296,8 +304,9 @@ typedef struct AVInputFormat {
 enum AVStreamParseType {
     AVSTREAM_PARSE_NONE,
     AVSTREAM_PARSE_FULL,       /**< full parsing and repack */
-    AVSTREAM_PARSE_HEADERS,    /**< only parse headers, don't repack */
-    AVSTREAM_PARSE_TIMESTAMPS, /**< full parsing and interpolation of timestamps for frames not starting on packet boundary */
+    AVSTREAM_PARSE_HEADERS,    /**< Only parse headers, do not repack. */
+    AVSTREAM_PARSE_TIMESTAMPS, /**< full parsing and interpolation of timestamps for frames not starting on a packet boundary */
+    AVSTREAM_PARSE_FULL_ONCE,  /**< full parsing and repack of the first frame only, only implemented for H.264 currently */
 };
 
 typedef struct AVIndexEntry {
@@ -1111,6 +1120,10 @@ void url_split(char *proto, int proto_size,
                int *port_ptr,
                char *path, int path_size,
                const char *url);
+
+int url_join(char *str, int size, const char *proto,
+                const char *authorization, const char *hostname,
+                int port, const char *fmt, ...);
 
 int match_ext(const char *filename, const char *extensions);
 

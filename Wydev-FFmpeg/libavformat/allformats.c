@@ -57,8 +57,7 @@ void av_register_all(void)
     REGISTER_MUXDEMUX (AMR, amr);
     REGISTER_DEMUXER  (APC, apc);
     REGISTER_DEMUXER  (APE, ape);
-    REGISTER_MUXDEMUX (ASF, asf);
-    REGISTER_MUXER    (ASF_STREAM, asf_stream);
+    REGISTER_DEMUXER  (ASF, asf);
     REGISTER_MUXDEMUX (AU, au);
     REGISTER_MUXDEMUX (AVI, avi);
     REGISTER_DEMUXER  (AVISYNTH, avisynth);
@@ -201,6 +200,8 @@ void av_register_all(void)
     REGISTER_PROTOCOL (RTP, rtp);
     REGISTER_PROTOCOL (TCP, tcp);
     REGISTER_PROTOCOL (UDP, udp);
+    REGISTER_PROTOCOL (MMSH, mmsh);
+    REGISTER_PROTOCOL (MMST, mmst);
     REGISTER_PROTOCOL (RTMP, rtmp);
     REGISTER_PROTOCOL (RTMPE, rtmpe);
     REGISTER_PROTOCOL (RTMPS, rtmps);

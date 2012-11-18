@@ -142,6 +142,7 @@ show_help(){
   echo "  --disable-ffmpeg         disable ffmpeg build"
   echo "  --disable-ffserver       disable ffserver build"
   echo "  --disable-ffplay         disable ffplay build"
+  echo "  --disable-ffprobe        disable ffprobe build"
   echo "  --enable-small           optimize for size instead of speed"
   echo "  --enable-hardcoded-tables use hardcoded tables instead of runtime generation"
   echo "  --enable-memalign-hack   emulate memalign, interferes with memory debuggers"
@@ -657,6 +658,7 @@ CONFIG_LIST="
     bzlib
     ffmpeg
     ffplay
+    ffprobe
     ffserver
     gpl
     gprof
@@ -917,6 +919,8 @@ http_protocol_deps="network"
 rtp_protocol_deps="udp_protocol"
 tcp_protocol_deps="network"
 udp_protocol_deps="network"
+mmsh_protocol_deps="http_protocol"
+mmst_protocol_deps="network"
 rtmp_protocol_deps="librtmp"
 rtmpe_protocol_deps="librtmp"
 rtmps_protocol_deps="librtmp"
@@ -928,6 +932,7 @@ movie_filter_deps="avfilter_lavf"
 
 # programs
 ffplay_deps="sdl"
+ffprobe_deps=""
 ffserver_deps="ffm_muxer rtp_protocol rtsp_demuxer"
 ffserver_extralibs='$ldl'
 vhook_extralibs='$ldl'
@@ -971,6 +976,7 @@ enable zlib
 enable debug
 enable ffmpeg
 enable ffplay
+enable ffprobe
 enable ffserver
 enable ipv6
 enable mpegaudio_hp

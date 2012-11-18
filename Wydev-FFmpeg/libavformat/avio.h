@@ -54,12 +54,34 @@ typedef struct URLPollEntry {
 #define URL_RDONLY 0
 #define URL_WRONLY 1
 #define URL_RDWR   2
+/**
+ * @}
+ */
+
+/**
+ * Use non-blocking mode.
+ * If this flag is set, operations on the context will return
+ * AVERROR(EAGAIN) if they can not be performed immediately.
+ * If this flag is not set, operations on the context will never return
+ * AVERROR(EAGAIN).
+ * Note that this flag does not affect the opening/connecting of the
+ * context. Connecting a protocol will always block if necessary (e.g. on
+ * network protocols) but never hang (e.g. on busy devices).
+ * Warning: non-blocking protocols is work-in-progress; this flag may be
+ * silently ignored.
+ */
+#define URL_FLAG_NONBLOCK 4
 
 typedef int URLInterruptCB(void);
 
+int url_connect(URLContext* uc);
+int url_open_protocol (URLContext **puc, struct URLProtocol *up,
+                       const char *filename, int flags);
+int url_alloc(URLContext **puc, const char *filename, int flags);
 int url_open2(URLContext **h, const char *filename, int flags, int *interrupted);
 int url_open(URLContext **h, const char *filename, int flags);
 int url_read(URLContext *h, unsigned char *buf, int size);
+int url_read_complete(URLContext *h, unsigned char *buf, int size);
 int url_write(URLContext *h, unsigned char *buf, int size);
 offset_t url_seek(URLContext *h, offset_t pos, int whence);
 int url_close(URLContext *h);
@@ -87,7 +109,7 @@ void url_get_filename(URLContext *h, char *buf, int buf_size);
 void url_set_interrupt_cb(URLInterruptCB *interrupt_cb);
 extern URLInterruptCB *url_interrupt_cb;
 
-static int url_check_interrupted(URLContext *h) { return url_interrupt_cb() || (h->interrupted && *h->interrupted); }
+int url_check_interrupted(URLContext *h);
 
 /* not implemented */
 int url_poll(URLPollEntry *poll_table, int n, int timeout);
@@ -192,6 +214,7 @@ void put_be16(ByteIOContext *s, unsigned int val);
 void put_tag(ByteIOContext *s, const char *tag);
 
 void put_strz(ByteIOContext *s, const char *buf);
+int put_str16le(ByteIOContext *s, const char *str);
 
 offset_t url_fseek(ByteIOContext *s, offset_t offset, int whence);
 void url_fskip(ByteIOContext *s, offset_t offset);
@@ -238,6 +261,15 @@ unsigned int get_be16(ByteIOContext *s);
 unsigned int get_be24(ByteIOContext *s);
 unsigned int get_be32(ByteIOContext *s);
 uint64_t get_be64(ByteIOContext *s);
+
+/**
+ * Read a UTF-16 string from pb and convert it to UTF-8.
+ * The reading will terminate when either a null or invalid character was
+ * encountered or maxlen bytes have been read.
+ * @return number of bytes read (is always <= maxlen)
+ */
+int get_str16le(ByteIOContext *pb, int maxlen, char *buf, int buflen);
+int get_str16be(ByteIOContext *pb, int maxlen, char *buf, int buflen);
 
 uint64_t ff_get_v(ByteIOContext *bc);
 
