@@ -255,6 +255,7 @@ function generate_wyboxfiles() {
 		done
 		cp -f $LOCATION $PKGDIR/usr/bin
 		chmod +x $PKGDIR/usr/bin/$BIN
+		sh4-linux-strip $PKGDIR/rootdir/usr/bin/$BIN
 		# install required libs
 		for LIB in `$LDD $LOCATION 2>/dev/null | awk '{ print $1 }' | grep .so`; do
 			LIBNAME=`basename $LIB`
@@ -269,7 +270,7 @@ function generate_wyboxfiles() {
 				LIBLOCATION=`echo $LIBLOCATION | awk '{ print $1 }'`
 				mkdir -p $PKGDIR/usr/lib
 				cp -f $LIBLOCATION $PKGDIR/usr/lib
-		
+				sh4-linux-strip $PKGDIR/rootdir/usr/lib/$LIBNAME
 			fi
 		done
 	done
