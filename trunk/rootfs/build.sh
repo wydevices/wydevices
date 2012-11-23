@@ -198,17 +198,7 @@ function build_sources() {
 	build_dependencies
 
 	if [ $SRCDIR ]; then
-		case $NAME in
-			"busybox" )
-				cd $SRCDIR
-				CROSS_COMPILE="/opt/STM/STLinux-2.3/devkit/sh4/bin/sh4-linux-"
-				make CROSS_COMPILE="$CROSS_COMPILE" defconfig
-				make CROSS_COMPILE="$CROSS_COMPILE"
-				;;
-			* )
 				configure_and_make
-				;;
-		esac
 	fi
 
 	cd $PKGDIR
@@ -218,15 +208,6 @@ function build_sources() {
 }
 
 function generate_wyboxfiles() {
-	case $NAME in
-		"busybox" )
-			mkdir -p $PKGDIR/rootdir
-			cd $SRCDIR
-			CROSS_COMPILE="/opt/STM/STLinux-2.3/devkit/sh4/bin/sh4-linux-"
-			make CROSS_COMPILE="$CROSS_COMPILE" CONFIG_PREFIX=../rootdir install
-			cd $PKGDIR
-			;;
-		* )
 			 
 #	copy_bins
 #	copy_libs
@@ -321,9 +302,6 @@ function generate_wyboxfiles() {
 		echo "#" >> $PKGDIR/rootdir/etc/versions
 		echo $NAME-$VERSION >> $PKGDIR/rootdir/etc/versions
 	fi
-
-			;;
-	esac
 
 }
 
