@@ -13,6 +13,7 @@ service daemon/dhcdbd/pre-start {
         script start = {
                 mkdir -p /var/run;
                 mkdir -p /var/lib/dhclient;
+				rm -f /etc/ntp.conf;
                 touch /var/lib/dhclient/dhclient-vmii0.leases;
                 };
 }
