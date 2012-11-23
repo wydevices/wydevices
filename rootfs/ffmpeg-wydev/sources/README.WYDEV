@@ -1,0 +1,40 @@
+WyDev FFMpeg
+============
+
+FFMpeg modded for WyDevices.
+By Polo.
+
+============
+
+In 2008, WyPlay SA release a STB (Set Top Box) in Europe.
+http://en.wikibooks.org/wiki/Media_Centers_Based_on_Wyplayer/General_information
+                                                                                                                  
+                                                                                                                     
+Wyplay added lot of security to lock the box.
+But it was hacked some time after launching by a Spanish team.
+The hack consist in launching a script at startup which pivot the rootfs to a custom one.
+                                                                                                               
+                                                                                                                  
+WyPlay released some source code of GPLed progs and libs.
+http://www.wyplayer.com/downloads/sources-1.3.17.tar.gz
+http://www.wyplay.com/vodafonetv/sources/src-pack-Monza-1.6.1.82.tar.gz
+
+First link concern WyDevices, and contain source code of a custom FFMpeg version with extended url protocol.
+The VodafoneTv source contain the updated version of this custom FFMpeg and allow us to update our WyDevices.
+                                                                                                                
+                                                                                                                
+The problem is that WyPlay didn't release source code of proprietary progs and libs.
+
+This forbids us to update directly FFMpeg.
+But we can implement new codecs/demuxers/parsers while keeping the same versions numbers
+and being sure that doesn't brake compatibility.
+                                                                                                                 
+                                                                                                                  
+After some research it appear that VodafoneTv FFMpeg version match svn revision 11203 (commit 8540e8c at git.videolan).
+http://git.videolan.org/?p=ffmpeg.git;a=commit;h=8540e8c3eca73b18b7b5bc7f0b937007b0f81ddd
+
+
+Based this version we began to reimplement all FFMpeg improvements/codecs/demuxers/parsers.
+
+
+Feel free to help us.
