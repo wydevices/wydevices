@@ -1,0 +1,15 @@
+#Runlevel generated file
+daemon/pygui
+#daemon/update
+daemon/wyclimd
+daemon/wymtsd
+#daemon/wyntpd
+modules/wybsp
+
+system/splash
+
+daemon/apmd
+modules/ufsd
+
+system/telnet
+system/extras
