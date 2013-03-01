@@ -3,7 +3,7 @@
 NTPLOG=/wymedia/usr/var/log/ntpdate.log
 
 if [ -f /etc/ntp.conf ]; then
-        NTPSERVER=`grep "server" /etc/ntp.conf |cut -d " " -f2`
+        NTPSERVER=`grep "server" /etc/ntp.conf |head -n1 |cut -d " " -f2`
 else
         NTPSERVER="0.pool.ntp.org"
 fi
