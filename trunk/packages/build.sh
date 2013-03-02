@@ -255,7 +255,8 @@ function generate_wyboxfiles() {
 		done
 		cp -f $LOCATION $PKGDIR/usr/bin
 		chmod +x $PKGDIR/usr/bin/$BIN
-		sh4-linux-strip $PKGDIR/rootdir/usr/bin/$BIN
+		[ ! -w "$PKGDIR/usr/bin/$BIN" ] && chmod o+w $PKGDIR/usr/bin/$BIN
+		[ -n "`file $PKGDIR/usr/bin/$BIN |grep ELF`" ] && [ -n "`file $PKGDIR/usr/lib/$LIBNAME |grep \"not stripped\"`" ] && sh4-linux-strip $PKGDIR/usr/bin/$BIN
 		# install required libs
 		for LIB in `$LDD $LOCATION 2>/dev/null | awk '{ print $1 }' | grep .so`; do
 			LIBNAME=`basename $LIB`
@@ -270,7 +271,8 @@ function generate_wyboxfiles() {
 				LIBLOCATION=`echo $LIBLOCATION | awk '{ print $1 }'`
 				mkdir -p $PKGDIR/usr/lib
 				cp -f $LIBLOCATION $PKGDIR/usr/lib
-				sh4-linux-strip $PKGDIR/rootdir/usr/lib/$LIBNAME
+				[ ! -w "$PKGDIR/usr/lib/$LIBNAME" ] && chmod o+w $PKGDIR/usr/lib/$LIBNAME
+				[ -n "`file $PKGDIR/usr/lib/$LIBNAME |grep ELF`" ] && [ -n "`file $PKGDIR/usr/lib/$LIBNAME |grep \"not stripped\"`" ] && sh4-linux-strip $PKGDIR/usr/lib/$LIBNAME
 			fi
 		done
 	done
@@ -278,11 +280,13 @@ function generate_wyboxfiles() {
 	# copy static and config files
 	if [ -d $PKGDIR/static-files ]; then
 		cp -rp $PKGDIR/static-files/* $PKGDIR/usr/
+		chmod o+w -R $PKGDIR/usr/
 	fi
 	if [ -d $PKGDIR/config-files ]; then
 		cp -rp $PKGDIR/config-files/* $PKGDIR/usr/
+		chmod o+w -R $PKGDIR/usr/
 	fi
-	
+
 	# delete .svn dirs if they are present
 	find $PKGDIR/usr -type d -name ".svn" -exec rm -rf {} +
 	
