@@ -255,7 +255,7 @@ function generate_wyboxfiles() {
 		done
 		cp -f $LOCATION $PKGDIR/usr/bin
 		chmod +x $PKGDIR/usr/bin/$BIN
-		[ ! -w "$PKGDIR/usr/bin/$BIN" ] && chmod o+w $PKGDIR/usr/bin/$BIN
+		[ ! -w "$PKGDIR/usr/bin/$BIN" ] && chmod u+w $PKGDIR/usr/bin/$BIN
 		[ -n "`file $PKGDIR/usr/bin/$BIN |grep ELF`" ] && [ -n "`file $PKGDIR/usr/lib/$LIBNAME |grep \"not stripped\"`" ] && sh4-linux-strip $PKGDIR/usr/bin/$BIN
 		# install required libs
 		for LIB in `$LDD $LOCATION 2>/dev/null | awk '{ print $1 }' | grep .so`; do
@@ -271,7 +271,7 @@ function generate_wyboxfiles() {
 				LIBLOCATION=`echo $LIBLOCATION | awk '{ print $1 }'`
 				mkdir -p $PKGDIR/usr/lib
 				cp -f $LIBLOCATION $PKGDIR/usr/lib
-				[ ! -w "$PKGDIR/usr/lib/$LIBNAME" ] && chmod o+w $PKGDIR/usr/lib/$LIBNAME
+				[ ! -w "$PKGDIR/usr/lib/$LIBNAME" ] && chmod u+w $PKGDIR/usr/lib/$LIBNAME
 				[ -n "`file $PKGDIR/usr/lib/$LIBNAME |grep ELF`" ] && [ -n "`file $PKGDIR/usr/lib/$LIBNAME |grep \"not stripped\"`" ] && sh4-linux-strip $PKGDIR/usr/lib/$LIBNAME
 			fi
 		done
