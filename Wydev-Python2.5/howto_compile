@@ -1,0 +1,30 @@
+#On your wydevice
+
+
+#!!! IMPORTANT !!!
+#This files must be save before begin and restore afin process end
+#/wymedia/usr/share/pygui/skins/mediatec/splash/pysplash.py 
+#/wymedia/usr/share/pygui/skins/mediatitan/splash/pysplash.py 
+#/wymedia/usr/share/pygui/skins/splash.py 
+#/wymedia/usr/share/pygui/skins/wybox/splash/pysplash.py 
+#/wymedia/usr/share/pygui/skins/zoltartv/splash/pysplash.py 
+
+#Send or copy your new .py file
+
+cd /
+
+#Remove all .pyo file that have a .py file
+find /usr/lib/python2.5 -type f -name *.py -exec rm -f {}o \;
+find /wymedia/usr/share/pygui -type f -name *.py -exec rm -f {}o \;
+
+#Remove all .svn directory if find
+find /usr/lib/python2.5 -type d -name .svn -exec rm -rf {} \;
+find /wymedia/usr/share/pygui -type d -name .svn -exec rm -rf {} \;
+
+#Compile all .py file
+python2.5 -O -m compileall /usr/lib/python2.5
+python2.5 -O -m compileall /wymedia/usr/share/pygui
+
+#Remove all .py that have a .pyo file
+find /usr/lib/python2.5 -type f -name *.pyo -print | sed 's/\(.*\)o/\1/' | xargs rm -f
+find /wymedia/usr/share/pygui -type f -name *.pyo -print | sed 's/\(.*\)o/\1/' | xargs rm -f
