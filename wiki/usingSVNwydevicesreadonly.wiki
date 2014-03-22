@@ -21,7 +21,7 @@ cd SVN
 {{{
 svn checkout http://wydevices.googlecode.com/svn/trunk/ wydevices-read-only
 }}}
-*setup build.config file*
+*go to packages folder*
 {{{
 cd wydevices-read-only/
 cd packages/
