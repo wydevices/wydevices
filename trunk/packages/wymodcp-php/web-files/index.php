@@ -113,7 +113,7 @@ $(document).ready(	function(){
 
   <div class="bottombar2">
     <?php 
-    if (substr_compare(exec("grep global_passwords_file /wymedia/usr/etc/mongoose.conf"),"\#", 0, 1) <= 1) { ?>
+    if (substr_compare(exec("grep global_auth_file /wymedia/usr/etc/mongoose.conf"),"\#", 0, 1) <= 1) { ?>
     Go to config menu now for set a password.
     <?php } ?>
   </div>
