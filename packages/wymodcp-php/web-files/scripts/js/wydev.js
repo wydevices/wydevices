@@ -22,25 +22,6 @@ function jQueryHandler(form, path, composedata){
   }); //close $.ajax(
 }
 
-function jQueryPostHandler(form, path, composedata){
-  $.ajax({
-    method: "post",url: path,data: composedata,
-    beforeSend: function(){
-	alert("bsend");
-      $("#loading").show("fast");
-      }, //show loading just when link is clicked
-    complete: function(){
-	alert("complete");
-      $("#loading").hide("fast");
-      }, //stop showing loading when the process is complete
-    success: function(html){ //so, if data is retrieved, store it in html
-	alert("success");
-      $(".content").show("fast"); //animation
-      $(".content").html(html); //show the html inside .content div
-      }
-  }); //close $.ajax(
-}
-
 function PressButton(composedata) {
 	jQueryHandler("wyremote","./scripts/php/wyremote.php","clickedbutton="+composedata);
 }
