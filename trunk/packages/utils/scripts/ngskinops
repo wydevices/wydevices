@@ -1,0 +1,106 @@
+#!/bin/sh
+
+if [ $# -gt 2 ]
+        then
+        echo "Too much arguments!"
+	kill -SIGINT $$
+
+fi
+
+case $1 in
+        -rt | /rt | -resettheme | /resettheme )
+                logger "Reset theme requested"
+		cp /usr/share/pygui/skins/skinops/ /wymedia/usr/share/pygui/skins/skinops_tmp/ -Rf
+                rm /wymedia/usr/share/pygui/skins/skinops/ -Rf
+		mv /wymedia/usr/share/pygui/skins/skinops_tmp/ /wymedia/usr/share/pygui/skins/skinops/
+                sync
+        ;;
+        -mt | /mt | -modtheme | /modtheme)
+                logger "Upload modifications to current theme requested"
+
+		file="/wymedia/usr/share/skins/ngmodskin.tar.gz"
+		if [ $2 ]
+			then
+			file=$2
+		fi
+
+
+		tar zxf $file -C /
+                sync
+        ;;
+        -bt | /bt | -backuptheme | /backuptheme)
+
+                logger "Backup theme requested"
+
+		path="/wymedia/usr/share/pygui/skins/skinops/"
+		if [ $2 ]
+			then
+			path=$2
+		fi
+                if [ -d /wymedia/usr/share/skins/ ]; then
+                        rm -f /wymedia/usr/share/skins/ngmodskin.tar.gz
+                        tar czvf /wymedia/usr/share/skins/ngmodskin.tar.gz $path
+                else
+                        mkdir /wymedia/usr/share/skins/
+                        tar czvf /wymedia/usr/share/skins/ngmodskin.tar.gz $path
+                fi
+                sync
+
+        ;;
+        -lt | /lt | -loadtheme | /loadtheme)
+                logger "Load theme requested"
+		rm /wymedia/usr/share/pygui/skins/last_skinops/ -Rf
+		mv /wymedia/usr/share/pygui/skins/skinops/ /wymedia/usr/share/pygui/skins/last_skinops/
+		tar zxf /wymedia/usr/share/skins/ngmodskin.tar.gz -C /
+		sync
+        ;;
+
+        -r | /r | -rebootskin)
+                logger "Rebooting Splash to update skin"
+                sync
+                killall python2.5
+        ;;
+        -d | /d | -redfiff)
+                logger "Re-dfiffing skin"
+                find /wymedia/usr/share/pygui/skins/skinops/ -name *.png -exec python2.5 -O /usr/share/pygui/skins/png2dfiff.py {} \;
+        ;;
+        *)
+		echo ""
+		echo "NAME"
+		echo "	ngskinops"
+		echo ""
+		echo "SYNOPSIS"
+		echo "	skinops [option]"
+		echo ""
+		echo "OPTIONS"
+		echo "	Just use one parameter at a time."
+                echo ""
+                echo ""
+		echo ""
+                echo "-rt Reset Theme"
+		echo ""
+                echo "-mt [file] upload Modifications to current Theme. If no file is provided, it will try ngmodskin.tar.gz by default"
+		echo ""
+                echo "-bt [path or file] Backup Theme or a subset of folder or files defined by [path or file]. It needs absolute path!!! All backups will be named ngmodskin.tar.gz. Any previous file will be deleted!"
+		echo ""
+                echo "-lt Load a full Theme. Use only with a full theme ngmodskin.tar.gz !!!"
+		echo ""
+                echo "-r Reboot skin"
+		echo ""
+                echo "-d Redfiff current theme PNGs"
+		echo ""
+                echo ""
+		echo ""
+                echo ""
+		echo ""
+                echo ""
+		echo "Import/Export folder is: /wymedia/usr/share/skins/"
+                echo ""
+		echo ""
+                echo ""
+		echo ""
+                echo "Free Wyplay Source !!!"
+                echo ""
+		echo ""
+        ;;
+esac
