@@ -22,6 +22,25 @@ function jQueryHandler(form, path, composedata){
   }); //close $.ajax(
 }
 
+function jQueryPostHandler(form, path, composedata){
+  $.ajax({
+    method: "post",url: path,data: composedata,
+    beforeSend: function(){
+	alert("bsend");
+      $("#loading").show("fast");
+      }, //show loading just when link is clicked
+    complete: function(){
+	alert("complete");
+      $("#loading").hide("fast");
+      }, //stop showing loading when the process is complete
+    success: function(html){ //so, if data is retrieved, store it in html
+	alert("success");
+      $(".content").show("fast"); //animation
+      $(".content").html(html); //show the html inside .content div
+      }
+  }); //close $.ajax(
+}
+
 function PressButton(composedata) {
 	jQueryHandler("wyremote","./scripts/php/wyremote.php","clickedbutton="+composedata);
 }
@@ -51,6 +70,19 @@ function ChannelRename(newname,channeltoupdate){
   var path = "./scripts/php/channelform.php";
   var composedata="channel="+document.channelform.channel.value+"&newname="+document.channelform.newname.value+"&op=rename";
   jQueryHandler("skin", path, composedata);
+}
+
+function WyCron(composedata){
+  var path = "./scripts/php/wycron.php";
+//var senddata = 'crontab=\"'+composedata+'\"';
+var senddata = 'crontab='+composedata;
+senddata = senddata.replace(/(?:\r\n|\r|\n)/g, '@');
+senddata = senddata.replace(/#/g,'%');
+//senddata = 'crontab=test'
+
+alert(senddata);
+
+  jQueryHandler("crontab", path, senddata);
 }
 
 function logicfire(curdivid,channelid){
@@ -96,7 +128,10 @@ function ShowSyslog() {ShowPage("showsyslog",    "scripts/php/syslog.php");}
 function ShowRecords(){ShowPage("showrecords",   "scripts/php/records.php");}
 function ShowUpdate() {ShowPage("showupdate",    "scripts/php/update.php");}
 function ShowTV()     {ShowPage("showtv",        "scripts/php/channel-list.php");}
+function ShowWyCron()   {ShowPage("showwycron",      "scripts/php/wycron.php");}
 function ShowHome()   {ShowPage("showhome",      "scripts/php/home.php");}
+
+
 
 function orderchannel(source,destination) {
   var totalchannels = document.channelform.totalchannels.value;
