@@ -87,3 +87,9 @@
   <pre><?php system("strings /etc/local_conf.py")?></pre>
 </div>
 <input type="button" onClick="$('#confdivid').slideToggle();" class="wydevslidebutton"/></input>
+
+<h3>Running processes</h3>
+<div id="processdivid" name="processdivname" style="display:none;">
+  <pre><?php system("/wymedia/usr/bin/ps -ef")?></pre>
+</div>
+<input type="button" onClick="$('#processdivid').slideToggle();" class="wydevslidebutton"/></input>
