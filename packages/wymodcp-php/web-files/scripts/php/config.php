@@ -1,7 +1,7 @@
 <?php
 if ($_POST['set_pwd'] == 1 && $_POST['pwd_1'] == "" && $_POST['pwd_2'] == "") {
   //Remove refence to htpasswd file
-  exec("sed -i 's/^.*global_passwords_file/#global_passwords_file/' /wymedia/usr/etc/mongoose.conf");
+  exec("sed -i 's/^.*global_auth_file/#global_auth_file/' /wymedia/usr/etc/mongoose.conf");
   //Remove password file
   exec("rm -f /wymedia/usr/etc/mongoose_htpasswd");
   //Restart mongoose
@@ -11,7 +11,7 @@ if ($_POST['set_pwd'] == 1 && $_POST['pwd_1'] == "" && $_POST['pwd_2'] == "") {
   exit;
 } elseif ($_POST['set_pwd'] == 1 && !empty($_POST['pwd_1']) && !empty($_POST['pwd_2'])) {
   //Add refence to htpasswd file
-  exec("sed -i 's/^.*global_passwords_file/global_passwords_file/' /wymedia/usr/etc/mongoose.conf");
+  exec("sed -i 's/^.*global_auth_file/global_auth_file/' /wymedia/usr/etc/mongoose.conf");
   //Set password into the passwd file
   exec("mongoose -A /wymedia/usr/etc/mongoose_htpasswd WYBOX admin \"".$_POST['pwd_2']."\"");
   //Free password variable :)
