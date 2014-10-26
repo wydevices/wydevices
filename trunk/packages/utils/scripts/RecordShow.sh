@@ -48,3 +48,6 @@ OUT="$BASEFOLDER$OUTFOLDER"
 logger "start recording $1 with $2 seconds to $OUT"
 cd "$OUT"
 streamripper $STATION -a $1_$(date "+%d-%m-%Y_%H-%M") -l $2
+
+
+logger "finished recording $1"
