@@ -25,7 +25,7 @@ OMC)
 SONICA) 
 
      OUTFOLDER="SONICA/";
-     STATION="http://stream3.ibizasonica.com:8032/";
+     STATION="http://stream1.wft.es:1025/";
      echo "You selected Ibiza sonica";;
 
 
