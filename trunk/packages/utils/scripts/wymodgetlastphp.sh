@@ -1,5 +1,10 @@
 #USAGE: find /wymedia/usr/share/wymodcp/scripts/php/*.php -type f -exec wymodgetlastphp.sh {} \;
 
+if [[ $# -eq 0 ]] ; then
+    echo 'USAGE: find /wymedia/usr/share/wymodcp/scripts/php/*.php -type f -exec wymodgetlastphp.sh {} \;'
+    exit 0
+fi
+
 
 
 abfn=$1
