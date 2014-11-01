@@ -61,7 +61,7 @@ senddata = senddata.replace(/(?:\r\n|\r|\n)/g, '@');
 senddata = senddata.replace(/#/g,'%');
 //senddata = 'crontab=test'
 
-alert(senddata);
+//alert(senddata);
 
   jQueryHandler("crontab", path, senddata);
 }
