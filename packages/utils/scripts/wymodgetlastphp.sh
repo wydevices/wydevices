@@ -1,3 +1,7 @@
+#USAGE: find /wymedia/usr/share/wymodcp/scripts/php/*.php -type f -exec wymodgetlastphp.sh {} \;
+
+
+
 abfn=$1
 fn=${abfn##*/} 
 
