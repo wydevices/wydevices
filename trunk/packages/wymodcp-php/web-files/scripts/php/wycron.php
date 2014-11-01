@@ -37,6 +37,17 @@ function cron_edit($cronFile)
 <a href="http://katyscode.wordpress.com/2006/10/17/phpcron-running-scheduled-tasks-from-php-on-a-web-server"/>http://www.djkaty.com</a>
 (c) Intelligent Streaming 2006
 </p>
+<pre>
+.---------------- minuto (0 - 59) 
+|  .------------- hora (0 - 23)
+|  |  .---------- día del mes (1 - 31)
+|  |  |  .------- mes (1 - 12) O jan,feb,mar,apr ... (los meses en inglés)
+|  |  |  |  .---- día de la semana (0 - 6) (Domingo=0 ó 7) O sun,mon,tue,wed,thu,fri,sat (los días en inglés) 
+|  |  |  |  |
+*  *  *  *  *  comando para ser ejecutado
+</pre>
+<p>Nota: no soporta variables de entorno</p>
+<p><br /></p>
             <?php
             if (isset($_GET['crontab'])):
                   ?><p style="color: red">The crontab file will be updated.</p><?php           
