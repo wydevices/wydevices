@@ -12,10 +12,10 @@ cp -rf /etc/params/wymedia /wymedia/Backup
 cp -rf /etc/params/wyscan /wymedia/Backup
 cp -rf /etc/params/net /wymedia/Backup
 cp -rf /etc/params/wynetwork.conf /wymedia/Backup
+cp -rf /wymedia/usr/etc/cron.d/root /wymedia/Backup/crond_root_backup
 cd /wymedia/Backup
-tar cvf channels-net_backup.tar wymedia wyscan net wynetwork.conf
-
+tar cvf channels-net_backup.tar wymedia wyscan net wynetwork.conf 
 echo ""
-echo "Se ha realizado la copia de seguridad de las listas de canales y favoritos y de la configuración de red."
+echo "Se ha realizado la copia de seguridad de las listas de canales y favoritos y de la configuraciÃ³n de red."
 echo "Ruta de la copia de seguridad: /wymedia/Backup/channels-net_backup.tar"
 echo ""
