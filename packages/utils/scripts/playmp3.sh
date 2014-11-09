@@ -1,0 +1,1 @@
+lame --decode $1 - |sox -t wav - -t ossdsp /dev/dsp
