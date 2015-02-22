@@ -33,18 +33,96 @@ function cron_edit($cronFile)
         </head>
         <body style="font-family: Verdana, sans-serif; font-size: x-small">
 
-<p> WyCron.php script, modification from PHPCron v1.01 written by Katy Coe
-<a href="http://katyscode.wordpress.com/2006/10/17/phpcron-running-scheduled-tasks-from-php-on-a-web-server"/>http://www.djkaty.com</a>
-(c) Intelligent Streaming 2006
-</p>
+<?php
+
+  echo "<h2>Streams</h2><br/>";
+
+	$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
+	$selectsql = 'SELECT * FROM streamsources';
+  foreach ($dbfile->query($selectsql) as $returnrow) {
+	$name = $returnrow['name'];
+	$acronym = $returnrow['acronym'];
+	$path = $returnrow['outfolder'];    
+
+	if (file_exists ($path)):
+		if (!file_exists ("/wymedia/usr/share/wymodcp/".$acronym)):
+			echo "Creating symlink for:".$path."<br>";
+			system("ln -s ".$path." /wymedia/usr/share/wymodcp/".$acronym ); 
+		endif;
+	else:
+		echo "Creating folder:".$path."<br>";
+		system("mkdir ".$path);	
+		if (!file_exists ("/wymedia/usr/share/wymodcp/".$acronym)):
+			echo "Creating symlink for:".$path."<br>";
+			system("ln -s ".$path." /wymedia/usr/share/wymodcp/".$acronym ); 
+		endif;
+	endif;
+
+
+	echo  "<a href='./".$acronym."'>".$name."</a> ";
+    }
+
+  echo "<h2>Cron Syntax Helper</h2><br/>";
+?>
+
 <pre>
-.---------------- minuto (0 - 59) 
+--------------- minuto (0 - 59) 
 |  .------------- hora (0 - 23)
 |  |  .---------- día del mes (1 - 31)
 |  |  |  .------- mes (1 - 12) O jan,feb,mar,apr ... (los meses en inglés)
 |  |  |  |  .---- día de la semana (0 - 6) (Domingo=0 ó 7) O sun,mon,tue,wed,thu,fri,sat (los días en inglés) 
 |  |  |  |  |
 *  *  *  *  *  comando para ser ejecutado
+
+<?php
+  echo "<h2>Shows</h2><br/>";
+
+	$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
+	$selectsql = 'SELECT * FROM shows';
+  foreach ($dbfile->query($selectsql) as $returnrow) {
+	$name = $returnrow['name'];
+	$acronym = $returnrow['acronym'];
+	$path = $returnrow['outfolder'];    
+	$streamid = $returnrow['streamsourceid'];    
+	$duration = $returnrow['duration'];    
+	$outsinglefile = $returnrow['outsinglefile'];    
+
+	if (isset($returnrow['minute'])):
+		$minute = $returnrow['minute'];
+	else:
+		$minute = "*";
+	endif;
+
+	if (isset($returnrow['hour'])):
+		$hour = $returnrow['hour'];
+	else:
+		$hour = "*";
+	endif;
+
+	if (isset($returnrow['monthday'])):
+		$monthday = $returnrow['monthday'];
+	else:
+		$monthday = "*";
+	endif;
+
+	if (isset($returnrow['month'])):
+		$month = $returnrow['month'];
+	else:
+		$month = "*";
+	endif;
+
+	if (isset($returnrow['weekday'])):
+		$weekday = $returnrow['weekday'];
+	else:
+		$weekday = "*";
+	endif;
+
+	echo $minute." ".$hour." ".$monthday." ".$month." ".$weekday." RecordShowNG.sh ".str_replace(" ","_",$name)." ".$duration." ".$streamid." ".$outsinglefile."</br>" ;
+
+    }
+
+?>
+
 </pre>
 <p>Nota: no soporta variables de entorno</p>
 <p><br /></p>
