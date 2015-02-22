@@ -37,6 +37,12 @@ function cron_edit($cronFile)
 
   echo "<h2>Streams</h2><br/>";
 
+  	if (!file_exists ("/wymedia/.wyradio/wyradio.db3")):
+		echo "Creating DB";
+		system ("mkdir /wymedia/.wyradio/");
+		system ("cat /wymedia/usr/share/wymodcp/scripts/sql/CreateEmptyWyradioDB.sql | sqlite3 /wymedia/.wyradio/wyradio.db3");
+	endif;
+  
 	$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
 	$selectsql = 'SELECT * FROM streamsources';
   foreach ($dbfile->query($selectsql) as $returnrow) {
