@@ -22,6 +22,25 @@ function jQueryHandler(form, path, composedata){
   }); //close $.ajax(
 }
 
+function jQueryPostHandler(form, path, composedata){
+  $.ajax({
+    method: "post",url: path,data: composedata,
+    beforeSend: function(){
+	alert("bsend");
+      $("#loading").show("fast");
+      }, //show loading just when link is clicked
+    complete: function(){
+	alert("complete");
+      $("#loading").hide("fast");
+      }, //stop showing loading when the process is complete
+    success: function(html){ //so, if data is retrieved, store it in html
+	alert("success");
+      $(".content").show("fast"); //animation
+      $(".content").html(html); //show the html inside .content div
+      }
+  }); //close $.ajax(
+}
+
 function PressButton(composedata) {
 	jQueryHandler("wyremote","./scripts/php/wyremote.php","clickedbutton="+composedata);
 }
@@ -39,6 +58,27 @@ function Reboot(composedata){
 function ExtrasHandler(composedata){
   var path = "./scripts/php/config.php";
   jQueryHandler("extras", path, composedata);
+}
+
+function AddStream(){
+  var path = "./scripts/php/wycron.php";
+  var composedata="name="+document.addstream.name.value+"&acronym="+document.addstream.acronym.value+"&streamurl="+document.addstream.streamurl.value+"&outfolder="+document.addstream.outfolder.value+"&addstream";
+  jQueryHandler("addstream", path, composedata);
+}
+
+function AddShow(){
+  var path = "./scripts/php/wycron.php";
+  var composedata="name="+document.addshow.showname.value+
+"&streamsource="+document.addshow.streamsource.value+
+"&hour="+document.addshow.hour.value+
+"&minute="+document.addshow.minute.value+
+"&monthday="+document.addshow.monthday.value+
+"&month="+document.addshow.month.value+
+"&weekday="+document.addshow.weekday.value+
+"&duration="+document.addshow.duration.value+
+"&singlefile="+document.addshow.singlefile.checked+
+"&addshow";
+  jQueryHandler("addstream", path, composedata);
 }
 
 function Backops(backop){
