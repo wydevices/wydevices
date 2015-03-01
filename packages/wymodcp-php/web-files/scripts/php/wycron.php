@@ -33,7 +33,7 @@ function cron_edit($cronFile)
         </head>
         <body style="font-family: Verdana, sans-serif; font-size: x-small">
 
-<h2>Streams</h2>
+<h2>Streams<input type="button" onClick="$('#showstream').slideToggle();" class="wydevslidebutton"/></input></h2>
 <div id="showstream" name="addstream" style="display:none;">
 	<?php
 	  	if (!file_exists ("/wymedia/.wyradio/wyradio.db3")):
@@ -73,9 +73,9 @@ function cron_edit($cronFile)
 		echo "</table>";
 	?>	
 </div>
-<input type="button" onClick="$('#showstream').slideToggle();" class="wydevslidebutton"/></input>
 
-	<h2> Add new stream: </h2>
+
+	<h2> Add new stream: <input type="button" onClick="$('#addstream').slideToggle();" class="wydevslidebutton"/></input></h2>
 <div id="addstream" name="addstream" style="display:none;">
 
 	<?php if (isset($_GET['addstream'])) {
@@ -116,11 +116,12 @@ function cron_edit($cronFile)
 	<?php } // end of form ?>
 
 </div>
-<input type="button" onClick="$('#addstream').slideToggle();" class="wydevslidebutton"/></input>
+
 
 
 <h2>Cron Syntax Helper</h2><br/>
 <pre>
+<?php system('date');?>
 --------------- minuto (0 - 59) 
 |  .------------- hora (0 - 23)
 |  |  .---------- día del mes (1 - 31)
@@ -179,7 +180,7 @@ function cron_edit($cronFile)
 ?>
 
 </pre>
-<h2> Add Shows </h2></ br>
+<h2> Add Shows <input type="button" onClick="$('#addshow').slideToggle();" class="wydevslidebutton"/></input></h2>
 <div id="addshow" name="addshow" style="display:none;">
 
 <?php if (isset($_GET['addshow'])) {
@@ -285,7 +286,7 @@ function cron_edit($cronFile)
 	</form>
 	<?php } // end of form ?>
 </div>
-<input type="button" onClick="$('#addshow').slideToggle();" class="wydevslidebutton"/></input>
+
 
 
 
