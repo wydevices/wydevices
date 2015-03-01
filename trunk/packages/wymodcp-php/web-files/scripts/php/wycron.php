@@ -33,44 +33,93 @@ function cron_edit($cronFile)
         </head>
         <body style="font-family: Verdana, sans-serif; font-size: x-small">
 
-<?php
-
-  echo "<h2>Streams</h2><br/>";
-
-  	if (!file_exists ("/wymedia/.wyradio/wyradio.db3")):
-		echo "Creating DB";
-		system ("mkdir /wymedia/.wyradio/");
-		system ("cat /wymedia/usr/share/wymodcp/scripts/sql/CreateEmptyWyradioDB.sql | sqlite3 /wymedia/.wyradio/wyradio.db3");
-	endif;
-  
-	$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
-	$selectsql = 'SELECT * FROM streamsources';
-  foreach ($dbfile->query($selectsql) as $returnrow) {
-	$name = $returnrow['name'];
-	$acronym = $returnrow['acronym'];
-	$path = $returnrow['outfolder'];    
-
-	if (file_exists ($path)):
-		if (!file_exists ("/wymedia/usr/share/wymodcp/".$acronym)):
-			echo "Creating symlink for:".$path."<br>";
-			system("ln -s ".$path." /wymedia/usr/share/wymodcp/".$acronym ); 
+<h2>Streams</h2>
+<div id="showstream" name="addstream" style="display:none;">
+	<?php
+	  	if (!file_exists ("/wymedia/.wyradio/wyradio.db3")):
+			echo "Creating DB";
+			system ("mkdir /wymedia/.wyradio/");
+			system ("cat /wymedia/usr/share/wymodcp/scripts/sql/CreateEmptyWyradioDB.sql | sqlite3 /wymedia/.wyradio/wyradio.db3");
 		endif;
-	else:
-		echo "Creating folder:".$path."<br>";
-		system("mkdir ".$path);	
-		if (!file_exists ("/wymedia/usr/share/wymodcp/".$acronym)):
-			echo "Creating symlink for:".$path."<br>";
-			system("ln -s ".$path." /wymedia/usr/share/wymodcp/".$acronym ); 
-		endif;
-	endif;
+	  
+		$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
+		$selectsql = 'SELECT * FROM streamsources';
+		echo "<table>";
+
+			  foreach ($dbfile->query($selectsql) as $returnrow) {
+				$name = $returnrow['name'];
+				$acronym = $returnrow['acronym'];
+				$path = $returnrow['outfolder'];    
+				$streamurl = $returnrow['url'];   
+
+				if (file_exists ($path)):
+					if (!file_exists ("/wymedia/usr/share/wymodcp/".$acronym)):
+						echo "Creating symlink for:".$path."<br>";
+						system("ln -s ".$path." /wymedia/usr/share/wymodcp/".$acronym ); 
+					endif;
+				else:
+					echo "Creating folder:".$path."<br>";
+					system("mkdir ".$path);	
+					if (!file_exists ("/wymedia/usr/share/wymodcp/".$acronym)):
+						echo "Creating symlink for:".$path."<br>";
+						system("ln -s ".$path." /wymedia/usr/share/wymodcp/".$acronym ); 
+					endif;
+				endif;
 
 
-	echo  "<a href='./".$acronym."'>".$name."</a> ";
-    }
+				echo  "<tr><td><b>".$name." :</b></td><td> <a href='./".$acronym."'>".$acronym."</a></td><td><a href='".$streamurl."'>Stream URL</a></td></tr>";
 
-  echo "<h2>Cron Syntax Helper</h2><br/>";
-?>
+			    }
+		echo "</table>";
+	?>	
+</div>
+<input type="button" onClick="$('#showstream').slideToggle();" class="wydevslidebutton"/></input>
 
+	<h2> Add new stream: </h2>
+<div id="addstream" name="addstream" style="display:none;">
+
+	<?php if (isset($_GET['addstream'])) {
+	//form submit code here
+
+	$asname = $_GET['name'];
+	$asacronym = $_GET['acronym'];
+	$asstreamurl = $_GET['streamurl'];
+	$asoutfolder = $_GET['outfolder'];
+
+	$dbfile->exec("INSERT INTO streamsources (name, acronym, url, outfolder ) VALUES ('".$asname."', '".$asacronym."', '".$asstreamurl."', '".$asoutfolder."' );");
+
+
+	echo $asname;
+	echo "<br>";
+	echo $asacronym;
+	echo "<br>";
+	echo $asstreamurl;
+	echo "<br>";
+	echo $asoutfolder;
+	echo "<br>";
+
+	} else { ?>
+
+	<form Name="addstream" action="./scripts/php/wycron.php" method="post">	
+	Name: <input type="text" name="name" value="" />
+	Acronym: <input type="text" name="acronym" value="" />	
+	<br>
+	Stream URL: <input type="text" name="streamurl" value="" size="75" /> </br>
+	Out Folder: <input type="text" name="outfolder" value="/wymedia/Music/WYRADIO/" />
+	<input id="addstream" name="addstream" class="button" type="button" onclick="AddStream();" value="Add Stream"/>
+
+	</form>
+
+
+
+
+	<?php } // end of form ?>
+
+</div>
+<input type="button" onClick="$('#addstream').slideToggle();" class="wydevslidebutton"/></input>
+
+
+<h2>Cron Syntax Helper</h2><br/>
 <pre>
 --------------- minuto (0 - 59) 
 |  .------------- hora (0 - 23)
@@ -130,7 +179,117 @@ function cron_edit($cronFile)
 ?>
 
 </pre>
-<p>Nota: no soporta variables de entorno</p>
+<h2> Add Shows </h2></ br>
+<div id="addshow" name="addshow" style="display:none;">
+
+<?php if (isset($_GET['addshow'])) {
+	//form submit code here
+
+	$asname = $_GET['name'];
+	$asstreamsourceid = $_GET['streamsource'];
+	$ashour = $_GET['hour'];
+	$asminute = $_GET['minute'];
+
+	$asweekday = $_GET['weekday'];
+	$asmonth = $_GET['month'];
+	$asmonthday = $_GET['monthday'];
+
+
+	$asoutsinglefile = $_GET['singlefile'];
+	$asduration = $_GET['duration'];
+
+	$asacronym = substr (str_replace(" ","",$asname),0,9);
+
+	$insertsql = "INSERT INTO shows ([name],[acronym],[streamsourceid],[duration],[outsinglefile],[minute],[hour],[monthday],[weekday],[month]) VALUES ('".$asname."', '".$asacronym."', '".$asstreamsourceid."', ".$asduration.", '".$asoutsinglefile."',".$asminute.",".$ashour.",".$asmonthday.",".$asweekday.",".$asmonth." );";
+
+	echo $insertsql;
+
+	$dbfile->exec($insertsql);
+
+
+
+	} else { ?>
+
+	<form  Name="addshow" action="./scripts/php/wycron.php" method="post">
+
+	<table><tr><td>Nombre</td><td>Emisora</td><td>Hora</td><td>Minuto</td><td>Dia del Mes</td><td>Mes</td><td>Dia de la Semana</td><td>Duracion</td><td>Archivo Unico</td></tr>
+	<tr><td>
+	<input type="text" name="showname" value="" />
+	</td><td>
+	<select name="streamsource">
+		<?php 
+		$selectsql = 'SELECT name,acronym FROM streamsources';
+		  foreach ($dbfile->query($selectsql) as $returnrow) 
+			{
+			$name = $returnrow['name'];
+			$acronym = $returnrow['acronym'];
+			echo "<option value=".$acronym.">".$name."</option>";
+			}
+
+
+	 ?>
+	</select>
+	</td><td>
+	<select name="hour">
+		<option value="null">Todos</option>
+		<?php for ($hour = 0; $hour <= 23; $hour++) { echo "<option value=".$hour.">".$hour."</option>"; } ?>
+	</select>
+	</td><td>
+	<select name="minute">
+		<option value="null">Todos</option>
+		<?php for ($min = 0; $min <= 59; $min++) { echo "<option value=".$min.">".$min."</option>"; } ?>
+	</select>
+	</td><td>
+	<select name="monthday">
+		<option value="null">Todos</option>
+		<?php for ($monthday = 1; $monthday <= 31; $monthday++) { echo "<option value=".$monthday.">".$monthday."</option>"; } ?>
+	</select>
+	</td><td>
+	<select name="month">
+		<option value="null">Todos</option>
+		<option value="1">Enero</option>
+		<option value="2">Febrero</option>
+		<option value="3">Marzo</option>
+		<option value="4">Abril</option>
+		<option value="5">Mayo</option>
+		<option value="6">Junio</option>
+		<option value="7">Julio</option>
+		<option value="8">Agosto</option>
+		<option value="9">Septiembre</option>
+		<option value="10">Octubre</option>
+		<option value="11">Noviembre</option>
+		<option value="12">Diciembre</option>
+	</select>
+	</td><td>
+
+	<select name="weekday">
+		<option value="null">Todos</option>
+		<option value="1">Lunes</option>
+		<option value="2">Martes</option>
+		<option value="3">Miercoles</option>
+		<option value="4">Jueves</option>
+		<option value="5">Viernes</option>
+		<option value="6">Sabado</option>
+		<option value="0">Domingo</option>
+	</select>
+	</td><td>
+
+
+	<input type="text" name="duration" default="3600" size="6">
+	</td><td>
+	<input type="checkbox" name="singlefile" default="1">
+	</td>
+	<tr><td><input id="addshow" name="addshow" class="button" type="button" onclick="AddShow();" value="Add Show"/></td></tr>
+	</table>
+
+	</form>
+	<?php } // end of form ?>
+</div>
+<input type="button" onClick="$('#addshow').slideToggle();" class="wydevslidebutton"/></input>
+
+
+
+
 <p><br /></p>
             <?php
             if (isset($_GET['crontab'])):
@@ -184,116 +343,4 @@ function cron_edit($cronFile)
             
        </body>
     </html>
-    <?php
-}
-
-
-//NOT NEEDED YET
-
-// Class representing a single cronjob
-// Rules for crontab file format and scheduling conditions taken from:
-// http://en.wikipedia.org/wiki/Cron
-class CronJob {
-    public $minutes;
-    public $hours;
-    public $dates;
-    public $months;    public $weekdays;
-    public $job;
-    public $name;
-    
-    public function __construct($jobText)
-    {
-        // Get parameters
-        $jobText = trim($jobText);
-        $jobText = preg_replace('#\s{2,}#', ' ', $jobText);
-        
-        // Determine if cron entry starts with a name
-        if (preg_match('/[\*0-9]/', substr($jobText, 0, 1)) === 0)
-        {
-            $jobParams = split(' ', $jobText, 7);
-            $this->name = str_replace('_', ' ', $jobParams[0]);
-            array_shift($jobParams);
-        }
-        else
-        {
-            $jobParams = split(' ', $jobText, 6);
-            $this->name = 'Unnamed job';
-        }
-        
-        // If insufficient parameters supplied, abort silently
-        if (count($jobParams) < 6)
-            return;
-        
-        // Parse time parameters
-        $this->minutes = $this->parse_param($jobParams[0], 0, 59);
-        $this->hours = $this->parse_param($jobParams[1], 0, 23);
-        $this->dates = $this->parse_param($jobParams[2], 1, 31);
-        $this->months = $this->parse_param($jobParams[3], 1, 12);
-        $this->weekdays = $this->parse_param($jobParams[4], 0, 7);
-        
-        // 0 and 7 are both counted as Sunday
-        if ($this->weekdays == 7)
-            $this->weekdays = 0;
-        
-        // Shell job command
-        $this->job = implode(' ', array_slice($jobParams, 5));
-    }
-    
-    private function parse_param($text, $min, $max)
-    {
-        $result = array();
-        
-        // * - all possible values
-        if ($text == '*')
-            for ($i = $min; $i <= $max; $i++)
-                $result[] = $i;
-                
-        // "*/n" syntax - starts at $min and recurs every n
-        elseif (substr($text, 0, 2) == '*/')
-            for ($i = $min; $i <= $max; $i += substr($text, 2))
-                $result[] = $i;
-        
-        else
-        {
-            // Split by commas
-            $timeItems = split(',', $text);
-            
-            foreach ($timeItems as $timeItem)
-            {
-                // X-Y syntax - starts at X and increments by 1 to Y inclusive,
-                // wrapping around from $max to $min if necessary
-                if (strpos($timeItem, '-') !== false)
-                {
-                    list ($first, $last) = split('-', $timeItem, 2);
-                    
-                    // Bound specified range within min/max parameters
-                    $first = max(min($first, $max), $min);
-                    $last = max(min($last, $max), $min);
-                    
-                    // Non-wrapping range
-                    if ($first <= $last)
-                        for ($i = $first; $i <= $last; $i++)
-                            $result[] = $i;
-                    
-                    // Wrapping range
-                    else {
-                        for ($i = $first; $i <= $max; $i++)
-                            $result[] = $i;
-                            
-                        for ($i = $min; $i <= $last; $i++)
-                            $result[] = $i;
-                    }
-                }
-                
-                // Single number
-                else
-                    $result[] = $timeItem;
-            }
-        }
-        return $result;
-    }
-}
-
-
-
-?>
+    <?php } ?>
