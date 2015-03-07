@@ -33,6 +33,8 @@ function cron_edit($cronFile)
         </head>
         <body style="font-family: Verdana, sans-serif; font-size: x-small">
 
+<h1> WyRadio </h1></br><hr>
+
 <h2>Streams<input type="button" onClick="$('#showstream').slideToggle();" class="wydevslidebutton"/></input></h2>
 <div id="showstream" name="addstream" style="display:none;">
 	<?php
@@ -157,27 +159,16 @@ href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
 
 
 
-<h2>Cron Syntax Helper</h2><br/>
-<pre>
-<?php system('date');?>
---------------- minuto (0 - 59) 
-|  .------------- hora (0 - 23)
-|  |  .---------- día del mes (1 - 31)
-|  |  |  .------- mes (1 - 12) O jan,feb,mar,apr ... (los meses en inglés)
-|  |  |  |  .---- día de la semana (0 - 6) (Domingo=0 ó 7) O sun,mon,tue,wed,thu,fri,sat (los días en inglés) 
-|  |  |  |  |
-*  *  *  *  *  comando para ser ejecutado
+<h2>Shows<input type="button" onClick="$('#shows').slideToggle();" class="wydevslidebutton"/></input></h2>
 
+<div id="shows" name="shows" style="display:none;">
+<pre>
 	<?php
 		if (isset($_GET['delshowcount'])) {
-
 		echo "SQL Syntax:";
-
 		for ($acrcount = 0; $acrcount < $_GET['delshowcount']; $acrcount++) {
-
 			$delthisid = "ID".$acrcount;
 			$delthis = $_GET[$delthisid];
-
 			$SQLDelete = "DELETE FROM shows WHERE acronym='".$delthis."';";
 			echo $SQLDelete."<br>";					
 	
@@ -185,69 +176,64 @@ href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
 			}	
 		}
 	?>
-
-
-<form name='deleteshow' action='wycron.php' method='POST'>
-<?php
-  echo "<h2>Shows</h2><br/>";
-
-	$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
-	$selectsql = 'SELECT * FROM shows';
-  foreach ($dbfile->query($selectsql) as $returnrow) {
-	$name = $returnrow['name'];
-	$acronym = $returnrow['acronym'];
-	$path = $returnrow['outfolder'];    
-	$streamid = $returnrow['streamsourceid'];    
-	$duration = $returnrow['duration'];    
-	$outsinglefile = $returnrow['outsinglefile'];    
-
-	/*echo "OSF:".$outsinglefile;
-	if ($outsinglefile == "true"):
-		$outsinglefile = 1;
-	else:
-		$outsinglefile = 0;
-	endif;
-	*/
-
-	if (isset($returnrow['minute'])):
-		$minute = $returnrow['minute'];
-	else:
-		$minute = "*";
-	endif;
-
-	if (isset($returnrow['hour'])):
-		$hour = $returnrow['hour'];
-	else:
-		$hour = "*";
-	endif;
-
-	if (isset($returnrow['monthday'])):
-		$monthday = $returnrow['monthday'];
-	else:
-		$monthday = "*";
-	endif;
-
-	if (isset($returnrow['month'])):
-		$month = $returnrow['month'];
-	else:
-		$month = "*";
-	endif;
-
-	if (isset($returnrow['weekday'])):
-		$weekday = $returnrow['weekday'];
-	else:
-		$weekday = "*";
-	endif;
-
-	echo "<input type=checkbox name=deleteshow[] value=".$acronym.">".$minute." ".$hour." ".$monthday." ".$month." ".$weekday." RecordShowNG.sh ".str_replace(" ","_",$name)." ".$duration." ".$streamid." ".$outsinglefile."</br>" ;
-
-    }
-
-?>
-<input id='deleteshowbutton' name='deleteshowbutton' class='button' type='button' onclick='DeleteShow();' value='DeleteShow'/>
-</form>
-
 </pre>
+
+
+
+	<form name='deleteshow' action='wycron.php' method='POST'>
+
+	<?php
+
+		$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
+		$selectsql = 'SELECT * FROM shows';
+	  foreach ($dbfile->query($selectsql) as $returnrow) {
+		$name = $returnrow['name'];
+		$acronym = $returnrow['acronym'];
+		$path = $returnrow['outfolder'];    
+		$streamid = $returnrow['streamsourceid'];    
+		$duration = $returnrow['duration'];    
+		$outsinglefile = $returnrow['outsinglefile'];    
+
+		if (isset($returnrow['minute'])):
+			$minute = $returnrow['minute'];
+		else:
+			$minute = "*";
+		endif;
+
+		if (isset($returnrow['hour'])):
+			$hour = $returnrow['hour'];
+		else:
+			$hour = "*";
+		endif;
+
+		if (isset($returnrow['monthday'])):
+			$monthday = $returnrow['monthday'];
+		else:
+			$monthday = "*";
+		endif;
+
+		if (isset($returnrow['month'])):
+			$month = $returnrow['month'];
+		else:
+			$month = "*";
+		endif;
+
+		if (isset($returnrow['weekday'])):
+			$weekday = $returnrow['weekday'];
+		else:
+			$weekday = "*";
+		endif;
+
+		echo "<input type=checkbox name=deleteshow[] value=".$acronym.">".$minute." ".$hour." ".$monthday." ".$month." ".$weekday." RecordShowNG.sh ".str_replace(" ","_",$name)." ".$duration." ".$streamid." ".$outsinglefile."</br>" ;
+
+	    }
+
+	?>
+	<input id='deleteshowbutton' name='deleteshowbutton' class='button' type='button' onclick='DeleteShow();' value='DeleteShow'/>
+	</form>
+	</pre>
+</div>
+
 <h2> Add Shows <input type="button" onClick="$('#addshow').slideToggle();" class="wydevslidebutton"/></input></h2>
 <div id="addshow" name="addshow" style="display:none;">
 
@@ -362,11 +348,28 @@ href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
 	<?php } // end of form ?>
 </div>
 
+<hr>
+
+<h1>Crontab</h1>
 
 
+<pre>
 
+###################################################################
 
-<p><br /></p>
+<b>Current Date & Time: </b> <?php system('date');?>
+
+###################################################################
+--------------- minuto (0 - 59) 
+|  .------------- hora (0 - 23)
+|  |  .---------- día del mes (1 - 31)
+|  |  |  .------- mes (1 - 12) O jan,feb,mar,apr ... (los meses en inglés)
+|  |  |  |  .---- día de la semana (0 - 6) (Domingo=0 ó 7) O sun,mon,tue,wed,thu,fri,sat (los días en inglés) 
+|  |  |  |  |
+*  *  *  *  *  comando para ser ejecutado
+
+</pre>
+
             <?php
             if (isset($_GET['crontab'])):
                   ?><p style="color: red">The crontab file will be updated.</p><?php           
