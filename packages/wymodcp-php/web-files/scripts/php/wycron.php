@@ -41,6 +41,11 @@ function cron_edit($cronFile)
 			system ("mkdir /wymedia/.wyradio/");
 			system ("cat /wymedia/usr/share/wymodcp/scripts/sql/CreateEmptyWyradioDB.sql | sqlite3 /wymedia/.wyradio/wyradio.db3");
 		endif;
+
+	  	if (!file_exists ("/wymedia/usr/share/wymodcp/WYRADIO/")):
+			echo "Creating root WYRADIO";
+			system ("mkdir /wymedia/usr/share/wymodcp/WYRADIO/");
+		endif;
 	  
 		$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
 		$selectsql = 'SELECT * FROM streamsources';
@@ -53,16 +58,16 @@ function cron_edit($cronFile)
 				$streamurl = $returnrow['url'];   
 
 				if (file_exists ($path)):
-					if (!file_exists ("/wymedia/usr/share/wymodcp/".$acronym)):
+					if (!file_exists ("/wymedia/usr/share/wymodcp/WYRADIO/".$acronym."/")):
 						echo "Creating symlink for:".$path."<br>";
-						system("ln -s ".$path." /wymedia/usr/share/wymodcp/".$acronym ); 
+						system("ln -s ".$path." /wymedia/usr/share/wymodcp/WYRADIO/".$acronym ); 
 					endif;
 				else:
 					echo "Creating folder:".$path."<br>";
 					system("mkdir ".$path);	
-					if (!file_exists ("/wymedia/usr/share/wymodcp/".$acronym)):
+					if (!file_exists ("/wymedia/usr/share/wymodcp/WYRADIO/".$acronym)):
 						echo "Creating symlink for:".$path."<br>";
-						system("ln -s ".$path." /wymedia/usr/share/wymodcp/".$acronym ); 
+						system("ln -s ".$path." /wymedia/usr/share/wymodcp/WYRADIO/".$acronym ); 
 					endif;
 				endif;
 
