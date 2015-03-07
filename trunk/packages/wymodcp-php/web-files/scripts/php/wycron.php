@@ -98,7 +98,8 @@ function cron_edit($cronFile)
 
 				echo "<tr><td>";
 					echo "<b>".$name." :</b></td>";
-					echo "<td> <a href='./".$acronym."'>".$acronym."</a></td>";
+					echo "<td> <a 
+href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
 					echo "<td><a href='".$streamurl."'>Stream URL</a>";
 					echo "<td><input type=checkbox name=deletestream[] value=".$acronym.">";
 				echo "</td></tr>";
@@ -200,6 +201,14 @@ function cron_edit($cronFile)
 	$duration = $returnrow['duration'];    
 	$outsinglefile = $returnrow['outsinglefile'];    
 
+	/*echo "OSF:".$outsinglefile;
+	if ($outsinglefile == "true"):
+		$outsinglefile = 1;
+	else:
+		$outsinglefile = 0;
+	endif;
+	*/
+
 	if (isset($returnrow['minute'])):
 		$minute = $returnrow['minute'];
 	else:
@@ -256,6 +265,13 @@ function cron_edit($cronFile)
 
 
 	$asoutsinglefile = $_GET['singlefile'];
+
+	if ($asoutsinglefile == "true"):
+		$asoutsinglefile = 1;
+	else:
+		$asoutsinglefile = 0;
+	endif;
+
 	$asduration = $_GET['duration'];
 
 	$asacronym = substr (str_replace(" ","",$asname),0,9);
