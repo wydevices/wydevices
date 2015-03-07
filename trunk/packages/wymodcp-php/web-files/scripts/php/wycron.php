@@ -75,6 +75,7 @@ function cron_edit($cronFile)
 	?>	
 
 	<?php
+		
 			  foreach ($dbfile->query($selectsql) as $returnrow) {
 				$name = $returnrow['name'];
 				$acronym = $returnrow['acronym'];
@@ -166,6 +167,26 @@ function cron_edit($cronFile)
 |  |  |  |  |
 *  *  *  *  *  comando para ser ejecutado
 
+	<?php
+		if (isset($_GET['delshowcount'])) {
+
+		echo "SQL Syntax:";
+
+		for ($acrcount = 0; $acrcount < $_GET['delshowcount']; $acrcount++) {
+
+			$delthisid = "ID".$acrcount;
+			$delthis = $_GET[$delthisid];
+
+			$SQLDelete = "DELETE FROM shows WHERE acronym='".$delthis."';";
+			echo $SQLDelete."<br>";					
+	
+			$dbfile->exec($SQLDelete);
+			}	
+		}
+	?>
+
+
+<form name='deleteshow' action='wycron.php' method='POST'>
 <?php
   echo "<h2>Shows</h2><br/>";
 
@@ -209,11 +230,13 @@ function cron_edit($cronFile)
 		$weekday = "*";
 	endif;
 
-	echo $minute." ".$hour." ".$monthday." ".$month." ".$weekday." RecordShowNG.sh ".str_replace(" ","_",$name)." ".$duration." ".$streamid." ".$outsinglefile."</br>" ;
+	echo "<input type=checkbox name=deleteshow[] value=".$acronym.">".$minute." ".$hour." ".$monthday." ".$month." ".$weekday." RecordShowNG.sh ".str_replace(" ","_",$name)." ".$duration." ".$streamid." ".$outsinglefile."</br>" ;
 
     }
 
 ?>
+<input id='deleteshowbutton' name='deleteshowbutton' class='button' type='button' onclick='DeleteShow();' value='DeleteShow'/>
+</form>
 
 </pre>
 <h2> Add Shows <input type="button" onClick="$('#addshow').slideToggle();" class="wydevslidebutton"/></input></h2>
