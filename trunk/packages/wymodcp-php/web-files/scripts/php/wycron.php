@@ -49,8 +49,32 @@ function cron_edit($cronFile)
 	  
 		$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
 		$selectsql = 'SELECT * FROM streamsources';
-		echo "<table>";
 
+
+
+		echo "<form name='deletestream' action='wycron.php' method='POST'>";
+		echo "<table>";
+	?>
+
+	<?php
+		if (isset($_GET['delstreamcount'])) {
+
+		echo "SQL Syntax:";
+
+		for ($acrcount = 0; $acrcount < $_GET['delstreamcount']; $acrcount++) {
+
+			$delthisid = "ID".$acrcount;
+			$delthis = $_GET[$delthisid];
+
+			$SQLDelete = "DELETE FROM streamsources WHERE acronym='".$delthis."';";
+			echo $SQLDelete."<br>";					
+	
+			$dbfile->exec($SQLDelete);
+			}	
+		}
+	?>	
+
+	<?php
 			  foreach ($dbfile->query($selectsql) as $returnrow) {
 				$name = $returnrow['name'];
 				$acronym = $returnrow['acronym'];
@@ -71,12 +95,19 @@ function cron_edit($cronFile)
 					endif;
 				endif;
 
-
-				echo  "<tr><td><b>".$name." :</b></td><td> <a href='./".$acronym."'>".$acronym."</a></td><td><a href='".$streamurl."'>Stream URL</a></td></tr>";
+				echo "<tr><td>";
+					echo "<b>".$name." :</b></td>";
+					echo "<td> <a href='./".$acronym."'>".$acronym."</a></td>";
+					echo "<td><a href='".$streamurl."'>Stream URL</a>";
+					echo "<td><input type=checkbox name=deletestream[] value=".$acronym.">";
+				echo "</td></tr>";
 
 			    }
+	 	echo "<tr><td><input id='deletebutton' name='deletebutton' class='button' type='button' onclick='DeleteStream();' value='Delete Stream'/></td></tr>";
 		echo "</table>";
-	?>	
+		echo "</form>";
+	?>
+
 </div>
 
 
