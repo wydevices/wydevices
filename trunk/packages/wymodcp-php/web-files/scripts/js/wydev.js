@@ -66,6 +66,24 @@ function AddStream(){
   jQueryHandler("addstream", path, composedata);
 }
 
+function DeleteStream(){
+  var path = "./scripts/php/wycron.php";
+  var arracronyms = document.deletestream.elements['deletestream[]'];
+  var composedata="";  
+  var j=0;
+    for (var i = 0; i < arracronyms.length; i++) {       
+		if (arracronyms[i].checked) {
+		    composedata=composedata+"ID"+j+"="+arracronyms[i].value+"&";
+		    j = j+1;
+		}
+        }
+
+	composedata = composedata+"delstreamcount="+j;
+	// alert(composedata);
+
+  jQueryHandler("deletestream", path, composedata);
+}
+
 function AddShow(){
   var path = "./scripts/php/wycron.php";
   var composedata="name="+document.addshow.showname.value+
@@ -81,6 +99,26 @@ function AddShow(){
   jQueryHandler("addstream", path, composedata);
 }
 
+
+function DeleteShow(){
+  var path = "./scripts/php/wycron.php";
+  var arracronyms = document.deleteshow.elements['deleteshow[]'];
+  var composedata="";  
+  var j=0;
+    for (var i = 0; i < arracronyms.length; i++) {       
+		if (arracronyms[i].checked) {
+		    composedata=composedata+"ID"+j+"="+arracronyms[i].value+"&";
+		    j = j+1;
+		}
+        }
+
+	composedata = composedata+"delshowcount="+j;
+	// alert(composedata);
+
+  jQueryHandler("deleteshow", path, composedata);
+}
+
+
 function Backops(backop){
   var path = "./scripts/php/channelform.php";
   var composedata = "backops="+backop+"&op=backops";
@@ -92,6 +130,7 @@ function ChannelRename(newname,channeltoupdate){
   var composedata="channel="+document.channelform.channel.value+"&newname="+document.channelform.newname.value+"&op=rename";
   jQueryHandler("skin", path, composedata);
 }
+
 
 function WyCron(composedata){
   var path = "./scripts/php/wycron.php";
@@ -211,7 +250,7 @@ function initAjaxForm(form_id, form_validations){
 						 *  message : File uploaded successfully.
 						 *  file : filename
 						 *  type : image file type
-             * 
+             *
 						 * Once the jQuery Form Plugin receives the response, it evaluates the string into a JavaScript object, allowing you to access
 						 * object members as demonstrated below.
 						 */
@@ -247,4 +286,5 @@ function updatefromlocal() {
 	alert ("It will install the latest version of wybox-extras.");
 	window.open("./scripts/php/updatewe.php");
 }
+
 
