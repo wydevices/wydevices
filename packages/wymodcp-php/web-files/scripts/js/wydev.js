@@ -1,3 +1,5 @@
+// ########### jQuery Functions #####################
+
 function jQueryHandler(form, path, composedata){
   $.ajax({
     method: "get",url: path,data: composedata,
@@ -41,14 +43,20 @@ function jQueryPostHandler(form, path, composedata){
   }); //close $.ajax(
 }
 
+// ########### WyRemote Functions #####################
+
 function PressButton(composedata) {
 	jQueryHandler("wyremote","./scripts/php/wyremote.php","clickedbutton="+composedata);
 }
+
+// ########### Skin Functions #####################
 
 function Skinops(composedata){
   var path = "./scripts/php/skins.php";
   jQueryHandler("skin", path, composedata);
 }
+
+// ########### Extras Functions #####################
 
 function Reboot(composedata){
   var path = "./scripts/php/reboot.php";
@@ -59,6 +67,37 @@ function ExtrasHandler(composedata){
   var path = "./scripts/php/config.php";
   jQueryHandler("extras", path, composedata);
 }
+
+// ########### Ices Functions #####################
+//document.icesdata.address
+//document.icesdata.mountpoint
+//document.icesdata.port
+//document.icesdata.mountpwd
+//document.icesdata.name
+//document.icesdata.description
+//document.icesdata.playlist
+//document.icesdata.startfolder
+//document.icesdata.playlist
+
+function IcesHandler(action){
+  var path = "./scripts/php/wycron.php";
+  var composedata="address="+document.icesdata.address.value+
+"&mountpoint="+document.icesdata.mountpoint.value+
+"&port="+document.icesdata.port.value+
+"&mountpwd="+document.icesdata.mountpwd.value+
+"&name="+document.icesdata.name.value+
+"&description="+document.icesdata.description.value+
+"&playlist="+document.icesdata.playlist.value+
+"&startfolder="+document.icesdata.startfolder.value+
+"&filter="+document.icesdata.filter.value+
+"&action="+action+"&iceshandler";
+  jQueryHandler("startices", path, composedata);
+}
+
+
+
+
+// ########### StreamRipper Streams Functions #####################
 
 function AddStream(){
   var path = "./scripts/php/wycron.php";
@@ -83,6 +122,8 @@ function DeleteStream(){
 
   jQueryHandler("deletestream", path, composedata);
 }
+
+// ########### StreamRipper Shows Functions #####################
 
 function AddShow(){
   var path = "./scripts/php/wycron.php";
@@ -118,6 +159,7 @@ function DeleteShow(){
   jQueryHandler("deleteshow", path, composedata);
 }
 
+// ########### Channel Functions #####################
 
 function Backops(backop){
   var path = "./scripts/php/channelform.php";
@@ -129,20 +171,6 @@ function ChannelRename(newname,channeltoupdate){
   var path = "./scripts/php/channelform.php";
   var composedata="channel="+document.channelform.channel.value+"&newname="+document.channelform.newname.value+"&op=rename";
   jQueryHandler("skin", path, composedata);
-}
-
-
-function WyCron(composedata){
-  var path = "./scripts/php/wycron.php";
-//var senddata = 'crontab=\"'+composedata+'\"';
-var senddata = 'crontab='+composedata;
-senddata = senddata.replace(/(?:\r\n|\r|\n)/g, '@');
-senddata = senddata.replace(/#/g,'%');
-//senddata = 'crontab=test'
-
-//alert(senddata);
-
-  jQueryHandler("crontab", path, senddata);
 }
 
 function logicfire(curdivid,channelid){
@@ -169,6 +197,35 @@ function logicfire(curdivid,channelid){
   }
 }
 
+function orderchannel(source,destination) {
+  var totalchannels = document.channelform.totalchannels.value;
+  //alert (source+" Will move to "+destination+" Considering totalchannles as:"+totalchannels);
+  composeuri = "./scripts/php/channelform.php?channel="+source+"&totalchannels="+totalchannels+"&neworder="+destination+"&op=ajaxreorder";
+  ShowPage("container", composeuri);
+}
+
+function confirmation(alert_message, recordsuri) {
+	if (confirm(alert_message)) ShowPage("recordsdiv", recordsuri);
+}
+
+// ########### Cron Functions #####################
+
+function WyCron(composedata){
+  var path = "./scripts/php/wycron.php";
+//var senddata = 'crontab=\"'+composedata+'\"';
+var senddata = 'crontab='+composedata;
+senddata = senddata.replace(/(?:\r\n|\r|\n)/g, '@');
+senddata = senddata.replace(/#/g,'%');
+//senddata = 'crontab=test'
+
+//alert(senddata);
+
+  jQueryHandler("crontab", path, senddata);
+}
+
+
+// ########### ShowPage Functions #####################
+
 function ShowPage(page_name, page_path) {
   var xmlhttp;
 
@@ -193,12 +250,7 @@ function ShowHome()   {ShowPage("showhome",      "scripts/php/home.php");}
 
 
 
-function orderchannel(source,destination) {
-  var totalchannels = document.channelform.totalchannels.value;
-  //alert (source+" Will move to "+destination+" Considering totalchannles as:"+totalchannels);
-  composeuri = "./scripts/php/channelform.php?channel="+source+"&totalchannels="+totalchannels+"&neworder="+destination+"&op=ajaxreorder";
-  ShowPage("container", composeuri);
-}
+
 
 function checkPass(){
   var pwd = document.chgpassword.pwd_1.value;
@@ -213,9 +265,17 @@ function checkPass(){
   }
 }
 
-function confirmation(alert_message, recordsuri) {
-	if (confirm(alert_message)) ShowPage("recordsdiv", recordsuri);
+
+
+
+// ########### Update Functions #####################
+
+function updatefromlocal() {
+	alert ("It will install the latest version of wybox-extras.");
+	window.open("./scripts/php/updatewe.php");
 }
+
+// ########### AjaxInit Functions #####################
 
 function initAjaxForm(form_id, form_validations){
 		var form = '#' + form_id;
@@ -281,10 +341,4 @@ function initAjaxForm(form_id, form_validations){
 		};
 		$(form).ajaxForm(options);
 }
-
-function updatefromlocal() {
-	alert ("It will install the latest version of wybox-extras.");
-	window.open("./scripts/php/updatewe.php");
-}
-
 
