@@ -18,7 +18,7 @@ CREATE TABLE shows (
  
     "month" INTEGER,
  
-    "weekday" INTEGER,r
+    "weekday" INTEGER,
 
     "defaultpic" STRING
  
