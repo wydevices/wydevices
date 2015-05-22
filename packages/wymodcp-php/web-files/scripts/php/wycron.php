@@ -1,4 +1,9 @@
-<script src='./scripts/js/wydev.js' type='text/javascript'></script>
+<script type="text/javascript" src="./scripts/js/jquery.min.js"></script>
+<script type="text/javascript" src="./scripts/js/jquery.form.js"></script>
+<script type="text/javascript" src="./scripts/js/wydev.js"></script>
+<script type="text/javascript" src="./scripts/js/jquery.easing.js" ></script>
+<script type="text/javascript" src="./scripts/js/jqueryFileTree.js"></script>
+
 <?php
 // PHPCron v1.01
 // written by Katy Coe - http://www.djkaty.com
@@ -29,13 +34,28 @@ function cron_edit($cronFile)
     ?>
     <html>
         <head>
-            <title>Cron Editor</title>
+
+<!-- Para el jQueryFileTree -->
+<script type="text/javascript">
+	$('#jqftwyradio2').fileTree({ root: '../../WYRADIO/', script: './scripts/php/jqueryFileTree.php' }, function(file) { 
+
+	window.open(file);
+
+		});
+</script>
+<!-- Para el jQueryFileTree -->
+          <title>WyRadio Editor</title>
         </head>
         <body style="font-family: Verdana, sans-serif; font-size: x-small">
-
-<h1> WyRadio </h1></br><hr>
+<h1>WyCron / WyRadio</h1>
+<hr>
+<h3>Explorer<input type="button" onClick="$('#jqftwyradio2').slideToggle();" class="wydevslidebutton"/></input></h3>
+<div class="jqft" >
+	<div id="jqftwyradio2" class="jqftwyradio" style="display:none;"</div>
+</div>
 
 <h2>Streams<input type="button" onClick="$('#showstream').slideToggle();" class="wydevslidebutton"/></input></h2>
+
 <div id="showstream" name="addstream" style="display:none;">
 	<?php
 	  	if (!file_exists ("/wymedia/.wyradio/wyradio.db3")):
@@ -100,8 +120,7 @@ function cron_edit($cronFile)
 
 				echo "<tr><td>";
 					echo "<b>".$name." :</b></td>";
-					echo "<td> <a 
-href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
+					echo "<td> <a href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
 					echo "<td><a href='".$streamurl."'>Stream URL</a>";
 					echo "<td><input type=checkbox name=deletestream[] value=".$acronym.">";
 				echo "</td></tr>";
@@ -115,7 +134,7 @@ href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
 </div>
 
 
-	<h2> Add new stream: <input type="button" onClick="$('#addstream').slideToggle();" class="wydevslidebutton"/></input></h2>
+	<h2>Add new stream<input type="button" onClick="$('#addstream').slideToggle();" class="wydevslidebutton"/></input></h2>
 <div id="addstream" name="addstream" style="display:none;">
 
 	<?php if (isset($_GET['addstream'])) {
@@ -192,7 +211,8 @@ href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
 		$path = $returnrow['outfolder'];    
 		$streamid = $returnrow['streamsourceid'];    
 		$duration = $returnrow['duration'];    
-		$outsinglefile = $returnrow['outsinglefile'];    
+		$outsinglefile = $returnrow['outsinglefile'];               
+          $defaultpic = $returnrow['defaultpic']; 
 
 		if (isset($returnrow['minute'])):
 			$minute = $returnrow['minute'];
@@ -224,7 +244,7 @@ href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
 			$weekday = "*";
 		endif;
 
-		echo "<input type=checkbox name=deleteshow[] value=".$acronym.">".$minute." ".$hour." ".$monthday." ".$month." ".$weekday." RecordShowNG.sh ".str_replace(" ","_",$name)." ".$duration." ".$streamid." ".$outsinglefile."</br>" ;
+		echo "<input type=checkbox name=deleteshow[] value=".$acronym.">".$minute." ".$hour." ".$monthday." ".$month." ".$weekday." RecordShowNG.sh ".str_replace(" ","_",$name)." ".$duration." ".$streamid." ".$outsinglefile." ".$defaultpic." </br>" ;
 
 	    }
 
@@ -348,6 +368,90 @@ href='./WYRADIO/".$acronym."'>".$acronym."</a></td>";
 	<?php } // end of form ?>
 </div>
 
+<hr>
+
+<?php if (isset($_GET['iceshandler'])) {
+	//form submit code here
+
+	$name = $_GET['name'];
+	$address = $_GET['address'];
+     $port = $_GET['port'];
+ 	$mountpoint = $_GET['mountpoint'];
+	$mountpwd = $_GET['mountpwd'];
+     $description = $_GET['description'];
+    $playlist = $_GET['playlist'];
+    $filter = $_GET['filter'];
+    $startfolder = $_GET['startfolder'];
+    $action = $_GET['action'];
+
+if ($action == "start"){ 
+   
+   $cmd = 'ices -h '.$address.' -m /'.$mountpoint.' -P \''.$mountpwd.'\' -F '.$playlist.' -t http -p '.$port.' -v -b 128 -n '.$name.' -g '.$description.' -i -B' ; 
+
+echo $cmd;
+
+    exec($cmd);
+}
+
+
+if ($action == "next"){ 
+   exec('pkill -USR1 ices'); 
+}
+
+
+if ($action == "kill"){ 
+   exec('pkill -9 ices'); 
+}
+
+
+if ($action == "reload"){ 
+   exec('pkill -HUP ices'); 
+}
+
+
+
+if ($action == "feed"){ 
+   $cmd = 'FIND '.$startfolder.' -name '.$filter.' > '.$playlist ; 
+  
+   echo $cmd;
+    system($cmd);
+
+
+}
+
+}
+?>
+
+ <form Name="icesdata" method="GET" action="./scripts/php/wycron.php" >
+<table>
+<tr><td>
+Server Address: </td><td> <input type="text" name="address" value="w.x.y.z" /> </td><td>
+Mount Point: </td><td> <input type="text" name="mountpoint" value="stream" /> </td><td>
+Server Port: </td><td> <input type="text" name="port" value="8000" /> </td></tr><tr><td>
+
+Mount Password: </td><td> <input type="password" name="mountpwd" value="" /> </td><td>
+Station Name: </td><td> <input type="text" name="name" value="WyRadio" /> </td><td>
+Stream Description: </td><td> <input type="text" name="description" value="WyRadio now streaming" /> </td></tr><tr><td>
+
+</tr><tr> </tr><tr> </tr><tr><td>
+Playlist file: </td><td> <input type="text" name="playlist" value="/wymedia/icesconf/playlist.txt" size=30 /> </td></tr><tr><td>
+
+Folder: </td><td> <input type="text" name="startfolder" value="/wymedia/Music/WYRADIO/IGR/" size=30 /> </td></tr><tr><td>
+Name filter: </td><td> <input type="text" name="filter" value="*2015*.mp3" size=30 /> </td></tr>
+
+</table>
+
+
+<p> 
+
+<input id="startices" name="startices" class="button" type="button" onclick="IcesHandler('start');" value="Start Ices"/>
+<input id="nextices" name="nextices" class="button" type="button" onclick="IcesHandler('next');" value="Next"/>
+<input id="killices" name="killices" class="button" type="button" onclick="IcesHandler('kill');" value="Kill"/>
+<input id="reloadices" name="reloadices" class="button" type="button" onclick="IcesHandler('reload');" value="Reload playlist"/>
+<input id="feedices" name="feedices" class="button" type="button" onclick="IcesHandler('feed');" value="Feed playlist"/>
+</p>
+
+</form>
 <hr>
 
 <h1>Crontab</h1>
