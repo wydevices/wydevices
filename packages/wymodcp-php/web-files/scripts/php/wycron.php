@@ -49,7 +49,7 @@ function cron_edit($cronFile)
         <body style="font-family: Verdana, sans-serif; font-size: x-small">
 <h1>WyCron / WyRadio</h1>
 <hr>
-<h3>Explorer<input type="button" onClick="$('#jqftwyradio2').slideToggle();" class="wydevslidebutton"/></input></h3>
+<h2>Explorer<input type="button" onClick="$('#jqftwyradio2').slideToggle();" class="wydevslidebutton"/></input></h2>
 <div class="jqft" >
 	<div id="jqftwyradio2" class="jqftwyradio" style="display:none;"</div>
 </div>
