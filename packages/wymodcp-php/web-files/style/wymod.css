@@ -454,3 +454,21 @@ hr{
   left: 0px;
   z-index:1;
 }
+
+.jqft {
+	/* float: left; */
+	/* margin: 15px; */
+}
+
+.jqftwyradio {
+	width: 800px;
+	height: 200px;
+	border-top: solid 1px #BBB;
+	border-left: solid 1px #BBB;
+	border-bottom: solid 1px #FFF;
+	border-right: solid 1px #FFF;
+	background: #FFF;
+	overflow: auto;
+	padding: 5px;
+}
+			
