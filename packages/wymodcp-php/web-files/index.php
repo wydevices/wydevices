@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>WyMod Control Panel v3.1</title>
+<title>WyMod Control Panel</title>
 
 <!-- JS Libs includes -->
 <script type="text/javascript" src="./scripts/js/jquery.min.js"></script>
@@ -123,7 +123,7 @@ $(document).ready(	function(){
   </div>
 
   <div class="bottombar">
-    <a href="http://code.google.com/p/wydevices/">Project homepage</a>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+    <a href="http://github.com/wydevices/wydevices">Project homepage</a>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
     <a href="http://wydev.orgfree.com/foro/">Forum</a>
   </div>
 </body>
