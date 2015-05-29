@@ -82,7 +82,7 @@ $(document).ready(	function(){
 
 <body>
   <div id="upperbar">
-    <div id="links"><a href="http://code.google.com/p/wydevices/"><img src="./style/wydev_logo.png"></a></div>
+    <div id="links"><a href="http://github.com/wydevices/wydevices"><img src="./style/wydev_logo.png"></a></div>
     <!--<div id="space"><img src="./style/wydev_logo.png"></div>-->
     <!--<div class="clear"><img src="./style/wydev_logo.png"></div>-->
   </div>
