@@ -50,6 +50,9 @@ $(document).ready(	function(){
         case "config":
           var path = "./scripts/php/config.php"
           break;
+        case "wycron":
+          var path = "./scripts/php/wycron.php"
+          break;
         default:
           var path = "wymod-php.php"
           break;
@@ -91,11 +94,12 @@ $(document).ready(	function(){
         <li id="wyremote"><a href="#" title="wyremote">WyRemote</a></li>
         <li id="reboot"><a href="#" title="reboot">Reboot</a></li>
         <li id="syslog"><a href="#" title="syslog">Syslog</a></li>
-        <li id="skins"><a href="#" title="skins">Skins</a></li>
+        <!-- <li id="skins"><a href="#" title="skins">Skins</a></li> -->
         <li id="records"><a href="#" title="records">Records</a></li>
         <li id="TV"><a href="#" title="TV">TV</a></li>
         <li id="config"><a href="#" title="config">Config</a></li>
         <li id="update"><a href="#" title="update">Update</a></li>
+        <li id="wycron"><a href="#" title="wycron">WyCron</a></li>
         <li id="docs"><a href="#" title="docs">Docs</a></li>
       </ul>
     </div>
@@ -113,7 +117,7 @@ $(document).ready(	function(){
 
   <div class="bottombar2">
     <?php 
-    if (substr_compare(exec("grep global_auth_file /wymedia/usr/etc/mongoose.conf"),"\#", 0, 1) <= 1) { ?>
+    if (substr_compare(exec("grep global_passwords_file /wymedia/usr/etc/mongoose.conf"),"\#", 0, 1) <= 1) { ?>
     Go to config menu now for set a password.
     <?php } ?>
   </div>
