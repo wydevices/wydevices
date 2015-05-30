@@ -15,4 +15,4 @@
 0 4 * * * run-parts /wymedia/usr/etc/cron.daily
 0 8 * * 0 run-parts /wymedia/usr/etc/cron.weekly
 
-*/5 * * * *  /wymedia/usr/bin/updatewymediadb
+5 * * * *  /wymedia/usr/bin/updatewymediadb
