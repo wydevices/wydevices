@@ -145,7 +145,7 @@ function get_untar_patch() {
 	# get source file and unpack it
 	cd $PKGDIR
 	if [ ! -f $SRCFILE ]; then
-		wget $URL || exit 1
+		wget --no-check-certificate $URL || exit 1
 	fi
 	if [ ! -d $SRCDIR ]; then
 		echo Extracting sources
