@@ -411,7 +411,7 @@ if ($action == "reload"){
 
 
 if ($action == "feed"){ 
-   $cmd = 'FIND '.$startfolder.' -name '.$filter.' > '.$playlist ; 
+   $cmd = 'find '.$startfolder.' -name '.$filter.' > '.$playlist ; 
   
    echo $cmd;
     system($cmd);
