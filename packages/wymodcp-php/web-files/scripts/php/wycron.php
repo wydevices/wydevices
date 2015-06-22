@@ -411,7 +411,7 @@ if ($action == "reload"){
 
 
 if ($action == "feed"){ 
-   $cmd = 'FIND '.$startfolder.' -name '.$filter.' > '.$playlist ; 
+   $cmd = '/wymedia/usr/bin/find '.$startfolder.' -name '.$filter.' > '.$playlist ; 
   
    echo $cmd;
     system($cmd);
@@ -452,6 +452,16 @@ Name filter: </td><td> <input type="text" name="filter" value="*2015*.mp3" size=
 </p>
 
 </form>
+<?php
+$icespid = exec("pidof ices");
+if($icespid > 0){
+<hr>
+$lastsong = exec("tail /tmp/ices.log | grep Playing");
+echo $lastsong;
+}
+
+?>
+
 <hr>
 
 <h1>Crontab</h1>
