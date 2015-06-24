@@ -455,7 +455,7 @@ Name filter: </td><td> <input type="text" name="filter" value="*2015*.mp3" size=
 <?php
 $icespid = exec("pidof ices");
 if($icespid > 0){
-<hr>
+echo "<hr>";
 $lastsong = exec("tail /tmp/ices.log | grep Playing");
 echo $lastsong;
 }
