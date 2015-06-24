@@ -78,6 +78,7 @@ if (!empty($_REQUEST["clickedbutton"])){
   <!-- <img src="./scripts/php/capture.png" width="720" height="576"> --><!-- For 4:3 -->
 <?php
 $time = time();
+system ("mkdir -p captures");
 system ("rm -f captures/*");
 system ("fb2png captures/\"".$time."\".png");
 $capture = exec("ls captures");
