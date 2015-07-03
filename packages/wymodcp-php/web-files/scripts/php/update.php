@@ -3,7 +3,7 @@
 <?php
 /*
  * Update process :
- * - Download and read the latest.txt file on wydev.orgfree.com page.
+ * - Download and read the latest.txt file on pydev.orgfree.com page.
  * - Compare if superior with a local version.
  * - Download the update in tar.gz format.
  * - Download the checksum file in .md5 format.
@@ -19,7 +19,7 @@
 <table width="100%">
 <tr><td></td>
 <td align="left" colspan="2">
-<i>Here you can find available update found on official Wydev repository.</i><br /><br />
+<i>Here you can find available update found on official Pydev repository.</i><br /><br />
 </td>
 </tr>
 
@@ -31,7 +31,7 @@
 
 <tr>
 <td>Latest packaged version of wybox-extras:</td>
-<?php system ("wget http://wydev.orgfree.com/updates/we-latest.txt > /dev/null 2>&1"); ?>
+<?php system ("wget http://pydev.orgfree.com/updates/we-latest.txt > /dev/null 2>&1"); ?>
 <td><b><?php $latest = system("cat we-latest.txt"); ?></td>
 </tr>
 
@@ -42,8 +42,8 @@ if ($current < $latest) {
 		echo "<tr><td><i>There is available a newer version of wybox-extras.</i></td><td></td></tr>";
 		echo "<tr><td>Update wybox.extras (the system will reboot):</td><td><button onclick='updatefromlocal()'>Click here!</button></td></tr>";
 	} else {
-		system ("wget http://wydev.orgfree.com/updates/we-latest.tar.gz -q");
-                system ("wget http://wydev.orgfree.com/updates/we-latest.md5 -q");
+		system ("wget http://pydev.orgfree.com/updates/we-latest.tar.gz -q");
+                system ("wget http://pydev.orgfree.com/updates/we-latest.md5 -q");
 		echo "<tr><td>Downloading latest packaged wybox-extras:</td><td>";		
 		$checkmd5 = system ("md5sum -c we-latest.md5");
 		$checkmd52 = split(" ",$checkmd5);
