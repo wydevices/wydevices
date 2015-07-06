@@ -1,0 +1,26 @@
+# default ram disk as root
+
+#/dev/ram0		/		cramfs 		defaults 	0 0
+#none			/proc		proc		defaults  	0 0
+
+# glibc 2.2 and above expects tmpfs to be mounted at /dev/shm for
+# POSIX shared memory (shm_open, shm_unlink). 
+# (tmpfs is a dynamically expandable/shrinkable ramdisk, and will
+#  use almost no memory if not populated with files)
+# Adding the following line to /etc/fstab should take care of this:
+
+tmpfs      /dev            tmpfs     rw,size=512K    0 0
+none       /dev/shm        tmpfs     defaults        0 0
+none       /dev/pts        devpts    defaults        0 0
+sysfs      /sys            sysfs     defaults        0 0
+proc       /proc           proc      defaults        0 0
+none       /proc/bus/usb   usbfs     defaults        0 0
+
+tmpfs      /tmp            tmpfs     rw,size=1M      0 0
+tmpfs      /var            tmpfs     rw,size=1M      0 0
+tmpfs      /media          tmpfs     rw,size=512K    0 0
+
+#/dev/sda1  /etc/params     jfs       defaults,nodiratime,noatime 0 1
+/dev/sda3  /wymedia        jfs       defaults,errors=remount-ro,nodiratime,noatime 0 1
+
+/dev/sda2	swap	swap	defaults	0	0
