@@ -1,0 +1,7 @@
+OUTPUT=/dev/null
+
+LD_LIBRARY_PATH="/wymedia/usr/lib"
+PATH="/wymedia/usr/bin:$PATH"
+TERMINFO_DIRS="/wymedia/usr/lib/terminfo"
+HOME="/wymedia"
+
