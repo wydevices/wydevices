@@ -1,4 +1,4 @@
-OUTPUT=/dev/null
+OUTPUT=/log_initng.txt
 
 LD_LIBRARY_PATH="/wymedia/usr/lib"
 PATH="/wymedia/usr/bin:$PATH"
