@@ -1,0 +1,21 @@
+themes_dir='/usr/share/pygui/skins/'
+locale_dir='/usr/share/pygui/locale/'
+player_log_dir='/tmp/pygui/log'
+languages_available=['en', 'fr', 'de', 'sp', 'it']
+plugins.discard('home.radio')
+plugins.discard('home.web')
+plugins.discard('home.games')
+plugins.discard('input.stdin')
+use_serialized_theme = True
+plugins.discard('hand_actions.markerlist')
+plugins.discard('hand_actions.universe')
+plugins.discard('hand_actions.selection')
+plugins.discard('hand_actions.parent_folder')
+plugins.add('hand_actions.navigator')
+plugins.discard('home.net_services')
+HMI_BASE['osd_languages']=['en', 'fr', 'es', 'de', 'it', 'pt']
+HMI_VIDEO['languages']=['en', 'fr', 'es', 'de', 'it', 'pt']
+HMI_BASE['country']=['xx', 'en', 'fr', 'es', 'de', 'it', 'nl', 'sv', 'pt']
+plugins.discard('youtube')
+plugins.discard('dailymotion')
+default_language='en'
