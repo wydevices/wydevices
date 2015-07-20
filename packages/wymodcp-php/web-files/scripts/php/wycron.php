@@ -410,7 +410,8 @@ if ($action == "reload"){
 
 
 
-if ($action == "feed"){ 
+if ($action == "feed"){
+   system("mkdir -p /wymedia/icesconf");
    $cmd = '/wymedia/usr/bin/find '.$startfolder.' -name '.$filter.' > '.$playlist ; 
   
    echo $cmd;
