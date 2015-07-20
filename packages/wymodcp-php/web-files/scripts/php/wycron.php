@@ -18,6 +18,9 @@
 //
 // Freedom to the Wy!
 
+// Create /wymedia/Music symlink
+system("if [ ! -d /wymedia/Music ]; then ln -s '/wymedia/My Music' /wymedia/Music; fi");
+
 // File containing cronjobs
 $cronFile = '/wymedia/usr/etc/cron.d/root';
 
@@ -111,7 +114,7 @@ function cron_edit($cronFile)
 					endif;
 				else:
 					echo "Creating folder:".$path."<br>";
-					system("mkdir -p ".$path);	
+					system("mkdir ".$path);	
 					if (!file_exists ("/wymedia/usr/share/wymodcp/WYRADIO/".$acronym)):
 						echo "Creating symlink for:".$path."<br>";
 						system("ln -s ".$path." /wymedia/usr/share/wymodcp/WYRADIO/".$acronym ); 
