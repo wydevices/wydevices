@@ -22,3 +22,4 @@ HMI_BASE['country']=['xx', 'en', 'fr', 'es', 'de', 'it', 'nl', 'sv', 'pt']
 plugins.discard('youtube')
 plugins.discard('dailymotion')
 default_language='en'
+plugins.add('input.network')
