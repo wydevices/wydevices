@@ -91,7 +91,7 @@ FrameBuffer original resolution <?php echo $video_resolution; ?><br />
 Last action : <?php if (!$cb) {echo "nothing";} else {echo $cb;} ?>
 </td></tr>
 <tr><td>
-<form><input value="Reload screen capture" onclick="ShowWyRemote();" class="button" type="button" style="width: 200px" /></form>
+To reload the screen shot, click again on the WyRemote tab.
 </td></tr>
 </table>
 </td>
