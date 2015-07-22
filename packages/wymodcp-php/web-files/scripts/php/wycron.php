@@ -114,7 +114,7 @@ function cron_edit($cronFile)
 					endif;
 				else:
 					echo "Creating folder:".$path."<br>";
-					system("mkdir ".$path);	
+					system("mkdir -p ".$path);	
 					if (!file_exists ("/wymedia/usr/share/wymodcp/WYRADIO/".$acronym)):
 						echo "Creating symlink for:".$path."<br>";
 						system("ln -s ".$path." /wymedia/usr/share/wymodcp/WYRADIO/".$acronym ); 
