@@ -105,35 +105,30 @@ function AddStream(){
   jQueryHandler("addstream", path, composedata);
 }
 
-function DeleteStream(){
-  var path = "./scripts/php/wycron.php";
-  var arracronyms = document.deletestream.elements['deletestream[]'];
-	  // BUG: Si hay solo un objeto, [object HTMLInputElement] si hay mas en la lista [object RadioNodeList]
-	  // http://javascript.info/tutorial/type-detection#only-primitive-values
-
-	  var toClass = {}.toString;
-	  // alert ( toClass.call(arracronyms) );
-	  if ( toClass.call(arracronyms) == "[object RadioNodeList]")
-		{
-		  var composedata="";  
-		  var j=0;
-		    for (var i = 0; i < arracronyms.length; i++) {       
-				if (arracronyms[i].checked) {
-				    composedata=composedata+"ID"+j+"="+arracronyms[i].value+"&";
-				    j = j+1;
-				}
+function DeleteStream() {
+	var path = "./scripts/php/wycron.php";
+	var arracronyms = document.deletestream.elements['deletestream[]'];
+	// BUG: Si hay solo un objeto, [object HTMLInputElement] si hay mas en la lista [object RadioNodeList]
+	// http://javascript.info/tutorial/type-detection#only-primitive-values
+	var toClass = {}.toString;
+	// alert ( toClass.call(arracronyms) );
+	if ( toClass.call(arracronyms) == "[object NodeList]") {
+		var composedata="";
+		var j=0;
+		for (var i = 0; i < arracronyms.length; i++) {
+			if (arracronyms[i].checked) {
+				composedata=composedata+"ID"+j+"="+arracronyms[i].value+"&";
+				j = j+1;
 			}
-
-			composedata = composedata+"delstreamcount="+j;
-			// Descomentar para analizar lo que se envía al php en el GET
-			// alert(composedata);
+		}
+		composedata = composedata+"delstreamcount="+j;
+		// Descomentar para analizar lo que se envía al php en el GET
+		// alert(composedata);
+	} else {
+		//Si el objeto retornados es [object HTMLInputElement], podemos asignar 1 a la cuenta e identificar como 0 el ID
+		composedata="ID0="+arracronyms.value+"&delstreamcount=1";
 	}
-	else
-	{
-	//Si el objeto retornados es [object HTMLInputElement], podemos asignar 1 a la cuenta e identificar como 0 el ID
-	composedata="ID0="+arracronyms.value+"&delstreamcount=1";
-	}
-	  jQueryHandler("deletestream", path, composedata);
+	jQueryHandler("deletestream", path, composedata);
 }
 
 // ########### StreamRipper Shows Functions #####################
@@ -154,36 +149,29 @@ function AddShow(){
 }
 
 
-function DeleteShow(){
-  var path = "./scripts/php/wycron.php";
-  var arracronyms = document.deleteshow.elements['deleteshow[]'];
-  var composedata="";  
-  var j=0;
-	  // BUG: Si hay solo un objeto, [object HTMLInputElement] si hay mas en la lista [object RadioNodeList]
-	  // http://javascript.info/tutorial/type-detection#only-primitive-values
-
-	  var toClass = {}.toString;
-	  // alert ( toClass.call(arracronyms) );
-
-	  if ( toClass.call(arracronyms) == "[object RadioNodeList]")
-		{
-		    for (var i = 0; i < arracronyms.length; i++) {       
-				if (arracronyms[i].checked) {
-				    composedata=composedata+"ID"+j+"="+arracronyms[i].value+"&";
-				    j = j+1;
-				}
+function DeleteShow() {
+	var path = "./scripts/php/wycron.php";
+	var arracronyms = document.deleteshow.elements['deleteshow[]'];
+	var composedata="";
+	var j=0;
+	// BUG: Si hay solo un objeto, [object HTMLInputElement] si hay mas en la lista [object RadioNodeList]
+	// http://javascript.info/tutorial/type-detection#only-primitive-values
+	var toClass = {}.toString;
+	// alert ( toClass.call(arracronyms) );
+	if ( toClass.call(arracronyms) == "[object NodeList]") {
+		for (var i = 0; i < arracronyms.length; i++) {
+			if (arracronyms[i].checked) {
+				composedata=composedata+"ID"+j+"="+arracronyms[i].value+"&";
+				j = j+1;
 			}
-
-			composedata = composedata+"delshowcount="+j;
-			// alert(composedata);
-
 		}
-	   else
-	{
-	//Si el objeto retornados es [object HTMLInputElement], podemos asignar 1 a la cuenta e identificar como 0 el ID
-	composedata="ID0="+arracronyms.value+"&delshowcount=1";
+		composedata = composedata+"delshowcount="+j;
+		// alert(composedata);
+	} else {
+		//Si el objeto retornados es [object HTMLInputElement], podemos asignar 1 a la cuenta e identificar como 0 el ID
+		composedata="ID0="+arracronyms.value+"&delshowcount=1";
 	}
-  jQueryHandler("deleteshow", path, composedata);
+	jQueryHandler("deleteshow", path, composedata);
 }
 
 // ########### Channel Functions #####################
