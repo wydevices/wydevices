@@ -14,7 +14,7 @@ case "$1" in
 			exit 0
 		fi
 		echo -n "Starting transmission..."
-		/bin/nice -n8 $DAEMON -f -p80 -a "*.*.*.*"  >/dev/null 2>&1 &
+		/bin/nice -n8 $DAEMON -f -p8081 -e /wymedia/usr/var/log/transmission.log -a "*.*.*.*"  >/dev/null 2>&1 &
 		echo $! > $PIDFILE
 		echo ok
 		;;
