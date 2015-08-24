@@ -11,6 +11,9 @@ DAEMON=crond
 
 case "$1" in
 	start)
+		if [ ! -d /var/spool/cron ]; then
+			mkdir -p /var/spool/cron
+		fi
 		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
 			echo "crond already running."
 			exit 0
