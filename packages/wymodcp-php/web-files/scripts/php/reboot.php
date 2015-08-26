@@ -37,7 +37,7 @@ break;
 
 <form id="reboot" method="get" action="./scripts/php/reboot.php">
 <blockquote>
-<table>
+<table cellspacing=12>
 <tr><td>
 <input id="rebootwydevice" name="reboot" class="button" type="button" style="width: 200px" value="rebootwydevice" <?php echo"onclick=\"Reboot('reboot=rebootwydevice')\"";?> />
 Reboot Wydevice </td></tr><tr><td>
