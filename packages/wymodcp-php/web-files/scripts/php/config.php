@@ -87,7 +87,7 @@ if ($handle = opendir($initdfolder)) {
       if (trim($extraname[1]) == "not") { $status = false; } else { $status = true; }
       if (file_exists("/wymedia/usr/etc/rc.d/".$file)) { $enable = true; } else { $enable = false; }
 
-      echo "<tr><td><b>".$extraname[0]."</b></td>";
+      echo "<tr height=35><td><b>".$extraname[0]."</b></td>";
 
       if ($enable == true) {
         echo "<td align=\"center\"><img src=./style/available.png onclick=\"javascript:ExtrasHandler('autostart".$extraname[0]."=false')\" /></td>";
