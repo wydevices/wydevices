@@ -10,7 +10,7 @@
 # Definiciones de variables.
 
 TEMPDIR="/wymedia/Backup/we-tmp"
-WEVERSION="642"
+WEVERSION="662"
 
 #
 
@@ -43,6 +43,7 @@ if [ -f /wymedia/usr/etc/mongoose_htpasswd ]; then
 fi
 mv -f /wymedia/usr/etc/pureftpd.passwd $TEMPDIR
 mv -f /wymedia/usr/etc/rc.d $TEMPDIR
+mv -f /wymedia/usr/etc/samba/smb.conf $TEMPDIR
 mv -f /wymedia/usr/etc/wydev-mod-version $TEMPDIR
 mv -f /wymedia/usr/etc/wydev-model $TEMPDIR
 mv -f /wymedia/usr/etc/wydev-rootfs $TEMPDIR
@@ -72,6 +73,7 @@ sync
 #
 # Restaura las copias de seguridad.
 
+mv -f /wymedia/usr/etc/cron.d/root /wymedia/usr/etc/cron.d/root-dist
 mv -f $TEMPDIR/root-cron.d /wymedia/usr/etc/cron.d/root
 if [ -f $TEMPDIR/inadyn.conf ]; then
 	mv -f $TEMPDIR/inadyn.conf /wymedia/usr/etc
@@ -80,11 +82,22 @@ if [ -f $TEMPDIR/mongoose_htpasswd ]; then
 	mv -f $TEMPDIR/mongoose_htpasswd /wymedia/usr/etc
 	sed -i 's/^.*global_auth_file/global_auth_file/' /wymedia/usr/etc/mongoose.conf
 fi
+mv -f /wymedia/usr/etc/pureftpd.passwd /wymedia/usr/etc/pureftpd.passwd-dist
 mv -f $TEMPDIR/pureftpd.passwd /wymedia/usr/etc
 mv -f $TEMPDIR/rc.d/* /wymedia/usr/etc/rc.d
+mv -f /wymedia/usr/etc/samba/smb.conf /wymedia/usr/etc/samba/smb.conf-dist
+mv -f $TEMPDIR/smb.conf /wymedia/usr/etc/samba/smb.conf
 mv -f $TEMPDIR/wydev-mod-version /wymedia/usr/etc
 mv -f $TEMPDIR/wydev-model /wymedia/usr/etc
 mv -f $TEMPDIR/wydev-rootfs /wymedia/usr/etc
+if [ ! -d /wymedia/.mediatomb ]; then
+	mkdir -p /wymedia/.mediatomb
+fi
+if [ -f /wymedia/.mediatomb/config.xml ]; then
+	cp -f /wymedia/usr/etc/mediatomb/config.xml-dist /wymedia/.mediatomb
+else
+	cp -f /wymedia/usr/etc/mediatomb/config.xml-dist /wymedia/.mediatomb/config.xml
+fi
 mv -f $TEMPDIR/ffmpeg /wymedia/usr/bin
 mv -f $TEMPDIR/imagepacks/* /wymedia/usr/share/imagepacks
 mv -f $TEMPDIR/skins/* /wymedia/usr/share/skins
