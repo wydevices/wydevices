@@ -1,0 +1,44 @@
+#!/bin/sh
+
+TEMPDIR="/wymedia/Backup/Backup-tmp"
+rm -rf $TEMPDIR
+mkdir -p $TEMPDIR
+
+if [ -e /wymedia/Backup/backup-config.tar ]; then
+	mv -f /wymedia/Backup/backup-config.tar /wymedia/Backup/backup-config-old.tar
+fi
+
+mkdir $TEMPDIR/channels
+cp -rf /etc/params/wymedia $TEMPDIR/channels
+cp -rf /etc/params/wyscan $TEMPDIR/channels
+mkdir $TEMPDIR/net-config
+cp -f /etc/params/net $TEMPDIR/net-config
+cp -f /etc/params/wynetwork.conf $TEMPDIR/net-config
+mkdir $TEMPDIR/cron.d
+cp -f /wymedia/usr/etc/cron.d/root $TEMPDIR/cron.d
+if [ -f /wymedia/usr/etc/inadyn.conf ]; then
+	mkdir $TEMPDIR/inadyn
+	cp -f /wymedia/usr/etc/inadyn.conf $TEMPDIR/inadyn
+fi
+if [ -f /wymedia/usr/etc/mongoose_htpasswd ]; then
+	mkdir $TEMPDIR/mongoose
+	cp -f /wymedia/usr/etc/mongoose_htpasswd $TEMPDIR/mongoose
+fi
+mkdir $TEMPDIR/pure-ftpd
+cp -f /wymedia/usr/etc/pureftpd.passwd $TEMPDIR/pure-ftpd
+cp -rf /wymedia/usr/etc/rc.d $TEMPDIR
+mkdir $TEMPDIR/samba
+cp -f /wymedia/usr/etc/samba/smb.conf $TEMPDIR/samba
+mkdir $TEMPDIR/mediatomb
+cp -f /wymedia/.mediatomb/* $TEMPDIR/mediatomb
+mkdir $TEMPDIR/transmission
+cp -f /wymedia/.config/transmission-daemon/settings.json $TEMPDIR/transmission
+mkdir $TEMPDIR/wyradio
+cp -f /wymedia/.wyradio/wyradio.db3 $TEMPDIR/wyradio
+
+cd $TEMPDIR
+tar cvf ../backup-config.tar ./*
+echo ""
+echo "Se ha realizado la copia de seguridad."
+echo "Ruta de la copia de seguridad: /wymedia/Backup/backup-config.tar"
+echo ""
