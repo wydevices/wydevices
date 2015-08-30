@@ -40,6 +40,22 @@ else
 
 	streamripper $URL $SINGLE $OUTFILE -l $2;
 
+	#ls 20150830_01-00_ElRowKekahuma* |grep mp3 -c
+	ALLOUTFILES=`ls $OUTFILE* |grep mp3 -c`;
+	logger "## Autojoined:"$ALLOUTFILES" files.";
+	
+	if [ $ALLOUTFILES -gt 1 ] ; then
+
+	CATOUT=`cat $OUTFILE*.mp3 >autojoin-$OUTFILE.mp3; rm $OUTFILE*.mp3;mv autojoin-$OUTFILE.mp3 $OUTFILE.mp3`;
+
+	logger "OutCat:"$CATAOUT;
+
+	else
+
+	logger "## Adding id3v2 tags";
+	
+	fi
+
 	id3v2 -A $1 $OUTFILE.mp3
 	id3v2 -a $1 $OUTFILE.mp3
 	id3v2 -t $OUTFILE $OUTFILE.mp3
@@ -48,8 +64,15 @@ else
 	#id3v2 --TPE1 DJ $OUTFILE.mp3
 	#id3v2 --TALB PROGRAM $OUTFILE.mp3
 	id3v2 --TYER 2015 $OUTFILE.mp3
-	id3v2 --TCON 52 $OUTFILE.mp3
+	id3v2 --TCON 52 $OUTFILE.mp3	
 
+	# Se asume que de estar la rpi, debe ser el servidor de dhcp...
+	# cat /var/lib/dhcp/dhclient.leases |grep dhcp-server |awk '{print $3}' | cut -f0 -d ';'|awk '!x[$0]++'
+	# lo uso para averiguar el servidor de DHCP
+
+	RPISERVER=`cat /var/lib/dhcp/dhclient.leases |grep dhcp-server |awk '{print $3}' | cut -f0 -d ';'|awk '!x[$0]++'`
+
+	wget "http://"$RPISERVER"/adddefaultpic.php?picpath=/wymedia/Music/WYRADIO/PICS/$5&filepath=$OUTFOLDER$OUTFILE.mp3" -O /tmp/$OUTFILE
 	
 
 fi
