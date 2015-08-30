@@ -1,5 +1,11 @@
 <h1>Home</h1><br />
 
+
+<h3>Wydevice File Manager</h3>
+<div id="explorerdivid" name="explorerdivname" style="display:none;">
+</div>
+<input type="button" onClick=" window.open('./filemanager/index.php'); " class="wydevslidebutton"/></input>
+
 <h3>Data</h3>
 <div id="datadivid" name="datadivname">
   <table> 
