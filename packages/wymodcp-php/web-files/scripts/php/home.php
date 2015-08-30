@@ -1,9 +1,4 @@
 <h1>Home</h1><br />
-<h3>Console</h3>
-<div id="consoledivid" name="consoledivname" style="display:none;">
-  <pre><iframe height="490" width="930" src="./scripts/php/shell.php"></iframe></pre>
-</div>
-<input type="button" onClick="$('#consoledivid').slideToggle();" class="wydevslidebutton"/></input>
 
 <h3>Data</h3>
 <div id="datadivid" name="datadivname">
