@@ -49,8 +49,6 @@ Shutdown Splash </td></tr><tr><td>
 Start Splash </td></tr><tr><td> 
 <input id="rebootplayer" name="reboot" class="button" type="button" style="width: 200px" value="rebootplayer" <?php echo"onclick=\"Reboot('reboot=rebootplayer')\"";?>/>
 Restart Player </td></tr><tr><td>
-<input id="shutdown" name="reboot" class="button" type="button" style="width: 200px" value="shutdown" <?php echo"onclick=\"Reboot('reboot=shutdown')\"";?>/>
-Shutdown Wydevice </td></tr><tr><td>
 </td></tr>
 </table>
 </blockquote>
