@@ -112,7 +112,7 @@ function DeleteStream() {
 	// http://javascript.info/tutorial/type-detection#only-primitive-values
 	var toClass = {}.toString;
 	// alert ( toClass.call(arracronyms) );
-	if ( toClass.call(arracronyms) == "[object NodeList]") {
+	if ( toClass.call(arracronyms) == "[object RadioNodeList]") {
 		var composedata="";
 		var j=0;
 		for (var i = 0; i < arracronyms.length; i++) {
@@ -158,7 +158,7 @@ function DeleteShow() {
 	// http://javascript.info/tutorial/type-detection#only-primitive-values
 	var toClass = {}.toString;
 	// alert ( toClass.call(arracronyms) );
-	if ( toClass.call(arracronyms) == "[object NodeList]") {
+	if ( toClass.call(arracronyms) == "[object RadioNodeList]") {
 		for (var i = 0; i < arracronyms.length; i++) {
 			if (arracronyms[i].checked) {
 				composedata=composedata+"ID"+j+"="+arracronyms[i].value+"&";
