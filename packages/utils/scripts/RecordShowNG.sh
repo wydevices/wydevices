@@ -70,9 +70,13 @@ else
 	# cat /var/lib/dhcp/dhclient.leases |grep dhcp-server |awk '{print $3}' | cut -f0 -d ';'|awk '!x[$0]++'
 	# lo uso para averiguar el servidor de DHCP
 
-	RPISERVER=`cat /var/lib/dhcp/dhclient.leases |grep dhcp-server |awk '{print $3}' | cut -f0 -d ';'|awk '!x[$0]++'`
+	#RPISERVER=`cat /var/lib/dhcp/dhclient.leases |grep dhcp-server |awk '{print $3}' | cut -f0 -d ';'|awk '!x[$0]++'`
 
-	wget "http://"$RPISERVER"/adddefaultpic.php?picpath=/wymedia/Music/WYRADIO/PICS/$5&filepath=$OUTFOLDER$OUTFILE.mp3" -O /tmp/$OUTFILE
+	#wget "http://"$RPISERVER"/adddefaultpic.php?picpath=/wymedia/Music/WYRADIO/PICS/$5&filepath=$OUTFOLDER$OUTFILE.mp3" -O /tmp/$OUTFILE
 	
+	echo "Using pic: /wymedia/Music/WYRADIO/PICS/$5"
+        echo "Using filepath: $OUTFOLDER/$OUTFILE.mp3"
+        EYED3CMD="/usr/bin/eyeD3 --add-image /wymedia/Music/WYRADIO/PICS/$5:FRONT_COVER $OUTFOLDER/$OUTFILE.mp3"
+        echo $EYED3CMD >> /wymedia/.wyradio/pendingid3.txt
 
 fi
