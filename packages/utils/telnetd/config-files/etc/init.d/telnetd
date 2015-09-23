@@ -1,0 +1,48 @@
+#!/bin/sh
+# Start & stop telnetd server
+
+
+PIDFILE=/var/run/telnetd.pid
+DAEMON=telnetd
+
+case "$1" in
+	start)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "telnetd already running."
+			exit 0
+		fi
+		echo -n "Starting telnetd..."
+		$DAEMON -F -l /bin/login > /dev/null 2>&1 &
+		echo $! > $PIDFILE
+		echo ok
+		;;
+	stop)
+		if [ ! -s $PIDFILE ]; then
+			echo "telnetd not running."
+			exit 0
+		fi
+		echo -n "Stopping telnetd..."
+		kill $(cat $PIDFILE) >/dev/null 2>&1
+		rm -f $PIDFILE
+		echo ok
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	status)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			echo "telnetd running"
+		else
+			echo "telnetd not running"
+			exit 1
+		fi
+		exit 0
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}"
+		exit 1
+		;;
+esac
+
+exit 0
