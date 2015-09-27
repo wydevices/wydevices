@@ -25,6 +25,8 @@ $activatewyremote=$_REQUEST["activatewyremote"];
 $autostartwyremote=$_REQUEST["autostartwyremote"];
 $activatecifsclient=$_REQUEST["activatecifs-client"];
 $autostartcifsclient=$_REQUEST["autostartcifs-client"];
+$activatetelnetd=$_REQUEST["activatetelnetd"];
+$autostarttelnetd=$_REQUEST["autostarttelnetd"];
 
 // ################ syslogd ############################
 if ($autostartsyslogd || $activatesyslogd){
@@ -409,4 +411,35 @@ if ($autostartinadyn || $activateinadyn){
   echo "</td></tr></table>";	
 }
 // ################ inadyn ###############################
+// ################ telnetd ############################
+if ($autostarttelnetd || $activatetelnetd){
+  echo "<h3><b>telnetd</b></h3>";
+  echo "<table border=1><tr><td>AutoStart</td><td>Action</td></tr><tr>";
+  echo "<td>";
+
+  if ($autostarttelnetd == "") {
+    echo "NULL";
+  } else {
+    if ($autostarttelnetd == "true") {
+      echo ("Enabled!");
+      system ("ln -sf ../init.d/telnetd /wymedia/usr/etc/rc.d/");
+    } else {
+      echo ("Disabled!");
+      system ("rm  /wymedia/usr/etc/rc.d/telnetd");
+    }
+  }
+
+  echo "</td><td>";
+  if ($activatetelnetd == "") {
+    echo "NULL";
+  } else {
+    if ($activatetelnetd == "true") {
+      system ("/wymedia/usr/etc/init.d/telnetd start");
+    } else {
+      system ("/wymedia/usr/etc/init.d/telnetd stop");
+    }
+  }
+  echo "</td></tr></table>";
+}
+// ################ telnetd #############################
 ?>
