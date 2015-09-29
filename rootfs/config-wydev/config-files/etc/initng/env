@@ -4,4 +4,5 @@ LD_LIBRARY_PATH="/wymedia/usr/lib"
 PATH="/wymedia/usr/bin:$PATH"
 TERMINFO_DIRS="/wymedia/usr/lib/terminfo"
 HOME="/wymedia"
-
+export TERM=linux
+alias PiDo="ssh `less /wymedia/usr/etc/pydev-pi-username`@`less /wymedia/usr/etc/pydev-pi-ip`"
