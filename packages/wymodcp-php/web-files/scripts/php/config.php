@@ -24,6 +24,14 @@ if ($_POST['set_pwd'] == 1 && $_POST['pwd_1'] == "" && $_POST['pwd_2'] == "") {
   exit;
 }
 
+if ($_POST['set_piaccess'] == 1) {
+  exec("echo ".$_POST['pi_1']." > /wymedia/usr/etc/pydev-pi-ip");
+  exec("echo ".$_POST['pi_2']." > /wymedia/usr/etc/pydev-pi-username");
+  header("refresh:1;url=../../index.php");
+  echo "<script type=\"text/javascript\">alert(\"Configuring Pi access, redirect to Home.\")</script>";
+  exit;
+}
+
 if ($_POST['cifs_mount'] == 1 && !empty($_POST['cifs_server']) && !empty($_POST['cifs_share'])) {
   exec("modprobe cifs && mkdir -p /wymedia/My\ Videos/cifs");
   if (!empty($_POST['cifs_username'])) {
@@ -145,6 +153,20 @@ if ($statuswyremote == true) {
   <tr><td></td><td align="left">New password :</td><td align="left"><input type="password" name="pwd_1" /></td></tr>
   <tr><td></td><td align="left">Confirm password :</td><td align="left"><input type="password" name="pwd_2" /></td></tr>
   <tr><td></td><td align="right" colspan="2"><input type="hidden" name="set_pwd" value="1" /><input type="submit" class="button" style="width: 100px"/></td></tr>
+  </table>
+</form>
+<br /><hr width="100%" />
+
+<form name="piconfig" id="piconfig" method="post" action="./scripts/php/config.php">
+  <table>
+  <tr><td></td><td align="left"><h1>Configuring access to the Raspberry Pi</h1></td></tr>
+  <tr><td></td>
+    <td align="left" colspan="2">
+    </td>
+  </tr>
+  <tr><td></td><td align="left">Pi IP: (Current value: <?php system("cat /wymedia/usr/etc/pydev-pi-ip"); ?>)</td><td align="left"><input type="text" name="pi_1" /></td></tr>
+  <tr><td></td><td align="left">Pi username: (Current value: <?php system("cat /wymedia/usr/etc/pydev-pi-username"); ?>)</td><td align="left"><input type="text" name="pi_2" /></td></tr>
+  <tr><td></td><td align="right" colspan="2"><input type="hidden" name="set_piaccess" value="1" /><input type="submit" class="button" style="width: 100px"/></td></tr>
   </table>
 </form>
 <br /><hr width="100%" />
