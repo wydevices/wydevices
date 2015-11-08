@@ -1,4 +1,4 @@
-daemon system/telnet {
+daemon system/sshd {
         env_file = /etc/initng/env;
         stdall = ${OUTPUT};
         need = system/initial;
