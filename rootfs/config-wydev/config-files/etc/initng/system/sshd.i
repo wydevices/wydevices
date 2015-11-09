@@ -1,6 +1,8 @@
-daemon system/sshd {
+system system/sshd {
         env_file = /etc/initng/env;
         stdall = ${OUTPUT};
         need = system/initial;
-        exec daemon = /usr/sbin/sshd-start;
+        script start = {
+                /usr/sbin/sshd-start
+        };
 }
