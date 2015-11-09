@@ -11,5 +11,5 @@ system/splash
 daemon/apmd
 modules/ufsd
 
-system/telnet
+system/sshd
 system/extras
