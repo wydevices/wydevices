@@ -1,6 +1,3 @@
-[submodule "packages/wymodcp-php/web-files/scripts/dist"]
-	path = packages/wymodcp-php/web-files/scripts/dist
-	url = https://github.com/happyworm/jPlayer/tree/master/dist
 [submodule "packages/wymodcp-php/web-files/modules/jPlayer"]
 	path = packages/wymodcp-php/web-files/modules/jPlayer
 	url = https://github.com/happyworm/jPlayer.git
