@@ -6,6 +6,10 @@
 </div>
 <input type="button" onClick=" window.open('./filemanager/index.php'); " class="wydevslidebutton"/></input>
 
+<p>
+Php file manager. You can use to manage remotely your wydevice filesystem files and folders using a web browser. Unrar files, send shell commands. Explore more on: <a href="http://phpfm.sourceforge.net">  phpfm website </a>
+
+
 <h3>Data</h3>
 <div id="datadivid" name="datadivname">
   <table> 
