@@ -10,6 +10,14 @@
 Php file manager. You can use to manage remotely your wydevice filesystem files and folders using a web browser. Unrar files, send shell commands. Explore more on: <a href="http://phpfm.sourceforge.net">  phpfm website </a>
 
 
+<h3>Wydevice Radio jPlayer</h3>
+<div id="jplayerdivid" name="jplayerdivname" style="display:none;">
+</div>
+<input type="button" onClick=" window.open('./pyjplayer.php'); " class="wydevslidebutton"/></input>
+<p>
+Javascript jPlayer icecast/shoutcast instances. Generates a dynamic list of WYRADIO configured streams. Explore more on: <a href=" http://jplayer.org ">  jPlayer website </a>
+
+
 <h3>Data</h3>
 <div id="datadivid" name="datadivname">
   <table> 
