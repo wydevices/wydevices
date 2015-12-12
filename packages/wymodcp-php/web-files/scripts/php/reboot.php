@@ -1,4 +1,4 @@
-<h2> Reboot Options </h2>
+ <h2> Reboot Options </h2>
 <?php
 $reboottype=$_REQUEST["reboot"];
 switch ($reboottype) {
@@ -38,35 +38,27 @@ break;
 <form id="reboot" method="get" action="./scripts/php/reboot.php">
 <blockquote>
 <table cellspacing=12>
-<tr><td>
-<input id="rebootwydevice" name="reboot" class="button" type="button" style="width: 200px" value="rebootwydevice" <?php echo"onclick=\"Reboot('reboot=rebootwydevice')\"";?> />
-Reboot Wydevice </td></tr><tr><td>
-<input id="rebootsplash" name="reboot" class="button" type="button" style="width: 200px" value="rebootsplash" <?php echo"onclick=\"Reboot('reboot=rebootsplash')\"";?>/>
-Reboot Splash </td></tr><tr><td>
-<input id="shutdownsplash" name="reboot" class="button" type="button" style="width: 200px" value="shutdownsplash" <?php echo"onclick=\"Reboot('reboot=shutdownsplash')\"";?>/>
-Shutdown Splash </td></tr><tr><td> 
-<input id="startsplash" name="reboot" class="button" type="button" style="width: 200px" value="startsplash" <?php echo"onclick=\"Reboot('reboot=startsplash')\"";?>/>
-Start Splash </td></tr><tr><td> 
-<input id="rebootplayer" name="reboot" class="button" type="button" style="width: 200px" value="rebootplayer" <?php echo"onclick=\"Reboot('reboot=rebootplayer')\"";?>/>
-Restart Player </td></tr><tr><td>
-</td></tr>
-</table>
+<tr>
+<td>
+<input id="rebootwydevice" name="reboot" class="button" type="button" style="width: 200px" value="Reboot Wydevice" <?php echo"onclick=\"Reboot('reboot=rebootwydevice')\"";?> /> </td><td>
+Reboot Wydevice: Reboots the device. All processes are stopped and then restarted. Live recordings and ices streams are not restarted </td></tr><tr><td>
+<input id="rebootsplash" name="reboot" class="button" type="button" style="width: 200px" value="Reboot Splash (GUI)" <?php echo"onclick=\"Reboot('reboot=rebootsplash')\"";?>/>
+</td><td> Reboot Splash (GUI): Restarts the python GUI, will free memory and does not stop wyradio recordings or ices streaming, only Splash (Graphical User Interface) is affected. In addition, it's quicker than a full reboot. Do not restarts transmission </td></tr><tr><td>
+<input id="shutdownsplash" name="reboot" class="button" type="button" style="width: 200px" value="Stop Splash (GUI)" <?php echo"onclick=\"Reboot('reboot=shutdownsplash')\"";?>/>
+</td><td> Stop Splash (GUI): Stop Splash GUI to save resources. Does not affect transmission, ices, or Wyradio live recordings and it's useful for saving system resources when Graphical User Interface is not used, e.g. kodi gui on raspberry systems... </td></tr><tr><td> 
+<input id="startsplash" name="reboot" class="button" type="button" style="width: 200px" value="Start Splash (GUI)" <?php echo"onclick=\"Reboot('reboot=startsplash')\"";?>/>
+</td><td> Start Splash (GUI): Starts Splash GUI from a previous stop operation </td></tr><tr><td> 
+<input id="rebootplayer" name="reboot" class="button" type="button" style="width: 200px" value="Reset player" <?php echo"onclick=\"Reboot('reboot=rebootplayer')\"";?>/>
+</td><td> Reset Player: This method might be useful when GUI player hangs. Player is restarted and reinitialized </td></tr><tr><td>
+</td></tr> </table>
 </blockquote>
-<h2>Reboot Types explanation</h2>
 
-<table>
-<tr><td>
-<ul>
-<li>Reboot Wydevice:<dd>it's the same than using the clip. Full Reboot</li>
-<li>Reboot Splash:<dd>restarts the python GUI, will free mem and less time than a full reboot. Do not restarts transmission.</li>
-<li>Shutdown Splash:<dd>stop GUI to save resources</li>
-<li>Start Splash:<dd>resume GUI from a previous shutdown</li>
-<li>Reboot Player:<dd>is ok when the player is hung after a crash.</li>
-<li>Shutdown Wydevice:<dd>turns off device and HDD. Good for nights of before planning a trip, for example</li>
-</ul>
-</td></tr>
-</table>
+
 </form> 
+
+<h2> Next Generation Init Status </h2>
+
+Shows the ngstatus for pygui, wyplayer and splash.
 
 <div class="console">
 <pre><?php
