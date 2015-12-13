@@ -395,7 +395,7 @@ Out Folder: <input type="text" name="outfolder" value="/wymedia/Music/WYRADIO/"/
 <form name="icesdata" method="GET" action="./scripts/php/wycron.php">
 <table>
 <tr>
-<td>Server Address: </td><td> <input type="text" name="address" value="10.0.0.1"/> </td>
+<td>Server Address: </td><td> <input type="text" name="address" value="<?php system('cat /wymedia/usr/etc/pydev-pi-ip'); ?>"/> </td>
 <td>Mount Point: </td><td> <input type="text" name="mountpoint" value="stream"/> </td>
 <td>Server Port: </td><td> <input type="text" name="port" value="8000"/> </td>
 </tr>
