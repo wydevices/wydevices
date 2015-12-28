@@ -117,6 +117,7 @@ function cron_edit($cronFile) {
 		$asmonth = $_GET['month'];
 		$asmonthday = $_GET['monthday'];
 		$asoutsinglefile = $_GET['singlefile'];
+		$asdefaultpic = $_GET['defaultpic'];
 		if ($asoutsinglefile == "true"):
 			$asoutsinglefile = 1;
 		else:
@@ -124,7 +125,7 @@ function cron_edit($cronFile) {
 		endif;
 		$asduration = $_GET['duration'];
 		$asacronym = substr (str_replace(" ","",$asname),0,9);
-		$insertsql = "INSERT INTO shows ([name], [acronym], [streamsourceid], [duration], [outsinglefile], [minute], [hour], [monthday], [weekday], [month]) VALUES ('".$asname."', '".$asacronym."', '".$asstreamsourceid."', ".$asduration.", '".$asoutsinglefile."', ".$asminute.", ".$ashour.", ".$asmonthday.", ".$asweekday.", ".$asmonth.");";
+		$insertsql = "INSERT INTO shows ([name], [acronym], [streamsourceid], [duration], [outsinglefile], [minute], [hour], [monthday], [weekday], [month], [defaultpic]) VALUES ('".$asname."', '".$asacronym."', '".$asstreamsourceid."', ".$asduration.", '".$asoutsinglefile."', ".$asminute.", ".$ashour.", ".$asmonthday.", ".$asweekday.", ".$asmonth.", '".$asdefaultpic."');";
 		echo "<br>";
 		echo "SQL command: <i>".$insertsql."</i><br><br>";
 		$dbfile->exec($insertsql);
@@ -260,9 +261,9 @@ Out Folder: <input type="text" name="outfolder" value="/wymedia/Music/WYRADIO/"/
 <div id="addshow" name="addshow" style="display:none;">
 <form Name="addshow" action="./scripts/php/wycron.php" method="post">
 <table>
-<tr><td>Name</td><td>Stream</td><td>Hour</td><td>Minute</td><td>Day of the month</td><td>Month</td><td>Weekday</td><td>Duration</td><td>Single file</td></tr>
+<tr><td>Name</td><td>Stream</td><td>Hour</td><td>Minute</td><td>Day of the month</td><td>Month</td><td>Weekday</td><td>Duration</td><td>Single file</td><td>Default Pic</td></tr>
 <tr><td>
-<input type="text" name="showname" value=""/>
+<input type="text" name="showname" size="15" value=""/>
 </td><td>
 <select name="streamsource">
 
@@ -343,6 +344,7 @@ Out Folder: <input type="text" name="outfolder" value="/wymedia/Music/WYRADIO/"/
 </td><td>
 <input type="checkbox" name="singlefile" default="1">
 </td>
+<td><input type="text" name="defaultpic" size="10" value=""/></td>
 <tr><td><input id="addshow" name="addshow" class="button" type="button" onclick="AddShow();" value="Add show"/></td></tr>
 </table>
 </form>
