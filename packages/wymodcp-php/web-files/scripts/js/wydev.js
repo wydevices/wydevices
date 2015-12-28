@@ -144,6 +144,7 @@ function AddShow(){
 "&weekday="+document.addshow.weekday.value+
 "&duration="+document.addshow.duration.value+
 "&singlefile="+document.addshow.singlefile.checked+
+"&defaultpic="+document.addshow.defaultpic.value+
 "&addshow";
   jQueryHandler("addstream", path, composedata);
 }
@@ -356,4 +357,3 @@ function initAjaxForm(form_id, form_validations){
 		};
 		$(form).ajaxForm(options);
 }
-
