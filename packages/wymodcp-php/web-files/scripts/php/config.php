@@ -167,8 +167,25 @@ if ($statuswyremote == true) {
   <tr><td></td><td align="left">Pi IP: (Current value: <?php system("cat /wymedia/usr/etc/pydev-pi-ip"); ?>)</td><td align="left"><input type="text" name="pi_1" /></td></tr>
   <tr><td></td><td align="left">Pi username: (Current value: <?php system("cat /wymedia/usr/etc/pydev-pi-username"); ?>)</td><td align="left"><input type="text" name="pi_2" /></td></tr>
   <tr><td></td><td align="right" colspan="2"><input type="hidden" name="set_piaccess" value="1" /><input type="submit" class="button" style="width: 100px"/></td></tr>
+
   </table>
-</form>
+
+  <h3>SSH Settings</h3>
+	<br>
+	<br>
+	<b>Public Certificate</b> <i>/root/.ssh/id_rsa.pub</i><br><br>
+	<textarea cols=100 rows=5 wrap=no ><?php system("cat /root/.ssh/id_rsa.pub ")?></textarea>
+	<br>
+	<br>
+	<b>Authorized Keys </b>  <i>/root/.ssh/authorized_keys</i><br>
+	<textarea cols=100 rows=5 wrap=no><?php system("cat /root/.ssh/authorized_keys ")?></textarea>	
+    <br>
+	<br>
+	<b>Known Hosts</b> <i>/root/.ssh/known_hosts</i><br>
+	<textarea cols=100 rows=5 wrap=no><?php system("cat /root/.ssh/known_hosts ")?></textarea>	
+	<br>
+
+  </form>
 <br /><hr width="100%" />
 
 <form name="cifs" id="cifs" method="post" action="./scripts/php/config.php">
