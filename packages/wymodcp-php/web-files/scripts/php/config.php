@@ -186,6 +186,8 @@ if ($statuswyremote == true) {
 	<br>
 
   </form>
+
+<a href="scripts/php/pido-php.php" target=_blank> Test Access </a>
 <br /><hr width="100%" />
 
 <form name="cifs" id="cifs" method="post" action="./scripts/php/config.php">
