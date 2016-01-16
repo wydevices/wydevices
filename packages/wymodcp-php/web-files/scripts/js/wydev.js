@@ -90,6 +90,7 @@ function IcesHandler(action){
 "&playlist="+document.icesdata.playlist.value+
 "&startfolder="+document.icesdata.startfolder.value+
 "&filter="+document.icesdata.filter.value+
+"&options="+document.icesdata.options.value+
 "&action="+action+"&iceshandler";
   jQueryHandler("startices", path, composedata);
 }
