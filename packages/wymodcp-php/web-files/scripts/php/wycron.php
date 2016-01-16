@@ -1,132 +1,4 @@
-<script type="text/javascript" src="./scripts/js/jquery.min.js"></script>
-<script type="text/javascript" src="./scripts/js/jquery.form.js"></script>
-<script type="text/javascript" src="./scripts/js/wydev.js"></script>
-<script type="text/javascript" src="./scripts/js/jquery.easing.js"></script>
-<script type="text/javascript" src="./scripts/js/jqueryFileTree.js"></script>
-
-<?php
-
-// PHPCron v1.01
-// written by Katy Coe - http://www.djkaty.com
-// (c) Intelligent Streaming 2006
-
-// WyCron.php v1.0
-//
-// updated the PHPCron v1.01 to fit with native cron for wydevices by Beats
-// Not for commercial purpose
-// Thanks goes by to Katy Coe for her code.
-//
-// Freedom to the Wy!
-
-// File containing cronjobs
-$cronFile = '/wymedia/usr/etc/cron.d/root';
-
-// No timeout expiration
-set_time_limit(0);
-
-cron_edit($cronFile);
-
-exit;
-
-// Crontab editor
-function cron_edit($cronFile) {
-
-	header("Content-type: text/html");
-
-?>
-
-<html>
-
-<head>
-
-<!-- Para el jQueryFileTree -->
-<script type="text/javascript">
-	$('#jqftwyradio2').fileTree({ root: '../../WYRADIO/', script: './scripts/php/jqueryFileTree.php' }, function(file) { window.open(file); });
-</script>
-<!-- Para el jQueryFileTree -->
-
-<title>WyRadio Editor</title>
-
-</head>
-
-<body style="font-family: Verdana, sans-serif; font-size: x-small">
-
-<h1>WyCron / WyRadio</h1>
-
-<hr>
-
-<?php
-
-	if (!file_exists ("/wymedia/Music")) {
-		echo "Creating /wymedia/Music symlink.<br><br>";
-		system("ln -s '/wymedia/My Music' /wymedia/Music");
-	}
-	if (!file_exists ("/wymedia/.wyradio/wyradio.db3")) {
-		echo "Creating DB: /wymedia/.wyradio/wyradio.db3.<br><br>";
-		system ("mkdir /wymedia/.wyradio/");
-		system ("cat /wymedia/usr/share/wymodcp/scripts/sql/CreateEmptyWyradioDB.sql | sqlite3 /wymedia/.wyradio/wyradio.db3");
-	}
-	if (!file_exists ("/wymedia/usr/share/wymodcp/WYRADIO")) {
-		echo "Creating root WYRADIO: /wymedia/usr/share/wymodcp/WYRADIO.<br><br>";
-		system ("mkdir /wymedia/usr/share/wymodcp/WYRADIO");
-	}
-
-	$dbfile = new PDO('sqlite:/wymedia/.wyradio/wyradio.db3');
-
-	if (isset($_GET['addstream'])) {
-		//form submit code here
-		$asname = $_GET['name'];
-		$asacronym = $_GET['acronym'];
-		$asstreamurl = $_GET['streamurl'];
-		$asoutfolder = $_GET['outfolder'];
-		$SQLAdd = "INSERT INTO streamsources (name, acronym, url, outfolder) VALUES ('".$asname."', '".$asacronym."', '".$asstreamurl."', '".$asoutfolder."');";
-		echo "<br>";
-		echo "SQL command: <i>".$SQLAdd."</i><br><br>";
-		$dbfile->exec($SQLAdd);
-		echo "Adding new stream.<br>";
-		echo "Name: <i>".$asname."</i>";
-		echo "<br>";
-		echo "Acronym: <i>".$asacronym."</i>";
-		echo "<br>";
-		echo "Stream URL: <i>".$asstreamurl."</i>";
-		echo "<br>";
-		echo "Out Folder: <i>".$asoutfolder."</i>";
-		echo "<br><br>";
-	}
-
-	if (isset($_GET['delstreamcount'])) {
-		echo "<br>";
-		for ($acrcount = 0; $acrcount < $_GET['delstreamcount']; $acrcount++) {
-			$delthisid = "ID".$acrcount;
-			$delthis = $_GET[$delthisid];
-			$SQLDelete = "DELETE FROM streamsources WHERE acronym='".$delthis."';";
-			echo "SQL command: <i>".$SQLDelete."</i><br><br>";
-			$dbfile->exec($SQLDelete);
-			echo "Deleting stream <i>".$delthis."</i>.<br>";
-		}
-		echo "<br>";
-	}
-
-	if (isset($_GET['addshow'])) {
-		//form submit code here
-		$asname = $_GET['name'];
-		$asstreamsourceid = $_GET['streamsource'];
-		$ashour = $_GET['hour'];
-		$asminute = $_GET['minute'];
-		$asweekday = $_GET['weekday'];
-		$asmonth = $_GET['month'];
-		$asmonthday = $_GET['monthday'];
-		$asoutsinglefile = $_GET['singlefile'];
-		$asdefaultpic = $_GET['defaultpic'];
-		if ($asoutsinglefile == "true"):
-			$asoutsinglefile = 1;
-		else:
-			$asoutsinglefile = 0;
-		endif;
-		$asduration = $_GET['duration'];
-		$asacronym = substr (str_replace(" ","",$asname),0,9);
-		$insertsql = "INSERT INTO shows ([name], [acronym], [streamsourceid], [duration], [outsinglefile], [minute], [hour], [monthday], [weekday], [month], [defaultpic]) VALUES ('".$asname."', '".$asacronym."', '".$asstreamsourceid."', ".$asduration.", '".$asoutsinglefile."', ".$asminute.", ".$ashour.", ".$asmonthday.", ".$asweekday.", ".$asmonth.", '".$asdefaultpic."');";
-		echo "<br>";
+";
 		echo "SQL command: <i>".$insertsql."</i><br><br>";
 		$dbfile->exec($insertsql);
 		echo "Adding new show.<br>";
@@ -368,9 +240,10 @@ Out Folder: <input type="text" name="outfolder" value="/wymedia/Music/WYRADIO/"/
 		$filter = $_GET['filter'];
 		$startfolder = $_GET['startfolder'];
 		$action = $_GET['action'];
+          $options = $_GET['options'];
 		if ($action == "start") {
-			$cmd = 'ices -h '.$address.' -m /'.$mountpoint.' -P \''.$mountpwd.'\' -F '.$playlist.' -t http -p '.$port.' -v -b 128 -n '.$name.' -g '.$description.' -i -B';
-			echo "ices -h ".$address." -m /".$mountpoint." -P ****** -F ".$playlist." -t http -p ".$port." -v -b 128 -n ".$name." -g ".$description." -i -B";
+			$cmd = 'ices -h '.$address.' -m /'.$mountpoint.' -P \''.$mountpwd.'\' -F '.$playlist.' -t http -p '.$port.' -v -b 128 -n '.$name.' -g '.$description.' -i -B '.$options;
+			echo "ices -h ".$address." -m /".$mountpoint." -P ****** -F ".$playlist." -t http -p ".$port." -v -b 128 -n ".$name." -g ".$description." -i -B ".$options;
 			echo "<br><br>";
 			exec($cmd);
 		}
@@ -393,13 +266,14 @@ Out Folder: <input type="text" name="outfolder" value="/wymedia/Music/WYRADIO/"/
 	}
 
 ?>
-
+   
 <form name="icesdata" method="GET" action="./scripts/php/wycron.php">
 <table>
 <tr>
 <td>Server Address: </td><td> <input type="text" name="address" value="<?php system('cat /wymedia/usr/etc/pydev-pi-ip'); ?>"/> </td>
 <td>Mount Point: </td><td> <input type="text" name="mountpoint" value="stream"/> </td>
 <td>Server Port: </td><td> <input type="text" name="port" value="8000"/> </td>
+<td>Options: </td><td> <input type="text" name="options" value="-r" size=5 /> </td>
 </tr>
 <tr>
 <td>Mount Password: </td><td> <input type="password" name="mountpwd" value=""/> </td>
